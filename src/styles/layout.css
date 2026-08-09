@@ -1,0 +1,188 @@
+/**
+ * Layout primitives (Grid, Stack, Container, Spacer) — CSS ESTRUCTURAL, no de skin.
+ *
+ * Vive en la base (no en los skins) a propósito: una grilla/stack es igual en cualquier skin; sólo
+ * el color viene del theme y la forma de los hijos, del skin. Los componentes no estilan: setean
+ * CSS vars desde sus props y acá se resuelven, incluyendo la cascada responsive por breakpoints
+ * (sm 40em, md 48em, lg 64em, xl 80em).
+ *
+ * Nota clave: NO usamos `repeat(var(--n), …)` porque repeat() no acepta un var() como cantidad y la
+ * declaración se descarta (los ítems caen en una sola columna). En su lugar el componente emite el
+ * `grid-template-columns` COMPLETO como var (`--sk-grid-tpl-<bp> = "repeat(4, …)"`) y acá hacemos
+ * `grid-template-columns: var(--sk-grid-tpl-<bp>)`: el var se sustituye entero y el repeat queda con
+ * una cantidad literal válida. Cada breakpoint setea la propiedad DIRECTO, con fallback al menor.
+ */
+
+/* ── Grid ───────────────────────────────────────────────────── */
+[data-sk='grid'] {
+  display: grid;
+  grid-template-columns: var(--sk-grid-tpl-base, none);
+  grid-auto-flow: var(--sk-grid-flow, row);
+  align-items: var(--sk-grid-align, stretch);
+  justify-items: var(--sk-grid-justify, stretch);
+  row-gap: var(--sk-grid-row-gap, var(--sk-grid-gap, var(--sk-sp-4)));
+  column-gap: var(--sk-grid-col-gap, var(--sk-grid-gap, var(--sk-sp-4)));
+}
+[data-sk='grid'][data-inline] {
+  display: inline-grid;
+}
+
+[data-sk='grid-item'] {
+  grid-column: var(--sk-grid-item-col-base, auto);
+  grid-row: var(--sk-grid-item-row, auto);
+}
+
+/* ── Stack ──────────────────────────────────────────────────── */
+[data-sk='stack'] {
+  display: flex;
+  flex-direction: var(--sk-stack-dir-base, column);
+  gap: var(--sk-stack-gap, var(--sk-sp-4));
+  align-items: var(--sk-stack-align, stretch);
+  justify-content: var(--sk-stack-justify, flex-start);
+}
+[data-sk='stack'][data-inline] {
+  display: inline-flex;
+}
+[data-sk='stack'][data-wrap] {
+  flex-wrap: wrap;
+}
+
+/* ── Container ──────────────────────────────────────────────── */
+[data-sk='container'] {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--sk-container-pad, var(--sk-sp-4));
+  max-width: var(--sk-container-max, 64rem);
+}
+[data-sk='container'][data-size='sm'] {
+  --sk-container-max: 40rem;
+}
+[data-sk='container'][data-size='md'] {
+  --sk-container-max: 48rem;
+}
+[data-sk='container'][data-size='lg'] {
+  --sk-container-max: 64rem;
+}
+[data-sk='container'][data-size='xl'] {
+  --sk-container-max: 80rem;
+}
+[data-sk='container'][data-size='full'] {
+  --sk-container-max: none;
+}
+[data-sk='container'][data-center] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Spacer ─────────────────────────────────────────────────── */
+[data-sk='spacer'] {
+  flex: 1 1 auto;
+}
+[data-sk='spacer'][data-fixed] {
+  flex: 0 0 var(--sk-spacer-size, var(--sk-sp-4));
+  align-self: stretch;
+}
+
+/* ── Cascada responsive ─────────────────────────────────────── */
+@media (min-width: 40em) {
+  [data-sk='grid'] {
+    grid-template-columns: var(--sk-grid-tpl-sm, var(--sk-grid-tpl-base, none));
+  }
+  [data-sk='grid-item'] {
+    grid-column: var(--sk-grid-item-col-sm, var(--sk-grid-item-col-base, auto));
+  }
+  [data-sk='stack'] {
+    flex-direction: var(--sk-stack-dir-sm, var(--sk-stack-dir-base, column));
+  }
+}
+@media (min-width: 48em) {
+  [data-sk='grid'] {
+    grid-template-columns: var(--sk-grid-tpl-md, var(--sk-grid-tpl-sm, var(--sk-grid-tpl-base, none)));
+  }
+  [data-sk='grid-item'] {
+    grid-column: var(
+      --sk-grid-item-col-md,
+      var(--sk-grid-item-col-sm, var(--sk-grid-item-col-base, auto))
+    );
+  }
+  [data-sk='stack'] {
+    flex-direction: var(--sk-stack-dir-md, var(--sk-stack-dir-sm, var(--sk-stack-dir-base, column)));
+  }
+}
+@media (min-width: 64em) {
+  [data-sk='grid'] {
+    grid-template-columns: var(
+      --sk-grid-tpl-lg,
+      var(--sk-grid-tpl-md, var(--sk-grid-tpl-sm, var(--sk-grid-tpl-base, none)))
+    );
+  }
+  [data-sk='grid-item'] {
+    grid-column: var(
+      --sk-grid-item-col-lg,
+      var(--sk-grid-item-col-md, var(--sk-grid-item-col-sm, var(--sk-grid-item-col-base, auto)))
+    );
+  }
+  [data-sk='stack'] {
+    flex-direction: var(
+      --sk-stack-dir-lg,
+      var(--sk-stack-dir-md, var(--sk-stack-dir-sm, var(--sk-stack-dir-base, column)))
+    );
+  }
+}
+@media (min-width: 80em) {
+  [data-sk='grid'] {
+    grid-template-columns: var(
+      --sk-grid-tpl-xl,
+      var(--sk-grid-tpl-lg, var(--sk-grid-tpl-md, var(--sk-grid-tpl-sm, var(--sk-grid-tpl-base, none))))
+    );
+  }
+  [data-sk='grid-item'] {
+    grid-column: var(
+      --sk-grid-item-col-xl,
+      var(
+        --sk-grid-item-col-lg,
+        var(--sk-grid-item-col-md, var(--sk-grid-item-col-sm, var(--sk-grid-item-col-base, auto)))
+      )
+    );
+  }
+  [data-sk='stack'] {
+    flex-direction: var(
+      --sk-stack-dir-xl,
+      var(--sk-stack-dir-lg, var(--sk-stack-dir-md, var(--sk-stack-dir-sm, var(--sk-stack-dir-base, column))))
+    );
+  }
+}
+
+/* ── AppShell ───────────────────────────────────────────────── */
+/* Layout de app en grilla (estructural, skin-agnóstico). El aspecto de header/sidebar/footer lo
+   dan los componentes que se metan adentro (Topbar/Sidebar/BottomNav). */
+[data-sk='app-shell'] {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'header header'
+    'sidebar main'
+    'footer footer';
+  min-block-size: 100%;
+}
+[data-sk='app-shell'] > [data-part='header'] {
+  grid-area: header;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+[data-sk='app-shell'] > [data-part='sidebar'] {
+  grid-area: sidebar;
+  min-block-size: 0;
+}
+[data-sk='app-shell'] > [data-part='main'] {
+  grid-area: main;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: auto;
+}
+[data-sk='app-shell'] > [data-part='footer'] {
+  grid-area: footer;
+}

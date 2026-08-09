@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+
+skin-shots/
+
+# temporales / accidentales
+.playwright-mcp/
+pg-initial.png
+/lib-skinkit/

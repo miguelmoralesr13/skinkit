@@ -1,0 +1,34 @@
+/* Theme "dusk" — paleta oscura. Misma forma, otra piel: solo cambia el color. */
+[data-theme='dusk'] {
+  --sk-surface: #16171b;
+  --sk-surface-2: #1f2127;
+  --sk-text: #f2f3f5;
+  --sk-text-muted: #9aa0ab;
+  --sk-primary: #7aa2ff;
+  --sk-primary-hover: #98b6ff;
+  --sk-on-primary: #0b0d12;
+  --sk-secondary: #b39dff;
+  --sk-on-secondary: #14102b;
+  --sk-tertiary: #5eead4;
+  --sk-on-tertiary: #04201c;
+  --sk-accent: #f9a8d4;
+  --sk-on-accent: #3b0a20;
+  --sk-success: #86efac;
+  --sk-on-success: #052e14;
+  --sk-warning: #fcd34d;
+  --sk-on-warning: #2a1a00;
+  --sk-info: #7dd3fc;
+  --sk-on-info: #04283a;
+  --sk-border: #2c2f37;
+  --sk-danger: #ff6b6b;
+  --sk-on-danger: #2a0a0a;
+  --sk-font: 'Inter', system-ui, -apple-system, sans-serif;
+  --sk-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Sintaxis (paleta oscura, tipo editor) */
+  --sk-code-comment: #6b7280;
+  --sk-code-string: #9ece6a;
+  --sk-code-number: #ff9e64;
+  --sk-code-keyword: #bb9af7;
+  --sk-code-function: #7aa2ff;
+}

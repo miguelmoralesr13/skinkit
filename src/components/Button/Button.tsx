@@ -1,0 +1,59 @@
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { cx } from '../../lib/cx'
+
+export type ButtonVariant = 'filled' | 'outlined' | 'ghost'
+export type ButtonSize = 'sm' | 'md' | 'lg'
+export type ButtonTone =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'accent'
+  | 'success'
+  | 'warning'
+  | 'info'
+  | 'danger'
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  /** Tono de color del theme. 'primary' (default) no emite data-tone. */
+  tone?: ButtonTone
+  iconLeft?: ReactNode
+  iconRight?: ReactNode
+}
+
+/**
+ * Button headless. No lleva ni un byte de estilo propio: solo estructura + el
+ * contrato de datos que el skin usa para pintarlo.
+ *
+ * Contrato:
+ *   [data-sk="button"]      raíz
+ *   [data-variant]          filled | outlined | ghost
+ *   [data-size]             sm | md | lg
+ *   [data-tone]             secondary | tertiary | success | warning | info | danger
+ *                           (ausente = primary; el skin pinta cada tono con var(--sk-<tono>))
+ *   [data-part="icon"]      slot de ícono (izq/der)
+ *   [data-part="label"]     texto
+ *   :disabled               estado nativo (el skin lo estila con :disabled)
+ */
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { variant = 'filled', size = 'md', tone = 'primary', iconLeft, iconRight, className, children, type, ...rest },
+  ref,
+) {
+  return (
+    <button
+      ref={ref}
+      type={type ?? 'button'}
+      data-sk="button"
+      data-variant={variant}
+      data-size={size}
+      data-tone={tone === 'primary' ? undefined : tone}
+      className={cx('sk-button', className)}
+      {...rest}
+    >
+      {iconLeft ? <span data-part="icon">{iconLeft}</span> : null}
+      {children ? <span data-part="label">{children}</span> : null}
+      {iconRight ? <span data-part="icon">{iconRight}</span> : null}
+    </button>
+  )
+})

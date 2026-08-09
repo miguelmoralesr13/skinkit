@@ -1,0 +1,47 @@
+/**
+ * semantic.css — el CONTRATO de paleta.
+ *
+ * Los skins SOLO consumen estas variables para el color. El theme activo
+ * ([data-theme="{slug}"]) las rellena. Esto es el dial de "re-look": cambiar
+ * el theme repinta todo sin tocar ni un componente ni un skin.
+ *
+ * Nota: acá NO hay tokens de forma (radio, borde, sombra). Eso es responsabilidad
+ * del skin (dial de "re-anatomía"), no del theme.
+ */
+:root {
+  --sk-surface: initial;
+  --sk-surface-2: initial;
+  --sk-text: initial;
+  --sk-text-muted: initial;
+  --sk-primary: initial;
+  --sk-primary-hover: initial;
+  --sk-on-primary: initial;
+
+  /* Tonos de acción/estado. Cada uno con su texto legible on-*. El hover se deriva
+   * en el skin (color-mix), así el contrato queda chico y uniforme. */
+  --sk-secondary: initial;
+  --sk-on-secondary: initial;
+  --sk-tertiary: initial;
+  --sk-on-tertiary: initial;
+  --sk-accent: initial;
+  --sk-on-accent: initial;
+  --sk-success: initial;
+  --sk-on-success: initial;
+  --sk-warning: initial;
+  --sk-on-warning: initial;
+  --sk-info: initial;
+  --sk-on-info: initial;
+
+  --sk-border: initial;
+  --sk-danger: initial;
+  --sk-on-danger: initial;
+  --sk-font: initial;
+  --sk-font-mono: initial;
+
+  /* Sintaxis de código (Code): el "tema" del código sigue al theme activo. */
+  --sk-code-comment: initial;
+  --sk-code-string: initial;
+  --sk-code-number: initial;
+  --sk-code-keyword: initial;
+  --sk-code-function: initial;
+}

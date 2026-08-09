@@ -1,0 +1,33 @@
+/* Theme "<name>" — <descripción corta>. Rellena TODO el contrato de semantic.css.
+   SOLO color/fuente: la forma la pone el skin. Funciona con cualquier skin sin tocar nada.
+   Valores literales (hex/oklch), NUNCA var(--sk-*). Mantené este set en sync con
+   src/styles/tokens/semantic.css (si se agregan tokens al contrato, agregalos acá). */
+[data-theme='<name>'] {
+  /* Superficies */
+  --sk-surface: #ffffff; /* fondo base (card, input, panel) */
+  --sk-surface-2: #f4f4f2; /* fondo secundario (hover, footer, zebra, addon) */
+
+  /* Texto */
+  --sk-text: #1a1a1a; /* texto principal (AA sobre --sk-surface) */
+  --sk-text-muted: #6b6b6b; /* texto secundario / helper / labels */
+
+  /* Acción */
+  --sk-primary: #2f6df6; /* color de acción (botón, activo, foco) */
+  --sk-primary-hover: #1f57d0; /* acción en hover */
+  --sk-on-primary: #ffffff; /* texto/ícono sobre --sk-primary (AA) */
+
+  /* Bordes y feedback */
+  --sk-border: #e2e2df; /* bordes / divisores */
+  --sk-danger: #d64545; /* error / acción destructiva */
+
+  /* Tipografía */
+  --sk-font: 'Inter', system-ui, -apple-system, sans-serif;
+  --sk-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Sintaxis de código (componente Code) — seguí el theme (claro/oscuro) */
+  --sk-code-comment: #8a8f98;
+  --sk-code-string: #0a7d43;
+  --sk-code-number: #b5540b;
+  --sk-code-keyword: #a3238e;
+  --sk-code-function: #2f6df6;
+}
