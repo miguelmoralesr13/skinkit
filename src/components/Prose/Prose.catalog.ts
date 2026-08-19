@@ -6,14 +6,14 @@ export const proseSpec: ComponentSpec = {
   dataSk: 'prose',
   category: 'Display',
   description:
-    'Contenedor para texto largo (artículos, markdown renderizado, contenido de un CMS) que da estilo tipográfico legible a su HTML hijo: h1–h6, p, ul/ol, blockquote, code/pre, a, img, hr, table. No trae estilos propios; cada skin estiliza los descendientes por tag.',
+    'Contenedor para texto largo (artículos, markdown renderizado, contenido de un CMS) que da estilo tipográfico legible a su HTML hijo: h1–h6, p, ul/ol, blockquote, code/pre, a, img, hr, table. No trae estilos propios; el CSS del componente estiliza los descendientes por tag.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'size', type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: 'Densidad tipográfica (escala de fuente/espaciado).' },
     { name: 'children', type: 'ReactNode', required: false, description: 'HTML arbitrario a estilar (o dangerouslySetInnerHTML del markdown).' },
   ],
   parts: [
-    { name: 'root', description: '[data-sk=prose]. Lleva [data-size]. Los skins estilan los descendientes por tag (h2, p, ul, code, a, blockquote…).' },
+    { name: 'root', description: '[data-sk=prose]. Lleva [data-size]. El CSS del componente estila los descendientes por tag (h2, p, ul, code, a, blockquote…).' },
   ],
   examples: [
     {
@@ -28,6 +28,6 @@ export const proseSpec: ComponentSpec = {
   usage: [
     'Envolvé bloques de texto largo cuyo HTML no controlás elemento por elemento (markdown, CMS).',
     'Para un layout de UI compuesto por tus propios componentes, NO uses Prose: estilá cada componente.',
-    'El estilo de los hijos vive en el skin; acá no agregues clases a los tags internos.',
+    'El estilo de los hijos vive en el CSS; acá no agregues clases a los tags internos.',
   ],
 }

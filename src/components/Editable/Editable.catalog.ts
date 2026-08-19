@@ -6,7 +6,7 @@ export const editableSpec: ComponentSpec = {
   dataSk: 'editable',
   category: 'Formulario',
   description:
-    'Texto editable in-line: se muestra como texto y al click pasa a un campo. Enter (o ⌘/Ctrl+Enter en multilínea) o blur guarda; Esc cancela. Controlado. La forma la da el skin.',
+    'Texto editable in-line: se muestra como texto y al click pasa a un campo. Enter (o ⌘/Ctrl+Enter en multilínea) o blur guarda; Esc cancela. Controlado. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: 'string', required: true, description: 'Valor actual (controlado).' },

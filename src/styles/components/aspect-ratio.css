@@ -1,0 +1,7 @@
+/* ── AspectRatio ────────────────────────────────────────────── */
+[data-sk='aspect-ratio'] {
+  @apply w-full overflow-hidden rounded-[14px] bg-sk-surface-2;
+}
+[data-sk='aspect-ratio'] > * {
+  @apply block w-full h-full object-cover;
+}

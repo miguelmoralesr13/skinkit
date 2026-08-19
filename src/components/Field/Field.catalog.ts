@@ -6,7 +6,7 @@ export const fieldSpec: ComponentSpec = {
   dataSk: 'field',
   category: 'Formulario',
   description:
-    'Envoltorio de campo con label + control + helper/error, para dar markup y accesibilidad consistentes a CUALQUIER control — incluidos los que no traen label/error propios (Slider) o widgets a medida. No estila; la forma la da el skin.',
+    'Envoltorio de campo con label + control + helper/error, para dar markup y accesibilidad consistentes a CUALQUIER control — incluidos los que no traen label/error propios (Slider) o widgets a medida. No estila; la forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta del campo.' },

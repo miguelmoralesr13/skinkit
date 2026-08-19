@@ -1,0 +1,18 @@
+/* ── Popconfirm ─────────────────────────────────────────────── */
+/* Vive dentro de Popover.Content, que ya aporta position/overlay/z-index — este archivo solo
+   estiliza el contenido interno. */
+[data-sk='popconfirm'] {
+  @apply flex flex-col gap-2 min-w-48 max-w-72;
+}
+[data-sk='popconfirm'] [data-part='title'] {
+  @apply font-semibold text-sk-text;
+}
+[data-sk='popconfirm'] [data-part='description'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+[data-sk='popconfirm'] [data-part='actions'] {
+  @apply flex justify-end gap-2 mt-1;
+}
+[data-sk='popconfirm'][data-tone='danger'] [data-part='confirm'] {
+  @apply bg-sk-danger border-sk-danger text-sk-on-primary;
+}

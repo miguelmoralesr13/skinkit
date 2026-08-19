@@ -1,0 +1,74 @@
+/* SplitButton — ver src/components/SplitButton/SplitButton.tsx. */
+[data-sk='split-button'] {
+  @apply relative inline-flex;
+}
+[data-sk='split-button'] [data-part='main'],
+[data-sk='split-button'] [data-part='trigger'] {
+  appearance: none;
+  font: inherit;
+  @apply border border-transparent bg-sk-primary text-sk-on-primary cursor-pointer
+         text-sk-md font-semibold;
+}
+[data-sk='split-button'] [data-part='main'] {
+  @apply px-5 py-2 rounded-l-sk-pill;
+}
+[data-sk='split-button'] [data-part='trigger'] {
+  @apply px-3 py-2 rounded-r-sk-pill;
+  border-left: 1px solid color-mix(in srgb, var(--color-sk-on-primary) 30%, transparent);
+}
+[data-sk='split-button'][data-variant='outlined'] [data-part='main'],
+[data-sk='split-button'][data-variant='outlined'] [data-part='trigger'] {
+  @apply bg-transparent text-sk-text border-sk-border;
+}
+[data-sk='split-button'] [data-part='main']:hover,
+[data-sk='split-button'] [data-part='trigger']:hover {
+  filter: brightness(0.96);
+}
+[data-sk='split-button'] [data-part='main']:disabled,
+[data-sk='split-button'] [data-part='trigger']:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+[data-sk='split-button'] [data-part='content'] {
+  @apply absolute z-50 left-0 min-w-48 p-1 bg-sk-surface border border-sk-border rounded-sk-md
+         shadow-sk-lg;
+  top: calc(100% + var(--spacing) * 2);
+}
+[data-sk='split-button'] [data-part='item'] {
+  appearance: none;
+  font: inherit;
+  @apply block w-full text-left border-none bg-transparent cursor-pointer px-3 py-2
+         rounded-sk-sm text-sk-text text-sk-md;
+}
+[data-sk='split-button'] [data-part='item']:hover {
+  @apply bg-sk-surface-2;
+}
+
+/* Tones */
+[data-sk='split-button'][data-tone='secondary'] [data-part='main'],
+[data-sk='split-button'][data-tone='secondary'] [data-part='trigger'] {
+  @apply bg-sk-secondary text-sk-on-secondary;
+}
+[data-sk='split-button'][data-tone='tertiary'] [data-part='main'],
+[data-sk='split-button'][data-tone='tertiary'] [data-part='trigger'] {
+  @apply bg-sk-tertiary text-sk-on-tertiary;
+}
+[data-sk='split-button'][data-tone='accent'] [data-part='main'],
+[data-sk='split-button'][data-tone='accent'] [data-part='trigger'] {
+  @apply bg-sk-accent text-sk-on-accent;
+}
+[data-sk='split-button'][data-tone='success'] [data-part='main'],
+[data-sk='split-button'][data-tone='success'] [data-part='trigger'] {
+  @apply bg-sk-success text-sk-on-success;
+}
+[data-sk='split-button'][data-tone='warning'] [data-part='main'],
+[data-sk='split-button'][data-tone='warning'] [data-part='trigger'] {
+  @apply bg-sk-warning text-sk-on-warning;
+}
+[data-sk='split-button'][data-tone='info'] [data-part='main'],
+[data-sk='split-button'][data-tone='info'] [data-part='trigger'] {
+  @apply bg-sk-info text-sk-on-info;
+}
+[data-sk='split-button'][data-tone='danger'] [data-part='main'],
+[data-sk='split-button'][data-tone='danger'] [data-part='trigger'] {
+  @apply bg-sk-danger text-sk-on-danger;
+}

@@ -1,0 +1,28 @@
+/* ── Meter ──────────────────────────────────────────────────── */
+[data-sk='meter'] {
+  @apply flex flex-col gap-1 w-full;
+}
+[data-sk='meter'] [data-part='header'] {
+  @apply flex justify-between items-baseline gap-3 text-sk-sm;
+}
+[data-sk='meter'] [data-part='label'] {
+  @apply text-sk-text-muted font-semibold;
+}
+[data-sk='meter'] [data-part='value'] {
+  @apply text-sk-text tabular-nums;
+}
+[data-sk='meter'] [data-part='track'] {
+  @apply h-2 rounded-sk-pill bg-sk-surface-2 overflow-hidden;
+}
+[data-sk='meter'] [data-part='indicator'] {
+  @apply h-full rounded-sk-pill bg-sk-primary transition-[width] duration-300 ease-in-out;
+  width: calc(var(--sk-meter, 0) * 100%);
+}
+[data-sk='meter'][data-tone='danger'] [data-part='indicator'] { @apply bg-sk-danger; }
+[data-sk='meter'][data-tone='neutral'] [data-part='indicator'] { @apply bg-sk-text-muted; }
+[data-sk='meter'][data-tone='secondary'] [data-part='indicator'] { @apply bg-sk-secondary; }
+[data-sk='meter'][data-tone='tertiary'] [data-part='indicator'] { @apply bg-sk-tertiary; }
+[data-sk='meter'][data-tone='accent'] [data-part='indicator'] { @apply bg-sk-accent; }
+[data-sk='meter'][data-tone='success'] [data-part='indicator'] { @apply bg-sk-success; }
+[data-sk='meter'][data-tone='warning'] [data-part='indicator'] { @apply bg-sk-warning; }
+[data-sk='meter'][data-tone='info'] [data-part='indicator'] { @apply bg-sk-info; }

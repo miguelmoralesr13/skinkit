@@ -13,7 +13,7 @@ const FOCUSABLE =
 
 /**
  * Toolbar headless — agrupa controles (Button, Toggle, ButtonGroup…) con role="toolbar" y
- * navegación por flechas entre ellos. La forma la da el skin. Opcional: <Toolbar.Separator>.
+ * navegación por flechas entre ellos. La forma la da el CSS. Opcional: <Toolbar.Separator>.
  *
  * Contrato:
  *   [data-sk="toolbar"]        [data-orientation]  raíz (role=toolbar)

@@ -6,7 +6,7 @@ export const resizableSpec: ComponentSpec = {
   dataSk: 'resizable',
   category: 'Display',
   description:
-    'Varios paneles con divisores arrastrables (editor+preview, IDE de 3 columnas, grillas). Compuesto: <Resizable> con N <Resizable.Panel>; los divisores se insertan solos entre paneles. Horizontal o vertical, y ANIDABLE (un Resizable dentro de un Panel = grilla). La forma la da el skin.',
+    'Varios paneles con divisores arrastrables (editor+preview, IDE de 3 columnas, grillas). Compuesto: <Resizable> con N <Resizable.Panel>; los divisores se insertan solos entre paneles. Horizontal o vertical, y ANIDABLE (un Resizable dentro de un Panel = grilla). La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'direction', type: "'horizontal' | 'vertical'", required: false, default: "'horizontal'", description: 'Orientación de los paneles y los divisores.' },

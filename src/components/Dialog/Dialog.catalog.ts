@@ -6,7 +6,7 @@ export const dialogSpec: ComponentSpec = {
   dataSk: 'dialog',
   category: 'Overlay',
   description:
-    'Modal en overlay para contenido o tareas que requieren foco. Compuesto: <Dialog> con Header/Title/Body/Footer/Close. Portaliza a <body>, atrapa el foco, cierra con Esc y bloquea el scroll. El portal reaplica theme/skin.',
+    'Modal en overlay para contenido o tareas que requieren foco. Compuesto: <Dialog> con Header/Title/Body/Footer/Close. Portaliza a <body>, atrapa el foco, cierra con Esc y bloquea el scroll. Los tokens (--color-sk-*, --radius-sk-*) viven en :root, así que el look se mantiene igual dentro del portal sin nada especial.',
   extends: 'Omit<HTMLAttributes<HTMLDivElement>, "title">',
   props: [
     { name: 'open', type: 'boolean', required: true, description: 'Si el diálogo está abierto. Vos controlás el estado.' },

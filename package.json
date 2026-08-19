@@ -1,7 +1,7 @@
 {
   "name": "skinkit",
-  "version": "0.0.1",
-  "description": "Headless React components with re-look (tokens) and re-anatomy (skins) driven entirely by external CSS.",
+  "version": "0.1.0",
+  "description": "Headless React components styled by a single Tailwind-native design-token system (colors + shape), fully overridable via CSS variables or your own Tailwind config.",
   "type": "module",
   "license": "MIT",
   "sideEffects": [
@@ -27,32 +27,19 @@
       "types": "./dist/components/DynamicForm/index.d.ts",
       "import": "./dist/components/DynamicForm/index.js"
     },
-    "./styles/base": "./src/styles/index.css",
-    "./skins/soft": "./src/styles/skins/soft.css",
-    "./skins/brutal": "./src/styles/skins/brutal.css",
-    "./skins/minimal": "./src/styles/skins/minimal.css",
-    "./skins/glass": "./src/styles/skins/glass.css",
-    "./skins/retro": "./src/styles/skins/retro.css",
-    "./skins/elevated": "./src/styles/skins/elevated.css",
-    "./skins/clay": "./src/styles/skins/clay.css",
-    "./skins/outline": "./src/styles/skins/outline.css",
-    "./skins/sketch": "./src/styles/skins/sketch.css",
-    "./skins/spotlight": "./src/styles/skins/spotlight.css",
-    "./skins/terminal": "./src/styles/skins/terminal.css",
-    "./skins/gradient": "./src/styles/skins/gradient.css",
-    "./skins/aurora": "./src/styles/skins/aurora.css",
-    "./skins/glow": "./src/styles/skins/glow.css",
-    "./skins/holo": "./src/styles/skins/holo.css",
-    "./themes/paper": "./src/styles/tokens/themes/paper.css",
-    "./themes/dusk": "./src/styles/tokens/themes/dusk.css",
-    "./themes/forest": "./src/styles/tokens/themes/forest.css"
+    "./styles/base": "./dist/styles/skinkit.css",
+    "./tailwind-preset": "./src/styles/tokens.css"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsup && tsc -p tsconfig.build.json",
+    "build": "tsup && tsc -p tsconfig.build.json && npm run build:css",
+    "build:css": "tailwindcss -i ./src/styles/index.css -o ./dist/styles/skinkit.css --minify",
     "typecheck": "tsc --noEmit",
     "preview": "vite build && vite preview",
-    "shots": "node scripts/capture-skins.mjs"
+    "shots": "node scripts/capture-components.mjs"
+  },
+  "dependencies": {
+    "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -74,10 +61,13 @@
   },
   "devDependencies": {
     "@hookform/resolvers": "^5.7.1",
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",
     "playwright": "^1.62.1",
+    "tailwindcss": "^4.3.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.85.0",

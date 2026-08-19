@@ -13,7 +13,7 @@ export interface SkeletonProps extends HTMLAttributes<HTMLSpanElement> {
 
 /**
  * Skeleton headless — placeholder de carga (bloque gris que "respira"). Puro decorativo
- * (aria-hidden). La animación/shimmer y el radio los da el skin; el tamaño lo pasás vos.
+ * (aria-hidden). La animación/shimmer y el radio los da el CSS; el tamaño lo pasás vos.
  *
  * Contrato:
  *   [data-sk="skeleton"]     raíz

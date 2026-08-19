@@ -1,0 +1,38 @@
+/**
+ * slider.css — estilo del componente Slider (data-sk="slider").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+[data-sk='slider'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='slider'] [data-part='header'] {
+  @apply flex justify-between items-baseline gap-3;
+}
+
+[data-sk='slider'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='slider'] [data-part='value'] {
+  font-variant-numeric: tabular-nums;
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='slider'] [data-part='field'] {
+  @apply w-full accent-sk-primary cursor-pointer;
+}
+
+[data-sk='slider'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+/* ── tones ── */
+[data-sk='slider'][data-tone='secondary'] [data-part='field'] { @apply accent-sk-secondary; }
+[data-sk='slider'][data-tone='tertiary'] [data-part='field'] { @apply accent-sk-tertiary; }
+[data-sk='slider'][data-tone='accent'] [data-part='field'] { @apply accent-sk-accent; }
+[data-sk='slider'][data-tone='success'] [data-part='field'] { @apply accent-sk-success; }
+[data-sk='slider'][data-tone='warning'] [data-part='field'] { @apply accent-sk-warning; }
+[data-sk='slider'][data-tone='info'] [data-part='field'] { @apply accent-sk-info; }
+[data-sk='slider'][data-tone='danger'] [data-part='field'] { @apply accent-sk-danger; }

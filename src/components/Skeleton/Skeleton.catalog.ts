@@ -6,7 +6,7 @@ export const skeletonSpec: ComponentSpec = {
   dataSk: 'skeleton',
   category: 'Display',
   description:
-    'Placeholder de carga: un bloque que "respira" ocupando el lugar del contenido que aún no llegó. Puro decorativo (aria-hidden). La animación y el radio los da el skin.',
+    'Placeholder de carga: un bloque que "respira" ocupando el lugar del contenido que aún no llegó. Puro decorativo (aria-hidden). La animación y el radio los da el CSS.',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [
     {
@@ -28,6 +28,6 @@ export const skeletonSpec: ComponentSpec = {
   usage: [
     'Reflejá la forma del contenido real (una línea por línea de texto, un círculo por avatar).',
     'Es decorativo (aria-hidden): acompañalo de un texto/región con aria-busy para lectores.',
-    'width/height los pasás vos (tamaño de contenido); el radio y el shimmer los pone el skin.',
+    'width/height los pasás vos (tamaño de contenido); el radio y el shimmer los pone el CSS.',
   ],
 }

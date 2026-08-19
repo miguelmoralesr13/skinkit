@@ -26,7 +26,7 @@ export const menubarSpec: ComponentSpec = {
   ],
   usage: [
     'Para la barra de menús persistente de una app (Archivo/Editar/Ver). Para UN solo dropdown suelto (ej. un botón "Acciones"), usá Menu.',
-    'El dropdown [data-part=content] se posiciona respecto al menú: dale al menú position:relative y al content position:absolute en el skin.',
+    'El dropdown [data-part=content] se posiciona respecto al menú: dale al menú position:relative y al content position:absolute en el CSS.',
     'Un solo menú abierto a la vez; el hover entre menús solo cambia cuando ya hay uno abierto.',
   ],
   a11y: [

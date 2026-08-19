@@ -1,0 +1,4 @@
+/* ── AnimatedNumber ─────────────────────────────────────────── */
+[data-sk='animated-number'] {
+  @apply tabular-nums font-bold;
+}

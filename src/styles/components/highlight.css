@@ -1,0 +1,13 @@
+/* ── Highlight ──────────────────────────────────────────────── */
+[data-sk='highlight'] [data-part='match'] {
+  @apply rounded-[3px] px-px;
+  background: color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  color: inherit;
+}
+[data-sk='highlight'][data-tone='secondary'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-secondary) 25%, transparent); }
+[data-sk='highlight'][data-tone='tertiary'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-tertiary) 25%, transparent); }
+[data-sk='highlight'][data-tone='accent'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-accent) 25%, transparent); }
+[data-sk='highlight'][data-tone='success'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-success) 25%, transparent); }
+[data-sk='highlight'][data-tone='warning'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-warning) 25%, transparent); }
+[data-sk='highlight'][data-tone='info'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-info) 25%, transparent); }
+[data-sk='highlight'][data-tone='danger'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-danger) 25%, transparent); }

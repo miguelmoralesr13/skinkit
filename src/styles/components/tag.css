@@ -1,0 +1,26 @@
+/* ── Tag ────────────────────────────────────────────────────── */
+[data-sk='tag'] {
+  @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-sk-pill text-sk-sm font-semibold
+         leading-[1.4] bg-sk-surface-2 text-sk-text;
+}
+[data-sk='tag'][data-variant='primary'] {
+  background: color-mix(in srgb, var(--color-sk-primary) 15%, var(--color-sk-surface));
+  color: var(--color-sk-primary);
+}
+[data-sk='tag'][data-variant='danger'] {
+  background: color-mix(in srgb, var(--color-sk-danger) 15%, var(--color-sk-surface));
+  color: var(--color-sk-danger);
+}
+[data-sk='tag'][data-variant='secondary'] { background: color-mix(in srgb, var(--color-sk-secondary) 15%, var(--color-sk-surface)); color: var(--color-sk-secondary); }
+[data-sk='tag'][data-variant='tertiary'] { background: color-mix(in srgb, var(--color-sk-tertiary) 15%, var(--color-sk-surface)); color: var(--color-sk-tertiary); }
+[data-sk='tag'][data-variant='accent'] { background: color-mix(in srgb, var(--color-sk-accent) 15%, var(--color-sk-surface)); color: var(--color-sk-accent); }
+[data-sk='tag'][data-variant='success'] { background: color-mix(in srgb, var(--color-sk-success) 15%, var(--color-sk-surface)); color: var(--color-sk-success); }
+[data-sk='tag'][data-variant='warning'] { background: color-mix(in srgb, var(--color-sk-warning) 15%, var(--color-sk-surface)); color: var(--color-sk-warning); }
+[data-sk='tag'][data-variant='info'] { background: color-mix(in srgb, var(--color-sk-info) 15%, var(--color-sk-surface)); color: var(--color-sk-info); }
+[data-sk='tag'] [data-part='remove'] {
+  @apply appearance-none border-none bg-transparent cursor-pointer text-current opacity-60
+         text-base leading-none p-0 ml-0.5;
+}
+[data-sk='tag'] [data-part='remove']:hover {
+  @apply opacity-100;
+}

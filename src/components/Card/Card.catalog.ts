@@ -6,7 +6,7 @@ export const cardSpec: ComponentSpec = {
   dataSk: 'card',
   category: 'Display',
   description:
-    'Contenedor de contenido agrupado, con cabecera y pie opcionales. Headless: la forma (borde, sombra, radio) la da el skin.',
+    'Contenedor de contenido agrupado, con cabecera y pie opcionales. Headless: la forma (borde, sombra, radio) la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     {

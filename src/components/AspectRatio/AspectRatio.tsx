@@ -12,7 +12,7 @@ export interface AspectRatioProps extends HTMLAttributes<HTMLDivElement> {
  *
  * Contrato:
  *   [data-sk="aspect-ratio"]   raíz (con la proporción por style)
- *   (el skin hace que el hijo — img/iframe/video — llene y recorte)
+ *   (el CSS hace que el hijo — img/iframe/video — llene y recorte)
  */
 export const AspectRatio = forwardRef<HTMLDivElement, AspectRatioProps>(function AspectRatio(
   { ratio = 16 / 9, className, style, children, ...rest },

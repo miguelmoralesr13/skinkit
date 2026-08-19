@@ -1,0 +1,41 @@
+/**
+ * rating.css — estilo del componente Rating (data-sk="rating").
+ * Portado desde src/styles/skins/soft.css.
+ * Radio 4px no matchea limpio ningún token (sm=8px/md=12px/lg=16px) — arbitrary value.
+ */
+
+[data-sk='rating'] {
+  @apply inline-flex gap-0.5;
+}
+
+[data-sk='rating'] [data-part='star'] {
+  appearance: none;
+  line-height: 1;
+  transition: color 0.1s ease, transform 0.1s ease;
+  @apply border-none bg-transparent cursor-pointer p-0 text-[1.4rem] text-sk-border;
+}
+
+[data-sk='rating'] [data-part='star'][data-filled] {
+  @apply text-sk-primary;
+}
+
+[data-sk='rating']:not([data-readonly]) [data-part='star']:hover {
+  transform: scale(1.15);
+}
+
+[data-sk='rating'][data-readonly] [data-part='star'] {
+  @apply cursor-default;
+}
+
+[data-sk='rating'] [data-part='star']:focus-visible {
+  @apply outline outline-2 outline-sk-primary outline-offset-2 rounded-[4px];
+}
+
+/* ── tones ── */
+[data-sk='rating'][data-tone='secondary'] [data-part='star'][data-filled] { @apply text-sk-secondary; }
+[data-sk='rating'][data-tone='tertiary'] [data-part='star'][data-filled] { @apply text-sk-tertiary; }
+[data-sk='rating'][data-tone='accent'] [data-part='star'][data-filled] { @apply text-sk-accent; }
+[data-sk='rating'][data-tone='success'] [data-part='star'][data-filled] { @apply text-sk-success; }
+[data-sk='rating'][data-tone='warning'] [data-part='star'][data-filled] { @apply text-sk-warning; }
+[data-sk='rating'][data-tone='info'] [data-part='star'][data-filled] { @apply text-sk-info; }
+[data-sk='rating'][data-tone='danger'] [data-part='star'][data-filled] { @apply text-sk-danger; }

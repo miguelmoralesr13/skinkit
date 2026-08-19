@@ -6,7 +6,7 @@ export const dataTableSpec: ComponentSpec = {
   dataSk: 'datatable',
   category: 'Display',
   description:
-    'Tabla de datos config-driven (columnas + props como JSON). Selección (single/multiple), acciones por fila y masivas, orden, filtro de texto, paginado y scroll infinito. Cada eje es independiente cliente o servidor: pasás el callback (onSortChange/onFilterChange/onPageChange) y ese eje pasa a modo server. Se ve como tabla o como cards, con auto-responsive (cards bajo cardBreakpoint) y toggle manual opcional. Headless: la forma la dan los skins.',
+    'Tabla de datos config-driven (columnas + props como JSON). Selección (single/multiple), acciones por fila y masivas, orden, filtro de texto, paginado y scroll infinito. Cada eje es independiente cliente o servidor: pasás el callback (onSortChange/onFilterChange/onPageChange) y ese eje pasa a modo server. Se ve como tabla o como cards, con auto-responsive (cards bajo cardBreakpoint) y toggle manual opcional. Headless: la forma la da el CSS del componente.',
   extends: "Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>",
   props: [
     { name: 'data', type: 'T[]', required: true, description: 'Filas. En modo server, es la página actual ya resuelta por el backend.' },

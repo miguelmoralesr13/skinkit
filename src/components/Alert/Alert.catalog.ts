@@ -6,7 +6,7 @@ export const alertSpec: ComponentSpec = {
   dataSk: 'alert',
   category: 'Feedback',
   description:
-    'Mensaje de feedback en bloque (información, aviso, error) con título, ícono y cierre opcionales. role="alert" para que los lectores lo anuncien. La forma la da el skin.',
+    'Mensaje de feedback en bloque (información, aviso, error) con título, ícono y cierre opcionales. role="alert" para que los lectores lo anuncien. La forma la da el CSS.',
   extends: 'Omit<HTMLAttributes<HTMLDivElement>, "title">',
   props: [
     {

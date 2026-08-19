@@ -6,7 +6,7 @@ export const carouselSpec: ComponentSpec = {
   dataSk: 'carousel',
   category: 'Display',
   description:
-    'Muestra un slide a la vez de varios, con anterior/siguiente y puntos. Compuesto: <Carousel> con <Carousel.Slide>. Cuenta los slides y arma los controles solo. La forma la da el skin.',
+    'Muestra un slide a la vez de varios, con anterior/siguiente y puntos. Compuesto: <Carousel> con <Carousel.Slide>. Cuenta los slides y arma los controles solo. La forma la da el CSS.',
   extends: "Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>",
   props: [
     { name: 'index', type: 'number', required: false, description: 'Slide actual (controlado).' },
@@ -18,7 +18,7 @@ export const carouselSpec: ComponentSpec = {
   parts: [
     { name: 'root', description: 'role=region. Expone --sk-carousel-index (índice actual).' },
     { name: 'viewport', description: 'Ventana (overflow hidden).' },
-    { name: 'track', description: 'Pista; el skin la desplaza con translateX(calc(var(--sk-carousel-index) * -100%)).' },
+    { name: 'track', description: 'Pista; el CSS la desplaza con translateX(calc(var(--sk-carousel-index) * -100%)).' },
     { name: 'slide', description: 'Cada slide (envuelve a <Carousel.Slide>).' },
     { name: 'prev', description: 'Botón anterior (disabled en el extremo si no hay loop).' },
     { name: 'next', description: 'Botón siguiente.' },
@@ -32,7 +32,7 @@ export const carouselSpec: ComponentSpec = {
     },
   ],
   usage: [
-    'Cada slide va en un <Carousel.Slide>. El track se desplaza vía --sk-carousel-index (lo pone el skin).',
+    'Cada slide va en un <Carousel.Slide>. El track se desplaza vía --sk-carousel-index (lo pone el CSS).',
     'loop hace circular los extremos; sin loop, prev/next se deshabilitan en los bordes.',
     'Para imágenes con proporción fija, combiná con AspectRatio adentro de cada slide.',
   ],

@@ -1,0 +1,24 @@
+/* Tooltip — ver src/components/Tooltip/Tooltip.tsx / Tooltip.catalog.ts para el contrato de props/parts. */
+[data-sk='tooltip'] {
+  @apply relative inline-flex;
+}
+[data-sk='tooltip'] [data-part='content'] {
+  @apply absolute z-10 py-1 px-3 rounded-sk-sm bg-sk-text text-sk-surface text-sk-sm
+         whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-150 ease-out;
+}
+[data-sk='tooltip']:hover [data-part='content'],
+[data-sk='tooltip']:focus-within [data-part='content'] {
+  @apply opacity-100;
+}
+[data-sk='tooltip'][data-side='top'] [data-part='content'] {
+  @apply bottom-full left-1/2 -translate-x-1/2 mb-2;
+}
+[data-sk='tooltip'][data-side='bottom'] [data-part='content'] {
+  @apply top-full left-1/2 -translate-x-1/2 mt-2;
+}
+[data-sk='tooltip'][data-side='left'] [data-part='content'] {
+  @apply right-full top-1/2 -translate-y-1/2 mr-2;
+}
+[data-sk='tooltip'][data-side='right'] [data-part='content'] {
+  @apply left-full top-1/2 -translate-y-1/2 ml-2;
+}

@@ -1,0 +1,62 @@
+/* Toast — ver src/components/Toast/Toast.tsx / Toast.catalog.ts para el contrato de props/parts.
+   dataSk del catálogo es 'toast'; el viewport ([data-sk='toast-viewport']) es parte del mismo
+   componente (root del portal), no una entrada separada del catálogo. */
+[data-sk='toast-viewport'] {
+  @apply fixed z-[1100] flex flex-col gap-2 p-4 pointer-events-none;
+}
+[data-sk='toast-viewport'][data-position='top-right'] {
+  @apply top-0 right-0;
+}
+[data-sk='toast-viewport'][data-position='top-left'] {
+  @apply top-0 left-0;
+}
+[data-sk='toast-viewport'][data-position='bottom-right'] {
+  @apply bottom-0 right-0;
+}
+[data-sk='toast-viewport'][data-position='bottom-left'] {
+  @apply bottom-0 left-0;
+}
+[data-sk='toast-viewport'][data-position='top-center'] {
+  @apply top-0 left-1/2 -translate-x-1/2;
+}
+[data-sk='toast-viewport'][data-position='bottom-center'] {
+  @apply bottom-0 left-1/2 -translate-x-1/2;
+}
+[data-sk='toast'] {
+  @apply pointer-events-auto flex items-start gap-3 min-w-64 max-w-[22rem] py-3 px-4
+         rounded-sk-md bg-sk-surface text-sk-text border border-sk-border border-l-4 border-l-sk-border;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+[data-sk='toast'] [data-part='content'] {
+  @apply flex-1 flex flex-col gap-0.5;
+}
+[data-sk='toast'] [data-part='title'] {
+  @apply font-semibold text-sk-md;
+}
+[data-sk='toast'] [data-part='description'] {
+  @apply text-sk-sm text-sk-text-muted leading-normal;
+}
+[data-sk='toast'] [data-part='close'] {
+  @apply appearance-none border-0 bg-transparent cursor-pointer flex-none w-5 h-5
+         rounded-[6px] text-sk-text-muted text-base leading-none;
+}
+[data-sk='toast'] [data-part='close']:hover {
+  @apply text-sk-text;
+}
+
+/* Variantes — el color de acento va en el borde izquierdo. */
+[data-sk='toast'][data-variant='primary'] {
+  @apply border-l-sk-primary;
+}
+[data-sk='toast'][data-variant='danger'] {
+  @apply border-l-sk-danger;
+}
+[data-sk='toast'][data-variant='success'] {
+  @apply border-l-sk-success;
+}
+[data-sk='toast'][data-variant='warning'] {
+  @apply border-l-sk-warning;
+}
+[data-sk='toast'][data-variant='info'] {
+  @apply border-l-sk-info;
+}

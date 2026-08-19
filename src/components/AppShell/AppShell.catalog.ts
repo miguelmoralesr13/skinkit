@@ -6,7 +6,7 @@ export const appShellSpec: ComponentSpec = {
   dataSk: 'app-shell',
   category: 'Layout',
   description:
-    'Layout de aplicación en grilla: header arriba (sticky), sidebar a la izquierda, main al centro (scrollea) y footer abajo. Es CSS estructural y vive en la hoja base (no en los skins): los colores/bordes los ponen los componentes de adentro (Topbar/Sidebar/BottomNav). Definí la altura (ej. height: 100dvh) para pantalla completa.',
+    'Layout de aplicación en grilla: header arriba (sticky), sidebar a la izquierda, main al centro (scrollea) y footer abajo. Es CSS estructural y vive en la hoja base (no en el CSS por-componente): los colores/bordes los ponen los componentes de adentro (Topbar/Sidebar/BottomNav). Definí la altura (ej. height: 100dvh) para pantalla completa.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [{ name: 'children', type: 'ReactNode', required: false, description: 'AppShell.Header/Sidebar/Main/Footer.' }],
   parts: [
@@ -26,6 +26,6 @@ export const appShellSpec: ComponentSpec = {
     'Omití AppShell.Sidebar o AppShell.Footer si no los necesitás; la grilla se acomoda.',
     'Colapsar (rail): usá `collapsed` en el <Sidebar> de adentro. Ocultar del todo: pasá `hidden` a <AppShell.Sidebar> (atributo nativo → la columna del grid colapsa a 0 y el main se ensancha, sin desmontar el sidebar).',
     'El main scrollea solo (overflow auto); el header queda sticky arriba.',
-    'Su CSS es de layout (base), skin-agnóstico: el aspecto lo dan los componentes que metas adentro.',
+    'Su CSS es de layout (base), CSS-agnóstico: el aspecto lo dan los componentes que metas adentro.',
   ],
 }

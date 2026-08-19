@@ -6,7 +6,7 @@ export const datePickerSpec: ComponentSpec = {
   dataSk: 'date-picker',
   category: 'Formulario',
   description:
-    'Campo que abre un Calendar en un Popover para elegir una fecha; se cierra al elegir y muestra la fecha formateada. Construido sobre Popover + Calendar. Controlado (value ISO). La forma la da el skin.',
+    'Campo que abre un Calendar en un Popover para elegir una fecha; se cierra al elegir y muestra la fecha formateada. Construido sobre Popover + Calendar. Controlado (value ISO). La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: 'string', required: false, description: 'Fecha seleccionada en ISO yyyy-mm-dd (controlado).' },

@@ -6,7 +6,7 @@ export const passwordInputSpec: ComponentSpec = {
   dataSk: 'password-input',
   category: 'Formulario',
   description:
-    'Campo de contraseña con botón de mostrar/ocultar (alterna type password/text). Espejo de Input. La forma la da el skin.',
+    'Campo de contraseña con botón de mostrar/ocultar (alterna type password/text). Espejo de Input. La forma la da el CSS.',
   extends: "Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>",
   props: [
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta (htmlFor cableado).' },

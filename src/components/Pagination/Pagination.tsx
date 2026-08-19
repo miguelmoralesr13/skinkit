@@ -47,7 +47,7 @@ function paginationRange(current: number, total: number, siblings: number): (num
 
 /**
  * Pagination headless — navegación entre páginas con anterior/siguiente, números y elipsis.
- * La lógica de qué páginas mostrar la resuelve el componente; la forma la da el skin.
+ * La lógica de qué páginas mostrar la resuelve el componente; la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="pagination"]    raíz (<nav aria-label>)

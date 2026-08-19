@@ -6,7 +6,7 @@ export const tagInputSpec: ComponentSpec = {
   dataSk: 'tag-input',
   category: 'Formulario',
   description:
-    'Campo que crea chips/etiquetas: tipear + Enter o coma agrega, Backspace (vacío) borra el último, cada chip se quita. Controlado o no. Ideal para keywords, destinatarios, filtros. La forma la da el skin.',
+    'Campo que crea chips/etiquetas: tipear + Enter o coma agrega, Backspace (vacío) borra el último, cada chip se quita. Controlado o no. Ideal para keywords, destinatarios, filtros. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: 'string[]', required: false, description: 'Tags actuales (controlado). Usalo con onChange.' },
@@ -33,7 +33,7 @@ export const tagInputSpec: ComponentSpec = {
   usage: [
     'Enter o coma confirma el tag; Backspace con el input vacío borra el último.',
     'No permite duplicados; `max` limita la cantidad.',
-    'Los chips reusan el contrato de Tag ([data-sk=tag]), así el skin los pinta igual.',
+    'Los chips reusan el contrato de Tag ([data-sk=tag]), así el CSS los pinta igual.',
   ],
   a11y: ['Cada botón de quitar trae aria-label "Quitar <tag>".'],
 }

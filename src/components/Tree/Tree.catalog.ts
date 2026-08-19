@@ -6,7 +6,7 @@ export const treeSpec: ComponentSpec = {
   dataSk: 'tree',
   category: 'Navegación',
   description:
-    'Árbol jerárquico expandible (explorador de archivos, categorías anidadas). Compuesto: <Tree> con <Tree.Item> anidables. Estado de expansión centralizado por `value`; teclado ↑↓/→←/Enter. La forma la da el skin.',
+    'Árbol jerárquico expandible (explorador de archivos, categorías anidadas). Compuesto: <Tree> con <Tree.Item> anidables. Estado de expansión centralizado por `value`; teclado ↑↓/→←/Enter. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLUListElement>',
   props: [
     { name: 'defaultExpanded', type: 'string[]', required: false, default: '[]', description: 'values de los nodos abiertos al inicio.' },

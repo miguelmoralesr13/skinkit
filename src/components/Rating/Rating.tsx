@@ -25,8 +25,8 @@ export interface RatingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onCha
 }
 
 /**
- * Rating headless — puntuación con estrellas (u otro glyph que ponga el skin). Cada estrella
- * es un botón; el skin las pinta llenas/vacías vía [data-filled]. La forma la da el skin.
+ * Rating headless — puntuación con estrellas (u otro glyph que ponga el CSS). Cada estrella
+ * es un botón; el CSS las pinta llenas/vacías vía [data-filled]. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="rating"]      [data-readonly]   raíz (role=radiogroup)

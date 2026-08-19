@@ -19,12 +19,13 @@ allowed-tools: Read, Write, Edit, Bash
 
 ## Non-negotiable Rules
 
-1. **Headless: the component ships ZERO styling.** No CSS, no inline styles, no classes with
-   visual meaning. Only structure + the data contract. All visuals live in skins.
+1. **Headless: the component itself ships ZERO styling.** No inline styles, no classes with
+   visual meaning baked into the `.tsx`. Only structure + the data contract. All visuals live in
+   its own CSS file under `src/styles/components/`.
 2. **Every component has a SEPARATE catalog file** `<Name>.catalog.ts` — the source of truth
    with ALL props, the parts contract, examples and usage. This is what AI screen generation
    reads. **No component is complete without it. It is a separate file, never inline.**
-3. **Emit the stable contract** so skins can style it:
+3. **Emit the stable contract** so its CSS can target it:
    - `data-sk="<kebab-name>"` on the root (compound: on each sub-part's root too).
    - `data-part="<name>"` on every stylable sub-element.
    - State as data attributes: `data-state`, `data-error`, `data-variant`, `data-size`, etc.
@@ -45,12 +46,14 @@ Registrar en:
 - `src/index.ts` → exportar el componente y sus tipos.
 - `src/catalog/index.ts` → importar el spec y agregarlo a `COMPONENT_CATALOG`.
 
-## After Creating — the skin cost
+## After Creating — the styling cost
 
-Un componente nuevo **no tiene estilo en ningún skin todavía**: sale sin forma. Avisá al usuario
-y, si corresponde, agregá reglas para sus parts en cada skin de `src/styles/skins/` (o al menos
-en el skin por defecto), o el componente se ve “crudo”. El contrato de parts que definís acá es
-exactamente lo que los skins van a targetear.
+Un componente nuevo **no tiene CSS todavía**: sale sin forma. Avisá al usuario y creá
+`src/styles/components/<dataSk>.css` (nombrado por el `dataSk` del catálogo, no por el directorio)
+targeteando el contrato de parts que acabás de definir — ver `skinkit-tokens` para la receta de
+conversión a Tailwind (`@apply` + los tokens `--color-sk-*`/`--radius-sk-*`/`--shadow-sk-*`). Sin
+eso el componente se ve "crudo". Registrá el nuevo archivo con un
+`@import './<dataSk>.css' layer(components);` en `src/styles/components/index.css`.
 
 ## Catalog is the Source of Truth
 

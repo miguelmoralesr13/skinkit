@@ -24,7 +24,7 @@ export interface TagInputProps {
 /**
  * TagInput headless — campo que crea chips: tipear + Enter/coma agrega, Backspace (vacío)
  * borra el último, cada chip se puede quitar. Controlado (value) o no (defaultValue). La
- * forma la da el skin.
+ * forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="tag-input"]   raíz · [data-error]

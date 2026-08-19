@@ -1,0 +1,68 @@
+/* ── List ───────────────────────────────────────────────────── */
+[data-sk='list'] {
+  @apply list-none m-0 p-0 flex flex-col;
+}
+[data-sk='list'] [data-part='item'] {
+  @apply flex items-center gap-3 px-4 py-3 text-sk-text rounded-[10px];
+}
+[data-sk='list'] [data-part='item'][data-interactive] {
+  @apply cursor-pointer;
+}
+[data-sk='list'] [data-part='item'][data-interactive]:hover {
+  @apply bg-sk-surface-2;
+}
+[data-sk='list'] [data-part='item'][data-active] {
+  @apply text-sk-primary;
+  background: color-mix(in srgb, var(--color-sk-primary) 12%, var(--color-sk-surface));
+}
+[data-sk='list'] [data-part='item']:focus-visible {
+  @apply outline outline-2 outline-sk-primary -outline-offset-2;
+}
+[data-sk='list'] [data-part='icon'] {
+  @apply flex-none text-sk-text-muted inline-flex;
+}
+[data-sk='list'] [data-part='item'][data-active] [data-part='icon'] {
+  @apply text-sk-primary;
+}
+[data-sk='list'] [data-part='content'] {
+  @apply flex-1 min-w-0;
+}
+[data-sk='list'] [data-part='title'] {
+  @apply font-medium;
+}
+[data-sk='list'] [data-part='description'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+[data-sk='list'] [data-part='meta'] {
+  @apply flex-none text-sk-sm text-sk-text-muted;
+}
+
+/* Tonos (ítem activo) */
+[data-sk='list'][data-tone='secondary'] [data-part='item'][data-active] {
+  color: var(--color-sk-secondary);
+  background: color-mix(in srgb, var(--color-sk-secondary) 12%, var(--color-sk-surface));
+}
+[data-sk='list'][data-tone='tertiary'] [data-part='item'][data-active] {
+  color: var(--color-sk-tertiary);
+  background: color-mix(in srgb, var(--color-sk-tertiary) 12%, var(--color-sk-surface));
+}
+[data-sk='list'][data-tone='accent'] [data-part='item'][data-active] {
+  color: var(--color-sk-accent);
+  background: color-mix(in srgb, var(--color-sk-accent) 12%, var(--color-sk-surface));
+}
+[data-sk='list'][data-tone='success'] [data-part='item'][data-active] {
+  color: var(--color-sk-success);
+  background: color-mix(in srgb, var(--color-sk-success) 12%, var(--color-sk-surface));
+}
+[data-sk='list'][data-tone='warning'] [data-part='item'][data-active] {
+  color: var(--color-sk-warning);
+  background: color-mix(in srgb, var(--color-sk-warning) 12%, var(--color-sk-surface));
+}
+[data-sk='list'][data-tone='info'] [data-part='item'][data-active] {
+  color: var(--color-sk-info);
+  background: color-mix(in srgb, var(--color-sk-info) 12%, var(--color-sk-surface));
+}
+[data-sk='list'][data-tone='danger'] [data-part='item'][data-active] {
+  color: var(--color-sk-danger);
+  background: color-mix(in srgb, var(--color-sk-danger) 12%, var(--color-sk-surface));
+}

@@ -6,7 +6,7 @@ export const codeSpec: ComponentSpec = {
   dataSk: 'code',
   category: 'Display',
   description:
-    'Muestra código: inline (<code>) o en bloque (<pre>). En bloque puede traer un botón de copiar (copia el texto del propio bloque). No resalta sintaxis. La forma la da el skin.',
+    'Muestra código: inline (<code>) o en bloque (<pre>). En bloque puede traer un botón de copiar (copia el texto del propio bloque). No resalta sintaxis. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLElement>',
   props: [
     { name: 'block', type: 'boolean', required: false, description: 'Bloque multilínea (<pre>) en vez de inline (<code>).' },

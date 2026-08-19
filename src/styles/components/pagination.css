@@ -1,0 +1,35 @@
+/* ── Pagination ─────────────────────────────────────────────── */
+[data-sk='pagination'] {
+  @apply inline-flex items-center gap-1;
+}
+[data-sk='pagination'] [data-part='prev'],
+[data-sk='pagination'] [data-part='next'],
+[data-sk='pagination'] [data-part='page'] {
+  font: inherit;
+  @apply appearance-none border border-transparent bg-transparent cursor-pointer
+         min-w-[34px] h-[34px] px-2 rounded-[10px] text-sk-text text-sk-md;
+}
+[data-sk='pagination'] [data-part='page']:hover:not([data-current]),
+[data-sk='pagination'] [data-part='prev']:hover:not(:disabled),
+[data-sk='pagination'] [data-part='next']:hover:not(:disabled) {
+  @apply bg-sk-surface-2;
+}
+[data-sk='pagination'] [data-part='page'][data-current] {
+  @apply bg-sk-primary text-sk-on-primary;
+}
+[data-sk='pagination'] [data-part='prev']:disabled,
+[data-sk='pagination'] [data-part='next']:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+[data-sk='pagination'] [data-part='ellipsis'] {
+  @apply min-w-[24px] text-center text-sk-text-muted;
+}
+
+/* Tonos (página actual) */
+[data-sk='pagination'][data-tone='secondary'] [data-part='page'][data-current] { @apply bg-sk-secondary text-sk-on-secondary; }
+[data-sk='pagination'][data-tone='tertiary'] [data-part='page'][data-current] { @apply bg-sk-tertiary text-sk-on-tertiary; }
+[data-sk='pagination'][data-tone='accent'] [data-part='page'][data-current] { @apply bg-sk-accent text-sk-on-accent; }
+[data-sk='pagination'][data-tone='success'] [data-part='page'][data-current] { @apply bg-sk-success text-sk-on-success; }
+[data-sk='pagination'][data-tone='warning'] [data-part='page'][data-current] { @apply bg-sk-warning text-sk-on-warning; }
+[data-sk='pagination'][data-tone='info'] [data-part='page'][data-current] { @apply bg-sk-info text-sk-on-info; }
+[data-sk='pagination'][data-tone='danger'] [data-part='page'][data-current] { @apply bg-sk-danger text-sk-on-danger; }

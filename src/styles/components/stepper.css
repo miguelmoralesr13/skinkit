@@ -1,0 +1,73 @@
+/* ── Stepper ────────────────────────────────────────────────── */
+[data-sk='stepper'] {
+  @apply flex w-full list-none m-0 p-0 gap-0;
+}
+[data-sk='stepper'][data-orientation='vertical'] {
+  @apply flex-col;
+}
+[data-sk='stepper'] [data-part='step'] {
+  @apply relative flex-1 flex flex-col items-center gap-2 text-center text-sk-text-muted text-sk-sm;
+}
+[data-sk='stepper'] [data-part='marker'] {
+  @apply relative z-[1] inline-flex items-center justify-center w-7 h-7 rounded-full
+         bg-sk-surface-2 text-sk-text-muted font-semibold text-sk-sm border-2 border-transparent;
+}
+[data-sk='stepper'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  @apply border-sk-primary text-sk-primary bg-sk-surface;
+}
+[data-sk='stepper'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  @apply bg-sk-primary text-sk-on-primary;
+}
+[data-sk='stepper'] [data-part='step'][data-state='current'] {
+  @apply text-sk-text font-semibold;
+}
+/* Conector: línea entre marcadores (horizontal) */
+[data-sk='stepper'][data-orientation='horizontal'] [data-part='connector'] {
+  @apply absolute right-1/2 w-full h-0.5 bg-sk-border top-[14px];
+}
+[data-sk='stepper'][data-orientation='horizontal'] [data-part='step']:first-child [data-part='connector'] {
+  @apply hidden;
+}
+[data-sk='stepper'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  @apply bg-sk-primary;
+}
+[data-sk='stepper'][data-orientation='vertical'] [data-part='connector'] {
+  @apply hidden;
+}
+
+/* Tonos (paso actual/completo) */
+[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-secondary text-sk-secondary; }
+[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-secondary text-sk-on-secondary; }
+[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-secondary; }
+
+[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-tertiary text-sk-tertiary; }
+[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-tertiary text-sk-on-tertiary; }
+[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-tertiary; }
+
+[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-accent text-sk-accent; }
+[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-accent text-sk-on-accent; }
+[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-accent; }
+
+[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-success text-sk-success; }
+[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-success text-sk-on-success; }
+[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-success; }
+
+[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-warning text-sk-warning; }
+[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-warning text-sk-on-warning; }
+[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-warning; }
+
+[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-info text-sk-info; }
+[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-info text-sk-on-info; }
+[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-info; }
+
+[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-danger text-sk-danger; }
+[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-danger text-sk-on-danger; }
+[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='complete'] [data-part='connector'],
+[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-danger; }

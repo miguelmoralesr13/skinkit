@@ -6,7 +6,7 @@ export const blockquoteSpec: ComponentSpec = {
   dataSk: 'blockquote',
   category: 'Display',
   description:
-    'Cita en bloque con autor/fuente opcional. Semántica <figure>/<blockquote>/<figcaption>. La forma (barra lateral, comillas, tipografía) la da el skin.',
+    'Cita en bloque con autor/fuente opcional. Semántica <figure>/<blockquote>/<figcaption>. La forma (barra lateral, comillas, tipografía) la da el CSS.',
   extends: 'HTMLAttributes<HTMLElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de acento (del theme).' },    { name: 'author', type: 'ReactNode', required: false, description: 'Autor o fuente de la cita.' },
@@ -20,12 +20,12 @@ export const blockquoteSpec: ComponentSpec = {
   ],
   examples: [
     { title: 'Con autor', code: '<Blockquote author="Dieter Rams">Menos, pero mejor.</Blockquote>' },
-    { title: 'Solo cita', code: '<Blockquote>El color sale del theme; la forma, del skin.</Blockquote>' },
+    { title: 'Solo cita', code: '<Blockquote>El color sale del theme; la forma, del CSS.</Blockquote>' },
   ],
   usage: [
     'Para destacar una cita textual con su fuente.',
     'Pasá la URL de origen en `cite` (semántico, no visible).',
-    'Las comillas decorativas y la barra lateral las pone el skin.',
+    'Las comillas decorativas y la barra lateral las pone el CSS.',
   ],
   a11y: ['Usa <figure>/<blockquote>/<figcaption> nativos.'],
 }

@@ -6,7 +6,7 @@ export const radioCardGroupSpec: ComponentSpec = {
   dataSk: 'radio-card-group',
   category: 'Formulario',
   description:
-    'Grupo de opciones donde cada una es una TARJETA seleccionable (planes, métodos de pago, layouts). Compuesto: <RadioCardGroup> con <RadioCard title description icon>. Selección única nativa. La forma la da el skin.',
+    'Grupo de opciones donde cada una es una TARJETA seleccionable (planes, métodos de pago, layouts). Compuesto: <RadioCardGroup> con <RadioCard title description icon>. Selección única nativa. La forma la da el CSS.',
   extends: "Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'>",
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de la tarjeta seleccionada (del theme).' },
@@ -20,7 +20,7 @@ export const radioCardGroupSpec: ComponentSpec = {
   parts: [
     { name: 'root', description: 'role=radiogroup [data-sk=radio-card-group].' },
     { name: 'card', description: 'Cada opción ([data-sk=radio-card], [data-state]). <RadioCard value title description icon> — RadioCard extends Omit<InputHTMLAttributes, "type"|"title">.' },
-    { name: 'control', description: 'El <input type=radio> oculto por el skin.' },
+    { name: 'control', description: 'El <input type=radio> oculto por el CSS.' },
     { name: 'title', description: 'Título de la tarjeta.' },
     { name: 'description', description: 'Descripción opcional.' },
     { name: 'icon', description: 'Ícono opcional.' },
@@ -35,7 +35,7 @@ export const radioCardGroupSpec: ComponentSpec = {
   usage: [
     'Para elegir UNA opción rica (con título + descripción + ícono). Para opciones simples, usá RadioGroup o SegmentedControl.',
     'Cada <RadioCard> necesita un `value` único.',
-    'El estado seleccionado se refleja en [data-state=checked] (el skin lo resalta).',
+    'El estado seleccionado se refleja en [data-state=checked] (el CSS lo resalta).',
   ],
   a11y: ['role=radiogroup; cada tarjeta envuelve un radio nativo → selección única y flechas gratis.'],
 }

@@ -6,7 +6,7 @@ export const textareaSpec: ComponentSpec = {
   dataSk: 'textarea',
   category: 'Formulario',
   description:
-    'Campo de texto multilínea con label y helper opcionales y estado de error. Espejo de <Input> para textos largos (comentarios, descripciones). Headless: la forma la da el skin.',
+    'Campo de texto multilínea con label y helper opcionales y estado de error. Espejo de <Input> para textos largos (comentarios, descripciones). Headless: la forma la da el CSS.',
   extends: 'TextareaHTMLAttributes<HTMLTextAreaElement>',
   props: [
     {
@@ -19,7 +19,7 @@ export const textareaSpec: ComponentSpec = {
       name: 'helper',
       type: 'ReactNode',
       required: false,
-      description: 'Texto de ayuda debajo. En error, el skin lo pinta con color de error.',
+      description: 'Texto de ayuda debajo. En error, el CSS lo pinta con color de error.',
     },
     {
       name: 'error',

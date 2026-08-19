@@ -1,0 +1,36 @@
+/* CopyButton — ver src/components/CopyButton/CopyButton.tsx. */
+[data-sk='copy-button'] {
+  appearance: none;
+  font: inherit;
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-sk-pill border border-sk-border
+         bg-sk-surface text-sk-text cursor-pointer text-sk-sm font-semibold;
+}
+[data-sk='copy-button']:hover {
+  @apply bg-sk-surface-2;
+}
+[data-sk='copy-button'][data-copied] {
+  @apply border-sk-primary text-sk-primary;
+}
+
+/* Tones */
+[data-sk='copy-button'][data-tone='secondary'] {
+  @apply border-sk-secondary text-sk-secondary;
+}
+[data-sk='copy-button'][data-tone='tertiary'] {
+  @apply border-sk-tertiary text-sk-tertiary;
+}
+[data-sk='copy-button'][data-tone='accent'] {
+  @apply border-sk-accent text-sk-accent;
+}
+[data-sk='copy-button'][data-tone='success'] {
+  @apply border-sk-success text-sk-success;
+}
+[data-sk='copy-button'][data-tone='warning'] {
+  @apply border-sk-warning text-sk-warning;
+}
+[data-sk='copy-button'][data-tone='info'] {
+  @apply border-sk-info text-sk-info;
+}
+[data-sk='copy-button'][data-tone='danger'] {
+  @apply border-sk-danger text-sk-danger;
+}

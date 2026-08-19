@@ -6,7 +6,7 @@ export const segmentedControlSpec: ComponentSpec = {
   dataSk: 'segmented',
   category: 'Formulario',
   description:
-    'Selector de UNA opción entre pocas, en línea (toggle group tipo iOS). Compuesto: <SegmentedControl> con <SegmentedControl.Item>. role=radiogroup con flechas ← →. La forma la da el skin.',
+    'Selector de UNA opción entre pocas, en línea (toggle group tipo iOS). Compuesto: <SegmentedControl> con <SegmentedControl.Item>. role=radiogroup con flechas ← →. La forma la da el CSS.',
   extends: "Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'>",
   props: [
     { name: 'value', type: 'string', required: false, description: 'Opción activa (controlado).' },

@@ -22,7 +22,7 @@ export interface BlockquoteProps extends HTMLAttributes<HTMLElement> {
 
 /**
  * Blockquote headless — cita en bloque con autor/fuente opcional. Semántica <figure> +
- * <blockquote> + <figcaption>. La forma (barra, comillas, tipografía) la da el skin.
+ * <blockquote> + <figcaption>. La forma (barra, comillas, tipografía) la da el CSS.
  *
  * Contrato:
  *   [data-sk="blockquote"]   raíz (<figure>)

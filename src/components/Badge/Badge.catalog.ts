@@ -6,7 +6,7 @@ export const badgeSpec: ComponentSpec = {
   dataSk: 'badge',
   category: 'Display',
   description:
-    'Etiqueta corta tipo píldora para estado, categoría o conteo (ej. "Nuevo", "3", "Activo"). Puro presentacional; la forma la da el skin.',
+    'Etiqueta corta tipo píldora para estado, categoría o conteo (ej. "Nuevo", "3", "Activo"). Puro presentacional; la forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [
     {

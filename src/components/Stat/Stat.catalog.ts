@@ -6,13 +6,13 @@ export const statSpec: ComponentSpec = {
   dataSk: 'stat',
   category: 'Display',
   description:
-    'Métrica de dashboard: etiqueta, valor grande y variación opcional (delta) coloreada por tendencia. La forma la da el skin.',
+    'Métrica de dashboard: etiqueta, valor grande y variación opcional (delta) coloreada por tendencia. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'label', type: 'ReactNode', required: true, description: 'Qué mide (ej. "Ingresos").' },
     { name: 'value', type: 'ReactNode', required: true, description: 'El valor grande (ej. "$12.4k").' },
     { name: 'delta', type: 'ReactNode', required: false, description: 'Variación (ej. "+12%"). Se colorea según trend.' },
-    { name: 'trend', type: "'up' | 'down' | 'neutral'", required: false, default: "'neutral'", description: 'Tendencia del delta. up/down/neutral → color del skin.' },
+    { name: 'trend', type: "'up' | 'down' | 'neutral'", required: false, default: "'neutral'", description: 'Tendencia del delta. up/down/neutral → color del CSS.' },
     { name: 'icon', type: 'ReactNode', required: false, description: 'Ícono opcional a la izquierda.' },
   ],
   parts: [

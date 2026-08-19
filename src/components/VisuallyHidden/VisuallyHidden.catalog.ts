@@ -6,7 +6,7 @@ export const visuallyHiddenSpec: ComponentSpec = {
   dataSk: 'visually-hidden',
   category: 'Display',
   description:
-    'Oculta contenido a la vista pero lo deja para lectores de pantalla (labels solo-audio, texto de contexto). Utilidad de accesibilidad; su ocultamiento vive en la base (no depende del skin).',
+    'Oculta contenido a la vista pero lo deja para lectores de pantalla (labels solo-audio, texto de contexto). Utilidad de accesibilidad; su ocultamiento vive en la base (no depende del CSS).',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [{ name: 'children', type: 'ReactNode', required: true, description: 'Contenido que solo leen los lectores.' }],
   parts: [{ name: 'root', description: 'El <span> [data-sk=visually-hidden] (ocultado por la base).' }],

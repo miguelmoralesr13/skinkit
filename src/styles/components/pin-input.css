@@ -1,0 +1,43 @@
+/**
+ * pin-input.css — estilo del componente PinInput (data-sk="pin-input").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+[data-sk='pin-input'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='pin-input'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='pin-input'] [data-part='group'] {
+  @apply flex gap-2;
+}
+
+[data-sk='pin-input'] [data-part='field'] {
+  @apply w-11 h-12 text-center border border-sk-border rounded-sk-md bg-sk-surface text-sk-text
+         text-sk-lg font-semibold;
+}
+
+[data-sk='pin-input'] [data-part='field']:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  @apply border-sk-primary;
+}
+
+[data-sk='pin-input'] [data-part='field'][data-filled] {
+  @apply border-sk-primary;
+}
+
+[data-sk='pin-input'][data-error] [data-part='field'] {
+  @apply border-sk-danger;
+}
+
+[data-sk='pin-input'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='pin-input'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}

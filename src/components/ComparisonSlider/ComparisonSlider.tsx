@@ -22,7 +22,7 @@ export interface ComparisonSliderProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * ComparisonSlider headless — compara dos capas (antes/después) con un divisor arrastrable que
  * revela una sobre la otra. Drag con mouse/touch o flechas. Ideal para imágenes. La forma la
- * da el skin.
+ * da el CSS.
  *
  * Contrato:
  *   [data-sk="comparison"]   raíz (expone --sk-comparison-pos, 0–100)

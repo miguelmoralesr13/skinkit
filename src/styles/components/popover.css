@@ -1,0 +1,29 @@
+/* ── Popover ────────────────────────────────────────────────── */
+[data-sk='popover'] {
+  @apply relative inline-block;
+}
+[data-sk='popover'] [data-part='content'] {
+  @apply absolute z-50 min-w-48 p-4 bg-sk-surface border border-sk-border rounded-sk-md;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+[data-sk='popover'][data-side='bottom'] [data-part='content'] {
+  @apply top-full left-0 mt-2;
+}
+[data-sk='popover'][data-side='top'] [data-part='content'] {
+  @apply bottom-full left-0 mb-2;
+}
+[data-sk='popover'][data-side='right'] [data-part='content'] {
+  @apply left-full top-0 ml-2;
+}
+[data-sk='popover'][data-side='left'] [data-part='content'] {
+  @apply right-full top-0 mr-2;
+}
+[data-sk='popover'] [data-part='trigger'] {
+  appearance: none;
+  font: inherit;
+  @apply cursor-pointer px-4 py-2 border border-sk-border rounded-sk-pill bg-sk-surface
+         text-sk-text text-sk-md font-semibold;
+}
+[data-sk='popover'] [data-part='trigger']:hover {
+  @apply bg-sk-surface-2;
+}

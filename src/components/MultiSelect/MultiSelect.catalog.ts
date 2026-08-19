@@ -6,7 +6,7 @@ export const multiSelectSpec: ComponentSpec = {
   dataSk: 'multi-select',
   category: 'Formulario',
   description:
-    'Como Combobox pero de VARIOS valores: los elegidos se muestran como chips, con buscador y lista para (des)marcar. Teclado ↑↓/Enter/Esc; Backspace (vacío) quita el último. Sin portal. La forma la da el skin.',
+    'Como Combobox pero de VARIOS valores: los elegidos se muestran como chips, con buscador y lista para (des)marcar. Teclado ↑↓/Enter/Esc; Backspace (vacío) quita el último. Sin portal. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'options', type: '{ value: string; label: string }[]', required: true, description: 'Opciones disponibles.' },

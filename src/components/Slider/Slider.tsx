@@ -23,7 +23,7 @@ export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
 
 /**
  * Slider headless — envuelve un <input type="range"> NATIVO (accesible, teclado incluido).
- * El color del riel/thumb lo pone el skin (accent-color desde los tokens del theme).
+ * El color del riel/thumb lo pone el CSS (accent-color desde los tokens del theme).
  *
  * Contrato:
  *   [data-sk="slider"]       raíz

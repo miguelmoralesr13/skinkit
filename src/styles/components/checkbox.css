@@ -1,0 +1,94 @@
+/**
+ * checkbox.css — estilo del componente Checkbox (data-sk="checkbox").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+/* ── ocultar el input nativo (sigue focuseable) ── */
+[data-sk='checkbox'] [data-part='control'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[data-sk='checkbox'] {
+  @apply inline-flex items-center gap-2 cursor-pointer text-sk-md text-sk-text;
+}
+
+[data-sk='checkbox'] [data-part='box'] {
+  @apply inline-flex items-center justify-center w-5 h-5 flex-none border border-sk-border
+         rounded-[6px] bg-sk-surface transition-[background,border-color] duration-150 ease-in-out;
+}
+
+[data-sk='checkbox'] [data-part='indicator'] {
+  width: 5px;
+  height: 9px;
+  border: solid var(--color-sk-on-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.15s ease;
+}
+
+[data-sk='checkbox'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply bg-sk-primary border-sk-primary;
+}
+
+[data-sk='checkbox'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  transform: rotate(45deg) scale(1);
+}
+
+/* Indeterminado = barra horizontal */
+[data-sk='checkbox'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-primary border-sk-primary;
+}
+
+[data-sk='checkbox'] [data-part='control']:indeterminate ~ [data-part='box'] [data-part='indicator'] {
+  width: 10px;
+  height: 2px;
+  border: none;
+  transform: none;
+  @apply bg-sk-on-primary;
+}
+
+[data-sk='checkbox'] [data-part='control']:focus-visible ~ [data-part='box'] {
+  @apply outline outline-2 outline-sk-primary outline-offset-2;
+}
+
+[data-sk='checkbox'] [data-part='control']:disabled ~ [data-part='box'] {
+  @apply opacity-50;
+}
+
+/* ── Selection tones ── */
+[data-sk='checkbox'][data-tone='secondary'] [data-part='control']:checked ~ [data-part='box'],
+[data-sk='checkbox'][data-tone='secondary'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-secondary border-sk-secondary;
+}
+[data-sk='checkbox'][data-tone='tertiary'] [data-part='control']:checked ~ [data-part='box'],
+[data-sk='checkbox'][data-tone='tertiary'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-tertiary border-sk-tertiary;
+}
+[data-sk='checkbox'][data-tone='accent'] [data-part='control']:checked ~ [data-part='box'],
+[data-sk='checkbox'][data-tone='accent'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-accent border-sk-accent;
+}
+[data-sk='checkbox'][data-tone='success'] [data-part='control']:checked ~ [data-part='box'],
+[data-sk='checkbox'][data-tone='success'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-success border-sk-success;
+}
+[data-sk='checkbox'][data-tone='warning'] [data-part='control']:checked ~ [data-part='box'],
+[data-sk='checkbox'][data-tone='warning'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-warning border-sk-warning;
+}
+[data-sk='checkbox'][data-tone='info'] [data-part='control']:checked ~ [data-part='box'],
+[data-sk='checkbox'][data-tone='info'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-info border-sk-info;
+}
+[data-sk='checkbox'][data-tone='danger'] [data-part='control']:checked ~ [data-part='box'],
+[data-sk='checkbox'][data-tone='danger'] [data-part='control']:indeterminate ~ [data-part='box'] {
+  @apply bg-sk-danger border-sk-danger;
+}

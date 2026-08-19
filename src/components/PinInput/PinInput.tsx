@@ -29,7 +29,7 @@ export interface PinInputProps {
 /**
  * PinInput headless — código segmentado (OTP / verificación): una casilla por carácter, con
  * auto-avance, backspace hacia atrás y pegado que se reparte. Controlado o no. La forma la da
- * el skin.
+ * el CSS.
  *
  * Contrato:
  *   [data-sk="pin-input"]   raíz · [data-error]

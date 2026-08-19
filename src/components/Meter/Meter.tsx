@@ -28,7 +28,7 @@ export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * Meter headless — mide un valor dentro de un rango (uso de disco, batería, score). A
  * diferencia de Progress (avance de una tarea), es una MEDICIÓN estática. role="meter".
- * El relleno usa --sk-meter (0–1); la forma la da el skin.
+ * El relleno usa --sk-meter (0–1); la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="meter"]       raíz · [data-tone]

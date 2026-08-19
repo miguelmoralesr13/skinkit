@@ -31,7 +31,7 @@ export interface TreeProps extends HTMLAttributes<HTMLUListElement> {
 /**
  * Tree headless, compuesto: <Tree> · <Tree.Item>. Árbol jerárquico expandible. El estado de
  * expansión está centralizado (por `value`), así el teclado del root controla todo:
- * ↑ ↓ mueven, → expande / entra, ← colapsa, Enter/Espacio alterna. La forma la da el skin.
+ * ↑ ↓ mueven, → expande / entra, ← colapsa, Enter/Espacio alterna. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="tree"]          raíz (role=tree)

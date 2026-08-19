@@ -6,7 +6,7 @@ export const inputSpec: ComponentSpec = {
   dataSk: 'input',
   category: 'Formulario',
   description:
-    'Campo de texto con label y helper opcionales, y estado de error. Headless: la forma la da el skin. El label ya viene cableado con htmlFor.',
+    'Campo de texto con label y helper opcionales, y estado de error. Headless: la forma la da el CSS. El label ya viene cableado con htmlFor.',
   extends: 'InputHTMLAttributes<HTMLInputElement>',
   props: [
     {
@@ -19,7 +19,7 @@ export const inputSpec: ComponentSpec = {
       name: 'helper',
       type: 'ReactNode',
       required: false,
-      description: 'Texto de ayuda debajo. En error, el skin lo pinta con color de error.',
+      description: 'Texto de ayuda debajo. En error, el CSS lo pinta con color de error.',
     },
     {
       name: 'error',

@@ -6,7 +6,7 @@ export const buttonSpec: ComponentSpec = {
   dataSk: 'button',
   category: 'Acción',
   description:
-    'Botón de acción. Headless: sin estilo propio; su forma la da el skin activo. Soporta ícono a izquierda/derecha.',
+    'Botón de acción. Headless: sin estilo propio; su forma la da el CSS del componente. Soporta ícono a izquierda/derecha.',
   extends: 'ButtonHTMLAttributes<HTMLButtonElement>',
   props: [
     {
@@ -29,7 +29,7 @@ export const buttonSpec: ComponentSpec = {
       required: false,
       default: "'primary'",
       description:
-        'Tono de color del theme. Emite [data-tone] (primary no lo emite). El skin pinta cada tono con var(--sk-<tono>)/var(--sk-on-<tono>).',
+        'Tono de color del theme. Emite [data-tone] (primary no lo emite). El CSS pinta cada tono con var(--sk-<tono>)/var(--sk-on-<tono>).',
     },
     {
       name: 'iconLeft',
@@ -58,8 +58,8 @@ export const buttonSpec: ComponentSpec = {
   usage: [
     'Usá `variant="filled"` para la acción principal de cada vista; una sola por sección.',
     'No pongas más de un botón filled compitiendo en el mismo bloque.',
-    'Para acciones destructivas podés pasar `data-tone="danger"` (se pasa por props al <button> y el skin lo pinta en rojo); comunicá el riesgo por texto igual.',
-    'El disabled es nativo (`disabled`); el skin lo estila vía :disabled.',
+    'Para acciones destructivas podés pasar `data-tone="danger"` (se pasa por props al <button> y el CSS lo pinta en rojo); comunicá el riesgo por texto igual.',
+    'El disabled es nativo (`disabled`); el CSS lo estila vía :disabled.',
   ],
   a11y: [
     'type por defecto es "button" (no envía formularios sin querer); pasá type="submit" cuando corresponda.',

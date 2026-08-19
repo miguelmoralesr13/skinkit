@@ -9,7 +9,7 @@ export interface TimePickerProps extends Omit<InputHTMLAttributes<HTMLInputEleme
 
 /**
  * TimePicker headless — envuelve un <input type="time"> NATIVO (rueda/teclado del sistema,
- * accesible). Espejo de <Input> para elegir una hora. La forma la da el skin.
+ * accesible). Espejo de <Input> para elegir una hora. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="time-picker"]   raíz · [data-error]

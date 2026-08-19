@@ -6,7 +6,7 @@ export const timelineSpec: ComponentSpec = {
   dataSk: 'timeline',
   category: 'Display',
   description:
-    'Lista vertical de eventos en orden cronológico, con markers y línea conectora (actividad, historial, seguimiento). Compuesto: <Timeline> con <Timeline.Item>. La forma la da el skin.',
+    'Lista vertical de eventos en orden cronológico, con markers y línea conectora (actividad, historial, seguimiento). Compuesto: <Timeline> con <Timeline.Item>. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLOListElement>',
   props: [
     {

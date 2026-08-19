@@ -6,7 +6,7 @@ export const commandMenuSpec: ComponentSpec = {
   dataSk: 'command-menu',
   category: 'Overlay',
   description:
-    'Paleta de comandos (⌘K): overlay con buscador y lista filtrada/agrupada de acciones. Teclado ↑↓ navegan, Enter ejecuta, Esc cierra. Portaliza a <body> y reaplica theme/skin. La forma la da el skin.',
+    'Paleta de comandos (⌘K): overlay con buscador y lista filtrada/agrupada de acciones. Teclado ↑↓ navegan, Enter ejecuta, Esc cierra. Portaliza a <body>; los tokens viven en :root, así que el look se mantiene igual dentro del portal sin nada especial.',
   extends: '—',
   props: [
     { name: 'open', type: 'boolean', required: true, description: 'Si está abierta (controlado — abrila vos con ⌘K/Ctrl+K).' },

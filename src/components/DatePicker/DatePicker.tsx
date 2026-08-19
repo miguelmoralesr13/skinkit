@@ -29,7 +29,7 @@ function fromISO(s?: string): Date | null {
 
 /**
  * DatePicker headless — campo que abre un <Calendar> en un <Popover> para elegir una fecha.
- * Se cierra al elegir. Construido sobre Popover + Calendar. La forma la da el skin.
+ * Se cierra al elegir. Construido sobre Popover + Calendar. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="date-picker"]   raíz · [data-error]

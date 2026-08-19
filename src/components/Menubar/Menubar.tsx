@@ -31,7 +31,7 @@ export interface MenubarProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * Menubar headless — barra de menús tipo app (Archivo / Editar / Ver), cada uno abre un dropdown.
  * Un solo menú abierto a la vez; con uno abierto, pasar el mouse sobre otro cambia el foco;
- * flechas ←/→ mueven entre menús, Esc cierra. Estructura + contrato; la forma la da el skin.
+ * flechas ←/→ mueven entre menús, Esc cierra. Estructura + contrato; la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="menubar"]                    raíz (role=menubar)

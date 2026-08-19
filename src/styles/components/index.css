@@ -1,0 +1,115 @@
+/**
+ * components/index.css — agrega el CSS de cada componente (un archivo por dataSk único, ver
+ * src/components/<Name>/<Name>.catalog.ts). Reemplaza el viejo soft.css (el único skin que
+ * sobrevive, ahora sin el prefijo [data-skin='...']: hay un solo look).
+ *
+ * `layer(components)` en cada import mete la regla en la capa Tailwind `components` sin envolver
+ * cada archivo en `@layer components { }` — así un override del consumidor en la capa `utilities`
+ * (la suya, con su propio build) le gana siempre, sin pelear con orden de carga ni especificidad.
+ *
+ * Agrupado por categoría (src/catalog/types.ts → CATEGORY_ORDER) solo para que este archivo sea
+ * navegable a mano; el orden real de la cascada no importa porque cada selector es único por
+ * [data-sk='<nombre>']. Layout (AppShell/Container/Grid/Spacer/Stack) no tiene archivos acá:
+ * es CSS estructural skin-agnóstico, vive en ../layout.css. VisuallyHidden tampoco: es la
+ * utilidad de a11y del reset base, ya en ../index.css.
+ */
+
+/* Acción */
+@import './button.css' layer(components);
+@import './button-group.css' layer(components);
+@import './toggle.css' layer(components);
+@import './toolbar.css' layer(components);
+@import './split-button.css' layer(components);
+@import './copy-button.css' layer(components);
+
+/* Formulario */
+@import './input.css' layer(components);
+@import './input-group.css' layer(components);
+@import './textarea.css' layer(components);
+@import './checkbox.css' layer(components);
+@import './radio-group.css' layer(components);
+@import './radio.css' layer(components);
+@import './radio-card-group.css' layer(components);
+@import './radio-card.css' layer(components);
+@import './switch.css' layer(components);
+@import './select.css' layer(components);
+@import './combobox.css' layer(components);
+@import './multi-select.css' layer(components);
+@import './number-input.css' layer(components);
+@import './password-input.css' layer(components);
+@import './pin-input.css' layer(components);
+@import './tag-input.css' layer(components);
+@import './slider.css' layer(components);
+@import './rating.css' layer(components);
+@import './segmented.css' layer(components);
+@import './file-upload.css' layer(components);
+@import './editable.css' layer(components);
+@import './fieldset.css' layer(components);
+@import './field.css' layer(components);
+@import './calendar.css' layer(components);
+@import './date-picker.css' layer(components);
+@import './time-picker.css' layer(components);
+@import './dynamic-form.css' layer(components);
+
+/* Navegación */
+@import './accordion.css' layer(components);
+@import './disclosure.css' layer(components);
+@import './tabs.css' layer(components);
+@import './stepper.css' layer(components);
+@import './breadcrumb.css' layer(components);
+@import './pagination.css' layer(components);
+@import './menubar.css' layer(components);
+@import './sidebar.css' layer(components);
+@import './topbar.css' layer(components);
+@import './bottom-nav.css' layer(components);
+@import './back-top.css' layer(components);
+@import './list.css' layer(components);
+@import './tree.css' layer(components);
+
+/* Overlay */
+@import './dialog.css' layer(components);
+@import './command-menu.css' layer(components);
+@import './menu.css' layer(components);
+@import './popover.css' layer(components);
+@import './popconfirm.css' layer(components);
+@import './hover-card.css' layer(components);
+
+/* Feedback */
+@import './alert.css' layer(components);
+@import './banner.css' layer(components);
+@import './toast.css' layer(components);
+@import './tooltip.css' layer(components);
+
+/* Display */
+@import './card.css' layer(components);
+@import './badge.css' layer(components);
+@import './tag.css' layer(components);
+@import './avatar.css' layer(components);
+@import './avatar-group.css' layer(components);
+@import './stat.css' layer(components);
+@import './empty.css' layer(components);
+@import './dlist.css' layer(components);
+@import './separator.css' layer(components);
+@import './blockquote.css' layer(components);
+@import './highlight.css' layer(components);
+@import './prose.css' layer(components);
+@import './code.css' layer(components);
+@import './kbd.css' layer(components);
+@import './image.css' layer(components);
+@import './aspect-ratio.css' layer(components);
+@import './color-swatch.css' layer(components);
+@import './skeleton.css' layer(components);
+@import './spinner.css' layer(components);
+@import './progress.css' layer(components);
+@import './radial-progress.css' layer(components);
+@import './meter.css' layer(components);
+@import './sparkline.css' layer(components);
+@import './animated-number.css' layer(components);
+@import './countdown.css' layer(components);
+@import './timeline.css' layer(components);
+@import './carousel.css' layer(components);
+@import './comparison.css' layer(components);
+@import './marquee.css' layer(components);
+@import './resizable.css' layer(components);
+@import './scroll-area.css' layer(components);
+@import './datatable.css' layer(components);

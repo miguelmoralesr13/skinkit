@@ -6,7 +6,7 @@ export const listSpec: ComponentSpec = {
   dataSk: 'list',
   category: 'Navegación',
   description:
-    'Lista de filas con ícono/título/descripción/meta, opcionalmente clickeables y activas (navegación lateral, resultados, settings). Compuesto: <List> con <List.Item>. La forma la da el skin.',
+    'Lista de filas con ícono/título/descripción/meta, opcionalmente clickeables y activas (navegación lateral, resultados, settings). Compuesto: <List> con <List.Item>. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLUListElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de acento (del theme).' },

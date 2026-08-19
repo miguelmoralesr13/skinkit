@@ -20,7 +20,7 @@ export interface TimelineProps extends HTMLAttributes<HTMLOListElement> {
 
 /**
  * Timeline headless, compuesto: <Timeline> · <Timeline.Item>. Lista vertical de eventos con
- * markers y línea conectora. La forma (marker, línea) la da el skin.
+ * markers y línea conectora. La forma (marker, línea) la da el CSS.
  *
  * Contrato:
  *   [data-sk="timeline"]  [data-align]   raíz (<ol>) · left | right | alternate
@@ -42,7 +42,7 @@ export function Timeline({ align = 'left', className, children, ...rest }: Timel
 export interface TimelineItemProps extends Omit<LiHTMLAttributes<HTMLLIElement>, 'title'> {
   title?: ReactNode
   time?: ReactNode
-  /** Ícono dentro del marker (si no, el skin dibuja un punto). */
+  /** Ícono dentro del marker (si no, el CSS dibuja un punto). */
   marker?: ReactNode
   tone?: TimelineItemTone
 }

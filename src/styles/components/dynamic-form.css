@@ -1,0 +1,31 @@
+/**
+ * dynamic-form.css — estilo del componente DynamicForm (data-sk="dynamic-form").
+ * Portado desde src/styles/skins/soft.css. DynamicForm compone Button/Fieldset/Grid (ya
+ * skineados) — estas son las pocas reglas propias que soft.css le dedica (field-label/
+ * field-error vienen de FieldRenderer.tsx, para campos tipo checkbox/switch/radio sin Field
+ * propio; el resto usa <Field>).
+ */
+
+[data-sk='dynamic-form'] {
+  @apply flex flex-col gap-4;
+}
+
+[data-sk='dynamic-form'] [data-part='field-label'] {
+  @apply text-sk-sm font-semibold text-sk-text mb-1;
+}
+
+[data-sk='dynamic-form'] [data-part='field-error'] {
+  @apply text-sk-sm text-sk-danger mt-1;
+}
+
+[data-sk='dynamic-form'] [data-part='array-item'] {
+  @apply flex flex-col gap-2 p-3 bg-sk-surface-2 rounded-sk-md mb-2;
+}
+
+[data-sk='dynamic-form'] [data-part='array-item-actions'] {
+  @apply flex justify-end;
+}
+
+[data-sk='dynamic-form'] [data-part='actions'] {
+  @apply flex items-center justify-end gap-2;
+}

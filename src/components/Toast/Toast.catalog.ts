@@ -6,7 +6,7 @@ export const toastSpec: ComponentSpec = {
   dataSk: 'toast',
   category: 'Feedback',
   description:
-    'Notificaciones efímeras no bloqueantes que se apilan en una esquina y se cierran solas. Se disparan por código con useToast(); requieren envolver la app en <ToastProvider>. Headless: la forma la da el skin.',
+    'Notificaciones efímeras no bloqueantes que se apilan en una esquina y se cierran solas. Se disparan por código con useToast(); requieren envolver la app en <ToastProvider>. Headless: la forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'ToastProvider.position', type: "'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center'", required: false, default: "'bottom-right'", description: 'Dónde se apilan los toasts.' },

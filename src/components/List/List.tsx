@@ -18,7 +18,7 @@ export interface ListProps extends HTMLAttributes<HTMLUListElement> {
 
 /**
  * List headless, compuesto: <List> · <List.Item>. Lista de filas con ícono/título/descripción/
- * meta, opcionalmente clickeables (activas). La forma la da el skin.
+ * meta, opcionalmente clickeables (activas). La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="list"]        raíz (<ul>)

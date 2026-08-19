@@ -6,7 +6,7 @@ export const stepperSpec: ComponentSpec = {
   dataSk: 'stepper',
   category: 'Navegación',
   description:
-    'Indicador de progreso por pasos (wizard, checkout). Compuesto: <Stepper active> con <Stepper.Step>. Stepper calcula complete/current/upcoming según `active`; la forma la da el skin.',
+    'Indicador de progreso por pasos (wizard, checkout). Compuesto: <Stepper active> con <Stepper.Step>. Stepper calcula complete/current/upcoming según `active`; la forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLOListElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de los pasos activos/completos (del theme).' },

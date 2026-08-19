@@ -1,0 +1,38 @@
+/* Banner — ver src/components/Banner/Banner.tsx / Banner.catalog.ts para el contrato de props/parts. */
+[data-sk='banner'] {
+  @apply flex items-center gap-3 py-3 px-4 rounded-sk-md bg-sk-surface-2 text-sk-text text-sk-md;
+}
+[data-sk='banner'] [data-part='icon'] {
+  @apply flex-none inline-flex;
+}
+[data-sk='banner'] [data-part='content'] {
+  @apply flex-1;
+}
+[data-sk='banner'] [data-part='actions'] {
+  @apply flex-none;
+}
+[data-sk='banner'] [data-part='close'] {
+  @apply appearance-none border-0 bg-transparent cursor-pointer flex-none w-6 h-6
+         rounded-[6px] text-sk-text-muted text-[1.1rem] leading-none;
+}
+[data-sk='banner'] [data-part='close']:hover {
+  @apply text-sk-text;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Variantes — color-mix() no tiene equivalente en @apply, queda como CSS plano. */
+[data-sk='banner'][data-variant='primary'] {
+  background: color-mix(in srgb, var(--color-sk-primary) 14%, var(--color-sk-surface));
+}
+[data-sk='banner'][data-variant='danger'] {
+  background: color-mix(in srgb, var(--color-sk-danger) 14%, var(--color-sk-surface));
+}
+[data-sk='banner'][data-variant='success'] {
+  background: color-mix(in srgb, var(--color-sk-success) 14%, var(--color-sk-surface));
+}
+[data-sk='banner'][data-variant='warning'] {
+  background: color-mix(in srgb, var(--color-sk-warning) 14%, var(--color-sk-surface));
+}
+[data-sk='banner'][data-variant='info'] {
+  background: color-mix(in srgb, var(--color-sk-info) 14%, var(--color-sk-surface));
+}

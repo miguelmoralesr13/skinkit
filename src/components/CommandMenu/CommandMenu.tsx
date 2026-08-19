@@ -7,7 +7,6 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
-import { useSkinkit } from '../../provider/SkinkitProvider'
 
 export interface CommandItem {
   id: string
@@ -35,8 +34,8 @@ export interface CommandMenuProps {
 
 /**
  * CommandMenu headless — paleta de comandos (⌘K): overlay + búsqueda + lista filtrada y
- * agrupada. Teclado ↑ ↓ navegan, Enter ejecuta, Esc cierra. Portaliza a <body> y reaplica
- * theme/skin. La forma la da el skin.
+ * agrupada. Teclado ↑ ↓ navegan, Enter ejecuta, Esc cierra. Portaliza a <body>; los tokens
+ * viven en :root, así que el look se mantiene igual dentro del portal sin nada especial.
  *
  * Contrato:
  *   [data-sk="command-menu"]   raíz portalizada
@@ -58,7 +57,6 @@ export function CommandMenu({
   label = 'Comandos',
   className,
 }: CommandMenuProps) {
-  const { theme, skin } = useSkinkit()
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -115,7 +113,7 @@ export function CommandMenu({
   let idx = -1
 
   return createPortal(
-    <div data-skinkit-root="" data-theme={theme} data-skin={skin} className="skinkit-root">
+    <div data-skinkit-root="" className="skinkit-root">
       <div data-sk="command-menu" className={cx('sk-command-menu', className)}>
         <div data-part="overlay" aria-hidden="true" onClick={() => onOpenChange(false)} />
         <div data-part="panel" role="dialog" aria-modal="true" aria-label={label}>

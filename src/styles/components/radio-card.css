@@ -1,0 +1,60 @@
+/**
+ * radio-card.css — estilo de <RadioCard> (data-sk="radio-card"), la tarjeta individual dentro
+ * de <RadioCardGroup>. Documentado por el mismo RadioCardGroup.catalog.ts (parts: card/control/
+ * title/description/icon/indicator). Portado desde src/styles/skins/soft.css.
+ * Radio 14px no matchea limpio ningún token (sm=8px/md=12px/lg=16px) — arbitrary value.
+ */
+
+/* ── ocultar el input nativo (sigue focuseable) ── */
+[data-sk='radio-card'] [data-part='control'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[data-sk='radio-card'] {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  @apply relative flex items-start gap-3 p-4 border border-sk-border rounded-[14px] bg-sk-surface
+         cursor-pointer;
+}
+
+[data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 22%, transparent);
+  @apply border-sk-primary;
+}
+
+[data-sk='radio-card'] [data-part='control']:focus-visible ~ [data-part='indicator'] {
+  @apply outline outline-2 outline-sk-primary outline-offset-2;
+}
+
+[data-sk='radio-card'] [data-part='icon'] {
+  @apply flex-none text-sk-primary;
+}
+
+[data-sk='radio-card'] [data-part='body'] {
+  @apply flex-1 flex flex-col gap-0.5;
+}
+
+[data-sk='radio-card'] [data-part='title'] {
+  @apply font-semibold text-sk-text;
+}
+
+[data-sk='radio-card'] [data-part='description'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='radio-card'] [data-part='indicator'] {
+  margin-top: 2px;
+  @apply flex-none w-[18px] h-[18px] rounded-full border-2 border-sk-border;
+}
+
+[data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-primary) 0 45%, transparent 50%);
+  @apply border-sk-primary;
+}

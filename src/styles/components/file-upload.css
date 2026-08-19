@@ -1,0 +1,92 @@
+/**
+ * file-upload.css — estilo del componente FileUpload (data-sk="file-upload").
+ * Portado desde src/styles/skins/soft.css.
+ * [data-part="prompt"] no tiene reglas propias en soft.css (hereda del dropzone).
+ * Radios 14px/10px no matchean limpio ningún token — arbitrary values.
+ */
+
+[data-sk='file-upload'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='file-upload'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='file-upload'] [data-part='dropzone'] {
+  border: 2px dashed var(--color-sk-border);
+  transition: border-color 0.15s ease, background 0.15s ease;
+  @apply flex items-center justify-center text-center p-6 rounded-[14px] bg-sk-surface
+         text-sk-text-muted cursor-pointer;
+}
+
+[data-sk='file-upload'] [data-part='dropzone']:hover {
+  @apply border-sk-primary;
+}
+
+[data-sk='file-upload'] [data-part='dropzone'][data-dragging] {
+  border-color: var(--color-sk-primary);
+  background: color-mix(in srgb, var(--color-sk-primary) 8%, var(--color-sk-surface));
+}
+
+[data-sk='file-upload'][data-error] [data-part='dropzone'] {
+  @apply border-sk-danger;
+}
+
+/* ── ocultar el input nativo (sigue focuseable) ── */
+[data-sk='file-upload'] [data-part='input'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[data-sk='file-upload'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='file-upload'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}
+
+/* ── variant=button: disparador compacto ── */
+[data-sk='file-upload'][data-variant='button'] [data-part='dropzone'] {
+  width: fit-content;
+  @apply inline-flex px-5 py-2 border border-sk-border rounded-sk-pill bg-sk-surface text-sk-text
+         font-semibold;
+}
+
+[data-sk='file-upload'][data-variant='button'] [data-part='dropzone']:hover {
+  @apply bg-sk-surface-2 border-sk-primary;
+}
+
+/* ── previews ── */
+[data-sk='file-upload'] [data-part='previews'] {
+  @apply flex flex-wrap gap-2 mt-2;
+}
+
+[data-sk='file-upload'] [data-part='preview'] {
+  @apply relative w-[72px] h-[72px] rounded-[10px] overflow-hidden border border-sk-border
+         bg-sk-surface-2 flex items-center justify-center;
+}
+
+[data-sk='file-upload'] [data-part='thumb'] {
+  @apply w-full h-full object-cover;
+}
+
+[data-sk='file-upload'] [data-part='filename'] {
+  @apply text-sk-sm text-sk-text-muted p-1 text-center break-words overflow-hidden;
+}
+
+[data-sk='file-upload'] [data-part='remove'] {
+  top: 3px;
+  right: 3px;
+  background: rgba(0, 0, 0, 0.55);
+  line-height: 1;
+  @apply absolute w-5 h-5 border-none rounded-full text-white cursor-pointer text-[0.9rem];
+}

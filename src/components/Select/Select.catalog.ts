@@ -6,7 +6,7 @@ export const selectSpec: ComponentSpec = {
   dataSk: 'select',
   category: 'Formulario',
   description:
-    'Selector de una opción de una lista, sobre un <select> nativo (accesible, teclado incluido). Las opciones van como children (<option>). Headless: la forma la da el skin.',
+    'Selector de una opción de una lista, sobre un <select> nativo (accesible, teclado incluido). Las opciones van como children (<option>). Headless: la forma la da el CSS.',
   extends: 'SelectHTMLAttributes<HTMLSelectElement>',
   props: [
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta del campo (htmlFor cableado).' },

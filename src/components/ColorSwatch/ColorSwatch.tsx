@@ -18,7 +18,7 @@ export interface ColorSwatchProps extends Omit<ButtonHTMLAttributes<HTMLButtonEl
 /**
  * ColorSwatch headless — muestra un color (chip). Interactivo: es un <button>, con estado
  * [data-selected] para grupos de selección. El color va por style (contenido, no theme); la
- * forma (tamaño, radio, check) la da el skin.
+ * forma (tamaño, radio, check) la da el CSS.
  *
  * Contrato:
  *   [data-sk="color-swatch"]   [data-size] [data-selected]   raíz (<button>)

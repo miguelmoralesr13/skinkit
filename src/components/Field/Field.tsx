@@ -15,7 +15,7 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * Field headless — envoltorio de campo con label + control + helper/error, para dar markup y
  * a11y consistentes a CUALQUIER control (incluso los que no traen label/error propios, como
- * Slider, o widgets a medida). No estila: sólo el contrato; la forma la da el skin.
+ * Slider, o widgets a medida). No estila: sólo el contrato; la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="field"]        raíz · [data-error] cuando hay error

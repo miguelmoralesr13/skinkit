@@ -1,0 +1,95 @@
+/**
+ * calendar.css — estilo compartido por Calendar y RangeCalendar (ambos emiten data-sk="calendar";
+ * RangeCalendar suma [data-range]). Portado desde src/styles/skins/soft.css.
+ */
+
+[data-sk='calendar'] {
+  @apply inline-block p-4 bg-sk-surface border border-sk-border rounded-sk-lg shadow-sk-lg;
+}
+
+[data-sk='calendar'] [data-part='header'] {
+  @apply flex items-center justify-between mb-3;
+}
+
+[data-sk='calendar'] [data-part='title'] {
+  @apply font-bold capitalize text-sk-text;
+}
+
+[data-sk='calendar'] [data-part='prev'],
+[data-sk='calendar'] [data-part='next'] {
+  appearance: none;
+  @apply border-none bg-transparent cursor-pointer w-[30px] h-[30px] rounded-sk-sm text-sk-text
+         text-[1.2rem];
+}
+
+[data-sk='calendar'] [data-part='prev']:hover,
+[data-sk='calendar'] [data-part='next']:hover {
+  @apply bg-sk-surface-2;
+}
+
+[data-sk='calendar'] [data-part='weekdays'],
+[data-sk='calendar'] [data-part='grid'] {
+  grid-template-columns: repeat(7, 2.2rem);
+  @apply grid gap-0.5;
+}
+
+[data-sk='calendar'] [data-part='weekday'] {
+  @apply text-center text-sk-sm text-sk-text-muted capitalize pb-1;
+}
+
+[data-sk='calendar'] [data-part='day'] {
+  appearance: none;
+  font: inherit;
+  height: 2.2rem;
+  @apply border-none bg-transparent cursor-pointer rounded-sk-sm text-sk-text text-sk-sm;
+}
+
+[data-sk='calendar'] [data-part='day']:hover:not(:disabled) {
+  @apply bg-sk-surface-2;
+}
+
+[data-sk='calendar'] [data-part='day'][data-outside] {
+  @apply text-sk-text-muted opacity-50;
+}
+
+[data-sk='calendar'] [data-part='day'][data-today] {
+  box-shadow: inset 0 0 0 1px var(--color-sk-primary);
+}
+
+[data-sk='calendar'] [data-part='day'][data-selected] {
+  @apply bg-sk-primary text-sk-on-primary;
+}
+
+[data-sk='calendar'] [data-part='day']:disabled {
+  @apply opacity-30 cursor-not-allowed;
+}
+
+[data-sk='calendar'] [data-part='day']:focus-visible {
+  @apply outline outline-2 outline-sk-primary -outline-offset-2;
+}
+
+/* ── RangeCalendar: estados de rango sobre el mismo Calendar ── */
+[data-sk='calendar'][data-range] [data-part='grid'] {
+  @apply gap-0;
+}
+
+[data-sk='calendar'][data-range] [data-part='day'] {
+  @apply rounded-none;
+}
+
+[data-sk='calendar'][data-range] [data-part='day'][data-in-range] {
+  background: color-mix(in srgb, var(--color-sk-primary) 15%, var(--color-sk-surface));
+  @apply text-sk-text;
+}
+
+[data-sk='calendar'][data-range] [data-part='day'][data-range-start] {
+  @apply bg-sk-primary text-sk-on-primary rounded-l-sk-sm;
+}
+
+[data-sk='calendar'][data-range] [data-part='day'][data-range-end] {
+  @apply bg-sk-primary text-sk-on-primary rounded-r-sk-sm;
+}
+
+[data-sk='calendar'][data-range] [data-part='day'][data-range-start][data-range-end] {
+  @apply rounded-sk-sm;
+}

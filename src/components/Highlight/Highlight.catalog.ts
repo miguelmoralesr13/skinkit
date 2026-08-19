@@ -6,7 +6,7 @@ export const highlightSpec: ComponentSpec = {
   dataSk: 'highlight',
   category: 'Display',
   description:
-    'Resalta las coincidencias de una búsqueda dentro de un texto (envuelve cada match en <mark>). Case-insensitive; acepta uno o varios términos. El color lo da el skin.',
+    'Resalta las coincidencias de una búsqueda dentro de un texto (envuelve cada match en <mark>). Case-insensitive; acepta uno o varios términos. El color lo da el CSS.',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de acento (del theme).' },    { name: 'text', type: 'string', required: true, description: 'El texto completo.' },

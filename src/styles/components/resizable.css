@@ -1,0 +1,27 @@
+/* ── Resizable ──────────────────────────────────────────────── */
+[data-sk='resizable'] {
+  @apply flex w-full border border-sk-border rounded-[14px] overflow-hidden;
+}
+[data-sk='resizable'][data-direction='vertical'] {
+  @apply flex-col;
+}
+[data-sk='resizable'] [data-part='panel'] {
+  @apply min-w-0 min-h-0 overflow-auto flex;
+  flex: var(--sk-panel-size, 1) 1 0;
+}
+[data-sk='resizable'] [data-part='panel'] > * {
+  @apply min-w-0 min-h-0 flex-[1_1_auto];
+}
+[data-sk='resizable'] [data-part='handle'] {
+  @apply flex-none relative bg-sk-border;
+}
+[data-sk='resizable'][data-direction='horizontal'] [data-part='handle'] {
+  @apply w-1.5 cursor-col-resize;
+}
+[data-sk='resizable'][data-direction='vertical'] [data-part='handle'] {
+  @apply h-1.5 cursor-row-resize;
+}
+[data-sk='resizable'] [data-part='handle']:hover,
+[data-sk='resizable'] [data-part='handle']:focus-visible {
+  @apply bg-sk-primary outline-none;
+}

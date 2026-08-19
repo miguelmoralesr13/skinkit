@@ -1,0 +1,10 @@
+/* ── AvatarGroup ────────────────────────────────────────────── */
+[data-sk='avatar-group'] {
+  @apply inline-flex items-center;
+}
+[data-sk='avatar-group'] > * + * {
+  @apply -ml-2.5;
+}
+[data-sk='avatar-group'] [data-sk='avatar'] {
+  @apply border-2 border-sk-surface;
+}

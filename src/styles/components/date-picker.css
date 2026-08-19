@@ -1,0 +1,49 @@
+/**
+ * date-picker.css — estilo compartido por DatePicker y DateRangePicker (ambos emiten
+ * data-sk="date-picker"; DateRangePicker suma [data-range]). Portado desde soft.css.
+ * Compone un <Popover> (data-sk="popover", componente aparte) — las reglas de acá sólo tocan
+ * su trigger/content EN EL CONTEXTO de date-picker; el estilo propio del Popover vive en su
+ * propio archivo.
+ */
+
+[data-sk='date-picker'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='date-picker'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='date-picker'] [data-sk='popover'] {
+  @apply block;
+}
+
+[data-sk='date-picker'] [data-sk='popover'] [data-part='trigger'] {
+  text-align: left;
+  @apply w-full px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text font-medium;
+}
+
+[data-sk='date-picker'] [data-sk='popover'] [data-part='trigger'][data-state='open'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  @apply border-sk-primary;
+}
+
+[data-sk='date-picker'][data-error] [data-sk='popover'] [data-part='trigger'] {
+  @apply border-sk-danger;
+}
+
+[data-sk='date-picker'] [data-part='value'][data-placeholder] {
+  @apply text-sk-text-muted;
+}
+
+[data-sk='date-picker'] [data-sk='popover'] [data-part='content'] {
+  @apply p-0 border-none shadow-none bg-transparent;
+}
+
+[data-sk='date-picker'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='date-picker'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}

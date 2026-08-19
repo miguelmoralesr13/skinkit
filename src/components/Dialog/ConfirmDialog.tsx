@@ -24,7 +24,7 @@ export interface ConfirmDialogProps {
  * cancelar / confirmar. Para acciones destructivas usá tone="danger".
  *
  * Reusa el contrato de parts de Dialog; el botón de confirmar lleva [data-tone] para que
- * el skin lo pinte según la intención.
+ * el CSS lo pinte según la intención.
  */
 export function ConfirmDialog({
   open,

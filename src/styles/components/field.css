@@ -1,0 +1,25 @@
+/**
+ * field.css — estilo del componente Field (data-sk="field").
+ * Portado desde src/styles/skins/soft.css.
+ * [data-part="control"] es sólo un wrapper estructural — sin reglas propias en soft.css.
+ */
+
+[data-sk='field'] {
+  @apply flex flex-col gap-1;
+}
+
+[data-sk='field'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='field'] [data-part='required'] {
+  @apply text-sk-danger;
+}
+
+[data-sk='field'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='field'] [data-part='error'] {
+  @apply text-sk-sm text-sk-danger;
+}

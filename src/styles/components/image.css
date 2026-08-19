@@ -1,0 +1,17 @@
+/* ── Image ──────────────────────────────────────────────────── */
+[data-sk='image'] {
+  @apply block relative overflow-hidden bg-sk-surface-2;
+  line-height: 0;
+}
+[data-sk='image'][data-rounded] {
+  @apply rounded-sk-md;
+}
+[data-sk='image'] [data-part='img'] {
+  @apply block w-full h-full opacity-0 transition-opacity duration-300 ease-in-out;
+}
+[data-sk='image'][data-status='loaded'] [data-part='img'] {
+  @apply opacity-100;
+}
+[data-sk='image'] [data-part='fallback'] {
+  @apply flex items-center justify-center w-full h-full min-h-16 text-sk-text-muted text-sk-sm leading-[1.4];
+}

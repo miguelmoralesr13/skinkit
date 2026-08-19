@@ -1,0 +1,41 @@
+/**
+ * input-group.css — estilo del componente InputGroup (data-sk="input-group").
+ * Portado desde src/styles/skins/soft.css.
+ *
+ * Radio 10px no matchea limpio ninguno de los tokens (sm=8px/md=12px/lg=16px) — se deja como
+ * arbitrary value para no forzar la fidelidad del diseño original.
+ */
+
+[data-sk='input-group'] {
+  @apply flex items-stretch bg-sk-surface border border-sk-border rounded-[10px] overflow-hidden;
+}
+
+[data-sk='input-group']:focus-within {
+  box-shadow: 0 0 0 1px var(--color-sk-primary);
+  @apply border-sk-primary;
+}
+
+/* El Input anidado ocupa el espacio disponible y pierde su propio borde/fondo/radio */
+[data-sk='input-group'] [data-sk='input'] {
+  @apply flex-1 min-w-0;
+}
+
+[data-sk='input-group'] [data-part='field'] {
+  @apply border-none rounded-none bg-transparent;
+}
+
+[data-sk='input-group'] [data-part='field']:focus-visible {
+  outline: none;
+}
+
+[data-sk='input-group'] [data-part='addon'] {
+  @apply inline-flex items-center px-3 bg-sk-surface-2 text-sk-text-muted whitespace-nowrap;
+}
+
+[data-sk='input-group'] [data-part='addon']:first-child {
+  @apply border-r border-sk-border;
+}
+
+[data-sk='input-group'] [data-part='addon']:last-child {
+  @apply border-l border-sk-border;
+}

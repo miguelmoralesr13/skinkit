@@ -6,7 +6,7 @@ export const checkboxSpec: ComponentSpec = {
   dataSk: 'checkbox',
   category: 'Formulario',
   description:
-    'Casilla de verificación booleana (marcada / sin marcar / indeterminada). Headless: el input nativo es la fuente de verdad y el skin pinta la caja. Ideal para opciones independientes y aceptaciones.',
+    'Casilla de verificación booleana (marcada / sin marcar / indeterminada). Headless: el input nativo es la fuente de verdad y el CSS pinta la caja. Ideal para opciones independientes y aceptaciones.',
   extends: 'Omit<InputHTMLAttributes<HTMLInputElement>, "type">',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del estado marcado (del theme).' },
@@ -26,8 +26,8 @@ export const checkboxSpec: ComponentSpec = {
     },
   ],
   parts: [
-    { name: 'control', description: 'El <input type=checkbox>. El skin lo oculta visualmente (queda accesible/focuseable).' },
-    { name: 'box', description: 'Caja visual que el skin pinta según :checked / :indeterminate.' },
+    { name: 'control', description: 'El <input type=checkbox>. El CSS lo oculta visualmente (queda accesible/focuseable).' },
+    { name: 'box', description: 'Caja visual que el CSS pinta según :checked / :indeterminate.' },
     { name: 'indicator', description: 'Marca (tilde o guion) dentro de la caja.' },
     { name: 'label', description: 'Texto de la opción.' },
   ],
@@ -44,6 +44,6 @@ export const checkboxSpec: ComponentSpec = {
   ],
   a11y: [
     'El label envuelve al control: clickear el texto togglea, sin necesidad de htmlFor.',
-    'El skin oculta el input con técnica visually-hidden (no display:none) para no perder foco ni teclado.',
+    'El CSS oculta el input con técnica visually-hidden (no display:none) para no perder foco ni teclado.',
   ],
 }

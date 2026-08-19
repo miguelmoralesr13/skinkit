@@ -1,0 +1,27 @@
+/* ── Avatar ─────────────────────────────────────────────────── */
+[data-sk='avatar'] {
+  @apply inline-flex items-center justify-center w-10 h-10 rounded-full overflow-hidden
+         bg-sk-surface-2 text-sk-text-muted text-sk-sm font-semibold select-none;
+}
+[data-sk='avatar'][data-size='sm'] {
+  @apply w-7 h-7 text-sk-sm;
+}
+[data-sk='avatar'][data-size='lg'] {
+  @apply w-14 h-14 text-sk-lg;
+}
+[data-sk='avatar'] [data-part='image'] {
+  @apply w-full h-full object-cover;
+}
+[data-sk='avatar'] [data-part='fallback'] {
+  @apply inline-flex items-center justify-center;
+}
+
+/* tones */
+[data-sk='avatar'][data-tone='primary'] { @apply bg-sk-primary text-sk-on-primary; }
+[data-sk='avatar'][data-tone='secondary'] { @apply bg-sk-secondary text-sk-on-secondary; }
+[data-sk='avatar'][data-tone='tertiary'] { @apply bg-sk-tertiary text-sk-on-tertiary; }
+[data-sk='avatar'][data-tone='accent'] { @apply bg-sk-accent text-sk-on-accent; }
+[data-sk='avatar'][data-tone='success'] { @apply bg-sk-success text-sk-on-success; }
+[data-sk='avatar'][data-tone='warning'] { @apply bg-sk-warning text-sk-on-warning; }
+[data-sk='avatar'][data-tone='info'] { @apply bg-sk-info text-sk-on-info; }
+[data-sk='avatar'][data-tone='danger'] { @apply bg-sk-danger text-sk-on-danger; }

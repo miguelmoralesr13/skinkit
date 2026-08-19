@@ -1,0 +1,41 @@
+/* ── Code ───────────────────────────────────────────────────── */
+[data-sk='code'] {
+  @apply font-sk-mono text-sk-sm;
+}
+:not(pre) > [data-sk='code'],
+code[data-sk='code']:not([data-block]) {
+  @apply py-px px-1.5 rounded-[6px] bg-sk-surface-2 text-sk-text;
+}
+[data-sk='code'][data-block] {
+  @apply relative block p-4 rounded-sk-md bg-sk-surface-2 text-sk-text overflow-x-auto leading-[1.5];
+}
+[data-sk='code'][data-block] [data-part='content'] {
+  font-family: inherit;
+}
+[data-sk='code'] [data-part='copy'] {
+  @apply absolute top-2 right-2 appearance-none border border-sk-border bg-sk-surface cursor-pointer
+         w-7 h-7 rounded-sk-sm text-sk-text-muted text-[0.9rem];
+}
+[data-sk='code'] [data-part='copy']:hover {
+  @apply text-sk-text;
+}
+[data-sk='code'] [data-part='copy'][data-copied] {
+  @apply text-sk-primary border-sk-primary;
+}
+
+/* Sintaxis (color desde el theme) */
+[data-sk='code'] [data-token='comment'] {
+  @apply italic text-sk-code-comment;
+}
+[data-sk='code'] [data-token='string'] {
+  @apply text-sk-code-string;
+}
+[data-sk='code'] [data-token='number'] {
+  @apply text-sk-code-number;
+}
+[data-sk='code'] [data-token='keyword'] {
+  @apply text-sk-code-keyword;
+}
+[data-sk='code'] [data-token='function'] {
+  @apply text-sk-code-function;
+}

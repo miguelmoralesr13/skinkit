@@ -6,7 +6,7 @@ export const countdownSpec: ComponentSpec = {
   dataSk: 'countdown',
   category: 'Display',
   description:
-    'Cuenta regresiva a un momento (lanzamiento, oferta, deadline). Muestra días/horas/minutos/segundos y avisa al llegar a cero. La forma la da el skin.',
+    'Cuenta regresiva a un momento (lanzamiento, oferta, deadline). Muestra días/horas/minutos/segundos y avisa al llegar a cero. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'to', type: 'string | number', required: true, description: 'Objetivo: ISO string o timestamp (ms).' },

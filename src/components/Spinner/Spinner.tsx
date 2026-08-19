@@ -17,18 +17,18 @@ export interface SpinnerProps extends HTMLAttributes<HTMLSpanElement> {
   size?: SpinnerSize
   /** Color del spinner (del theme). 'primary' (default) no emite data-tone. */
   tone?: SpinnerTone
-  /** Texto para lectores de pantalla (el skin lo oculta visualmente). */
+  /** Texto para lectores de pantalla (el CSS lo oculta visualmente). */
   label?: string
 }
 
 /**
  * Spinner headless — indicador de carga indeterminado. La animación de giro la define el
- * skin (@keyframes sk-spin); el componente solo aporta estructura + semántica de estado.
+ * CSS (@keyframes sk-spin); el componente solo aporta estructura + semántica de estado.
  *
  * Contrato:
- *   [data-sk="spinner"]      raíz (role=status; el skin la anima)
+ *   [data-sk="spinner"]      raíz (role=status; el CSS la anima)
  *   [data-size]              sm | md | lg
- *   [data-part="label"]      texto para lectores (el skin lo oculta visualmente)
+ *   [data-part="label"]      texto para lectores (el CSS lo oculta visualmente)
  */
 export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
   { size = 'md', tone = 'primary', label = 'Cargando…', className, ...rest },

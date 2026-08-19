@@ -1,0 +1,70 @@
+/* ── Prose ──────────────────────────────────────────────────── */
+[data-sk='prose'] {
+  @apply text-sk-text text-sk-md leading-[1.7];
+}
+[data-sk='prose'][data-size='sm'] {
+  @apply text-sk-sm;
+}
+[data-sk='prose'][data-size='lg'] {
+  @apply text-sk-lg;
+}
+[data-sk='prose'] > :first-child {
+  @apply mt-0;
+}
+[data-sk='prose'] > :last-child {
+  @apply mb-0;
+}
+[data-sk='prose'] h1,
+[data-sk='prose'] h2,
+[data-sk='prose'] h3,
+[data-sk='prose'] h4 {
+  @apply text-sk-text font-bold leading-[1.25];
+  margin: 1.6em 0 0.6em;
+}
+[data-sk='prose'] h1 {
+  @apply text-[1.9em];
+}
+[data-sk='prose'] h2 {
+  @apply text-[1.5em];
+}
+[data-sk='prose'] h3 {
+  @apply text-[1.25em];
+}
+[data-sk='prose'] p,
+[data-sk='prose'] ul,
+[data-sk='prose'] ol,
+[data-sk='prose'] blockquote,
+[data-sk='prose'] pre {
+  margin: 0 0 1em;
+}
+[data-sk='prose'] ul,
+[data-sk='prose'] ol {
+  padding-left: 1.4em;
+}
+[data-sk='prose'] li {
+  margin: 0.3em 0;
+}
+[data-sk='prose'] a {
+  @apply text-sk-primary underline underline-offset-2;
+}
+[data-sk='prose'] code {
+  @apply font-sk-mono rounded-[6px] bg-sk-surface-2;
+  font-size: 0.9em;
+  padding: 0.1em 0.35em;
+}
+[data-sk='prose'] pre {
+  @apply font-sk-mono p-3 rounded-sk-md bg-sk-surface-2 overflow-auto;
+}
+[data-sk='prose'] pre code {
+  @apply p-0 bg-transparent;
+}
+[data-sk='prose'] blockquote {
+  @apply pl-3 border-l-[3px] border-sk-border text-sk-text-muted;
+}
+[data-sk='prose'] hr {
+  @apply border-0 border-t border-sk-border;
+  margin: 1.6em 0;
+}
+[data-sk='prose'] img {
+  @apply max-w-full rounded-sk-md;
+}

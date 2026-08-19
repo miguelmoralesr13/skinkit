@@ -9,7 +9,6 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
-import { useSkinkit } from '../../provider/SkinkitProvider'
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full'
 export type DialogPlacement = 'center' | 'left' | 'right' | 'top' | 'bottom'
@@ -47,8 +46,9 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
 /**
  * Dialog headless (modal), compuesto: <Dialog> · <Dialog.Header> · <Dialog.Title> ·
  * <Dialog.Body> · <Dialog.Footer> · <Dialog.Close>. Aporta: portal a <body>, overlay,
- * focus trap, cierre con Esc, scroll lock y ARIA (role=dialog, aria-modal). El portal
- * REAPLICA [data-theme]/[data-skin] (leídos de useSkinkit) para no perder el theming.
+ * focus trap, cierre con Esc, scroll lock y ARIA (role=dialog, aria-modal). No hace falta
+ * reaplicar theming en el portal: los tokens (`--color-sk-*`, `--radius-sk-*`, etc.) viven en
+ * `:root` vía Tailwind `@theme`, ya están disponibles en cualquier punto del documento.
  *
  * Contrato de parts:
  *   [data-sk="dialog"]     [data-size] [data-placement]   raíz portalizada
@@ -72,7 +72,6 @@ export function Dialog({
   children,
   ...rest
 }: DialogProps) {
-  const { theme, skin } = useSkinkit()
   const panelRef = useRef<HTMLDivElement>(null)
   const titleId = useId()
   const descId = useId()
@@ -121,7 +120,7 @@ export function Dialog({
   const labelledBy = rest['aria-label'] ? undefined : titleId
 
   return createPortal(
-    <div data-skinkit-root="" data-theme={theme} data-skin={skin} className="skinkit-root">
+    <div data-skinkit-root="" className="skinkit-root">
       <div
         data-sk="dialog"
         data-size={size}

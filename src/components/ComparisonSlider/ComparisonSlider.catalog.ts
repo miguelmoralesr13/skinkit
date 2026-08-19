@@ -6,7 +6,7 @@ export const comparisonSliderSpec: ComponentSpec = {
   dataSk: 'comparison',
   category: 'Display',
   description:
-    'Compara dos capas (antes/después) con un divisor arrastrable que revela una sobre la otra. Drag con mouse/touch o flechas. Ideal para imágenes (edición, tema claro/oscuro). La forma la da el skin.',
+    'Compara dos capas (antes/después) con un divisor arrastrable que revela una sobre la otra. Drag con mouse/touch o flechas. Ideal para imágenes (edición, tema claro/oscuro). La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'after', type: 'ReactNode', required: true, description: 'Capa de fondo (después).' },

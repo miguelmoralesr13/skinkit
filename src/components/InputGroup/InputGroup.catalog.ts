@@ -6,7 +6,7 @@ export const inputGroupSpec: ComponentSpec = {
   dataSk: 'input-group',
   category: 'Formulario',
   description:
-    'Junta un Input (u otro control) con addons a los lados (texto, ícono o un botón), unidos en una sola pieza visual (ej. "$" | monto | ".00", o usuario | "@dominio"). Compound: InputGroup + InputGroup.Addon. El skin cose los bordes y pinta los addons.',
+    'Junta un Input (u otro control) con addons a los lados (texto, ícono o un botón), unidos en una sola pieza visual (ej. "$" | monto | ".00", o usuario | "@dominio"). Compound: InputGroup + InputGroup.Addon. El CSS cose los bordes y pinta los addons.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'children', type: 'ReactNode', required: true, description: 'Addons (<InputGroup.Addon>) y el Input/control entre ellos.' },
@@ -26,7 +26,7 @@ export const inputGroupSpec: ComponentSpec = {
     },
   ],
   usage: [
-    'Poné el Input (o el control) entre los <InputGroup.Addon>; el skin aplana las esquinas internas.',
+    'Poné el Input (o el control) entre los <InputGroup.Addon>; el CSS aplana las esquinas internas.',
     'Para un simple label arriba del input, usá la prop label del Input, no InputGroup.',
   ],
 }

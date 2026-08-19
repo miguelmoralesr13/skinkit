@@ -16,7 +16,7 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
   /** Valor actual. Omitir (o indeterminate) para progreso indeterminado. */
   value?: number
   max?: number
-  /** Progreso sin valor conocido: el skin lo anima. */
+  /** Progreso sin valor conocido: el CSS lo anima. */
   indeterminate?: boolean
   /** Color del indicador (del theme). 'primary' (default) no emite data-tone. */
   tone?: ProgressTone
@@ -25,7 +25,7 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * Progress headless — barra de progreso (determinada o indeterminada). role="progressbar"
  * con aria-valuenow/min/max. El indicador se dimensiona con la variable --sk-progress
- * (0–1); la forma/animación las da el skin.
+ * (0–1); la forma/animación las da el CSS.
  *
  * Contrato:
  *   [data-sk="progress"]     raíz (role=progressbar) · [data-indeterminate] si aplica

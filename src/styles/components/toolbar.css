@@ -1,0 +1,13 @@
+/* Toolbar — ver src/components/Toolbar/Toolbar.tsx. */
+[data-sk='toolbar'] {
+  @apply inline-flex items-center gap-2 p-1 rounded-sk-md bg-sk-surface-2;
+}
+[data-sk='toolbar'][data-orientation='vertical'] {
+  @apply flex-col items-stretch;
+}
+[data-sk='toolbar'] [data-part='separator'] {
+  @apply w-px self-stretch bg-sk-border mx-1;
+}
+[data-sk='toolbar'][data-orientation='vertical'] [data-part='separator'] {
+  @apply w-auto h-px mx-0 my-1;
+}

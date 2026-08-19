@@ -88,7 +88,7 @@ export interface ResizableProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * Resizable headless, compuesto: <Resizable> · <Resizable.Panel>. Varios paneles con divisores
  * (auto-insertados entre paneles) que se arrastran para redimensionar. Horizontal o vertical, y
- * anidable (un Resizable dentro de un Panel = grilla). La forma la da el skin.
+ * anidable (un Resizable dentro de un Panel = grilla). La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="resizable"]   [data-direction]   raíz

@@ -6,7 +6,7 @@ export const spinnerSpec: ComponentSpec = {
   dataSk: 'spinner',
   category: 'Display',
   description:
-    'Indicador de carga indeterminado (giro continuo) para esperas de duración desconocida. La animación la define el skin; el componente aporta la semántica role="status".',
+    'Indicador de carga indeterminado (giro continuo) para esperas de duración desconocida. La animación la define el CSS; el componente aporta la semántica role="status".',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [
     {
@@ -28,12 +28,12 @@ export const spinnerSpec: ComponentSpec = {
       type: 'string',
       required: false,
       default: "'Cargando…'",
-      description: 'Texto para lectores de pantalla. El skin lo oculta visualmente (queda accesible).',
+      description: 'Texto para lectores de pantalla. El CSS lo oculta visualmente (queda accesible).',
     },
   ],
   parts: [
-    { name: 'root', description: 'El indicador (role=status). El skin lo anima con @keyframes sk-spin.' },
-    { name: 'label', description: 'Texto para lectores; el skin lo oculta visualmente (visually-hidden).' },
+    { name: 'root', description: 'El indicador (role=status). El CSS lo anima con @keyframes sk-spin.' },
+    { name: 'label', description: 'Texto para lectores; el CSS lo oculta visualmente (visually-hidden).' },
   ],
   examples: [
     { title: 'Básico', code: '<Spinner />' },
@@ -43,10 +43,10 @@ export const spinnerSpec: ComponentSpec = {
   usage: [
     'Usalo para esperas indeterminadas (no sabés cuánto falta). Si conocés el progreso, usá una barra de progreso.',
     'Dejá el `label` con un texto útil ("Cargando…", "Guardando…"): es lo que anuncia el lector de pantalla.',
-    'Sin skin no gira (la animación vive en el skin): es esperado en esta librería.',
+    'Sin CSS no gira (la animación vive en el CSS): es esperado en esta librería.',
   ],
   a11y: [
     'role="status" anuncia el estado de carga de forma no intrusiva (live region polite).',
-    'El label va en [data-part="label"] y el skin lo oculta visualmente sin sacarlo del árbol accesible.',
+    'El label va en [data-part="label"] y el CSS lo oculta visualmente sin sacarlo del árbol accesible.',
   ],
 }

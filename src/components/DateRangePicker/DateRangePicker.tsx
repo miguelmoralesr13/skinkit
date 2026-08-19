@@ -29,7 +29,7 @@ function fromISO(s?: string | null): Date | null {
 /**
  * DateRangePicker headless — campo que abre un <RangeCalendar> en un <Popover> para elegir un
  * rango de fechas. Se cierra al completar el rango. Construido sobre Popover + RangeCalendar.
- * Reusa el look de DatePicker (emite [data-sk="date-picker"]). La forma la da el skin.
+ * Reusa el look de DatePicker (emite [data-sk="date-picker"]). La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="date-picker"][data-range]   raíz · [data-error]

@@ -1,0 +1,39 @@
+/**
+ * editable.css — estilo del componente Editable (data-sk="editable").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+[data-sk='editable'] {
+  @apply flex flex-col gap-1;
+}
+
+[data-sk='editable'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='editable'] [data-part='preview'] {
+  @apply px-3 py-2 rounded-sk-sm border border-transparent cursor-text text-sk-text text-sk-md;
+}
+
+[data-sk='editable'] [data-part='preview']:hover {
+  @apply bg-sk-surface-2;
+}
+
+[data-sk='editable'][data-empty] [data-part='preview'] {
+  @apply text-sk-text-muted;
+}
+
+[data-sk='editable'] [data-part='field'] {
+  font: inherit;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  @apply px-3 py-2 border border-sk-primary rounded-sk-sm bg-sk-surface text-sk-text text-sk-md;
+}
+
+[data-sk='editable'] textarea[data-part='field'] {
+  min-height: 4rem;
+  @apply resize-y;
+}
+
+[data-sk='editable'] [data-part='field']:focus {
+  outline: none;
+}

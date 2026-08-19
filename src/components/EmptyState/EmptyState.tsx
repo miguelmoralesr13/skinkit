@@ -12,7 +12,7 @@ export interface EmptyStateProps extends Omit<HTMLAttributes<HTMLDivElement>, 't
 
 /**
  * EmptyState headless — mensaje para cuando no hay contenido (lista vacía, sin resultados).
- * Ícono + título + descripción + acciones opcionales. La forma la da el skin.
+ * Ícono + título + descripción + acciones opcionales. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="empty"]           raíz

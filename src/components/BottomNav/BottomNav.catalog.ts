@@ -6,7 +6,7 @@ export const bottomNavSpec: ComponentSpec = {
   dataSk: 'bottom-nav',
   category: 'Navegación',
   description:
-    'Barra de navegación inferior (tab bar tipo mobile): ícono + label por item, con estado activo. Compound: BottomNav + BottomNav.Item. No se posiciona sola (no es fixed): la ubica el consumidor o el AppShell (área footer). La forma la da el skin.',
+    'Barra de navegación inferior (tab bar tipo mobile): ícono + label por item, con estado activo. Compound: BottomNav + BottomNav.Item. No se posiciona sola (no es fixed): la ubica el consumidor o el AppShell (área footer). La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del ítem activo (del theme).' },

@@ -6,7 +6,7 @@ export const scrollAreaSpec: ComponentSpec = {
   dataSk: 'scroll-area',
   category: 'Display',
   description:
-    'Región con scroll y barra estilizada por el skin (scrollbar-color / ::-webkit-scrollbar), manteniendo el scroll nativo (rueda, teclado, touch). Solo cambia el look de la barra.',
+    'Región con scroll y barra estilizada por el CSS (scrollbar-color / ::-webkit-scrollbar), manteniendo el scroll nativo (rueda, teclado, touch). Solo cambia el look de la barra.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'orientation', type: "'vertical' | 'horizontal' | 'both'", required: false, default: "'vertical'", description: 'Eje(s) con scroll.' },

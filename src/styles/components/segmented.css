@@ -1,0 +1,32 @@
+/**
+ * segmented.css — estilo del componente SegmentedControl (data-sk="segmented").
+ * Portado desde src/styles/skins/soft.css.
+ * El box-shadow del item activo (0 2px 6px) no matchea ninguno de los 3 tokens (--shadow-sk-sm
+ * es 0 2px 8px) — se deja como plain CSS para preservar el valor original.
+ */
+
+[data-sk='segmented'] {
+  padding: 3px;
+  @apply inline-flex gap-0.5 bg-sk-surface-2 rounded-sk-pill;
+}
+
+[data-sk='segmented'] [data-part='item'] {
+  appearance: none;
+  font: inherit;
+  transition: background 0.15s ease, color 0.15s ease;
+  @apply border-none cursor-pointer px-4 py-2 rounded-sk-pill bg-transparent text-sk-text-muted
+         text-sk-sm font-semibold;
+}
+
+[data-sk='segmented'] [data-part='item']:hover:not([data-state='active']) {
+  @apply text-sk-text;
+}
+
+[data-sk='segmented'] [data-part='item'][data-state='active'] {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  @apply bg-sk-surface text-sk-text;
+}
+
+[data-sk='segmented'] [data-part='item']:focus-visible {
+  @apply outline outline-2 outline-sk-primary outline-offset-2;
+}

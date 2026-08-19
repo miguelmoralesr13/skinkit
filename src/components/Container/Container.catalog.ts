@@ -6,7 +6,7 @@ export const containerSpec: ComponentSpec = {
   dataSk: 'container',
   category: 'Layout',
   description:
-    'Envoltorio centrado con ancho máximo por preset (sm/md/lg/xl/full) y padding horizontal responsive. Centra el contenido de una página o sección para que no se estire infinito en pantallas anchas. El CSS vive en la hoja base, no en los skins.',
+    'Envoltorio centrado con ancho máximo por preset (sm/md/lg/xl/full) y padding horizontal responsive. Centra el contenido de una página o sección para que no se estire infinito en pantallas anchas. El CSS vive en la hoja base, no en el CSS por-componente.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", required: false, default: "'lg'", description: 'Ancho máximo: sm 40rem, md 48rem, lg 64rem, xl 80rem, full sin tope.' },

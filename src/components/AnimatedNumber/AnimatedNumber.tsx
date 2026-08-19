@@ -15,7 +15,7 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
 /**
  * AnimatedNumber headless — anima el conteo desde el valor anterior hasta `value` (métricas,
- * contadores). Sin estilo propio salvo tabular-nums (lo pone el skin).
+ * contadores). Sin estilo propio salvo tabular-nums (lo pone el CSS).
  *
  * Contrato:
  *   [data-sk="animated-number"]   raíz (<span>)

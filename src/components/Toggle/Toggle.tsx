@@ -25,7 +25,7 @@ export interface ToggleProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 /**
  * Toggle headless — botón de DOS estados que queda presionado (ej. negrita en una toolbar).
  * A diferencia de Switch (control de formulario on/off), esto es una acción con estado.
- * aria-pressed + [data-state]. Controlado o no. La forma la da el skin.
+ * aria-pressed + [data-state]. Controlado o no. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="toggle"]   [data-state] [data-size]   raíz (on|off · sm|md|lg)

@@ -12,7 +12,7 @@ export type NavTone =
   | 'danger'
 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
-  /** Modo colapsado: el skin muestra sólo íconos (rail). */
+  /** Modo colapsado: el CSS muestra sólo íconos (rail). */
   collapsed?: boolean
   /** Color del ítem activo (del theme). 'primary' (default) no emite data-tone. */
   tone?: NavTone
@@ -21,7 +21,7 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
 
 /**
  * Sidebar headless — navegación vertical de app. Compound: Sidebar + Sidebar.Section +
- * Sidebar.Item. `collapsed` deja un rail de sólo íconos (lo resuelve el skin). Sólo estructura.
+ * Sidebar.Item. `collapsed` deja un rail de sólo íconos (lo resuelve el CSS). Sólo estructura.
  *
  * Contrato:
  *   [data-sk="sidebar"]        raíz (<aside>) · [data-collapsed]

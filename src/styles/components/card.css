@@ -1,0 +1,13 @@
+/* ── Card ───────────────────────────────────────────────────── */
+[data-sk='card'] {
+  @apply bg-sk-surface border border-sk-border rounded-sk-lg shadow-sk-lg overflow-hidden;
+}
+[data-sk='card'] [data-part='header'] {
+  @apply px-5 py-4 font-semibold border-b border-sk-border;
+}
+[data-sk='card'] [data-part='body'] {
+  @apply p-5 text-sk-text-muted;
+}
+[data-sk='card'] [data-part='footer'] {
+  @apply px-5 py-4 border-t border-sk-border bg-sk-surface-2;
+}

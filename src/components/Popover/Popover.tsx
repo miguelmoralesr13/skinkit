@@ -37,8 +37,8 @@ export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Popover headless, compuesto: <Popover> · <Popover.Trigger> · <Popover.Content>. Contenido
- * flotante arbitrario que abre al click. Sin portal (conserva theme/skin). Cierra con Esc o
- * click afuera. La forma/posición ([data-side]) las da el skin.
+ * flotante arbitrario que abre al click. Sin portal. Cierra con Esc o
+ * click afuera. La forma/posición ([data-side]) las da el CSS.
  *
  * Contrato:
  *   [data-sk="popover"]     [data-side]  raíz (envuelve trigger + content)

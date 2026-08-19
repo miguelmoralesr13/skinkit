@@ -1,0 +1,45 @@
+/* ── Sidebar ────────────────────────────────────────────────── */
+[data-sk='sidebar'] {
+  @apply flex flex-col gap-4 p-3 bg-sk-surface border-r border-sk-border min-w-56;
+}
+[data-sk='sidebar'][data-collapsed] {
+  @apply min-w-0;
+}
+[data-sk='sidebar'] [data-part='section'] {
+  @apply flex flex-col gap-0.5;
+}
+[data-sk='sidebar'] [data-part='section-label'] {
+  @apply text-sk-sm uppercase text-sk-text-muted px-2 py-1 tracking-[0.04em];
+}
+[data-sk='sidebar'] [data-part='item'] {
+  @apply flex items-center gap-2 p-2 rounded-sk-sm text-sk-text-muted no-underline cursor-pointer;
+}
+[data-sk='sidebar'] [data-part='item']:hover {
+  @apply bg-sk-surface-2 text-sk-text;
+}
+[data-sk='sidebar'] [data-part='item'][data-active] {
+  @apply bg-sk-primary text-sk-on-primary;
+}
+[data-sk='sidebar'] [data-part='item-label'] {
+  @apply flex-1;
+}
+[data-sk='sidebar'] [data-part='item-badge'] {
+  @apply text-sk-sm bg-sk-surface-2 text-sk-text px-1 rounded-sk-pill min-w-5 text-center;
+}
+[data-sk='sidebar'][data-collapsed] [data-part='item-label'],
+[data-sk='sidebar'][data-collapsed] [data-part='item-badge'],
+[data-sk='sidebar'][data-collapsed] [data-part='section-label'] {
+  @apply hidden;
+}
+[data-sk='sidebar'][data-collapsed] [data-part='item'] {
+  @apply justify-center;
+}
+
+/* Tonos (ítem activo) */
+[data-sk='sidebar'][data-tone='secondary'] [data-part='item'][data-active] { @apply bg-sk-secondary text-sk-on-secondary; }
+[data-sk='sidebar'][data-tone='tertiary'] [data-part='item'][data-active] { @apply bg-sk-tertiary text-sk-on-tertiary; }
+[data-sk='sidebar'][data-tone='accent'] [data-part='item'][data-active] { @apply bg-sk-accent text-sk-on-accent; }
+[data-sk='sidebar'][data-tone='success'] [data-part='item'][data-active] { @apply bg-sk-success text-sk-on-success; }
+[data-sk='sidebar'][data-tone='warning'] [data-part='item'][data-active] { @apply bg-sk-warning text-sk-on-warning; }
+[data-sk='sidebar'][data-tone='info'] [data-part='item'][data-active] { @apply bg-sk-info text-sk-on-info; }
+[data-sk='sidebar'][data-tone='danger'] [data-part='item'][data-active] { @apply bg-sk-danger text-sk-on-danger; }

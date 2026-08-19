@@ -26,10 +26,10 @@ export interface CopyButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonEle
 
 /**
  * CopyButton headless — copia `value` al portapapeles y muestra feedback de "copiado".
- * La forma la da el skin; el estado se expone en [data-copied].
+ * La forma la da el CSS; el estado se expone en [data-copied].
  *
  * Contrato:
- *   [data-sk="copy-button"]   [data-copied]   raíz (el skin puede cambiar el look al copiar)
+ *   [data-sk="copy-button"]   [data-copied]   raíz (el CSS puede cambiar el look al copiar)
  */
 export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(function CopyButton(
   { value, children = 'Copiar', copiedLabel = 'Copiado', timeout = 1500, tone = 'primary', className, onClick, type, ...rest },

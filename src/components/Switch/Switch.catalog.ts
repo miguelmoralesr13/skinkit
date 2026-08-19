@@ -6,7 +6,7 @@ export const switchSpec: ComponentSpec = {
   dataSk: 'switch',
   category: 'Formulario',
   description:
-    'Interruptor on/off para activar/desactivar algo de efecto inmediato (preferencias, settings). Headless: es un checkbox nativo con role="switch"; el skin pinta el riel y la perilla.',
+    'Interruptor on/off para activar/desactivar algo de efecto inmediato (preferencias, settings). Headless: es un checkbox nativo con role="switch"; el CSS pinta el riel y la perilla.',
   extends: 'Omit<InputHTMLAttributes<HTMLInputElement>, "type">',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del estado encendido (del theme).' },
@@ -18,9 +18,9 @@ export const switchSpec: ComponentSpec = {
     },
   ],
   parts: [
-    { name: 'control', description: 'El <input type=checkbox role=switch>. El skin lo oculta visualmente.' },
+    { name: 'control', description: 'El <input type=checkbox role=switch>. El CSS lo oculta visualmente.' },
     { name: 'track', description: 'Riel de fondo; cambia de color con :checked.' },
-    { name: 'thumb', description: 'Perilla que el skin desliza según :checked.' },
+    { name: 'thumb', description: 'Perilla que el CSS desliza según :checked.' },
     { name: 'label', description: 'Texto.' },
   ],
   examples: [

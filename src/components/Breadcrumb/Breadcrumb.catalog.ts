@@ -6,7 +6,7 @@ export const breadcrumbSpec: ComponentSpec = {
   dataSk: 'breadcrumb',
   category: 'Navegación',
   description:
-    'Rastro de navegación jerárquica (Inicio / Sección / Página actual). Compuesto: <Breadcrumb> con <Breadcrumb.Item>. El separador lo dibuja el skin, no el markup.',
+    'Rastro de navegación jerárquica (Inicio / Sección / Página actual). Compuesto: <Breadcrumb> con <Breadcrumb.Item>. El separador lo dibuja el CSS, no el markup.',
   extends: 'HTMLAttributes<HTMLElement>',
   props: [
     { name: 'label', type: 'string', required: false, default: "'Breadcrumb'", description: 'aria-label del <nav>.' },
@@ -27,7 +27,7 @@ export const breadcrumbSpec: ComponentSpec = {
   usage: [
     'El último ítem (página actual) va con `current` → se renderiza como texto, no como enlace.',
     'Los demás llevan `href` (y cualquier prop de <a>).',
-    'El separador (/, ›, etc.) lo pone el skin entre ítems; no lo agregues al texto.',
+    'El separador (/, ›, etc.) lo pone el CSS entre ítems; no lo agregues al texto.',
   ],
   a11y: [
     '<nav aria-label> + <ol>; el ítem actual usa aria-current="page".',

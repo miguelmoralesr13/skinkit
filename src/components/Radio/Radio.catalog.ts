@@ -69,7 +69,7 @@ export const radioSpec: ComponentSpec = {
   dataSk: 'radio',
   category: 'Formulario',
   description:
-    'Una opción dentro de un RadioGroup. Headless: el input nativo es la fuente de verdad; el skin lo oculta y pinta el círculo. Suelto (sin grupo) funciona con props nativas.',
+    'Una opción dentro de un RadioGroup. Headless: el input nativo es la fuente de verdad; el CSS lo oculta y pinta el círculo. Suelto (sin grupo) funciona con props nativas.',
   extends: 'Omit<InputHTMLAttributes<HTMLInputElement>, "type">',
   props: [
     {
@@ -87,7 +87,7 @@ export const radioSpec: ComponentSpec = {
     },
   ],
   parts: [
-    { name: 'control', description: 'El <input type=radio>. El skin lo oculta visualmente (queda focuseable).' },
+    { name: 'control', description: 'El <input type=radio>. El CSS lo oculta visualmente (queda focuseable).' },
     { name: 'box', description: 'Círculo/caja visual pintado según :checked.' },
     { name: 'indicator', description: 'Punto de selección dentro del círculo.' },
     { name: 'label', description: 'Texto de la opción.' },

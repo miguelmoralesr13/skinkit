@@ -1,0 +1,37 @@
+/* ── Menubar ────────────────────────────────────────────────── */
+[data-sk='menubar'] {
+  @apply inline-flex items-center gap-1 p-1 bg-sk-surface border border-sk-border rounded-sk-md;
+}
+
+/* Cada menú de nivel superior (Menubar.Menu) */
+[data-sk='menubar-menu'] {
+  @apply relative;
+}
+[data-sk='menubar-menu'] [data-part='trigger'] {
+  font: inherit;
+  @apply text-sk-text bg-transparent border-0 px-3 py-1 rounded-sk-sm cursor-pointer;
+}
+[data-sk='menubar-menu'] [data-part='trigger']:hover {
+  @apply bg-sk-surface-2;
+}
+[data-sk='menubar-menu'] [data-part='trigger'][data-state='open'] {
+  @apply bg-sk-primary text-sk-on-primary;
+}
+[data-sk='menubar-menu'] [data-part='content'] {
+  @apply absolute left-0 z-50 min-w-[11rem] flex flex-col p-1
+         bg-sk-surface border border-sk-border rounded-sk-md;
+  top: calc(100% + 4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+/* Opción del dropdown (Menubar.Item) */
+[data-sk='menubar-item'] {
+  font: inherit;
+  @apply text-left text-sk-text bg-transparent border-0 px-3 py-2 rounded-sk-sm cursor-pointer;
+}
+[data-sk='menubar-item']:hover {
+  @apply bg-sk-surface-2;
+}
+[data-sk='menubar-item']:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}

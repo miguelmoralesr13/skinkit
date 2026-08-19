@@ -1,0 +1,67 @@
+/**
+ * radio-card-group.css — estilo del componente RadioCardGroup (data-sk="radio-card-group").
+ * Portado desde src/styles/skins/soft.css. Las tarjetas anidadas ([data-sk="radio-card"]) tienen
+ * su propio archivo (radio-card.css); acá sólo el layout del grid y la cascada de tone.
+ */
+
+[data-sk='radio-card-group'] {
+  @apply grid gap-3;
+}
+
+/* ── cascada de tone del grupo hacia las tarjetas anidadas ── */
+[data-sk='radio-card-group'][data-tone='secondary'] [data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-secondary) 22%, transparent);
+  @apply border-sk-secondary;
+}
+[data-sk='radio-card-group'][data-tone='secondary'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-secondary) 0 45%, transparent 50%);
+  @apply border-sk-secondary;
+}
+[data-sk='radio-card-group'][data-tone='tertiary'] [data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-tertiary) 22%, transparent);
+  @apply border-sk-tertiary;
+}
+[data-sk='radio-card-group'][data-tone='tertiary'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-tertiary) 0 45%, transparent 50%);
+  @apply border-sk-tertiary;
+}
+[data-sk='radio-card-group'][data-tone='accent'] [data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-accent) 22%, transparent);
+  @apply border-sk-accent;
+}
+[data-sk='radio-card-group'][data-tone='accent'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-accent) 0 45%, transparent 50%);
+  @apply border-sk-accent;
+}
+[data-sk='radio-card-group'][data-tone='success'] [data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-success) 22%, transparent);
+  @apply border-sk-success;
+}
+[data-sk='radio-card-group'][data-tone='success'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-success) 0 45%, transparent 50%);
+  @apply border-sk-success;
+}
+[data-sk='radio-card-group'][data-tone='warning'] [data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-warning) 22%, transparent);
+  @apply border-sk-warning;
+}
+[data-sk='radio-card-group'][data-tone='warning'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-warning) 0 45%, transparent 50%);
+  @apply border-sk-warning;
+}
+[data-sk='radio-card-group'][data-tone='info'] [data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-info) 22%, transparent);
+  @apply border-sk-info;
+}
+[data-sk='radio-card-group'][data-tone='info'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-info) 0 45%, transparent 50%);
+  @apply border-sk-info;
+}
+[data-sk='radio-card-group'][data-tone='danger'] [data-sk='radio-card'][data-state='checked'] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-danger) 22%, transparent);
+  @apply border-sk-danger;
+}
+[data-sk='radio-card-group'][data-tone='danger'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
+  background: radial-gradient(circle, var(--color-sk-danger) 0 45%, transparent 50%);
+  @apply border-sk-danger;
+}

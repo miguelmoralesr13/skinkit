@@ -1,0 +1,16 @@
+/* ── EmptyState ─────────────────────────────────────────────── */
+[data-sk='empty'] {
+  @apply flex flex-col items-center text-center gap-3 px-5 py-8;
+}
+[data-sk='empty'] [data-part='icon'] {
+  @apply text-sk-text-muted opacity-60 text-[2rem] leading-none;
+}
+[data-sk='empty'] [data-part='title'] {
+  @apply text-sk-lg font-bold text-sk-text;
+}
+[data-sk='empty'] [data-part='description'] {
+  @apply text-sk-md text-sk-text-muted max-w-[34ch] leading-[1.5];
+}
+[data-sk='empty'] [data-part='actions'] {
+  @apply mt-2 flex gap-2;
+}

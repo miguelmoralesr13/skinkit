@@ -35,8 +35,8 @@ export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Menu (dropdown) headless, compuesto: <Menu> · <Menu.Trigger> · <Menu.Content> · <Menu.Item>.
- * In-tree (sin portal → conserva el scope de theme/skin). Abre al click, cierra con Esc / click
- * afuera / elegir un ítem. Teclado ↑ ↓ Home End entre ítems. La forma/posición las da el skin.
+ * In-tree (sin portal). Abre al click, cierra con Esc / click afuera / elegir un ítem.
+ * Teclado ↑ ↓ Home End entre ítems. La forma/posición las da el CSS.
  *
  * Contrato:
  *   [data-sk="menu"]        [data-side]  raíz (envuelve trigger + content)

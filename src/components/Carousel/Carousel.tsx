@@ -19,7 +19,7 @@ export interface CarouselProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onC
 /**
  * Carousel headless — muestra un slide a la vez de varios, con anterior/siguiente y puntos.
  * Compuesto: <Carousel> con <Carousel.Slide>. Cuenta los slides y arma los controles solo.
- * La forma (transición, tamaño) la da el skin.
+ * La forma (transición, tamaño) la da el CSS.
  *
  * Contrato:
  *   [data-sk="carousel"]     raíz (role=region)

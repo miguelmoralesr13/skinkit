@@ -6,7 +6,7 @@ export const avatarGroupSpec: ComponentSpec = {
   dataSk: 'avatar-group',
   category: 'Display',
   description:
-    'Apila varios <Avatar> superpuestos y resume el excedente en un "+N" (equipos, participantes). El solapamiento y el borde de recorte los da el skin.',
+    'Apila varios <Avatar> superpuestos y resume el excedente en un "+N" (equipos, participantes). El solapamiento y el borde de recorte los da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'max', type: 'number', required: false, description: 'Máximo de avatares visibles; el resto se resume en "+N". Sin max, muestra todos.' },
@@ -25,6 +25,6 @@ export const avatarGroupSpec: ComponentSpec = {
   usage: [
     'Los hijos deben ser <Avatar>; poné el mismo `size` en todos para que solapen parejo.',
     'Con muchos, usá `max` para no saturar: el resto se cuenta en "+N".',
-    'El orden de apilado (quién queda arriba) lo decide el skin.',
+    'El orden de apilado (quién queda arriba) lo decide el CSS.',
   ],
 }

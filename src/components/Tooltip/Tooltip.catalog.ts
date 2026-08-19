@@ -6,7 +6,7 @@ export const tooltipSpec: ComponentSpec = {
   dataSk: 'tooltip',
   category: 'Feedback',
   description:
-    'Burbuja de ayuda que aparece al pasar el mouse o enfocar un elemento. Sin portal (vive en el árbol → conserva el scope de theme/skin). Mostrar/ocultar y posición los da el skin.',
+    'Burbuja de ayuda que aparece al pasar el mouse o enfocar un elemento. Sin portal. Mostrar/ocultar y posición los da el CSS.',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [
     {
@@ -32,7 +32,7 @@ export const tooltipSpec: ComponentSpec = {
   parts: [
     { name: 'root', description: 'Contenedor. Lleva [data-side].' },
     { name: 'trigger', description: 'Envuelve al disparador; aria-describedby apunta al contenido.' },
-    { name: 'content', description: 'La burbuja (role=tooltip). El skin la muestra en :hover/:focus-within.' },
+    { name: 'content', description: 'La burbuja (role=tooltip). El CSS la muestra en :hover/:focus-within.' },
   ],
   examples: [
     { title: 'En un botón', code: '<Tooltip label="Guardar cambios"><Button>Guardar</Button></Tooltip>' },

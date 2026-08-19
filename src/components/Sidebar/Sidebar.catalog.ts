@@ -6,7 +6,7 @@ export const sidebarSpec: ComponentSpec = {
   dataSk: 'sidebar',
   category: 'Navegación',
   description:
-    'Navegación vertical de aplicación. Compound: Sidebar + Sidebar.Section + Sidebar.Item (ícono, label, badge, activo). `collapsed` deja un rail de sólo íconos (lo resuelve el skin). La forma la da el skin.',
+    'Navegación vertical de aplicación. Compound: Sidebar + Sidebar.Section + Sidebar.Item (ícono, label, badge, activo). `collapsed` deja un rail de sólo íconos (lo resuelve el CSS). La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del ítem activo (del theme).' },
@@ -26,7 +26,7 @@ export const sidebarSpec: ComponentSpec = {
     { title: 'Rail colapsado', code: '<Sidebar collapsed>\n  <Sidebar.Item href="#" icon="🏠" active>Inicio</Sidebar.Item>\n</Sidebar>' },
   ],
   usage: [
-    'Con `collapsed` el skin oculta los labels y deja sólo íconos; conservá los íconos para que el rail siga siendo navegable.',
+    'Con `collapsed` el CSS oculta los labels y deja sólo íconos; conservá los íconos para que el rail siga siendo navegable.',
     'Agrupá items con Sidebar.Section (con o sin label).',
     'Combinalo con AppShell (área sidebar) y Topbar para el layout completo.',
   ],

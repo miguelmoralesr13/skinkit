@@ -6,7 +6,7 @@ export const fieldsetSpec: ComponentSpec = {
   dataSk: 'fieldset',
   category: 'Formulario',
   description:
-    'Agrupa campos relacionados bajo una leyenda. Usa <fieldset>/<legend> nativos: `disabled` deshabilita en cascada TODOS los controles de adentro. La forma la da el skin.',
+    'Agrupa campos relacionados bajo una leyenda. Usa <fieldset>/<legend> nativos: `disabled` deshabilita en cascada TODOS los controles de adentro. La forma la da el CSS.',
   extends: 'FieldsetHTMLAttributes<HTMLFieldSetElement>',
   props: [
     { name: 'legend', type: 'ReactNode', required: false, description: 'Título del grupo (<legend>).' },

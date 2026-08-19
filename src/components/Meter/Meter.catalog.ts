@@ -6,7 +6,7 @@ export const meterSpec: ComponentSpec = {
   dataSk: 'meter',
   category: 'Display',
   description:
-    'Mide un valor dentro de un rango conocido (uso de disco, batería, score). A diferencia de Progress (avance de una tarea), es una medición estática. role="meter". La forma la da el skin.',
+    'Mide un valor dentro de un rango conocido (uso de disco, batería, score). A diferencia de Progress (avance de una tarea), es una medición estática. role="meter". La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'value', type: 'number', required: true, description: 'Valor actual (entre min y max).' },

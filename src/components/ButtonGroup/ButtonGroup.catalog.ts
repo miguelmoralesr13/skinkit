@@ -6,7 +6,7 @@ export const buttonGroupSpec: ComponentSpec = {
   dataSk: 'button-group',
   category: 'Acción',
   description:
-    'Junta varios <Button> en un bloque unido (toolbars, acciones relacionadas). El skin colapsa los bordes/radios internos para que se vean pegados.',
+    'Junta varios <Button> en un bloque unido (toolbars, acciones relacionadas). El CSS colapsa los bordes/radios internos para que se vean pegados.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'orientation', type: "'horizontal' | 'vertical'", required: false, default: "'horizontal'", description: 'Dirección del grupo.' },
@@ -24,7 +24,7 @@ export const buttonGroupSpec: ComponentSpec = {
   usage: [
     'Meté <Button> como hijos; conviene que compartan variant (ej. todos outlined) para que el bloque se vea parejo.',
     'Para elegir UNA opción de varias (no acciones), usá SegmentedControl.',
-    'El colapso de bordes lo hace el skin; no le pongas radios propios a los botones internos.',
+    'El colapso de bordes lo hace el CSS; no le pongas radios propios a los botones internos.',
   ],
   a11y: ['role=group; pasá `label` si el conjunto necesita nombre accesible.'],
 }

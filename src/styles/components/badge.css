@@ -1,0 +1,18 @@
+/* ── Badge ──────────────────────────────────────────────────── */
+[data-sk='badge'] {
+  @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-sk-pill text-sk-sm font-semibold
+         leading-[1.4] bg-sk-surface-2 text-sk-text;
+}
+[data-sk='badge'][data-variant='primary'] {
+  @apply bg-sk-primary text-sk-on-primary;
+}
+/* Nota: el skin original usa on-primary (no on-danger) para el texto de danger — se preserva tal cual. */
+[data-sk='badge'][data-variant='danger'] {
+  @apply bg-sk-danger text-sk-on-primary;
+}
+[data-sk='badge'][data-variant='secondary'] { @apply bg-sk-secondary text-sk-on-secondary; }
+[data-sk='badge'][data-variant='tertiary'] { @apply bg-sk-tertiary text-sk-on-tertiary; }
+[data-sk='badge'][data-variant='accent'] { @apply bg-sk-accent text-sk-on-accent; }
+[data-sk='badge'][data-variant='success'] { @apply bg-sk-success text-sk-on-success; }
+[data-sk='badge'][data-variant='warning'] { @apply bg-sk-warning text-sk-on-warning; }
+[data-sk='badge'][data-variant='info'] { @apply bg-sk-info text-sk-on-info; }

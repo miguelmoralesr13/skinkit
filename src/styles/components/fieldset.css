@@ -1,0 +1,29 @@
+/**
+ * fieldset.css — estilo del componente Fieldset (data-sk="fieldset").
+ * Portado desde src/styles/skins/soft.css.
+ * Radio 14px no matchea limpio ningún token (sm=8px/md=12px/lg=16px) — arbitrary value.
+ */
+
+[data-sk='fieldset'] {
+  @apply border border-sk-border rounded-[14px] px-5 pt-4 pb-5 m-0;
+}
+
+[data-sk='fieldset'][data-error] {
+  @apply border-sk-danger;
+}
+
+[data-sk='fieldset'] [data-part='legend'] {
+  @apply px-2 font-bold text-sk-md text-sk-text;
+}
+
+[data-sk='fieldset'] [data-part='content'] {
+  @apply flex flex-col gap-4;
+}
+
+[data-sk='fieldset'] [data-part='helper'] {
+  @apply mt-3 text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='fieldset'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}

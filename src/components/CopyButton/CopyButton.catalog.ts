@@ -6,7 +6,7 @@ export const copyButtonSpec: ComponentSpec = {
   dataSk: 'copy-button',
   category: 'Acción',
   description:
-    'Copia un texto al portapapeles y muestra feedback "copiado" por un momento. La forma la da el skin; el estado se expone en [data-copied].',
+    'Copia un texto al portapapeles y muestra feedback "copiado" por un momento. La forma la da el CSS; el estado se expone en [data-copied].',
   extends: "Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'value'>",
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de acento (del theme).' },    { name: 'value', type: 'string', required: true, description: 'Texto a copiar.' },

@@ -43,7 +43,7 @@ export interface RadioCardGroupProps
 /**
  * RadioCardGroup headless — grupo de opciones donde cada una es una TARJETA seleccionable
  * (planes, métodos de pago). Compuesto: <RadioCardGroup> con <RadioCard>. Selección única
- * nativa (radios ocultos). La forma la da el skin.
+ * nativa (radios ocultos). La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="radio-card-group"]   raíz (role=radiogroup)
@@ -94,7 +94,7 @@ export interface RadioCardProps extends Omit<InputHTMLAttributes<HTMLInputElemen
 /**
  * Contrato de <RadioCard>:
  *   [data-sk="radio-card"]   [data-state]  raíz (<label>)
- *   [data-part="control"]    el <input type=radio> (el skin lo oculta)
+ *   [data-part="control"]    el <input type=radio> (el CSS lo oculta)
  *   [data-part="icon"]       ícono opcional
  *   [data-part="title"]      título
  *   [data-part="description"] descripción opcional

@@ -14,7 +14,7 @@ export interface MarqueeProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Marquee headless — tira de contenido que se desplaza en loop (logos, avisos, tickers). El
- * contenido se duplica para un loop sin costura; la animación la corre el skin (--sk-marquee-*).
+ * contenido se duplica para un loop sin costura; la animación la corre el CSS (--sk-marquee-*).
  *
  * Contrato:
  *   [data-sk="marquee"]   [data-direction] [data-pause-hover]   raíz (overflow hidden)

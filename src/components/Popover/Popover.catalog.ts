@@ -6,7 +6,7 @@ export const popoverSpec: ComponentSpec = {
   dataSk: 'popover',
   category: 'Overlay',
   description:
-    'Contenido flotante arbitrario que abre al click (mini-form, detalle, ayuda rica). Compuesto: <Popover> con Trigger/Content. Sin portal (conserva theme/skin). Cierra con Esc o click afuera.',
+    'Contenido flotante arbitrario que abre al click (mini-form, detalle, ayuda rica). Compuesto: <Popover> con Trigger/Content. Sin portal. Cierra con Esc o click afuera.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'side', type: "'bottom' | 'top' | 'left' | 'right'", required: false, default: "'bottom'", description: 'Lado donde aparece el contenido respecto del trigger.' },

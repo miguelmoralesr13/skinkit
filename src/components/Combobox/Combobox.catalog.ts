@@ -6,7 +6,7 @@ export const comboboxSpec: ComponentSpec = {
   dataSk: 'combobox',
   category: 'Formulario',
   description:
-    'Input de texto con lista desplegable filtrada (autocomplete): elegís UNA opción escribiendo para filtrar. Teclado ↑↓/Enter/Esc, cierre por click afuera. Sin portal. La forma la da el skin.',
+    'Input de texto con lista desplegable filtrada (autocomplete): elegís UNA opción escribiendo para filtrar. Teclado ↑↓/Enter/Esc, cierre por click afuera. Sin portal. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'options', type: '{ value: string; label: string }[]', required: true, description: 'Opciones disponibles.' },
@@ -22,7 +22,7 @@ export const comboboxSpec: ComponentSpec = {
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=combobox]. Lleva [data-error].' },
     { name: 'label', description: 'Etiqueta.' },
-    { name: 'control', description: 'Wrapper posicionado del input + listbox (el skin lo hace position:relative).' },
+    { name: 'control', description: 'Wrapper posicionado del input + listbox (el CSS lo hace position:relative).' },
     { name: 'field', description: 'El <input role=combobox>.' },
     { name: 'listbox', description: 'Lista (role=listbox), solo cuando abre; absolute bajo el control.' },
     { name: 'option', description: 'Cada opción (role=option). Lleva [data-highlighted] y [data-selected].' },

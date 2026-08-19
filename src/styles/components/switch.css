@@ -1,0 +1,73 @@
+/**
+ * switch.css — estilo del componente Switch (data-sk="switch").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+/* ── ocultar el input nativo (sigue focuseable) ── */
+[data-sk='switch'] [data-part='control'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[data-sk='switch'] {
+  @apply inline-flex items-center gap-2 cursor-pointer text-sk-md text-sk-text;
+}
+
+[data-sk='switch'] [data-part='track'] {
+  @apply inline-flex items-center w-10 h-[22px] flex-none p-0.5 rounded-sk-pill bg-sk-border
+         transition-[background] duration-150 ease-in-out;
+}
+
+[data-sk='switch'] [data-part='thumb'] {
+  width: 18px;
+  height: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease;
+  @apply rounded-full bg-sk-surface;
+}
+
+[data-sk='switch'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-primary;
+}
+
+[data-sk='switch'] [data-part='control']:checked ~ [data-part='track'] [data-part='thumb'] {
+  transform: translateX(18px);
+}
+
+[data-sk='switch'] [data-part='control']:focus-visible ~ [data-part='track'] {
+  @apply outline outline-2 outline-sk-primary outline-offset-2;
+}
+
+[data-sk='switch'] [data-part='control']:disabled ~ [data-part='track'] {
+  @apply opacity-50;
+}
+
+/* ── tones ── */
+[data-sk='switch'][data-tone='secondary'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-secondary;
+}
+[data-sk='switch'][data-tone='tertiary'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-tertiary;
+}
+[data-sk='switch'][data-tone='accent'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-accent;
+}
+[data-sk='switch'][data-tone='success'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-success;
+}
+[data-sk='switch'][data-tone='warning'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-warning;
+}
+[data-sk='switch'][data-tone='info'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-info;
+}
+[data-sk='switch'][data-tone='danger'] [data-part='control']:checked ~ [data-part='track'] {
+  @apply bg-sk-danger;
+}

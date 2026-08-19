@@ -1,0 +1,92 @@
+/**
+ * radio.css — estilo del componente Radio (data-sk="radio").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+/* ── ocultar el input nativo (sigue focuseable) ── */
+[data-sk='radio'] [data-part='control'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[data-sk='radio'] {
+  @apply inline-flex items-center gap-2 cursor-pointer text-sk-md text-sk-text;
+}
+
+[data-sk='radio'] [data-part='box'] {
+  @apply inline-flex items-center justify-center w-5 h-5 flex-none rounded-full border border-sk-border
+         bg-sk-surface transition-[border-color] duration-150 ease-in-out;
+}
+
+[data-sk='radio'] [data-part='indicator'] {
+  @apply w-[10px] h-[10px] rounded-full bg-sk-primary;
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+[data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-primary;
+}
+
+[data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  transform: scale(1);
+}
+
+[data-sk='radio'] [data-part='control']:focus-visible ~ [data-part='box'] {
+  @apply outline outline-2 outline-sk-primary outline-offset-2;
+}
+
+[data-sk='radio'] [data-part='control']:disabled ~ [data-part='box'] {
+  @apply opacity-50;
+}
+
+/* ── tones (radio suelto, fuera de un RadioGroup) ── */
+[data-sk='radio'][data-tone='secondary'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-secondary;
+}
+[data-sk='radio'][data-tone='secondary'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-secondary;
+}
+[data-sk='radio'][data-tone='tertiary'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-tertiary;
+}
+[data-sk='radio'][data-tone='tertiary'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-tertiary;
+}
+[data-sk='radio'][data-tone='accent'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-accent;
+}
+[data-sk='radio'][data-tone='accent'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-accent;
+}
+[data-sk='radio'][data-tone='success'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-success;
+}
+[data-sk='radio'][data-tone='success'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-success;
+}
+[data-sk='radio'][data-tone='warning'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-warning;
+}
+[data-sk='radio'][data-tone='warning'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-warning;
+}
+[data-sk='radio'][data-tone='info'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-info;
+}
+[data-sk='radio'][data-tone='info'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-info;
+}
+[data-sk='radio'][data-tone='danger'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-danger;
+}
+[data-sk='radio'][data-tone='danger'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-danger;
+}

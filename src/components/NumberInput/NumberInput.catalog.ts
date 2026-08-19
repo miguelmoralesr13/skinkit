@@ -6,7 +6,7 @@ export const numberInputSpec: ComponentSpec = {
   dataSk: 'number-input',
   category: 'Formulario',
   description:
-    'Campo numérico con botones −/+ que respetan min/max/step (cantidades, contadores). Controlado o no. La forma la da el skin.',
+    'Campo numérico con botones −/+ que respetan min/max/step (cantidades, contadores). Controlado o no. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: 'number', required: false, description: 'Valor (controlado). Usalo con onChange.' },

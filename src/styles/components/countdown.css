@@ -1,0 +1,16 @@
+/* ── Countdown ──────────────────────────────────────────────── */
+[data-sk='countdown'] {
+  @apply inline-flex gap-2;
+}
+[data-sk='countdown'] [data-part='segment'] {
+  @apply flex flex-col items-center min-w-[3.25rem] p-2 rounded-sk-md bg-sk-surface-2;
+}
+[data-sk='countdown'] [data-part='value'] {
+  @apply text-[1.5rem] font-bold tabular-nums leading-[1.1] text-sk-text;
+}
+[data-sk='countdown'] [data-part='label'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+[data-sk='countdown'][data-done] [data-part='value'] {
+  @apply text-sk-text-muted;
+}

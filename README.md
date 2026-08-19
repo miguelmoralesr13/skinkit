@@ -1,83 +1,229 @@
 # skinkit
 
-Componentes headless de React con **dos ejes de estilo independientes**, ambos manejados por **CSS externo** (sin CSS Modules, sin clases hasheadas — todo overrideable desde afuera):
+Librería de componentes React **headless**: no llevan ni un solo estilo propio. Cada componente
+emite estructura + un contrato de atributos estables (`data-sk`, `data-part`, `data-variant`...);
+todo lo visual vive en **un único sistema de tokens + CSS Tailwind-nativo**, totalmente
+personalizable pisando variables — sin forkear componentes ni elegir entre presets.
 
-- **Re-look (piel)** → `theme`: un bundle de tokens de color. Cambia la paleta sin tocar nada más.
-- **Re-anatomía (esqueleto)** → `skin`: una capa de CSS que cambia forma y estructura. Mismos componentes, otro planeta.
+- 94 componentes (Botones, formularios, overlays, navegación, feedback, layout...)
+- Un sistema de tokens (`--color-sk-*`, `--radius-sk-*`, `--shadow-sk-*`...) con valores por
+  defecto listos para usar, y 100% overrideable
+- Un catálogo tipado (`skinkit/catalog`) con props/parts/ejemplos de cada componente — pensado para
+  generación de UI por IA, pero también sirve como referencia rápida en vez de leer el `.tsx`
 
-Los dos son ortogonales: `theme` × `skin` se combinan libremente.
+## Instalación
 
-## Idea central
+```bash
+npm install skinkit
+# o
+bun add skinkit
+```
 
-Los componentes **no llevan estilo propio**. Solo emiten estructura + un contrato de atributos estables. Todo lo visual vive en CSS externo que apunta a ese contrato. Por eso podés usar un skin nuestro **o escribir el tuyo** sin forkear un solo componente.
+Peer deps: `react` y `react-dom` (>=18) son obligatorias. `react-hook-form`, `zod` y
+`@hookform/resolvers` son **opcionales** — sólo hacen falta si usás `skinkit/form`
+(ver [Formularios dinámicos](#formularios-dinámicos-dynamicform)); importar `skinkit` a secas no
+las arrastra. `tailwindcss` **no** es una dependencia obligatoria: el CSS que se importa desde
+`skinkit/styles/base` ya viene compilado, funciona sin que el consumidor tenga Tailwind instalado.
 
-## Uso
+## Setup rápido
 
 ```tsx
-import { SkinkitProvider, Button, Accordion } from 'skinkit'
-import 'skinkit/styles/base'   // tokens + themes (paper, dusk)
-import 'skinkit/skins/soft'    // elegí un skin… (o el tuyo)
+import { SkinkitProvider, Button, Card } from 'skinkit'
+import 'skinkit/styles/base'   // tokens + el CSS de cada componente, ya compilado
 
 function App() {
   return (
-    <SkinkitProvider theme="paper" skin="soft">
-      <Button>Hola</Button>
+    <SkinkitProvider>
+      <Card>
+        <Button variant="filled">Hola</Button>
+      </Card>
     </SkinkitProvider>
   )
 }
 ```
 
-`SkinkitProvider` solo fija `data-theme` y `data-skin` en un contenedor. Podés setear esos atributos a mano si preferís no usar el provider.
+`SkinkitProvider` sólo marca la raíz del reset base (`[data-skinkit-root]`). Es opcional: si
+preferís no envolver todo el árbol, alcanza con ese atributo a mano en cualquier ancestro (por
+ejemplo en `<html>`).
 
-## Contrato de parts
+## Personalizar el look
 
-Cada componente expone selectores estables. Un skin (o tu CSS) apunta a ellos:
+No hay `theme`/`skin` para elegir — hay un solo look, con valores por defecto razonables, y se
+personaliza **pisando variables CSS**. Tres formas, de más a menos simple:
 
-| Atributo | Qué es |
-|----------|--------|
-| `[data-sk="button"]` etc. | raíz del componente |
-| `[data-part="..."]` | sub-parte (label, icon, header, trigger, panel, indicator…) |
-| `[data-variant]`, `[data-size]` | variantes declaradas por props |
-| `[data-state="open\|closed"]` | estado (Accordion) |
-| `[data-error]` | Input en error |
-| `:disabled`, `:focus`, `:hover` | estados nativos |
-
-Parts por componente:
-
-- **Button** — `[data-sk=button]` · parts: `icon`, `label` · `[data-variant]` filled/outlined/ghost · `[data-size]` sm/md/lg
-- **Card** — `[data-sk=card]` · parts: `header`, `body`, `footer`
-- **Input** — `[data-sk=input]` · `[data-error]` · parts: `label`, `field`, `helper`
-- **Accordion** — `[data-sk=accordion]` · parts: `item`, `trigger`, `label`, `indicator`, `panel` · `[data-state]` en item/trigger/panel
-
-El comportamiento (estado, `aria-*`, teclado ↑ ↓ Home End en el Accordion) lo da el componente; el CSS nunca lo toca.
-
-## Cómo agregar un skin
-
-Un skin es **un archivo CSS**, scopeado bajo `[data-skin="<nombre>"]`, que estila los parts. No toca JS.
+**1. CSS plano**, en cualquier selector que envuelva tu app:
 
 ```css
-/* mi-skin.css */
-[data-skin='mi-skin'] [data-sk='button'] {
-  border-radius: 4px;
-  background: var(--sk-primary);   /* color desde el theme activo */
-  color: var(--sk-on-primary);
-  /* …la forma la ponés vos… */
+[data-skinkit-root] {
+  --color-sk-primary: #db2777;
+  --radius-sk-md: 4px;
 }
 ```
 
-Regla de oro: **el color sale de los tokens del theme (`var(--sk-*)`), la forma la pone el skin.** Así un skin nuevo funciona con cualquier theme al instante.
+**2. Tailwind arbitrary values**, si ya usás Tailwind en tu proyecto:
 
-Themes disponibles: `paper`, `dusk`. Skins de referencia: `soft` (redondeado, sombras suaves), `brutal` (recto, borde grueso, mono).
+```tsx
+<div className="[--color-sk-primary:#db2777]">
+  <Button>Hola</Button>
+</div>
+```
 
-## Playground
+**3. Extender el preset de tokens** en tu propio build de Tailwind v4, para tener las utilities de
+skinkit (`bg-sk-primary`, `rounded-sk-lg`...) disponibles en tu propio código además de en los
+componentes:
+
+```css
+/* tu CSS global */
+@import "tailwindcss";
+@import "skinkit/tailwind-preset";
+
+@theme {
+  --color-sk-primary: #db2777; /* pisa el default */
+}
+```
+
+Los tokens disponibles — todos con default incluido — son:
+
+```
+--color-sk-surface  --color-sk-surface-2  --color-sk-text  --color-sk-text-muted
+--color-sk-primary  --color-sk-primary-hover  --color-sk-on-primary
+--color-sk-secondary/tertiary/accent/success/warning/info/danger (+ -on-* de cada uno)
+--color-sk-border
+--radius-sk-sm/md/lg/pill
+--shadow-sk-sm/md/lg
+--text-sk-sm/md/lg
+--font-sk-sans/mono
+```
+
+## Componentes disponibles
+
+Los 94 componentes cubren acción (`Button`, `ButtonGroup`, `SplitButton`...), formulario (`Input`,
+`Select`, `DatePicker`, `Combobox`, `MultiSelect`, `Slider`, `Rating`...), navegación (`Tabs`,
+`Breadcrumb`, `Menu`, `Sidebar`, `Stepper`...), overlays (`Dialog`, `Popover`, `Tooltip`,
+`HoverCard`, `CommandMenu`...), feedback (`Toast`, `Progress`, `Skeleton`, `EmptyState`...), display
+(`Card`, `Avatar`, `Badge`, `DataTable`, `Timeline`...) y layout (`Stack`, `Grid`, `Container`,
+`AppShell`, `Spacer`...). Todos se importan igual:
+
+```tsx
+import { Tabs, Dialog, Select, DataTable } from 'skinkit'
+```
+
+En vez de leer cada `.tsx`, consultá el **catálogo** — es la fuente de la verdad de props, parts y
+ejemplos de cada componente:
+
+```tsx
+import { COMPONENT_CATALOG, getComponentSpec, getCatalogByCategory } from 'skinkit/catalog'
+
+getComponentSpec('Button')
+// → { name, dataSk, category, description, props, parts, examples, usage, a11y }
+```
+
+O simplemente levantá el playground (`bun run dev`, puerto 3200) y navegá el catálogo agrupado por
+categoría con ejemplos vivos y un panel para probar overrides de color/radio en tiempo real.
+
+## El contrato de atributos
+
+Esto es lo que el CSS de cada componente usa para estilar. El componente pone la estructura y el
+estado; nunca el color ni la forma.
+
+| Atributo | Qué es |
+|----------|--------|
+| `[data-sk="<nombre>"]` | Raíz del componente (uno por componente: `button`, `card`, `dialog`, `dynamic-form`...) |
+| `[data-part="<parte>"]` | Sub-parte interna (`label`, `icon`, `header`, `trigger`, `panel`, `field`...) |
+| `[data-variant]`, `[data-size]` | Variantes declaradas por props |
+| `[data-state="open\|closed"]` | Estado (Accordion, Dialog, Popover...) |
+| `[data-error]` | Presente (string vacío) cuando un campo de formulario está en error |
+| `[data-skinkit-root]` | El wrapper del provider; scope del reset mínimo |
+
+El set exacto de parts/variantes de un componente puntual vive en su entrada del catálogo
+(`getComponentSpec('Accordion').parts`), no en esta tabla — tratala como una guía general del
+patrón, no como la lista completa.
+
+## Formularios dinámicos (`DynamicForm`)
+
+Un formulario generado desde JSON, sobre `react-hook-form` + `zod` (autónomo: crea el `useForm` y
+el schema Zod por dentro). Soporta validación condicional, mostrar/ocultar y habilitar/deshabilitar
+por condición, subformularios, listas y grilla responsive. Vive en su **propio subpath** para no
+arrastrar sus dependencias al core:
+
+```bash
+npm install react-hook-form zod @hookform/resolvers
+```
+
+```tsx
+import { DynamicForm } from 'skinkit/form'
+
+const schema = {
+  cols: { base: 1, md: 2 },
+  gap: 4,
+  fields: [
+    { name: 'name', type: 'text', label: 'Nombre', validation: [{ type: 'required' }] },
+    { name: 'email', type: 'email', label: 'Email', validation: [{ type: 'required' }, { type: 'email' }] },
+    { name: 'wantsNewsletter', type: 'switch', label: '¿Newsletter?' },
+    {
+      name: 'frequency',
+      type: 'select',
+      label: 'Frecuencia',
+      options: [
+        { value: 'weekly', label: 'Semanal' },
+        { value: 'monthly', label: 'Mensual' },
+      ],
+      // aparece sólo si el switch está prendido, y ahí es obligatorio
+      visibleWhen: { field: 'wantsNewsletter', truthy: true },
+      validation: [{ type: 'required', when: { field: 'wantsNewsletter', truthy: true } }],
+    },
+  ],
+}
+
+<DynamicForm schema={schema} onSubmit={(values) => console.log(values)} />
+```
+
+Detalles completos (subformularios `object`, listas `array`, condiciones `and`/`or`/`not`, campos
+externos vía `externalValues`) en `getComponentSpec('DynamicForm')` del catálogo.
+
+## Layout responsive
+
+Los componentes de layout (`Grid`, `Stack`, `AppShell`...) aceptan props "responsive": un valor
+plano o un objeto por breakpoint (`base | sm | md | lg | xl`), que se resuelve en CSS puro (media
+queries en `styles/layout.css`), sin JS de por medio:
+
+```tsx
+<Grid cols={{ base: 1, md: 2, lg: 3 }} gap={4}>
+  ...
+</Grid>
+```
+
+## Cambiar el CSS de un componente puntual
+
+Si necesitás algo más que pisar tokens — cambiar cómo se ve un componente específico —, su CSS
+vive en un archivo aparte y es editable sin tocar el componente en sí (esto sólo aplica si estás
+trabajando sobre este repo, no como consumidor del paquete publicado):
+
+```css
+/* src/styles/components/button.css */
+[data-sk='button'] {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2 rounded-sk-pill
+         bg-sk-primary text-sk-on-primary;
+}
+```
+
+Ver el skill `skinkit-tokens` para la receta completa.
+
+## Desarrollo local (playground)
+
+Sólo si estás clonando este repo para explorarlo o contribuir (no hace falta para consumir el
+paquete publicado):
 
 ```bash
 bun install     # o npm install
 bun run dev     # vite, http://localhost:3200
 ```
 
-Muestra los dos skins lado a lado; el selector de theme repinta ambos → ves los dos ejes a la vez.
+Muestra el catálogo completo agrupado por categoría, con un panel de override de tokens en vivo
+(color primario, radio) para probar la personalización sin salir del navegador.
 
 ## Estado
 
-Spike: 4 componentes (Button, Card, Input, Accordion) × 2 skins × 2 themes. Valida que el contrato de parts aguanta dos anatomías distintas antes de escalar al catálogo completo.
+94 componentes, un solo sistema de tokens Tailwind-nativo. El catálogo (`skinkit/catalog`) es la
+fuente de la verdad para generación de UI asistida por IA: si un componente o prop no está ahí,
+para la IA no existe.

@@ -6,7 +6,7 @@ export const separatorSpec: ComponentSpec = {
   dataSk: 'separator',
   category: 'Display',
   description:
-    'Línea divisoria entre secciones o ítems, horizontal o vertical. La forma (grosor, color, márgenes) la da el skin; el componente aporta orientación y semántica ARIA.',
+    'Línea divisoria entre secciones o ítems, horizontal o vertical. La forma (grosor, color, márgenes) la da el CSS; el componente aporta orientación y semántica ARIA.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     {

@@ -1,0 +1,23 @@
+/* ── Marquee ────────────────────────────────────────────────── */
+[data-sk='marquee'] {
+  @apply overflow-hidden w-full;
+}
+[data-sk='marquee'] [data-part='track'] {
+  display: flex;
+  width: max-content;
+  animation: sk-marquee var(--sk-marquee-duration, 20s) linear infinite;
+}
+[data-sk='marquee'][data-direction='right'] [data-part='track'] {
+  animation-direction: reverse;
+}
+[data-sk='marquee'][data-pause-hover]:hover [data-part='track'] {
+  animation-play-state: paused;
+}
+[data-sk='marquee'] [data-part='group'] {
+  @apply flex items-center gap-6 pr-6 flex-none;
+}
+@keyframes sk-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}

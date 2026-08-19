@@ -28,15 +28,15 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
 }
 
 /**
- * Checkbox headless. Sin estilo propio: la forma la da el skin.
+ * Checkbox headless. Sin estilo propio: la forma la da el CSS.
  *
- * El input nativo es la fuente de verdad (funciona uncontrolled, sin estado JS): el skin
+ * El input nativo es la fuente de verdad (funciona uncontrolled, sin estado JS): el CSS
  * lo oculta visualmente y pinta el `box`/`indicator` usando los pseudo nativos
  * (`:checked`, `:indeterminate`, `:disabled`, `:focus-visible`).
  *
  * Contrato:
  *   [data-sk="checkbox"]     raíz (<label>)
- *   [data-part="control"]    el <input type=checkbox> (el skin lo oculta visualmente)
+ *   [data-part="control"]    el <input type=checkbox> (el CSS lo oculta visualmente)
  *   [data-part="box"]        caja visual
  *   [data-part="indicator"]  tilde / guion (marca)
  *   [data-part="label"]      texto

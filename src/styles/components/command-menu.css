@@ -1,0 +1,46 @@
+/* ── CommandMenu ────────────────────────────────────────────── */
+[data-sk='command-menu'] {
+  @apply fixed inset-0 z-[1200] flex items-start justify-center px-4 pb-4;
+  padding-top: 10vh;
+}
+[data-sk='command-menu'] [data-part='overlay'] {
+  @apply absolute inset-0;
+  background: rgba(0, 0, 0, 0.4);
+}
+[data-sk='command-menu'] [data-part='panel'] {
+  @apply relative z-[1] w-full max-w-lg max-h-[60vh] flex flex-col bg-sk-surface
+         border border-sk-border rounded-sk-lg overflow-hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+[data-sk='command-menu'] [data-part='input'] {
+  font: inherit;
+  @apply border-0 border-b border-sk-border bg-transparent text-sk-text text-sk-lg px-5 py-4;
+}
+[data-sk='command-menu'] [data-part='input']:focus {
+  @apply outline-none;
+}
+[data-sk='command-menu'] [data-part='list'] {
+  @apply list-none m-0 p-2 overflow-y-auto;
+}
+[data-sk='command-menu'] [data-part='list'] ul {
+  @apply list-none m-0 p-0;
+}
+[data-sk='command-menu'] [data-part='group-label'] {
+  @apply pt-2 px-3 pb-1 text-sk-sm font-semibold text-sk-text-muted uppercase;
+  letter-spacing: 0.04em;
+}
+[data-sk='command-menu'] [data-part='item'] {
+  @apply flex items-center gap-3 px-3 py-2 rounded-[10px] cursor-pointer text-sk-text text-sk-md;
+}
+[data-sk='command-menu'] [data-part='item'][data-active] {
+  @apply bg-sk-primary text-sk-on-primary;
+}
+[data-sk='command-menu'] [data-part='item'] [data-part='label'] {
+  @apply flex-1;
+}
+[data-sk='command-menu'] [data-part='item'] [data-part='shortcut'] {
+  @apply text-sk-sm opacity-70;
+}
+[data-sk='command-menu'] [data-part='empty'] {
+  @apply p-4 text-center text-sk-text-muted;
+}

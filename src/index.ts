@@ -1,5 +1,5 @@
-// skinkit — componentes headless con re-look (tokens) y re-anatomía (skins) por CSS externo.
-export { SkinkitProvider, useSkinkit } from './provider/SkinkitProvider'
+// skinkit — componentes headless con un único sistema de tokens (color + forma) Tailwind-nativo.
+export { SkinkitProvider } from './provider/SkinkitProvider'
 export type { SkinkitProviderProps } from './provider/SkinkitProvider'
 
 export { Button } from './components/Button'

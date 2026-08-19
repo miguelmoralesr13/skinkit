@@ -18,7 +18,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 
 /**
  * Badge headless — etiqueta/píldora corta (estado, conteo, categoría). Puro presentacional:
- * sin comportamiento, la forma la da el skin.
+ * sin comportamiento, la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="badge"]       raíz

@@ -1,0 +1,25 @@
+/* ── ScrollArea ─────────────────────────────────────────────── */
+[data-sk='scroll-area'] {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-sk-border) transparent;
+}
+[data-sk='scroll-area'][data-orientation='vertical'] {
+  @apply overflow-y-auto overflow-x-hidden;
+}
+[data-sk='scroll-area'][data-orientation='horizontal'] {
+  @apply overflow-x-auto overflow-y-hidden;
+}
+[data-sk='scroll-area'][data-orientation='both'] {
+  @apply overflow-auto;
+}
+[data-sk='scroll-area']::-webkit-scrollbar {
+  @apply w-2.5 h-2.5;
+}
+[data-sk='scroll-area']::-webkit-scrollbar-thumb {
+  @apply rounded-sk-pill border-[3px] border-transparent bg-sk-border;
+  background-clip: padding-box;
+}
+[data-sk='scroll-area']::-webkit-scrollbar-thumb:hover {
+  @apply bg-sk-text-muted;
+  background-clip: padding-box;
+}

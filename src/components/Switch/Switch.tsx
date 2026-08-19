@@ -21,13 +21,13 @@ export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
 /**
  * Switch (interruptor on/off) headless. Es un checkbox nativo con role="switch": conserva
  * semántica correcta, envío de formularios y `:checked` nativo (funciona uncontrolled, sin
- * estado JS). El skin oculta el input y pinta `track`/`thumb`.
+ * estado JS). El CSS oculta el input y pinta `track`/`thumb`.
  *
  * Contrato:
  *   [data-sk="switch"]       raíz (<label>)
- *   [data-part="control"]    el <input type=checkbox role=switch> (el skin lo oculta)
+ *   [data-part="control"]    el <input type=checkbox role=switch> (el CSS lo oculta)
  *   [data-part="track"]      riel de fondo
- *   [data-part="thumb"]      perilla que se desliza (skin la mueve con :checked)
+ *   [data-part="thumb"]      perilla que se desliza (CSS la mueve con :checked)
  *   [data-part="label"]      texto
  */
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(

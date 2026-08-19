@@ -8,7 +8,6 @@ import {
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { useSkinkit } from '../../provider/SkinkitProvider'
 
 export type ToastVariant = 'neutral' | 'primary' | 'success' | 'warning' | 'info' | 'danger'
 export type ToastPosition =
@@ -56,8 +55,9 @@ export interface ToastProviderProps {
 
 /**
  * ToastProvider — provee `useToast()` y renderiza el viewport de toasts en un portal a
- * <body>. El portal REAPLICA [data-theme]/[data-skin] (de useSkinkit) para conservar el
- * theming fuera del árbol. Los toasts son headless: la forma la da el skin.
+ * <body>. No hace falta reaplicar nada de theming en el portal: los tokens (`--color-sk-*`,
+ * `--radius-sk-*`, etc.) viven en `:root` vía Tailwind `@theme`, así que ya están disponibles
+ * en cualquier punto del documento. Los toasts son headless: el look lo da el CSS del componente.
  *
  * Contrato de parts:
  *   [data-sk="toast-viewport"]  [data-position]   contenedor apilado (portal)
@@ -72,7 +72,6 @@ export function ToastProvider({
   position = 'bottom-right',
   defaultDuration = 4000,
 }: ToastProviderProps) {
-  const { theme, skin } = useSkinkit()
   const [toasts, setToasts] = useState<ToastItem[]>([])
   const idRef = useRef(0)
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
@@ -111,7 +110,7 @@ export function ToastProvider({
     <ToastContext.Provider value={{ toast, dismiss }}>
       {children}
       {createPortal(
-        <div data-skinkit-root="" data-theme={theme} data-skin={skin} className="skinkit-root">
+        <div data-skinkit-root="" className="skinkit-root">
           <div data-sk="toast-viewport" data-position={position} className="sk-toast-viewport">
             {toasts.map((t) => (
               <div

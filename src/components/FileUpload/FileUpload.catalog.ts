@@ -6,7 +6,7 @@ export const fileUploadSpec: ComponentSpec = {
   dataSk: 'file-upload',
   category: 'Formulario',
   description:
-    'Zona para soltar o elegir archivos (dropzone). Envuelve un <input type="file"> oculto y maneja drag & drop; expone [data-dragging] para que el skin resalte al arrastrar. La forma la da el skin.',
+    'Zona para soltar o elegir archivos (dropzone). Envuelve un <input type="file"> oculto y maneja drag & drop; expone [data-dragging] para que el CSS resalte al arrastrar. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'onFiles', type: '(files: File[]) => void', required: false, description: 'Se invoca con la lista COMPLETA de archivos actuales tras cada cambio (agregar/quitar).' },
@@ -24,7 +24,7 @@ export const fileUploadSpec: ComponentSpec = {
     { name: 'root', description: 'Contenedor [data-sk=file-upload]. Lleva [data-variant] y [data-error].' },
     { name: 'label', description: 'Etiqueta (opcional).' },
     { name: 'dropzone', description: 'Zona clickeable/soltar. Lleva [data-dragging] al arrastrar encima.' },
-    { name: 'input', description: 'El <input type=file> (el skin lo oculta).' },
+    { name: 'input', description: 'El <input type=file> (el CSS lo oculta).' },
     { name: 'prompt', description: 'Texto/ícono de la zona.' },
     { name: 'previews', description: 'Grilla de previews (si preview).' },
     { name: 'preview', description: 'Cada archivo. Lleva [data-image] si es imagen.' },
@@ -46,6 +46,6 @@ export const fileUploadSpec: ComponentSpec = {
   ],
   a11y: [
     'La zona es un <label> asociado al input: click y teclado (Enter/Espacio) abren el diálogo.',
-    'El input queda oculto por el skin pero accesible/focuseable.',
+    'El input queda oculto por el CSS pero accesible/focuseable.',
   ],
 }

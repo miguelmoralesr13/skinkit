@@ -14,7 +14,7 @@ export const imageSpec: ComponentSpec = {
     { name: 'fallbackSrc', type: 'string', required: false, description: 'Imagen alternativa si src falla.' },
     { name: 'ratio', type: 'number | string', required: false, description: 'Relación de aspecto: número (16/9=1.78) o string CSS ("16/9").' },
     { name: 'fit', type: 'CSS object-fit', required: false, default: "'cover'", description: 'Cómo encaja la imagen en su caja.' },
-    { name: 'rounded', type: 'boolean', required: false, description: 'Esquinas redondeadas (lo aplica el skin vía [data-rounded]).' },
+    { name: 'rounded', type: 'boolean', required: false, description: 'Esquinas redondeadas (lo aplica el CSS vía [data-rounded]).' },
     { name: 'fallback', type: 'ReactNode', required: false, description: 'Contenido del placeholder cuando falla.' },
   ],
   parts: [
@@ -27,6 +27,6 @@ export const imageSpec: ComponentSpec = {
   ],
   usage: [
     'Usá ratio para reservar el espacio y evitar saltos de layout mientras carga.',
-    'El skin puede animar la aparición con [data-status=loaded] y mostrar un shimmer en loading.',
+    'El CSS puede animar la aparición con [data-status=loaded] y mostrar un shimmer en loading.',
   ],
 }

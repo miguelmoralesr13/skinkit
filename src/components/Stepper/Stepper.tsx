@@ -29,7 +29,7 @@ export interface StepperProps extends HTMLAttributes<HTMLOListElement> {
 
 /**
  * Stepper headless, compuesto: <Stepper> · <Stepper.Step>. Indica el progreso en un flujo de
- * pasos. Stepper calcula el estado de cada Step según `active`; la forma la da el skin.
+ * pasos. Stepper calcula el estado de cada Step según `active`; la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="stepper"]     [data-orientation]   raíz (<ol>)

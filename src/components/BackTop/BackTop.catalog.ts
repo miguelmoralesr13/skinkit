@@ -6,7 +6,7 @@ export const backTopSpec: ComponentSpec = {
   dataSk: 'back-top',
   category: 'Navegación',
   description:
-    'Botón "volver arriba" que aparece al pasar cierto scroll y sube al tope al hacer click. Observa la ventana o un contenedor scrolleable. La posición fija (esquina) y la animación de aparición las da el skin.',
+    'Botón "volver arriba" que aparece al pasar cierto scroll y sube al tope al hacer click. Observa la ventana o un contenedor scrolleable. La posición fija (esquina) y la animación de aparición las da el CSS.',
   extends: 'ButtonHTMLAttributes<HTMLButtonElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de acento (del theme).' },    { name: 'threshold', type: 'number', required: false, default: '240', description: 'Píxeles de scroll a partir de los cuales aparece.' },
@@ -16,7 +16,7 @@ export const backTopSpec: ComponentSpec = {
     { name: 'label', type: 'string', required: false, default: "'Volver arriba'", description: 'aria-label del botón.' },
   ],
   parts: [
-    { name: 'root', description: '[data-sk=back-top]. El botón. Lleva [data-visible=true|false]; fijalo con position:fixed en el skin.' },
+    { name: 'root', description: '[data-sk=back-top]. El botón. Lleva [data-visible=true|false]; fijalo con position:fixed en el CSS.' },
   ],
   examples: [
     { title: 'Sobre la ventana', code: '<BackTop />' },
@@ -26,7 +26,7 @@ export const backTopSpec: ComponentSpec = {
     },
   ],
   usage: [
-    'Para scroll de PÁGINA (lo normal): omití target y montalo una sola vez; el skin lo deja position:fixed anclado a la esquina de la ventana. Funciona sin más.',
+    'Para scroll de PÁGINA (lo normal): omití target y montalo una sola vez; el CSS lo deja position:fixed anclado a la esquina de la ventana. Funciona sin más.',
     'Para un panel con overflow propio (target): NO lo pongas dentro del panel scrolleable — un position:absolute adentro de un scroll-container se desplaza con el contenido. Envolvé el panel en un <div position:relative>, poné el BackTop como HERMANO del panel y pasale style={{ position: "absolute" }}; el target scopa el scroll y el absolute lo fija a la esquina.',
     'Cuando no es visible queda fuera del tab order (tabIndex=-1, aria-hidden).',
   ],

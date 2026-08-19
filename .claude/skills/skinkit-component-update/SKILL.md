@@ -41,8 +41,9 @@ will generate code against props/parts that no longer exist (or miss new ones).
 1. Hacé el cambio en `src/components/<Name>/<Name>.tsx` (y su hook si aplica).
 2. **En el mismo cambio**, actualizá `src/components/<Name>/<Name>.catalog.ts` según la tabla.
 3. Si cambió el barrel público (nuevo export/tipo), actualizá `src/index.ts`.
-4. **Si cambiaron los parts** (`data-part`/`data-sk`), revisá los skins en `src/styles/skins/`:
-   los selectores que apuntaban a un part renombrado/eliminado quedan huérfanos → ajustalos.
+4. **Si cambiaron los parts** (`data-part`/`data-sk`), revisá
+   `src/styles/components/<dataSk>.css`: los selectores que apuntaban a un part renombrado/
+   eliminado quedan huérfanos → ajustalos (ver skill `skinkit-tokens`).
 5. `bun run typecheck` para validar que el spec y el componente siguen coherentes.
 
 ## Sanity Check Before Finishing
@@ -51,7 +52,7 @@ will generate code against props/parts that no longer exist (or miss new ones).
 - [ ] ¿Los `data-part` del `.tsx` coinciden con `parts[]`?
 - [ ] ¿`dataSk` coincide con el `data-sk` de la raíz?
 - [ ] ¿Los ejemplos del catálogo siguen compilando con la nueva API?
-- [ ] ¿Algún skin quedó apuntando a un part que ya no existe?
+- [ ] ¿El CSS del componente quedó apuntando a un part que ya no existe?
 
 ## Commands
 

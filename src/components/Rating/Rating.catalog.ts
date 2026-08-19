@@ -6,7 +6,7 @@ export const ratingSpec: ComponentSpec = {
   dataSk: 'rating',
   category: 'Formulario',
   description:
-    'Puntuación con estrellas (1..max). Cada estrella es un botón; el skin las pinta llenas/vacías. Interactivo o de solo lectura. La forma (glyph, color) la da el skin.',
+    'Puntuación con estrellas (1..max). Cada estrella es un botón; el CSS las pinta llenas/vacías. Interactivo o de solo lectura. La forma (glyph, color) la da el CSS.',
   extends: "Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>",
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de las estrellas llenas (del theme).' },
@@ -27,7 +27,7 @@ export const ratingSpec: ComponentSpec = {
   usage: [
     'Modo controlado: guardá value y actualizalo en onChange.',
     'readOnly para mostrar una calificación ya dada (reseñas).',
-    'El glyph (★) es contenido; el color lleno/vacío lo pone el skin vía [data-filled].',
+    'El glyph (★) es contenido; el color lleno/vacío lo pone el CSS vía [data-filled].',
   ],
   a11y: ['role=radiogroup con estrellas role=radio y aria-checked; cada una con aria-label "n de max".'],
 }

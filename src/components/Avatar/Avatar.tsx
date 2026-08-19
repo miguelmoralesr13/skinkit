@@ -33,7 +33,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
 
 /**
  * Avatar headless — imagen de perfil con fallback (iniciales/ícono) cuando no hay `src`
- * o la imagen falla. La forma (tamaño real, redondeo) la da el skin.
+ * o la imagen falla. La forma (tamaño real, redondeo) la da el CSS.
  *
  * Contrato:
  *   [data-sk="avatar"]       raíz

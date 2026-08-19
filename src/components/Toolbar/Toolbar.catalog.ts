@@ -6,7 +6,7 @@ export const toolbarSpec: ComponentSpec = {
   dataSk: 'toolbar',
   category: 'Acción',
   description:
-    'Agrupa controles (Button, Toggle, ButtonGroup…) en una barra con role="toolbar" y navegación por flechas entre ellos. Opcional <Toolbar.Separator>. La forma la da el skin.',
+    'Agrupa controles (Button, Toggle, ButtonGroup…) en una barra con role="toolbar" y navegación por flechas entre ellos. Opcional <Toolbar.Separator>. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'orientation', type: "'horizontal' | 'vertical'", required: false, default: "'horizontal'", description: 'Dirección; define qué flechas navegan.' },

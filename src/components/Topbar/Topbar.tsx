@@ -19,7 +19,7 @@ export interface TopbarProps extends HTMLAttributes<HTMLElement> {
 
 /**
  * Topbar headless — barra superior de app. Compound: Topbar + Topbar.Brand + Topbar.Nav +
- * Topbar.Item + Topbar.Actions. Sólo estructura + contrato; la forma la da el skin.
+ * Topbar.Item + Topbar.Actions. Sólo estructura + contrato; la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="topbar"]        raíz (<header>)

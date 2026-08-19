@@ -12,7 +12,7 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
  *
  * Contrato:
  *   [data-sk="textarea"]    raíz
- *   [data-error]            presente cuando error=true (el skin lo usa)
+ *   [data-error]            presente cuando error=true (el CSS lo usa)
  *   [data-part="label"]     etiqueta (htmlFor cableado)
  *   [data-part="field"]     el <textarea>
  *   [data-part="helper"]    texto de ayuda / error

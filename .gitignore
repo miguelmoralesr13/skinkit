@@ -3,7 +3,7 @@ dist/
 *.tsbuildinfo
 .DS_Store
 
-skin-shots/
+component-shots/
 
 # temporales / accidentales
 .playwright-mcp/

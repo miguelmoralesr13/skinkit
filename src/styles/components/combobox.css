@@ -1,0 +1,59 @@
+/**
+ * combobox.css — estilo del componente Combobox (data-sk="combobox").
+ * Portado desde src/styles/skins/soft.css.
+ * El box-shadow del listbox (0 10px 30px) no matchea ningún token — se deja como plain CSS.
+ */
+
+[data-sk='combobox'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='combobox'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='combobox'] [data-part='control'] {
+  @apply relative;
+}
+
+[data-sk='combobox'] [data-part='field'] {
+  font: inherit;
+  @apply w-full px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text text-sk-md;
+}
+
+[data-sk='combobox'] [data-part='field']:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  @apply border-sk-primary;
+}
+
+[data-sk='combobox'][data-error] [data-part='field'] {
+  @apply border-sk-danger;
+}
+
+[data-sk='combobox'] [data-part='listbox'] {
+  top: calc(100% + 0.25rem);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  @apply absolute z-40 left-0 right-0 m-0 p-1 list-none max-h-64 overflow-y-auto bg-sk-surface
+         border border-sk-border rounded-sk-md;
+}
+
+[data-sk='combobox'] [data-part='option'] {
+  @apply px-3 py-2 rounded-sk-sm cursor-pointer text-sk-text text-sk-md;
+}
+
+[data-sk='combobox'] [data-part='option'][data-highlighted] {
+  @apply bg-sk-surface-2;
+}
+
+[data-sk='combobox'] [data-part='option'][data-selected] {
+  @apply text-sk-primary font-semibold;
+}
+
+[data-sk='combobox'] [data-part='empty'] {
+  @apply px-3 py-2 text-sk-text-muted text-sk-sm;
+}
+
+[data-sk='combobox'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}

@@ -1,0 +1,26 @@
+/* ── Tree ───────────────────────────────────────────────────── */
+[data-sk='tree'],
+[data-sk='tree'] [data-part='group'] {
+  @apply list-none m-0 p-0;
+}
+[data-sk='tree'] [data-part='group'] {
+  @apply pl-4;
+}
+[data-sk='tree'] [data-part='row'] {
+  @apply flex items-center gap-2 px-2 py-1 rounded-sk-sm cursor-pointer text-sk-text text-sk-md;
+}
+[data-sk='tree'] [data-part='row']:hover {
+  @apply bg-sk-surface-2;
+}
+[data-sk='tree'] [data-part='row']:focus-visible {
+  @apply outline outline-2 outline-sk-primary -outline-offset-2;
+}
+[data-sk='tree'] [data-part='indicator'] {
+  @apply w-1.5 h-1.5 flex-none border-r-2 border-b-2 border-sk-text-muted -rotate-45 transition-transform duration-150 ease-in-out;
+}
+[data-sk='tree'] [data-part='item'][data-state='open'] > [data-part='row'] > [data-part='indicator'] {
+  @apply rotate-45;
+}
+[data-sk='tree'] [data-part='indicator'][data-leaf] {
+  @apply border-none w-1.5 h-1.5 rounded-full bg-sk-border rotate-0;
+}

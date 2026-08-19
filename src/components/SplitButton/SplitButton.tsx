@@ -49,7 +49,7 @@ export interface SplitButtonProps {
 /**
  * SplitButton headless — acción principal + un dropdown con acciones secundarias.
  * Compuesto: <SplitButton menu={<><SplitButton.Item/>…</>}>. Sin portal; cierra con Esc /
- * click afuera / elegir. La forma la da el skin.
+ * click afuera / elegir. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="split-button"]   [data-variant] [data-size]  raíz

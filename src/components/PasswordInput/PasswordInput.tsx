@@ -16,7 +16,7 @@ export interface PasswordInputProps
 
 /**
  * PasswordInput headless — campo de contraseña con botón de mostrar/ocultar. Espejo de Input
- * con un toggle que alterna type password/text. La forma la da el skin.
+ * con un toggle que alterna type password/text. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="password-input"]   raíz · [data-error]

@@ -10,7 +10,7 @@ export interface ButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * ButtonGroup headless — junta varios <Button> en un bloque unido (barras de acción,
- * toolbars). El skin colapsa los bordes/radios internos para que se vean pegados.
+ * toolbars). El CSS colapsa los bordes/radios internos para que se vean pegados.
  *
  * Contrato:
  *   [data-sk="button-group"]  [data-orientation]  raíz (role=group)

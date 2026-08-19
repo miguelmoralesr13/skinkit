@@ -24,17 +24,17 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 /**
  * Button headless. No lleva ni un byte de estilo propio: solo estructura + el
- * contrato de datos que el skin usa para pintarlo.
+ * contrato de datos que el CSS usa para pintarlo.
  *
  * Contrato:
  *   [data-sk="button"]      raíz
  *   [data-variant]          filled | outlined | ghost
  *   [data-size]             sm | md | lg
  *   [data-tone]             secondary | tertiary | success | warning | info | danger
- *                           (ausente = primary; el skin pinta cada tono con var(--sk-<tono>))
+ *                           (ausente = primary; el CSS pinta cada tono con var(--sk-<tono>))
  *   [data-part="icon"]      slot de ícono (izq/der)
  *   [data-part="label"]     texto
- *   :disabled               estado nativo (el skin lo estila con :disabled)
+ *   :disabled               estado nativo (el CSS lo estila con :disabled)
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { variant = 'filled', size = 'md', tone = 'primary', iconLeft, iconRight, className, children, type, ...rest },

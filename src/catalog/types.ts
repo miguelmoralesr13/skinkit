@@ -25,7 +25,7 @@ export interface PropSpec {
 export interface PartSpec {
   /** Valor de [data-part] (o "root" para el elemento con [data-sk]). */
   name: string
-  /** Qué es esa parte — lo usan los skins para estilarla. */
+  /** Qué es esa parte — la usa el CSS del componente para estilarla. */
   description: string
 }
 
@@ -69,7 +69,7 @@ export interface ComponentSpec {
   props: PropSpec[]
   /** Atributos HTML nativos que hereda (ej. "ButtonHTMLAttributes<HTMLButtonElement>"). */
   extends?: string
-  /** Contrato de parts que exponen para los skins. */
+  /** Contrato de parts que expone para su CSS. */
   parts: PartSpec[]
   /** Ejemplos de uso. */
   examples: ExampleSpec[]

@@ -5,7 +5,7 @@ export interface KbdProps extends HTMLAttributes<HTMLElement> {}
 
 /**
  * Kbd headless — representa una tecla o atajo de teclado (⌘, Ctrl, Enter…). Puro
- * presentacional, sobre el elemento semántico <kbd>. La forma la da el skin.
+ * presentacional, sobre el elemento semántico <kbd>. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="kbd"]   raíz (<kbd>)

@@ -1,0 +1,16 @@
+/* ── Skeleton ───────────────────────────────────────────────── */
+[data-sk='skeleton'] {
+  @apply block bg-sk-surface-2 rounded-sk-sm;
+  animation: sk-skeleton-pulse 1.4s ease-in-out infinite;
+}
+[data-sk='skeleton'][data-variant='text'] {
+  @apply h-[0.8em] rounded-[4px];
+}
+[data-sk='skeleton'][data-variant='circle'] {
+  @apply rounded-full;
+}
+@keyframes sk-skeleton-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}

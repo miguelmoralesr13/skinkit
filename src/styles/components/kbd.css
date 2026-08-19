@@ -1,0 +1,6 @@
+/* ── Kbd ────────────────────────────────────────────────────── */
+[data-sk='kbd'] {
+  @apply inline-flex items-center justify-center min-w-[1.5em] py-px px-1 rounded-[6px]
+         border border-sk-border border-b-2 bg-sk-surface text-sk-text font-sk-mono text-sk-sm
+         leading-[1.4];
+}

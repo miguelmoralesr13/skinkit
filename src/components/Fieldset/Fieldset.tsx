@@ -10,7 +10,7 @@ export interface FieldsetProps extends FieldsetHTMLAttributes<HTMLFieldSetElemen
 /**
  * Fieldset headless — agrupa campos relacionados con una leyenda. Usa <fieldset>/<legend>
  * nativos: `disabled` deshabilita en cascada TODOS los controles internos. La forma la da
- * el skin.
+ * el CSS.
  *
  * Contrato:
  *   [data-sk="fieldset"]    raíz (<fieldset>) · [data-error]

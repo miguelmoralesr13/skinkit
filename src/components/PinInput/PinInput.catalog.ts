@@ -6,7 +6,7 @@ export const pinInputSpec: ComponentSpec = {
   dataSk: 'pin-input',
   category: 'Formulario',
   description:
-    'Código segmentado (OTP / verificación): una casilla por carácter, con auto-avance, backspace hacia atrás y pegado que se reparte entre las casillas. Controlado o no. La forma la da el skin.',
+    'Código segmentado (OTP / verificación): una casilla por carácter, con auto-avance, backspace hacia atrás y pegado que se reparte entre las casillas. Controlado o no. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: 'string', required: false, description: 'Código actual (controlado).' },

@@ -1,0 +1,46 @@
+/* Toggle — ver src/components/Toggle/Toggle.tsx. Botón de dos estados (on/off), no un input de
+   formulario (eso es Switch). */
+[data-sk='toggle'] {
+  font: inherit;
+  @apply appearance-none inline-flex items-center justify-center gap-2 px-4 py-2 min-w-[2.4rem]
+         rounded-sk-pill border border-sk-border bg-sk-surface text-sk-text cursor-pointer
+         text-sk-md font-semibold
+         transition-[background,color,border-color] duration-150 ease-out;
+}
+[data-sk='toggle']:hover:not(:disabled) {
+  @apply bg-sk-surface-2;
+}
+[data-sk='toggle'][data-state='on'] {
+  @apply bg-sk-primary border-sk-primary text-sk-on-primary;
+}
+[data-sk='toggle'][data-size='sm'] {
+  @apply px-3 py-1 text-sk-sm;
+}
+[data-sk='toggle'][data-size='lg'] {
+  @apply px-5 py-3 text-sk-lg;
+}
+[data-sk='toggle']:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+[data-sk='toggle'][data-tone='secondary'][data-state='on'] {
+  @apply bg-sk-secondary border-sk-secondary text-sk-on-secondary;
+}
+[data-sk='toggle'][data-tone='tertiary'][data-state='on'] {
+  @apply bg-sk-tertiary border-sk-tertiary text-sk-on-tertiary;
+}
+[data-sk='toggle'][data-tone='accent'][data-state='on'] {
+  @apply bg-sk-accent border-sk-accent text-sk-on-accent;
+}
+[data-sk='toggle'][data-tone='success'][data-state='on'] {
+  @apply bg-sk-success border-sk-success text-sk-on-success;
+}
+[data-sk='toggle'][data-tone='warning'][data-state='on'] {
+  @apply bg-sk-warning border-sk-warning text-sk-on-warning;
+}
+[data-sk='toggle'][data-tone='info'][data-state='on'] {
+  @apply bg-sk-info border-sk-info text-sk-on-info;
+}
+[data-sk='toggle'][data-tone='danger'][data-state='on'] {
+  @apply bg-sk-danger border-sk-danger text-sk-on-danger;
+}

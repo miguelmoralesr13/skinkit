@@ -6,7 +6,7 @@ export const descriptionListSpec: ComponentSpec = {
   dataSk: 'dlist',
   category: 'Display',
   description:
-    'Pares término/definición para detalles y metadatos (ficha de un recurso). Compuesto: <DescriptionList> con <DescriptionList.Item>. Semántica dl/dt/dd. La forma la da el skin.',
+    'Pares término/definición para detalles y metadatos (ficha de un recurso). Compuesto: <DescriptionList> con <DescriptionList.Item>. Semántica dl/dt/dd. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDListElement>',
   props: [
     { name: 'orientation', type: "'horizontal' | 'vertical'", required: false, default: "'horizontal'", description: 'horizontal = término al lado de la definición; vertical = término arriba.' },

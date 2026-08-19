@@ -6,7 +6,7 @@ export const rangeCalendarSpec: ComponentSpec = {
   dataSk: 'calendar',
   category: 'Formulario',
   description:
-    'Grilla de mes para elegir un RANGO de fechas (dos clicks: inicio, luego fin; los días del medio se resaltan). Reusa el look del Calendar (emite [data-sk=calendar][data-range]). Controlado. La forma la da el skin.',
+    'Grilla de mes para elegir un RANGO de fechas (dos clicks: inicio, luego fin; los días del medio se resaltan). Reusa el look del Calendar (emite [data-sk=calendar][data-range]). Controlado. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: '{ start: string | null; end: string | null }', required: false, description: 'Rango seleccionado (ISO). Controlado.' },

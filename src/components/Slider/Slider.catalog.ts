@@ -6,7 +6,7 @@ export const sliderSpec: ComponentSpec = {
   dataSk: 'slider',
   category: 'Formulario',
   description:
-    'Control para elegir un número dentro de un rango, sobre un <input type="range"> nativo (accesible, teclado incluido). El color lo pone el skin vía accent-color.',
+    'Control para elegir un número dentro de un rango, sobre un <input type="range"> nativo (accesible, teclado incluido). El color lo pone el CSS vía accent-color.',
   extends: 'Omit<InputHTMLAttributes<HTMLInputElement>, "type">',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del riel/thumb (del theme, vía accent-color).' },

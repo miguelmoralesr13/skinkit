@@ -6,7 +6,7 @@ export const accordionSpec: ComponentSpec = {
   dataSk: 'accordion',
   category: 'Navegación',
   description:
-    'Lista de secciones colapsables. Componente compuesto: Accordion + Accordion.Item + Accordion.Trigger + Accordion.Panel. Headless con estado, ARIA y teclado (↑ ↓ Home End) incluidos; la forma la da el skin.',
+    'Lista de secciones colapsables. Componente compuesto: Accordion + Accordion.Item + Accordion.Trigger + Accordion.Panel. Headless con estado, ARIA y teclado (↑ ↓ Home End) incluidos; la forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     {
@@ -28,7 +28,7 @@ export const accordionSpec: ComponentSpec = {
     { name: 'item', description: 'Cada <Accordion.Item>. Lleva [data-state=open|closed].' },
     { name: 'trigger', description: 'El botón <Accordion.Trigger>. [data-state] + foco/teclado.' },
     { name: 'label', description: 'Texto dentro del trigger.' },
-    { name: 'indicator', description: 'Adorno abrir/cerrar (chevron, +/−…). El skin lo dibuja.' },
+    { name: 'indicator', description: 'Adorno abrir/cerrar (chevron, +/−…). El CSS lo dibuja.' },
     { name: 'panel', description: 'Contenido colapsable <Accordion.Panel>. [data-state].' },
   ],
   examples: [
@@ -49,11 +49,11 @@ export const accordionSpec: ComponentSpec = {
   usage: [
     'Cada Accordion.Item necesita un `value` único (es la clave de apertura).',
     'Usá type="single" para FAQ/secciones excluyentes; "multiple" cuando el usuario puede querer ver varias.',
-    'El orden en el DOM es Trigger → Panel; para mover el indicator (ej. a la izquierda) usá CSS order en el skin, no cambies el markup.',
+    'El orden en el DOM es Trigger → Panel; para mover el indicator (ej. a la izquierda) usá CSS order en el CSS, no cambies el markup.',
   ],
   a11y: [
     'Trigger es <button> con aria-expanded/aria-controls; Panel tiene role=region + aria-labelledby.',
     'Teclado: ↑ ↓ mueven foco entre triggers, Home/End al primero/último; Enter/Espacio togglean (nativo).',
-    'Panel cerrado usa hidden (correcto para foco); eso bloquea animación de altura — ver skin si se quiere animar.',
+    'Panel cerrado usa hidden (correcto para foco); eso bloquea animación de altura — ver CSS si se quiere animar.',
   ],
 }

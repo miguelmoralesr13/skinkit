@@ -6,7 +6,7 @@ export const colorSwatchSpec: ComponentSpec = {
   dataSk: 'color-swatch',
   category: 'Display',
   description:
-    'Muestra un color (chip) clickeable, con estado seleccionado para grupos de selección (paletas, filtros por color). El color va por style; la forma la da el skin.',
+    'Muestra un color (chip) clickeable, con estado seleccionado para grupos de selección (paletas, filtros por color). El color va por style; la forma la da el CSS.',
   extends: "Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'>",
   props: [
     { name: 'color', type: 'string', required: true, description: 'Color CSS a mostrar (ej. "#2f6df6", "tomato", "hsl(...)").' },

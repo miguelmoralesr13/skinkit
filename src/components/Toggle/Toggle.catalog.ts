@@ -6,7 +6,7 @@ export const toggleSpec: ComponentSpec = {
   dataSk: 'toggle',
   category: 'Acción',
   description:
-    'Botón de dos estados que queda presionado (negrita, favorito, filtro activo). A diferencia de Switch (formulario on/off), es una acción con estado. aria-pressed. La forma la da el skin.',
+    'Botón de dos estados que queda presionado (negrita, favorito, filtro activo). A diferencia de Switch (formulario on/off), es una acción con estado. aria-pressed. La forma la da el CSS.',
   extends: "Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'>",
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del estado presionado (del theme).' },

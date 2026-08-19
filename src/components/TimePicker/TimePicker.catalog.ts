@@ -6,7 +6,7 @@ export const timePickerSpec: ComponentSpec = {
   dataSk: 'time-picker',
   category: 'Formulario',
   description:
-    'Selector de hora sobre un <input type="time"> nativo (rueda/teclado del sistema, accesible). Espejo de Input. La forma la da el skin.',
+    'Selector de hora sobre un <input type="time"> nativo (rueda/teclado del sistema, accesible). Espejo de Input. La forma la da el CSS.',
   extends: "Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>",
   props: [
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta (htmlFor cableado).' },

@@ -15,7 +15,7 @@ export interface StatProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Stat headless — muestra una métrica: etiqueta, valor grande y variación opcional. La
- * forma y el color de la variación (según [data-trend]) los da el skin.
+ * forma y el color de la variación (según [data-trend]) los da el CSS.
  *
  * Contrato:
  *   [data-sk="stat"]        raíz

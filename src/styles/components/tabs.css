@@ -1,0 +1,30 @@
+/* ── Tabs ───────────────────────────────────────────────────── */
+[data-sk='tabs'] [data-part='list'] {
+  @apply inline-flex gap-1 p-1 rounded-sk-pill bg-sk-surface-2;
+}
+[data-sk='tabs'] [data-part='tab'] {
+  @apply appearance-none border-0 cursor-pointer px-4 py-2 rounded-sk-pill bg-transparent
+         text-sk-text-muted text-sk-md font-semibold transition-[background,color] duration-150 ease-out;
+}
+[data-sk='tabs'] [data-part='tab']:hover {
+  @apply text-sk-text;
+}
+[data-sk='tabs'] [data-part='tab'][data-state='active'] {
+  @apply bg-sk-surface text-sk-text;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+[data-sk='tabs'] [data-part='tab']:focus-visible {
+  @apply outline outline-2 outline-sk-primary outline-offset-2;
+}
+[data-sk='tabs'] [data-part='panel'] {
+  @apply px-1 py-4 text-sk-text text-sk-md leading-relaxed;
+}
+
+/* Tonos (tab activo) */
+[data-sk='tabs'][data-tone='secondary'] [data-part='tab'][data-state='active'] { @apply text-sk-secondary border-b-sk-secondary; }
+[data-sk='tabs'][data-tone='tertiary'] [data-part='tab'][data-state='active'] { @apply text-sk-tertiary border-b-sk-tertiary; }
+[data-sk='tabs'][data-tone='accent'] [data-part='tab'][data-state='active'] { @apply text-sk-accent border-b-sk-accent; }
+[data-sk='tabs'][data-tone='success'] [data-part='tab'][data-state='active'] { @apply text-sk-success border-b-sk-success; }
+[data-sk='tabs'][data-tone='warning'] [data-part='tab'][data-state='active'] { @apply text-sk-warning border-b-sk-warning; }
+[data-sk='tabs'][data-tone='info'] [data-part='tab'][data-state='active'] { @apply text-sk-info border-b-sk-info; }
+[data-sk='tabs'][data-tone='danger'] [data-part='tab'][data-state='active'] { @apply text-sk-danger border-b-sk-danger; }

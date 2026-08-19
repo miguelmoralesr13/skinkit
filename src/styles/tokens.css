@@ -1,0 +1,69 @@
+/**
+ * tokens.css — el contrato de diseño de skinkit, en un solo `@theme`.
+ *
+ * Reemplaza los viejos tokens/global.css + tokens/semantic.css + tokens/themes/*.css. Ya no hay
+ * dos ejes separados (theme=color / skin=forma): todo el look vive acá, como variables Tailwind
+ * (`--color-sk-*`, `--radius-sk-*`, `--shadow-sk-*`, `--text-sk-*`, `--font-sk-*`). Tailwind v4
+ * compila cada una a una custom property real en `:root` — un consumidor puede pisarlas con CSS
+ * plano (`[data-skinkit-root] { --color-sk-primary: #ff0000 }`) o con Tailwind arbitrary-value
+ * (`className="[--color-sk-primary:#ff0000]"`), con o sin build de Tailwind propio.
+ *
+ * A diferencia del viejo semantic.css (todo `initial` hasta que un theme lo rellenaba), ESTE
+ * archivo ya trae valores por defecto razonables (los de la vieja paleta "paper") — `import
+ * 'skinkit/styles/base'` solo, sin nada más, debe verse bien. Para personalizar, un consumidor
+ * pisa las variables que le interesan; no hace falta reemplazar el archivo entero.
+ *
+ * El viejo spacing scale (--sk-sp-1..8) se elimina: es numéricamente idéntico al spacing scale
+ * por defecto de Tailwind (--spacing × N), así que `gap-2`/`p-4` lo reemplazan 1:1.
+ */
+@theme {
+  /* Escala de forma — reemplaza los valores hardcodeados por-skin de antes por UNA escala nombrada */
+  --radius-sk-sm: 0.5rem;
+  --radius-sk-md: 0.75rem;
+  --radius-sk-lg: 1rem;
+  --radius-sk-pill: 999px;
+
+  --shadow-sk-sm: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-sk-md: 0 4px 14px rgba(0, 0, 0, 0.16);
+  --shadow-sk-lg: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+  /* Escala tipográfica — distinta de text-sm/base/lg de Tailwind a propósito, preserva los
+     valores viejos de fs-sm/md/lg (13/15/17px) en vez de saltar a los de Tailwind (14/16/18px) */
+  --text-sk-sm: 0.8125rem;
+  --text-sk-md: 0.9375rem;
+  --text-sk-lg: 1.0625rem;
+
+  --font-sk-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sk-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Contrato de color — CON default real (paleta "paper" de antes) */
+  --color-sk-surface: #ffffff;
+  --color-sk-surface-2: #f4f4f2;
+  --color-sk-text: #1a1a1a;
+  --color-sk-text-muted: #6b6b6b;
+  --color-sk-primary: #2f6df6;
+  --color-sk-primary-hover: #1f57d0;
+  --color-sk-on-primary: #ffffff;
+  --color-sk-secondary: #7c3aed;
+  --color-sk-on-secondary: #ffffff;
+  --color-sk-tertiary: #0d9488;
+  --color-sk-on-tertiary: #ffffff;
+  --color-sk-accent: #db2777;
+  --color-sk-on-accent: #ffffff;
+  --color-sk-success: #16a34a;
+  --color-sk-on-success: #ffffff;
+  --color-sk-warning: #d97706;
+  --color-sk-on-warning: #ffffff;
+  --color-sk-info: #0284c7;
+  --color-sk-on-info: #ffffff;
+  --color-sk-border: #e2e2df;
+  --color-sk-danger: #d64545;
+  --color-sk-on-danger: #ffffff;
+
+  /* Sintaxis de código (componente Code) */
+  --color-sk-code-comment: #8a8f98;
+  --color-sk-code-string: #0a7d43;
+  --color-sk-code-number: #b5540b;
+  --color-sk-code-keyword: #a3238e;
+  --color-sk-code-function: #2f6df6;
+}

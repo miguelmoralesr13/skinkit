@@ -1,0 +1,27 @@
+/* ── Accordion ──────────────────────────────────────────────── */
+[data-sk='accordion'] {
+  @apply flex flex-col gap-3;
+}
+[data-sk='accordion'] [data-part='item'] {
+  @apply border border-sk-border bg-sk-surface overflow-hidden rounded-[14px];
+}
+[data-sk='accordion'] [data-part='trigger'] {
+  @apply w-full flex items-center justify-between gap-3 px-5 py-4
+         bg-transparent border-0 cursor-pointer text-sk-md font-semibold text-sk-text;
+}
+[data-sk='accordion'] [data-part='trigger']:hover {
+  @apply bg-sk-surface-2;
+}
+[data-sk='accordion'] [data-part='trigger']:focus-visible {
+  @apply outline outline-2 outline-sk-primary -outline-offset-2;
+}
+/* Indicador soft = chevron que rota */
+[data-sk='accordion'] [data-part='indicator'] {
+  @apply w-2 h-2 border-r-2 border-b-2 border-sk-text-muted rotate-45 flex-none transition-transform duration-200 ease-in-out;
+}
+[data-sk='accordion'] [data-part='trigger'][data-state='open'] [data-part='indicator'] {
+  @apply rotate-[-135deg];
+}
+[data-sk='accordion'] [data-part='panel'] {
+  @apply px-5 pb-5 text-sk-text-muted text-sk-md leading-relaxed;
+}

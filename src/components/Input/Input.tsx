@@ -12,7 +12,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
  *
  * Contrato:
  *   [data-sk="input"]       raíz
- *   [data-error]            presente cuando error=true (el skin lo usa)
+ *   [data-error]            presente cuando error=true (el CSS lo usa)
  *   [data-part="label"]     etiqueta (htmlFor cableado)
  *   [data-part="field"]     el <input>
  *   [data-part="helper"]    texto de ayuda / error

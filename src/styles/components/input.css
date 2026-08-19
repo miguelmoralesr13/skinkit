@@ -1,0 +1,35 @@
+/**
+ * input.css — estilo del componente Input (data-sk="input").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+[data-sk='input'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='input'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='input'] [data-part='field'] {
+  @apply px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text text-sk-md
+         transition-[border-color,box-shadow] duration-150 ease-in-out;
+}
+
+[data-sk='input'] [data-part='field']:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  @apply border-sk-primary;
+}
+
+[data-sk='input'][data-error] [data-part='field'] {
+  @apply border-sk-danger;
+}
+
+[data-sk='input'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='input'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}

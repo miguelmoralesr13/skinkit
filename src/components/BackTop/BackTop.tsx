@@ -36,11 +36,11 @@ export interface BackTopProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 /**
  * BackTop headless — botón "volver arriba" que aparece al pasar cierto scroll y sube al tope al
- * hacer click. Estructura + estado; la forma/posición fija la da el skin.
+ * hacer click. Estructura + estado; la forma/posición fija la da el CSS.
  *
  * Contrato:
  *   [data-sk="back-top"]              el botón
- *   [data-visible="true|false"]       si superó el threshold (los skins animan la aparición)
+ *   [data-visible="true|false"]       si superó el threshold (el CSS anima la aparición)
  */
 export function BackTop({
   threshold = 240,

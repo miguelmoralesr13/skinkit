@@ -1,0 +1,26 @@
+/* ── RadialProgress ─────────────────────────────────────────── */
+[data-sk='radial-progress'] {
+  @apply relative inline-flex items-center justify-center;
+}
+[data-sk='radial-progress'] [data-part='track'] {
+  stroke: var(--color-sk-surface-2);
+}
+[data-sk='radial-progress'] [data-part='indicator'] {
+  stroke: var(--color-sk-primary);
+  transition: stroke-dashoffset 0.4s ease;
+}
+[data-sk='radial-progress'][data-tone='danger'] [data-part='indicator'] {
+  stroke: var(--color-sk-danger);
+}
+[data-sk='radial-progress'][data-tone='neutral'] [data-part='indicator'] {
+  stroke: var(--color-sk-text-muted);
+}
+[data-sk='radial-progress'][data-tone='secondary'] [data-part='indicator'] { stroke: var(--color-sk-secondary); }
+[data-sk='radial-progress'][data-tone='tertiary'] [data-part='indicator'] { stroke: var(--color-sk-tertiary); }
+[data-sk='radial-progress'][data-tone='accent'] [data-part='indicator'] { stroke: var(--color-sk-accent); }
+[data-sk='radial-progress'][data-tone='success'] [data-part='indicator'] { stroke: var(--color-sk-success); }
+[data-sk='radial-progress'][data-tone='warning'] [data-part='indicator'] { stroke: var(--color-sk-warning); }
+[data-sk='radial-progress'][data-tone='info'] [data-part='indicator'] { stroke: var(--color-sk-info); }
+[data-sk='radial-progress'] [data-part='label'] {
+  @apply absolute text-sk-sm font-bold text-sk-text;
+}

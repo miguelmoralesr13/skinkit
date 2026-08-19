@@ -20,8 +20,8 @@
   grid-auto-flow: var(--sk-grid-flow, row);
   align-items: var(--sk-grid-align, stretch);
   justify-items: var(--sk-grid-justify, stretch);
-  row-gap: var(--sk-grid-row-gap, var(--sk-grid-gap, var(--sk-sp-4)));
-  column-gap: var(--sk-grid-col-gap, var(--sk-grid-gap, var(--sk-sp-4)));
+  row-gap: var(--sk-grid-row-gap, var(--sk-grid-gap, calc(var(--spacing) * 4)));
+  column-gap: var(--sk-grid-col-gap, var(--sk-grid-gap, calc(var(--spacing) * 4)));
 }
 [data-sk='grid'][data-inline] {
   display: inline-grid;
@@ -36,7 +36,7 @@
 [data-sk='stack'] {
   display: flex;
   flex-direction: var(--sk-stack-dir-base, column);
-  gap: var(--sk-stack-gap, var(--sk-sp-4));
+  gap: var(--sk-stack-gap, calc(var(--spacing) * 4));
   align-items: var(--sk-stack-align, stretch);
   justify-content: var(--sk-stack-justify, flex-start);
 }
@@ -51,7 +51,7 @@
 [data-sk='container'] {
   width: 100%;
   margin-inline: auto;
-  padding-inline: var(--sk-container-pad, var(--sk-sp-4));
+  padding-inline: var(--sk-container-pad, calc(var(--spacing) * 4));
   max-width: var(--sk-container-max, 64rem);
 }
 [data-sk='container'][data-size='sm'] {
@@ -80,7 +80,7 @@
   flex: 1 1 auto;
 }
 [data-sk='spacer'][data-fixed] {
-  flex: 0 0 var(--sk-spacer-size, var(--sk-sp-4));
+  flex: 0 0 var(--sk-spacer-size, calc(var(--spacing) * 4));
   align-self: stretch;
 }
 

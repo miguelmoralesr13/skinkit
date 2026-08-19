@@ -165,21 +165,12 @@ body {
 }
 .sb-stage {
   flex: 1;
-  background: var(--sk-surface);
+  background: var(--color-sk-surface);
   border-radius: 8px;
   padding: 2.5rem;
   min-height: 100%;
   display: flex;
   justify-content: center;
-}
-/* Para el skin glass: fondo con "blobs" de color para que la translucidez/blur del vidrio
-   se note (sobre un fondo plano, el vidrio parecería opaco). Sólo chrome del playground. */
-.sb-stage[data-skin='glass'] {
-  background:
-    radial-gradient(38rem 26rem at 16% 16%, rgba(99, 141, 255, 0.55), transparent 60%),
-    radial-gradient(30rem 22rem at 86% 22%, rgba(214, 107, 255, 0.5), transparent 60%),
-    radial-gradient(34rem 26rem at 66% 94%, rgba(80, 214, 160, 0.5), transparent 60%),
-    var(--sk-surface);
 }
 .sb-story {
   width: 100%;
@@ -189,63 +180,215 @@ body {
   gap: 1.25rem;
 }
 
-/* Skin clay: fondo tintado plano para que la doble sombra (luz+sombra) de la plastilina se lea;
-   sobre blanco puro el highlight blanco desaparece. Sólo chrome del playground. */
-.sb-stage[data-skin='clay'],
-.sb-compare-cell[data-skin='clay'] {
-  background: color-mix(in srgb, var(--sk-primary) 8%, var(--sk-surface-2));
+/* ── Panel de personalización (todos los tokens de tokens.css) ──────────────── */
+.sb-personalize-toggle {
+  background: #24262c;
+  color: #c7c9d1;
+  border: 1px solid #34363d;
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
 }
-/* Skin spotlight: fondo levemente frío para que el hairline + canto de luz + sombra nítida se
-   lean (el look refinado es sutil sobre blanco puro). Sólo chrome del playground. */
-.sb-stage[data-skin='spotlight'],
-.sb-compare-cell[data-skin='spotlight'] {
-  background: color-mix(in srgb, var(--sk-text) 5%, var(--sk-surface-2));
+.sb-personalize-toggle.is-active {
+  background: #2f6df6;
+  border-color: #2f6df6;
+  color: #fff;
 }
-
-/* ── Modo comparar: el componente en TODAS las skins a la vez ───────────────── */
-.sb-compare {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-  align-content: start;
+.sb-reset {
+  background: #24262c;
+  color: #e8e8e8;
+  border: 1px solid #34363d;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
 }
-.sb-compare-item {
+.sb-personalize {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #17181d;
+  border-bottom: 1px solid #26272d;
+}
+.sb-personalize-group {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   min-width: 0;
 }
-.sb-compare-label {
-  font-size: 0.72rem;
+.sb-personalize-title {
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #9aa0ab;
-  padding: 0 0.25rem 0.35rem;
+  letter-spacing: 0.06em;
+  color: #6b7280;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
-.sb-compare-cell {
-  background: var(--sk-surface);
-  border-radius: 8px;
-  padding: 1.5rem;
-  min-height: 220px;
-  overflow: hidden;
+.sb-personalize-row {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
 }
-/* mismo backdrop de "blobs" que la stage única, para que glass se lea también acá */
-.sb-compare-cell[data-skin='glass'] {
-  background:
-    radial-gradient(24rem 18rem at 16% 16%, rgba(99, 141, 255, 0.55), transparent 60%),
-    radial-gradient(20rem 15rem at 86% 22%, rgba(214, 107, 255, 0.5), transparent 60%),
-    radial-gradient(22rem 18rem at 66% 94%, rgba(80, 214, 160, 0.5), transparent 60%),
-    var(--sk-surface);
+.sb-personalize-colors {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 0.5rem 0.9rem;
 }
-.sb-compare-cell .sb-story {
-  max-width: none;
-  gap: 1rem;
+.sb-color-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: #9aa0ab;
+  cursor: pointer;
 }
-.sb-toolbar input[type='checkbox'] {
+.sb-color-field input[type='color'] {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #34363d;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+.sb-range-field {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  color: #9aa0ab;
+}
+.sb-range-field input[type='range'] {
   accent-color: #2f6df6;
+}
+.sb-range-field-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.sb-radius-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: #7aa2ff;
+  font-style: normal;
+}
+.sb-chip {
+  background: #24262c;
+  color: #c7c9d1;
+  border: 1px solid #34363d;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+.sb-chip.is-active {
+  background: #2f6df6;
+  border-color: #2f6df6;
+  color: #fff;
+}
+.sb-personalize-row-wrap {
+  align-items: flex-end;
+}
+.sb-shadow-field {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  color: #9aa0ab;
+}
+.sb-shadow-field input[type='text'] {
+  width: 220px;
+  background: #24262c;
+  color: #e8e8e8;
+  border: 1px solid #34363d;
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  font: inherit;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.7rem;
+}
+.sb-shadow-presets {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: #6b7280;
+}
+.sb-spacing-hint {
+  font-size: 0.72rem;
+  color: #6b7280;
+  max-width: 420px;
+}
+.sb-personalize-preview {
+  flex: 1 1 100%;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #34363d;
+}
+.sb-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.sb-preview-btn {
+  white-space: nowrap;
+}
+.sb-preview-card {
+  width: 220px;
+}
+.sb-preview-card [data-part='body'] {
+  font-size: 0.78rem;
+}
+.sb-preview-tones {
+  display: inline-flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+.sb-preview-chip {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.sb-preview-text {
+  color: var(--color-sk-text);
+  background: var(--color-sk-surface);
+  font-family: var(--font-sk-sans);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+}
+.sb-preview-text-muted {
+  color: var(--color-sk-text-muted);
+}
+.sb-preview-code {
+  display: block;
+  background: var(--color-sk-surface);
+  font-family: var(--font-sk-mono);
+  font-size: 0.78rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.sb-personalize select {
+  background: #24262c;
+  color: #e8e8e8;
+  border: 1px solid #34363d;
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  font: inherit;
+  font-size: 0.8rem;
 }
 .sb-row {
   display: flex;

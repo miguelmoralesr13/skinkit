@@ -1,0 +1,36 @@
+/**
+ * select.css — estilo del componente Select (data-sk="select").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+[data-sk='select'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='select'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='select'] [data-part='field'] {
+  font: inherit;
+  @apply px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text text-sk-md
+         cursor-pointer transition-[border-color,box-shadow] duration-150 ease-in-out;
+}
+
+[data-sk='select'] [data-part='field']:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  @apply border-sk-primary;
+}
+
+[data-sk='select'][data-error] [data-part='field'] {
+  @apply border-sk-danger;
+}
+
+[data-sk='select'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='select'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}

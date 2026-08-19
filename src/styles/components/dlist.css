@@ -1,0 +1,21 @@
+/* ── DescriptionList ────────────────────────────────────────── */
+[data-sk='dlist'] {
+  @apply m-0 flex flex-col gap-2;
+}
+[data-sk='dlist'][data-orientation='horizontal'] [data-part='row'] {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  @apply gap-3 items-baseline;
+}
+[data-sk='dlist'] [data-part='term'] {
+  @apply text-sk-sm font-semibold text-sk-text-muted;
+}
+[data-sk='dlist'] [data-part='description'] {
+  @apply m-0 text-sk-text text-sk-md;
+}
+[data-sk='dlist'][data-orientation='vertical'] [data-part='row'] {
+  @apply pb-2 border-b border-sk-border;
+}
+[data-sk='dlist'][data-orientation='vertical'] [data-part='description'] {
+  @apply mt-0.5;
+}

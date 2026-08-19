@@ -1,0 +1,61 @@
+/* Alert — ver src/components/Alert/Alert.tsx / Alert.catalog.ts para el contrato de props/parts. */
+[data-sk='alert'] {
+  @apply flex items-start gap-3 p-4 rounded-sk-md bg-sk-surface-2 text-sk-text border border-sk-border;
+}
+[data-sk='alert'] [data-part='icon'] {
+  @apply inline-flex flex-none mt-0.5;
+}
+[data-sk='alert'] [data-part='content'] {
+  @apply flex-1 flex flex-col gap-0.5;
+}
+[data-sk='alert'] [data-part='title'] {
+  @apply font-bold text-sk-md;
+}
+[data-sk='alert'] [data-part='body'] {
+  @apply text-sk-md text-sk-text-muted leading-normal;
+}
+[data-sk='alert'] [data-part='close'] {
+  @apply appearance-none border-0 bg-transparent cursor-pointer flex-none w-[22px] h-[22px]
+         rounded-[6px] text-sk-text-muted text-[1.1rem] leading-none;
+}
+[data-sk='alert'] [data-part='close']:hover {
+  @apply text-sk-text;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Variantes — color-mix() no tiene equivalente en @apply, queda como CSS plano. */
+[data-sk='alert'][data-variant='primary'] {
+  background: color-mix(in srgb, var(--color-sk-primary) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--color-sk-primary) 40%, transparent);
+}
+[data-sk='alert'][data-variant='primary'] [data-part='icon'] {
+  @apply text-sk-primary;
+}
+[data-sk='alert'][data-variant='danger'] {
+  background: color-mix(in srgb, var(--color-sk-danger) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--color-sk-danger) 40%, transparent);
+}
+[data-sk='alert'][data-variant='danger'] [data-part='icon'] {
+  @apply text-sk-danger;
+}
+[data-sk='alert'][data-variant='success'] {
+  background: color-mix(in srgb, var(--color-sk-success) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--color-sk-success) 40%, transparent);
+}
+[data-sk='alert'][data-variant='success'] [data-part='icon'] {
+  @apply text-sk-success;
+}
+[data-sk='alert'][data-variant='warning'] {
+  background: color-mix(in srgb, var(--color-sk-warning) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--color-sk-warning) 40%, transparent);
+}
+[data-sk='alert'][data-variant='warning'] [data-part='icon'] {
+  @apply text-sk-warning;
+}
+[data-sk='alert'][data-variant='info'] {
+  background: color-mix(in srgb, var(--color-sk-info) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--color-sk-info) 40%, transparent);
+}
+[data-sk='alert'][data-variant='info'] [data-part='icon'] {
+  @apply text-sk-info;
+}

@@ -21,7 +21,7 @@ export interface EditableProps {
 
 /**
  * Editable headless — texto que se edita in-line: se muestra como texto y al click pasa a un
- * campo (Enter/blur guarda, Esc cancela). Controlado. La forma la da el skin.
+ * campo (Enter/blur guarda, Esc cancela). Controlado. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="editable"]    raíz · [data-editing] [data-empty]

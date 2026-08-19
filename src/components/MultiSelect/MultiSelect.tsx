@@ -30,7 +30,7 @@ export interface MultiSelectProps {
 /**
  * MultiSelect headless — como Combobox pero de VARIOS valores: los elegidos se muestran como
  * chips, con un buscador y una lista para (des)marcar. Teclado ↑↓/Enter/Esc; Backspace (vacío)
- * quita el último. Sin portal. Los chips reusan el contrato de Tag. La forma la da el skin.
+ * quita el último. Sin portal. Los chips reusan el contrato de Tag. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="multi-select"]   raíz · [data-error]

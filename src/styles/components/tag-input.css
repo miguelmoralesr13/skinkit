@@ -1,0 +1,44 @@
+/**
+ * tag-input.css — estilo del componente TagInput (data-sk="tag-input").
+ * Portado desde src/styles/skins/soft.css.
+ * Nota: cada tag es un `data-sk="tag"` (componente Tag aparte, categoría Display) — su estilo
+ * vive en tag.css, no acá; soft.css tampoco tiene reglas para `[data-sk='tag-input'] [data-sk='tag']`.
+ */
+
+[data-sk='tag-input'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='tag-input'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='tag-input'] [data-part='control'] {
+  cursor: text;
+  @apply flex flex-wrap items-center gap-2 px-3 py-2 border border-sk-border rounded-sk-md
+         bg-sk-surface transition-[border-color,box-shadow] duration-150 ease-in-out;
+}
+
+[data-sk='tag-input'] [data-part='control']:focus-within {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  @apply border-sk-primary;
+}
+
+[data-sk='tag-input'][data-error] [data-part='control'] {
+  @apply border-sk-danger;
+}
+
+[data-sk='tag-input'] [data-part='field'] {
+  min-width: 6ch;
+  outline: none;
+  font: inherit;
+  @apply flex-1 border-none bg-transparent text-sk-text text-sk-md;
+}
+
+[data-sk='tag-input'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='tag-input'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}

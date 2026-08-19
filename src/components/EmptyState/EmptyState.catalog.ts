@@ -6,7 +6,7 @@ export const emptyStateSpec: ComponentSpec = {
   dataSk: 'empty',
   category: 'Display',
   description:
-    'Mensaje para cuando no hay contenido (lista vacía, sin resultados de búsqueda, primer uso). Ícono + título + descripción + acciones opcionales. La forma la da el skin.',
+    'Mensaje para cuando no hay contenido (lista vacía, sin resultados de búsqueda, primer uso). Ícono + título + descripción + acciones opcionales. La forma la da el CSS.',
   extends: 'Omit<HTMLAttributes<HTMLDivElement>, "title">',
   props: [
     { name: 'title', type: 'ReactNode', required: true, description: 'Frase principal (ej. "Sin resultados").' },

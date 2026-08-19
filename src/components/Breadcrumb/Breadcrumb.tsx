@@ -8,7 +8,7 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
 
 /**
  * Breadcrumb headless, compuesto: <Breadcrumb> · <Breadcrumb.Item>. Rastro de navegación
- * jerárquica. El separador entre ítems lo dibuja el skin (::before), no el markup.
+ * jerárquica. El separador entre ítems lo dibuja el CSS (::before), no el markup.
  *
  * Contrato:
  *   [data-sk="breadcrumb"]   raíz (<nav aria-label>)

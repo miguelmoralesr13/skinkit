@@ -6,7 +6,7 @@ export const topbarSpec: ComponentSpec = {
   dataSk: 'topbar',
   category: 'Navegación',
   description:
-    'Barra superior de aplicación. Compound: Topbar + Topbar.Brand + Topbar.Nav + Topbar.Item + Topbar.Actions. Los items son links (<a>) con estado activo (aria-current). La forma la da el skin.',
+    'Barra superior de aplicación. Compound: Topbar + Topbar.Brand + Topbar.Nav + Topbar.Item + Topbar.Actions. Los items son links (<a>) con estado activo (aria-current). La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLElement>',
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del ítem de nav activo (del theme).' },

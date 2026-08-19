@@ -20,7 +20,7 @@ export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
 
 /**
  * Tag headless — etiqueta/chip, opcionalmente removible (filtros, selecciones). A diferencia
- * de Badge (puro adorno), Tag puede llevar un botón de quitar. La forma la da el skin.
+ * de Badge (puro adorno), Tag puede llevar un botón de quitar. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="tag"]         raíz

@@ -32,7 +32,7 @@ export interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElemen
 /**
  * SegmentedControl headless — selector de UNA opción entre pocas, en línea (tipo toggle group).
  * Compuesto: <SegmentedControl> · <SegmentedControl.Item>. role=radiogroup, roving tabindex y
- * flechas ← →. La forma la da el skin.
+ * flechas ← →. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="segmented"]        raíz (role=radiogroup)

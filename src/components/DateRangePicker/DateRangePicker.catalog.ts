@@ -6,7 +6,7 @@ export const dateRangePickerSpec: ComponentSpec = {
   dataSk: 'date-picker',
   category: 'Formulario',
   description:
-    'Campo que abre un RangeCalendar en un Popover para elegir un rango de fechas; se cierra al completar el rango y muestra "inicio – fin". Construido sobre Popover + RangeCalendar. Controlado. La forma la da el skin.',
+    'Campo que abre un RangeCalendar en un Popover para elegir un rango de fechas; se cierra al completar el rango y muestra "inicio – fin". Construido sobre Popover + RangeCalendar. Controlado. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: '{ start: string | null; end: string | null }', required: false, description: 'Rango seleccionado (ISO). Controlado.' },

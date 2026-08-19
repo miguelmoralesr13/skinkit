@@ -18,7 +18,7 @@ const pad2 = (n: number) => String(n).padStart(2, '0')
 
 /**
  * Countdown headless — cuenta regresiva a un momento (lanzamiento, oferta). Muestra
- * días/horas/minutos/segundos y avisa al llegar a cero. La forma la da el skin.
+ * días/horas/minutos/segundos y avisa al llegar a cero. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="countdown"]   raíz · [data-done] al terminar

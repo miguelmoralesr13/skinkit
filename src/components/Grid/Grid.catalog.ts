@@ -6,7 +6,7 @@ export const gridSpec: ComponentSpec = {
   dataSk: 'grid',
   category: 'Layout',
   description:
-    'CSS Grid parametrizada por props, con soporte responsive por breakpoints y modo auto-fit. `cols` acepta un número o un objeto por breakpoint (base/sm/md/lg/xl); `minChildWidth` activa el modo auto-fit que reacomoda las columnas sin media queries. El CSS de layout vive en la hoja base (styles/layout.css), no en los skins: una grilla es igual en cualquier skin.',
+    'CSS Grid parametrizada por props, con soporte responsive por breakpoints y modo auto-fit. `cols` acepta un número o un objeto por breakpoint (base/sm/md/lg/xl); `minChildWidth` activa el modo auto-fit que reacomoda las columnas sin media queries. El CSS de layout vive en la hoja base (styles/layout.css), no en el CSS por-componente: una grilla es igual sin importar cómo se personalice el resto.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'cols', type: 'number | { base?; sm?; md?; lg?; xl? }', required: false, description: 'Cantidad de columnas (responsive). Se ignora si se pasa minChildWidth.' },

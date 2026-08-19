@@ -39,7 +39,7 @@ export interface HoverCardProps extends HTMLAttributes<HTMLSpanElement> {
  * HoverCard headless, compuesto: <HoverCard> · <HoverCard.Trigger> · <HoverCard.Content>.
  * Muestra contenido RICO al pasar el mouse o enfocar (preview de usuario, definición). A
  * diferencia de Tooltip (texto breve) o Popover (click), abre por hover con delays para poder
- * mover el mouse al contenido. Sin portal. La forma la da el skin.
+ * mover el mouse al contenido. Sin portal. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="hover-card"]   [data-side]   raíz

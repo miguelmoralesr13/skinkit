@@ -6,7 +6,7 @@ export const menuSpec: ComponentSpec = {
   dataSk: 'menu',
   category: 'Overlay',
   description:
-    'Menú desplegable de acciones (dropdown). Compuesto: <Menu> con Trigger/Content/Item. Sin portal (conserva theme/skin). Abre al click; cierra con Esc, click afuera o elegir un ítem. Teclado ↑↓ entre ítems.',
+    'Menú desplegable de acciones (dropdown). Compuesto: <Menu> con Trigger/Content/Item. Sin portal. Abre al click; cierra con Esc, click afuera o elegir un ítem. Teclado ↑↓ entre ítems.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'side', type: "'bottom' | 'top'", required: false, default: "'bottom'", description: 'Lado donde se despliega el contenido respecto del trigger.' },

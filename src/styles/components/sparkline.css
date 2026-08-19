@@ -1,0 +1,45 @@
+/* ── Sparkline ──────────────────────────────────────────────── */
+[data-sk='sparkline'] [data-part='line'] {
+  stroke: var(--color-sk-primary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+[data-sk='sparkline'] [data-part='area'] {
+  fill: color-mix(in srgb, var(--color-sk-primary) 18%, transparent);
+  stroke: none;
+}
+[data-sk='sparkline'] [data-part='dot'] {
+  fill: var(--color-sk-primary);
+}
+[data-sk='sparkline'][data-tone='danger'] [data-part='line'],
+[data-sk='sparkline'][data-tone='danger'] [data-part='dot'] {
+  stroke: var(--color-sk-danger);
+  fill: var(--color-sk-danger);
+}
+[data-sk='sparkline'][data-tone='danger'] [data-part='area'] {
+  fill: color-mix(in srgb, var(--color-sk-danger) 18%, transparent);
+}
+[data-sk='sparkline'][data-tone='neutral'] [data-part='line'],
+[data-sk='sparkline'][data-tone='neutral'] [data-part='dot'] {
+  stroke: var(--color-sk-text-muted);
+  fill: var(--color-sk-text-muted);
+}
+[data-sk='sparkline'][data-tone='secondary'] [data-part='line'],
+[data-sk='sparkline'][data-tone='secondary'] [data-part='dot'] { stroke: var(--color-sk-secondary); fill: var(--color-sk-secondary); }
+[data-sk='sparkline'][data-tone='secondary'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-secondary) 18%, transparent); }
+[data-sk='sparkline'][data-tone='tertiary'] [data-part='line'],
+[data-sk='sparkline'][data-tone='tertiary'] [data-part='dot'] { stroke: var(--color-sk-tertiary); fill: var(--color-sk-tertiary); }
+[data-sk='sparkline'][data-tone='tertiary'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-tertiary) 18%, transparent); }
+[data-sk='sparkline'][data-tone='accent'] [data-part='line'],
+[data-sk='sparkline'][data-tone='accent'] [data-part='dot'] { stroke: var(--color-sk-accent); fill: var(--color-sk-accent); }
+[data-sk='sparkline'][data-tone='accent'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-accent) 18%, transparent); }
+[data-sk='sparkline'][data-tone='success'] [data-part='line'],
+[data-sk='sparkline'][data-tone='success'] [data-part='dot'] { stroke: var(--color-sk-success); fill: var(--color-sk-success); }
+[data-sk='sparkline'][data-tone='success'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-success) 18%, transparent); }
+[data-sk='sparkline'][data-tone='warning'] [data-part='line'],
+[data-sk='sparkline'][data-tone='warning'] [data-part='dot'] { stroke: var(--color-sk-warning); fill: var(--color-sk-warning); }
+[data-sk='sparkline'][data-tone='warning'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-warning) 18%, transparent); }
+[data-sk='sparkline'][data-tone='info'] [data-part='line'],
+[data-sk='sparkline'][data-tone='info'] [data-part='dot'] { stroke: var(--color-sk-info); fill: var(--color-sk-info); }
+[data-sk='sparkline'][data-tone='info'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-info) 18%, transparent); }

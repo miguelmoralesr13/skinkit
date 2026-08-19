@@ -6,7 +6,7 @@ export const marqueeSpec: ComponentSpec = {
   dataSk: 'marquee',
   category: 'Display',
   description:
-    'Tira de contenido que se desplaza en loop continuo (logos, avisos, ticker). El contenido se duplica para un loop sin costura; la animación la corre el skin.',
+    'Tira de contenido que se desplaza en loop continuo (logos, avisos, ticker). El contenido se duplica para un loop sin costura; la animación la corre el CSS.',
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'direction', type: "'left' | 'right'", required: false, default: "'left'", description: 'Sentido del desplazamiento.' },

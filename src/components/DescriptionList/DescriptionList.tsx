@@ -10,7 +10,7 @@ export interface DescriptionListProps extends HTMLAttributes<HTMLDListElement> {
 
 /**
  * DescriptionList headless, compuesto: <DescriptionList> · <DescriptionList.Item>. Pares
- * término/definición (detalles, metadatos). Semántica <dl><div><dt><dd>. La forma la da el skin.
+ * término/definición (detalles, metadatos). Semántica <dl><div><dt><dd>. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="dlist"]  [data-orientation]  raíz (<dl>)

@@ -32,7 +32,7 @@ export interface DisclosureProps extends Omit<HTMLAttributes<HTMLDivElement>, 'o
 /**
  * Disclosure headless, compuesto: <Disclosure> · <Disclosure.Trigger> · <Disclosure.Content>.
  * Una sección colapsable suelta (como un ítem de Accordion, pero standalone). Controlado o no.
- * ARIA (aria-expanded/controls) incluido; la forma la da el skin.
+ * ARIA (aria-expanded/controls) incluido; la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="disclosure"]   [data-state]  raíz (open|closed)

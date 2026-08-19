@@ -1,0 +1,25 @@
+/* ── Stat ───────────────────────────────────────────────────── */
+[data-sk='stat'] {
+  @apply flex items-start gap-3;
+}
+[data-sk='stat'] [data-part='icon'] {
+  @apply flex-none text-sk-primary mt-1;
+}
+[data-sk='stat'] [data-part='label'] {
+  @apply text-sk-sm font-medium text-sk-text-muted;
+}
+[data-sk='stat'] [data-part='value'] {
+  @apply text-[1.6rem] font-bold leading-[1.1] text-sk-text;
+}
+[data-sk='stat'] [data-part='delta'] {
+  @apply mt-[3px] text-sk-sm font-semibold;
+}
+[data-sk='stat'] [data-part='delta'][data-trend='up'] {
+  @apply text-sk-primary;
+}
+[data-sk='stat'] [data-part='delta'][data-trend='down'] {
+  @apply text-sk-danger;
+}
+[data-sk='stat'] [data-part='delta'][data-trend='neutral'] {
+  @apply text-sk-text-muted;
+}

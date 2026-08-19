@@ -11,7 +11,7 @@ export interface PopconfirmProps {
   cancelLabel?: string
   onConfirm?: () => void
   onCancel?: () => void
-  /** Estilo de acción peligrosa (el skin pinta el botón de confirmar con --sk-danger). */
+  /** Estilo de acción peligrosa (el CSS pinta el botón de confirmar con --sk-danger). */
   danger?: boolean
   side?: PopoverSide
   /** El disparador (texto/ícono). Se renderiza dentro del botón del Popover. */
@@ -20,7 +20,7 @@ export interface PopconfirmProps {
 
 /**
  * Popconfirm headless — confirmación liviana anclada a un disparador (a diferencia del
- * ConfirmDialog, que es un modal). Compone Popover + Button. La forma la da el skin.
+ * ConfirmDialog, que es un modal). Compone Popover + Button. La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="popconfirm"]   [data-tone=danger?]   panel dentro del Popover.Content

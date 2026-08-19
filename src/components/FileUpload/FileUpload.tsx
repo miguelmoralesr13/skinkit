@@ -44,7 +44,7 @@ export interface FileUploadProps {
  *   [data-sk="file-upload"]   [data-variant] · [data-error]   raíz
  *   [data-part="label"]       etiqueta (opcional)
  *   [data-part="dropzone"]    zona clickeable/soltar · [data-dragging] al arrastrar encima
- *   [data-part="input"]       el <input type=file> (el skin lo oculta)
+ *   [data-part="input"]       el <input type=file> (el CSS lo oculta)
  *   [data-part="prompt"]      texto/ícono de la zona
  *   [data-part="previews"]    grilla de previews (si preview)
  *   [data-part="preview"]     [data-image]   cada archivo

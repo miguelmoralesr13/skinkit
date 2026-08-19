@@ -1,0 +1,104 @@
+/* ── Dialog ─────────────────────────────────────────────────── */
+/* Cubre también los presets ConfirmDialog / AlertDialog / PromptDialog: los tres componen
+   <Dialog> sin declarar su propio [data-sk], así que este archivo alcanza para los cuatro. */
+[data-sk='dialog'] {
+  @apply fixed inset-0 z-[1000] flex items-center justify-center p-4;
+}
+[data-sk='dialog'] [data-part='overlay'] {
+  @apply absolute inset-0;
+  background: rgba(0, 0, 0, 0.45);
+}
+[data-sk='dialog'] [data-part='panel'] {
+  @apply relative z-[1] flex flex-col w-full max-w-lg bg-sk-surface text-sk-text rounded-sk-lg
+         overflow-hidden;
+  max-height: calc(100vh - var(--spacing) * 8);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+}
+[data-sk='dialog'][data-size='sm'] [data-part='panel'] {
+  @apply max-w-sm;
+}
+[data-sk='dialog'][data-size='lg'] [data-part='panel'] {
+  @apply max-w-3xl;
+}
+[data-sk='dialog'][data-size='full'] {
+  @apply p-0;
+}
+[data-sk='dialog'][data-size='full'] [data-part='panel'] {
+  @apply max-w-none w-full h-full rounded-none;
+  max-height: none;
+}
+[data-sk='dialog'] [data-part='header'] {
+  @apply flex items-center justify-between gap-3 px-5 py-4 border-b border-sk-border;
+}
+[data-sk='dialog'] [data-part='title'] {
+  @apply m-0 text-sk-lg font-bold;
+}
+[data-sk='dialog'] [data-part='body'] {
+  @apply p-5 overflow-y-auto text-sk-text-muted;
+  line-height: 1.6;
+}
+[data-sk='dialog'] [data-part='footer'] {
+  @apply flex justify-end gap-2 px-5 py-4 border-t border-sk-border bg-sk-surface-2;
+}
+[data-sk='dialog'] [data-part='close'] {
+  appearance: none;
+  border: none;
+  font-size: 1.3rem;
+  @apply bg-transparent cursor-pointer flex-none w-7 h-7 rounded-sk-sm text-sk-text-muted
+         leading-none;
+}
+[data-sk='dialog'] [data-part='close']:hover {
+  @apply bg-sk-surface-2 text-sk-text;
+}
+
+/* ── Dialog drawers (placement ≠ center) ────────────────────── */
+[data-sk='dialog']:not([data-placement='center']) {
+  @apply p-0;
+}
+[data-sk='dialog'][data-placement='left'] {
+  @apply justify-start items-stretch;
+}
+[data-sk='dialog'][data-placement='right'] {
+  @apply justify-end items-stretch;
+}
+[data-sk='dialog'][data-placement='top'] {
+  @apply items-start;
+}
+[data-sk='dialog'][data-placement='bottom'] {
+  @apply items-end;
+}
+[data-sk='dialog'][data-placement='left'] [data-part='panel'],
+[data-sk='dialog'][data-placement='right'] [data-part='panel'] {
+  @apply w-96 h-full max-h-none rounded-none;
+  max-width: 90vw;
+}
+[data-sk='dialog'][data-placement='top'] [data-part='panel'],
+[data-sk='dialog'][data-placement='bottom'] [data-part='panel'] {
+  @apply w-full max-w-none rounded-none;
+  max-height: 60vh;
+}
+[data-sk='dialog'][data-placement='left'][data-size='sm'] [data-part='panel'],
+[data-sk='dialog'][data-placement='right'][data-size='sm'] [data-part='panel'] {
+  @apply w-72;
+}
+[data-sk='dialog'][data-placement='left'][data-size='lg'] [data-part='panel'],
+[data-sk='dialog'][data-placement='right'][data-size='lg'] [data-part='panel'] {
+  @apply w-[32rem];
+}
+[data-sk='dialog'][data-placement='left'][data-size='full'] [data-part='panel'],
+[data-sk='dialog'][data-placement='right'][data-size='full'] [data-part='panel'] {
+  @apply w-full;
+}
+[data-sk='dialog'][data-placement='top'][data-size='sm'] [data-part='panel'],
+[data-sk='dialog'][data-placement='bottom'][data-size='sm'] [data-part='panel'] {
+  max-height: 35vh;
+}
+[data-sk='dialog'][data-placement='top'][data-size='lg'] [data-part='panel'],
+[data-sk='dialog'][data-placement='bottom'][data-size='lg'] [data-part='panel'] {
+  max-height: 80vh;
+}
+[data-sk='dialog'][data-placement='top'][data-size='full'] [data-part='panel'],
+[data-sk='dialog'][data-placement='bottom'][data-size='full'] [data-part='panel'] {
+  @apply h-full;
+  max-height: none;
+}

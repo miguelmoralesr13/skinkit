@@ -27,7 +27,7 @@ function escapeRegExp(s: string) {
 /**
  * Highlight headless — resalta las coincidencias de `query` dentro de `text` (resultados de
  * búsqueda). Envuelve cada match en <mark data-part="match">. Case-insensitive. El color del
- * resaltado lo da el skin.
+ * resaltado lo da el CSS.
  *
  * Contrato:
  *   [data-sk="highlight"]   raíz (<span>)

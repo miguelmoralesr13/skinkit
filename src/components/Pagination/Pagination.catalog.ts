@@ -6,7 +6,7 @@ export const paginationSpec: ComponentSpec = {
   dataSk: 'pagination',
   category: 'Navegación',
   description:
-    'Navegación entre páginas: anterior/siguiente, números y elipsis. El componente resuelve qué páginas mostrar; la forma la da el skin. Vos controlás page y respondés a onPageChange.',
+    'Navegación entre páginas: anterior/siguiente, números y elipsis. El componente resuelve qué páginas mostrar; la forma la da el CSS. Vos controlás page y respondés a onPageChange.',
   extends: "Omit<HTMLAttributes<HTMLElement>, 'onChange'>",
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de la página actual (del theme).' },

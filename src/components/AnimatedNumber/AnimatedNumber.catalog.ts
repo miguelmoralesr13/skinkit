@@ -6,7 +6,7 @@ export const animatedNumberSpec: ComponentSpec = {
   dataSk: 'animated-number',
   category: 'Display',
   description:
-    'Anima el conteo desde el valor anterior hasta el nuevo (métricas, contadores, dashboards). requestAnimationFrame + easing. La forma la da el skin (tabular-nums).',
+    'Anima el conteo desde el valor anterior hasta el nuevo (métricas, contadores, dashboards). requestAnimationFrame + easing. La forma la da el CSS (tabular-nums).',
   extends: "Omit<HTMLAttributes<HTMLSpanElement>, 'children'>",
   props: [
     { name: 'value', type: 'number', required: true, description: 'Valor objetivo. Al cambiar, anima desde el anterior.' },

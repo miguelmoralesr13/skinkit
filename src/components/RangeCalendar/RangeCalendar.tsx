@@ -39,7 +39,7 @@ function buildGrid(view: Date, weekStart: number): Date[] {
 /**
  * RangeCalendar headless — grilla de mes para elegir un RANGO de fechas (dos clicks: inicio,
  * luego fin). Emite [data-sk="calendar"] + [data-range] para heredar el estilo del Calendar;
- * agrega estados de rango en los días. La forma la da el skin.
+ * agrega estados de rango en los días. La forma la da el CSS.
  *
  * Contrato (además del de Calendar):
  *   [data-sk="calendar"][data-range]   raíz

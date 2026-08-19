@@ -1,0 +1,55 @@
+/**
+ * radio-group.css — estilo del componente RadioGroup (data-sk="radio-group").
+ * Portado desde src/styles/skins/soft.css.
+ *
+ * El grupo solo aporta el layout de columna; el tone del grupo cascadea a los `radio`
+ * anidados (que no reciben su propio data-tone) via los selectores descendientes de abajo.
+ */
+
+[data-sk='radio-group'] {
+  @apply flex flex-col gap-2;
+}
+
+/* ── cascada de tone del grupo hacia los radios anidados ── */
+[data-sk='radio-group'][data-tone='secondary'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-secondary;
+}
+[data-sk='radio-group'][data-tone='secondary'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-secondary;
+}
+[data-sk='radio-group'][data-tone='tertiary'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-tertiary;
+}
+[data-sk='radio-group'][data-tone='tertiary'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-tertiary;
+}
+[data-sk='radio-group'][data-tone='accent'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-accent;
+}
+[data-sk='radio-group'][data-tone='accent'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-accent;
+}
+[data-sk='radio-group'][data-tone='success'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-success;
+}
+[data-sk='radio-group'][data-tone='success'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-success;
+}
+[data-sk='radio-group'][data-tone='warning'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-warning;
+}
+[data-sk='radio-group'][data-tone='warning'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-warning;
+}
+[data-sk='radio-group'][data-tone='info'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-info;
+}
+[data-sk='radio-group'][data-tone='info'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-info;
+}
+[data-sk='radio-group'][data-tone='danger'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] {
+  @apply border-sk-danger;
+}
+[data-sk='radio-group'][data-tone='danger'] [data-sk='radio'] [data-part='control']:checked ~ [data-part='box'] [data-part='indicator'] {
+  @apply bg-sk-danger;
+}

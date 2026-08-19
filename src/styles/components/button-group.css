@@ -1,0 +1,33 @@
+/* ButtonGroup — ver src/components/ButtonGroup/ButtonGroup.tsx. Colapsa los bordes/radios de
+   los <Button> hijos para que se vean pegados. */
+[data-sk='button-group'] {
+  @apply inline-flex;
+}
+[data-sk='button-group'][data-orientation='vertical'] {
+  @apply flex-col;
+}
+[data-sk='button-group'] [data-sk='button'] {
+  @apply rounded-none shadow-none;
+}
+[data-sk='button-group'][data-orientation='horizontal'] [data-sk='button']:first-child {
+  border-top-left-radius: var(--radius-sk-pill);
+  border-bottom-left-radius: var(--radius-sk-pill);
+}
+[data-sk='button-group'][data-orientation='horizontal'] [data-sk='button']:last-child {
+  border-top-right-radius: var(--radius-sk-pill);
+  border-bottom-right-radius: var(--radius-sk-pill);
+}
+[data-sk='button-group'][data-orientation='horizontal'] [data-sk='button']:not(:first-child) {
+  @apply -ml-px;
+}
+[data-sk='button-group'][data-orientation='vertical'] [data-sk='button']:first-child {
+  border-top-left-radius: var(--radius-sk-pill);
+  border-top-right-radius: var(--radius-sk-pill);
+}
+[data-sk='button-group'][data-orientation='vertical'] [data-sk='button']:last-child {
+  border-bottom-left-radius: var(--radius-sk-pill);
+  border-bottom-right-radius: var(--radius-sk-pill);
+}
+[data-sk='button-group'][data-orientation='vertical'] [data-sk='button']:not(:first-child) {
+  @apply -mt-px;
+}

@@ -1,0 +1,62 @@
+/**
+ * number-input.css — estilo del componente NumberInput (data-sk="number-input").
+ * Portado desde src/styles/skins/soft.css.
+ */
+
+[data-sk='number-input'] {
+  @apply flex flex-col gap-2;
+}
+
+[data-sk='number-input'] [data-part='label'] {
+  @apply text-sk-sm font-semibold text-sk-text;
+}
+
+[data-sk='number-input'] [data-part='control'] {
+  width: fit-content;
+  @apply inline-flex items-stretch border border-sk-border rounded-sk-md overflow-hidden bg-sk-surface;
+}
+
+[data-sk='number-input'][data-error] [data-part='control'] {
+  @apply border-sk-danger;
+}
+
+[data-sk='number-input'] [data-part='decrement'],
+[data-sk='number-input'] [data-part='increment'] {
+  appearance: none;
+  line-height: 1;
+  @apply border-none w-10 bg-sk-surface-2 text-sk-text cursor-pointer text-[1.2rem];
+}
+
+[data-sk='number-input'] [data-part='decrement']:hover:not(:disabled),
+[data-sk='number-input'] [data-part='increment']:hover:not(:disabled) {
+  @apply bg-sk-border;
+}
+
+[data-sk='number-input'] [data-part='decrement']:disabled,
+[data-sk='number-input'] [data-part='increment']:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+
+[data-sk='number-input'] [data-part='field'] {
+  font: inherit;
+  -moz-appearance: textfield;
+  @apply w-16 border-none text-center bg-sk-surface text-sk-text text-sk-md;
+}
+
+[data-sk='number-input'] [data-part='field']:focus {
+  outline: none;
+}
+
+[data-sk='number-input'] [data-part='field']::-webkit-inner-spin-button,
+[data-sk='number-input'] [data-part='field']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+[data-sk='number-input'] [data-part='helper'] {
+  @apply text-sk-sm text-sk-text-muted;
+}
+
+[data-sk='number-input'][data-error] [data-part='helper'] {
+  @apply text-sk-danger;
+}

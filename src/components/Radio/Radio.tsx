@@ -90,11 +90,11 @@ export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 
 /**
  * Radio headless (una opción). Dentro de un <RadioGroup> toma name/checked del grupo;
- * suelto, funciona con props nativas. El skin oculta el input y pinta el `box`/`indicator`.
+ * suelto, funciona con props nativas. El CSS oculta el input y pinta el `box`/`indicator`.
  *
  * Contrato:
  *   [data-sk="radio"]        raíz (<label>)
- *   [data-part="control"]    el <input type=radio> (el skin lo oculta visualmente)
+ *   [data-part="control"]    el <input type=radio> (el CSS lo oculta visualmente)
  *   [data-part="box"]        círculo/caja visual
  *   [data-part="indicator"]  punto de selección
  *   [data-part="label"]      texto

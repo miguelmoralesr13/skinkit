@@ -6,7 +6,7 @@ export const popconfirmSpec: ComponentSpec = {
   dataSk: 'popconfirm',
   category: 'Overlay',
   description:
-    'Confirmación liviana anclada a un disparador (ej. "¿Borrar?" al lado del botón Borrar), a diferencia del ConfirmDialog que es un modal. Compone Popover + Button. La forma la da el skin.',
+    'Confirmación liviana anclada a un disparador (ej. "¿Borrar?" al lado del botón Borrar), a diferencia del ConfirmDialog que es un modal. Compone Popover + Button. La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'title', type: 'ReactNode', required: true, description: 'Pregunta/título de la confirmación.' },
@@ -15,7 +15,7 @@ export const popconfirmSpec: ComponentSpec = {
     { name: 'cancelLabel', type: 'string', required: false, default: "'Cancelar'", description: 'Texto del botón de cancelar.' },
     { name: 'onConfirm', type: '() => void', required: false, description: 'Se llama al confirmar; luego cierra.' },
     { name: 'onCancel', type: '() => void', required: false, description: 'Se llama al cancelar; luego cierra.' },
-    { name: 'danger', type: 'boolean', required: false, description: 'Acción peligrosa: el skin pinta el confirmar con --sk-danger.' },
+    { name: 'danger', type: 'boolean', required: false, description: 'Acción peligrosa: el CSS pinta el confirmar con --sk-danger.' },
     { name: 'side', type: "'top' | 'bottom' | 'left' | 'right'", required: false, default: "'top'", description: 'Lado donde se despliega respecto del disparador.' },
     { name: 'children', type: 'ReactNode', required: true, description: 'El disparador (texto/ícono); se renderiza dentro del botón del Popover.' },
   ],

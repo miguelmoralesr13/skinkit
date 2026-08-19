@@ -6,7 +6,7 @@ export const calendarSpec: ComponentSpec = {
   dataSk: 'calendar',
   category: 'Formulario',
   description:
-    'Grilla de un mes para elegir una fecha. Navegación de mes, estados today/selected/outside/disabled, teclado (flechas, Home/End, RePág/AvPág, Enter). Nombres vía Intl (locale). Controlado (value ISO). La forma la da el skin.',
+    'Grilla de un mes para elegir una fecha. Navegación de mes, estados today/selected/outside/disabled, teclado (flechas, Home/End, RePág/AvPág, Enter). Nombres vía Intl (locale). Controlado (value ISO). La forma la da el CSS.',
   extends: '—',
   props: [
     { name: 'value', type: 'string', required: false, description: 'Fecha seleccionada en ISO yyyy-mm-dd (controlado).' },

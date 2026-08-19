@@ -6,7 +6,7 @@ export const tagSpec: ComponentSpec = {
   dataSk: 'tag',
   category: 'Display',
   description:
-    'Etiqueta/chip, opcionalmente removible (filtros activos, selecciones, keywords). A diferencia de Badge —puro adorno—, Tag puede llevar un botón de quitar. La forma la da el skin.',
+    'Etiqueta/chip, opcionalmente removible (filtros activos, selecciones, keywords). A diferencia de Badge —puro adorno—, Tag puede llevar un botón de quitar. La forma la da el CSS.',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [
     {

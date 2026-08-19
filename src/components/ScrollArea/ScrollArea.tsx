@@ -10,7 +10,7 @@ export interface ScrollAreaProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * ScrollArea headless — región con scroll y barra estilizada por el skin (scrollbar-color /
+ * ScrollArea headless — región con scroll y barra estilizada por el CSS (scrollbar-color /
  * ::-webkit-scrollbar). Mantiene el scroll nativo (rueda, teclado, touch); solo cambia el look.
  *
  * Contrato:

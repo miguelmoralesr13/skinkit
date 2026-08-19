@@ -6,7 +6,7 @@ export const avatarSpec: ComponentSpec = {
   dataSk: 'avatar',
   category: 'Display',
   description:
-    'Imagen de perfil de una persona/entidad, con fallback a iniciales o ícono cuando no hay imagen o falla la carga. La forma (tamaño, redondeo) la da el skin.',
+    'Imagen de perfil de una persona/entidad, con fallback a iniciales o ícono cuando no hay imagen o falla la carga. La forma (tamaño, redondeo) la da el CSS.',
   extends: 'HTMLAttributes<HTMLSpanElement>',
   props: [
     {
@@ -56,7 +56,7 @@ export const avatarSpec: ComponentSpec = {
   usage: [
     'Pasá SIEMPRE un `fallback` (iniciales) para cubrir el caso sin imagen o con error de carga.',
     'Usá `alt` con el nombre de la persona; queda como aria-label del fallback también.',
-    'Para el redondeo (círculo vs. cuadrado) no toques props: lo decide el skin.',
+    'Para el redondeo (círculo vs. cuadrado) no toques props: lo decide el CSS.',
   ],
   a11y: [
     'Sin imagen, el fallback se expone como role="img" con aria-label=alt (si hay alt).',

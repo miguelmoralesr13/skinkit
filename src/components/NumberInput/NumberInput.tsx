@@ -22,7 +22,7 @@ function clamp(v: number, min: number, max: number): number {
 
 /**
  * NumberInput headless — campo numérico con botones de −/+ que respetan min/max/step.
- * Controlado (value+onChange) o no (defaultValue). La forma la da el skin.
+ * Controlado (value+onChange) o no (defaultValue). La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="number-input"]   raíz · [data-error]

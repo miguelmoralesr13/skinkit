@@ -10,9 +10,9 @@ export interface ImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'o
   ratio?: number | string
   /** object-fit de la imagen. Default 'cover'. */
   fit?: CSSProperties['objectFit']
-  /** Esquinas redondeadas (lo define el skin vía [data-rounded]). */
+  /** Esquinas redondeadas (lo define el CSS vía [data-rounded]). */
   rounded?: boolean
-  /** Contenido a mostrar cuando la imagen falla (default: un placeholder del skin). */
+  /** Contenido a mostrar cuando la imagen falla (default: un placeholder del CSS). */
   fallback?: ReactNode
 }
 
@@ -20,7 +20,7 @@ type Status = 'loading' | 'loaded' | 'error'
 
 /**
  * Image headless — <img> con estado de carga, fallback ante error y relación de aspecto. No estila
- * colores/bordes: expone [data-status]/[data-rounded] y los parts; la forma la da el skin.
+ * colores/bordes: expone [data-status]/[data-rounded] y los parts; la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="image"]     [data-status=loading|loaded|error] [data-rounded]

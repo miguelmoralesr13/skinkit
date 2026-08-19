@@ -30,8 +30,8 @@ export interface ComboboxProps {
 
 /**
  * Combobox headless — input de texto con lista desplegable filtrada (autocomplete). Teclado
- * ↑ ↓ para resaltar, Enter para elegir, Esc para cerrar; cierra con click afuera. Sin portal
- * (conserva theme/skin). La forma la da el skin.
+ * ↑ ↓ para resaltar, Enter para elegir, Esc para cerrar; cierra con click afuera. Sin portal.
+ * La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="combobox"]     raíz · [data-error]

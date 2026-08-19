@@ -11,7 +11,7 @@ export interface SeparatorProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Separator headless — línea divisoria entre bloques o ítems. La forma (grosor, color,
- * espaciado) la da el skin; el componente solo aporta orientación y semántica ARIA.
+ * espaciado) la da el CSS; el componente solo aporta orientación y semántica ARIA.
  *
  * Contrato:
  *   [data-sk="separator"]    raíz

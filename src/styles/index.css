@@ -2,15 +2,15 @@
  * Base de skinkit — importá esto UNA vez.
  *   import 'skinkit/styles/base'
  *
- * Trae: primitivos + contrato de paleta + themes incluidos (paper, dusk).
- * NO trae ningún skin: los componentes salen sin estilo a propósito. Elegí un skin
- * aparte (import 'skinkit/skins/soft') o escribí el tuyo apuntando al contrato de parts.
+ * Trae: Tailwind + el contrato de tokens (tokens.css) CON valores por defecto + el CSS de cada
+ * componente (components/index.css, el único "look" que ships) + layout estructural. Ya no hay
+ * skins que elegir aparte: los componentes salen estilados desde este único import. Para
+ * personalizar, pisá las variables `--color-sk-*`/`--radius-sk-*`/etc. (ver skinkit-tokens skill
+ * o el README) o extendé `skinkit/tailwind-preset` en tu propio build de Tailwind.
  */
-@import './tokens/global.css';
-@import './tokens/semantic.css';
-@import './tokens/themes/paper.css';
-@import './tokens/themes/dusk.css';
-@import './tokens/themes/forest.css';
+@import 'tailwindcss';
+@import './tokens.css';
+@import './components/index.css';
 @import './layout.css';
 
 /* Reset mínimo, acotado al árbol de skinkit para no pisar estilos del consumidor. */
@@ -22,15 +22,15 @@
 }
 
 [data-skinkit-root] {
-  color: var(--sk-text);
-  font-family: var(--sk-font);
+  color: var(--color-sk-text);
+  font-family: var(--font-sk-sans);
 }
 
 /* Los botones no heredan `font`/`color` de forma nativa: se los damos por defecto. OJO con la
  * especificidad: el selector de elemento `button` haría que este reset (0,2,1) le GANE a la regla
- * de cada skin `[data-skin] [data-sk='button']` (0,2,0) y pise su `color` (rompía el texto de los
- * filled: quedaba heredado oscuro en vez de --sk-on-primary). Por eso el `color` va envuelto en
- * `:where()` (especificidad 0): sigue aplicando cuando NO hay skin, pero cualquier skin lo gana. */
+ * de cada componente `[data-sk='button']` (0,1,0) y pise su `color` (rompía el texto de los
+ * filled: quedaba heredado oscuro en vez de --color-sk-on-primary). Por eso el `color` va envuelto
+ * en `:where()` (especificidad 0): sigue aplicando, pero el CSS del componente siempre le gana. */
 [data-skinkit-root] button[data-sk] {
   font: inherit;
 }
@@ -38,7 +38,7 @@
   color: inherit;
 }
 
-/* VisuallyHidden — utilidad de a11y: se oculta SIEMPRE (no depende del skin). */
+/* VisuallyHidden — utilidad de a11y: se oculta SIEMPRE (no depende del look). */
 [data-sk='visually-hidden'] {
   position: absolute;
   width: 1px;

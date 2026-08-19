@@ -15,7 +15,7 @@ export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
 
 /**
  * Alert headless — mensaje de feedback (info, aviso, error). role="alert" para que los
- * lectores lo anuncien. Sin estilo propio: la forma la da el skin.
+ * lectores lo anuncien. Sin estilo propio: la forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="alert"]        raíz (role=alert)

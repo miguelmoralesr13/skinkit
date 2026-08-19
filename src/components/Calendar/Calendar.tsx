@@ -44,7 +44,7 @@ function buildGrid(view: Date, weekStart: number): Date[] {
 /**
  * Calendar headless — grilla de un mes para elegir una fecha. Navegación de mes, estados
  * today/selected/outside/disabled y teclado (flechas, Home/End, RePág/AvPág, Enter). Los
- * nombres salen de Intl (locale). La forma la da el skin.
+ * nombres salen de Intl (locale). La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="calendar"]        raíz

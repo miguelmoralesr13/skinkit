@@ -7,7 +7,8 @@ export interface AppShellProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * AppShell headless — layout de aplicación en grilla: header arriba, sidebar a la izquierda, main
- * al centro (scrollea) y footer abajo. Es CSS estructural (vive en la hoja base, no en los skins):
+ * al centro (scrollea) y footer abajo. Es CSS estructural (vive en la hoja base, no en el CSS
+ * por-componente):
  * los colores/bordes los ponen los componentes que metas adentro (Topbar/Sidebar/BottomNav).
  * Definí la altura vos (ej. height: 100dvh) para una app de pantalla completa.
  *

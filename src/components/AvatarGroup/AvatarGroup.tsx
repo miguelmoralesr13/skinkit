@@ -11,7 +11,7 @@ export interface AvatarGroupProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * AvatarGroup headless — apila avatares superpuestos y resume el excedente en un "+N".
- * El solapamiento y el borde de recorte los da el skin. Los hijos son <Avatar>.
+ * El solapamiento y el borde de recorte los da el CSS. Los hijos son <Avatar>.
  *
  * Contrato:
  *   [data-sk="avatar-group"]   raíz

@@ -16,7 +16,7 @@ export interface CodeProps extends HTMLAttributes<HTMLElement> {
 
 /**
  * Code headless — muestra código, inline (<code>) o en bloque (<pre>). En bloque puede
- * incluir un botón de copiar (usa el texto del propio bloque). La forma la da el skin.
+ * incluir un botón de copiar (usa el texto del propio bloque). La forma la da el CSS.
  *
  * Contrato:
  *   [data-sk="code"]   [data-block]   raíz (<code> inline, o <pre> en bloque)

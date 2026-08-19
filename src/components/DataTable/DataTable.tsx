@@ -36,7 +36,7 @@ function SelectionControl({
 
 /**
  * DataTable headless — tabla de datos config-driven (columnas + props JSON). Estructura + contrato;
- * la forma la dan los skins. Ejes independientes cliente/servidor:
+ * la forma la da el CSS del componente. Ejes independientes cliente/servidor:
  *   - orden: server si pasás onSortChange, si no cliente
  *   - filtro: server si pasás onFilterChange, si no cliente
  *   - paginado: 'client' | 'server' | 'infinite' | 'none'

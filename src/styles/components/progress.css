@@ -1,0 +1,31 @@
+/* ── Progress ───────────────────────────────────────────────── */
+[data-sk='progress'] {
+  @apply w-full;
+}
+[data-sk='progress'] [data-part='track'] {
+  @apply h-2 rounded-sk-pill bg-sk-surface-2 overflow-hidden;
+}
+[data-sk='progress'] [data-part='indicator'] {
+  @apply h-full rounded-sk-pill bg-sk-primary transition-[width] duration-300 ease-in-out;
+  width: calc(var(--sk-progress, 0) * 100%);
+}
+[data-sk='progress'][data-indeterminate] [data-part='indicator'] {
+  width: 40%;
+  animation: sk-progress-indeterminate 1.2s ease-in-out infinite;
+}
+@keyframes sk-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+[data-sk='progress'][data-tone='secondary'] [data-part='indicator'] { @apply bg-sk-secondary; }
+[data-sk='progress'][data-tone='tertiary'] [data-part='indicator'] { @apply bg-sk-tertiary; }
+[data-sk='progress'][data-tone='accent'] [data-part='indicator'] { @apply bg-sk-accent; }
+[data-sk='progress'][data-tone='success'] [data-part='indicator'] { @apply bg-sk-success; }
+[data-sk='progress'][data-tone='warning'] [data-part='indicator'] { @apply bg-sk-warning; }
+[data-sk='progress'][data-tone='info'] [data-part='indicator'] { @apply bg-sk-info; }
+[data-sk='progress'][data-tone='danger'] [data-part='indicator'] { @apply bg-sk-danger; }
+[data-sk='progress'][data-tone='neutral'] [data-part='indicator'] { @apply bg-sk-text-muted; }
