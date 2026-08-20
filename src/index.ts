@@ -294,10 +294,22 @@ export { Popconfirm } from './components/Popconfirm'
 export type { PopconfirmProps } from './components/Popconfirm'
 
 export { Topbar } from './components/Topbar'
-export type { TopbarProps, TopbarItemProps } from './components/Topbar'
+export type {
+  TopbarProps,
+  TopbarItemProps,
+  TopbarSearchProps,
+  TopbarUserMenuProps,
+  TopbarIconButtonProps,
+  TopbarMenuToggleProps,
+} from './components/Topbar'
 
 export { Sidebar } from './components/Sidebar'
-export type { SidebarProps, SidebarSectionProps, SidebarItemProps } from './components/Sidebar'
+export type {
+  SidebarProps,
+  SidebarSectionProps,
+  SidebarItemProps,
+  SidebarGroupProps,
+} from './components/Sidebar'
 
 export { BottomNav } from './components/BottomNav'
 export type { BottomNavProps, BottomNavItemProps } from './components/BottomNav'

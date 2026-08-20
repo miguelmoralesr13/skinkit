@@ -17,7 +17,7 @@ export const copyButtonSpec: ComponentSpec = {
   parts: [{ name: 'root', description: 'El <button> [data-sk=copy-button]. Lleva [data-copied] tras copiar.' }],
   examples: [
     { title: 'Copiar token', code: '<CopyButton value={token} />' },
-    { title: 'Con ícono/label', code: '<CopyButton value={url} copiedLabel="✓ Listo">Copiar URL</CopyButton>' },
+    { title: 'Con ícono/label', code: 'import { Check } from \'lucide-react\'\n\n<CopyButton value={url} copiedLabel={<><Check size={14} /> Listo</>}>Copiar URL</CopyButton>' },
   ],
   usage: [
     'Pasá el texto exacto en `value`; el botón se encarga del clipboard y del feedback.',

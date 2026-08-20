@@ -1,6 +1,6 @@
 {
   "name": "skinkit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Headless React components styled by a single Tailwind-native design-token system (colors + shape), fully overridable via CSS variables or your own Tailwind config.",
   "type": "module",
   "license": "MIT",
@@ -47,6 +47,7 @@
     "shots": "node scripts/capture-components.mjs"
   },
   "dependencies": {
+    "lucide-react": "^1.33.0",
     "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {

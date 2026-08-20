@@ -1,3 +1,4 @@
+import { Link as LinkIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useEditorState } from '@tiptap/react'
 import { Toggle } from '../Toggle'
@@ -10,7 +11,7 @@ import { useRichTextEditorCtx, type RichTextEditorToggleButtonProps } from './Ri
 
 export type RichTextEditorLinkProps = RichTextEditorToggleButtonProps
 
-export function Link({ children = '🔗', ...rest }: RichTextEditorLinkProps) {
+export function Link({ children = <LinkIcon size={16} />, ...rest }: RichTextEditorLinkProps) {
   const { editor } = useRichTextEditorCtx('Link')
   const [open, setOpen] = useState(false)
   const active = useEditorState({ editor, selector: (ctx) => ctx.editor?.isActive('link') ?? false }) ?? false

@@ -4,10 +4,26 @@
   --sk-sidebar-border: var(--color-sk-border);
   background-color: var(--sk-sidebar-bg);
   border-color: var(--sk-sidebar-border);
-  @apply flex flex-col gap-4 p-3 border-r min-w-56;
+  @apply flex flex-col gap-4 p-3 border-r min-w-56 h-full overflow-y-auto;
 }
 [data-sk='sidebar'][data-collapsed] {
   @apply min-w-0;
+}
+/* Header/Footer quedan fijos mientras el resto scrollea — mismo truco sticky que ya usa
+   [data-sk='app-shell'] > [data-part='header'] en layout.css, sin agregar un wrapper nuevo.
+   Sin márgenes negativos a propósito: mezclar position:sticky con margin negativo en el eje del
+   offset (top/bottom) puede desalinear el punto donde el navegador "pega" el elemento — más
+   simple y confiable dejar que hereden el mismo padding lateral que el resto del sidebar. */
+[data-sk='sidebar'] [data-part='header'],
+[data-sk='sidebar'] [data-part='footer'] {
+  background-color: var(--sk-sidebar-bg);
+  @apply sticky z-[1] flex-none;
+}
+[data-sk='sidebar'] [data-part='header'] {
+  @apply top-0 pb-2;
+}
+[data-sk='sidebar'] [data-part='footer'] {
+  @apply bottom-0 pt-2;
 }
 [data-sk='sidebar'] [data-part='section'] {
   @apply flex flex-col gap-0.5;
@@ -55,6 +71,40 @@
 }
 [data-sk='sidebar'][data-collapsed] [data-part='item'] {
   @apply justify-center;
+}
+
+/* Sidebar.Group — trigger con el mismo look que un item + chevron que rota (mismo truco que el
+   indicator de Accordion, ver accordion.css) + panel con native `hidden` cuando está cerrado. */
+[data-sk='sidebar'] [data-part='group-trigger'] {
+  --sk-sidebar-item-radius: var(--radius-sk-sm);
+  --sk-sidebar-item-fg: var(--color-sk-text-muted);
+  border-radius: var(--sk-sidebar-item-radius);
+  color: var(--sk-sidebar-item-fg);
+  @apply w-full flex items-center gap-2 p-2 bg-transparent border-0 cursor-pointer text-left;
+}
+[data-sk='sidebar'] [data-part='group-trigger']:hover {
+  --sk-sidebar-item-bg: var(--color-sk-surface-2);
+  --sk-sidebar-item-fg: var(--color-sk-text);
+  background-color: var(--sk-sidebar-item-bg);
+  color: var(--sk-sidebar-item-fg);
+}
+[data-sk='sidebar'] [data-part='group-indicator'] {
+  --sk-sidebar-group-indicator-border: var(--color-sk-text-muted);
+  border-color: var(--sk-sidebar-group-indicator-border);
+  @apply w-1.5 h-1.5 border-r-2 border-b-2 rotate-45 flex-none transition-transform duration-200 ease-in-out;
+}
+[data-sk='sidebar'] [data-part='group-trigger'][data-state='open'] [data-part='group-indicator'] {
+  @apply rotate-[-135deg];
+}
+[data-sk='sidebar'] [data-part='group-panel'] {
+  @apply flex flex-col gap-0.5 pl-6 pt-0.5;
+}
+[data-sk='sidebar'][data-collapsed] [data-part='group-trigger'] {
+  @apply justify-center;
+}
+[data-sk='sidebar'][data-collapsed] [data-part='group-indicator'],
+[data-sk='sidebar'][data-collapsed] [data-part='group-panel'] {
+  @apply hidden;
 }
 
 /* Tonos (ítem activo) */

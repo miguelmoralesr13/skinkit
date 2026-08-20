@@ -1,3 +1,4 @@
+import { Eye, EyeOff } from 'lucide-react'
 import {
   forwardRef,
   useId,
@@ -62,7 +63,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             aria-pressed={visible}
             onClick={() => setVisible((v) => !v)}
           >
-            {visible ? '🙈' : '👁'}
+            {visible ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
         {helper ? (

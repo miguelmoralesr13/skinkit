@@ -18,7 +18,7 @@ export const toggleSpec: ComponentSpec = {
   parts: [{ name: 'root', description: 'El <button>. Lleva [data-state=on|off] y [data-size].' }],
   examples: [
     { title: 'Negrita', code: '<Toggle aria-label="Negrita">B</Toggle>' },
-    { title: 'Controlado', code: '<Toggle pressed={fav} onPressedChange={setFav}>★</Toggle>' },
+    { title: 'Controlado', code: 'import { Star } from \'lucide-react\'\n\n<Toggle pressed={fav} onPressedChange={setFav}>\n  <Star size={16} fill={fav ? \'currentColor\' : \'none\'} />\n</Toggle>' },
   ],
   usage: [
     'Para una acción que ALTERNA y muestra su estado (formato, favorito). Para un ajuste on/off en un form, usá Switch.',

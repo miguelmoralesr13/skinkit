@@ -19,7 +19,7 @@ export const bottomNavSpec: ComponentSpec = {
   examples: [
     {
       title: 'Tab bar de 4',
-      code: '<BottomNav>\n  <BottomNav.Item href="#" icon="🏠" active>Inicio</BottomNav.Item>\n  <BottomNav.Item href="#" icon="🔍">Buscar</BottomNav.Item>\n  <BottomNav.Item href="#" icon="🔔">Alertas</BottomNav.Item>\n  <BottomNav.Item href="#" icon="👤">Perfil</BottomNav.Item>\n</BottomNav>',
+      code: 'import { Home, Search, Bell, User } from \'lucide-react\'\n\n<BottomNav>\n  <BottomNav.Item href="#" icon={<Home size={18} />} active>Inicio</BottomNav.Item>\n  <BottomNav.Item href="#" icon={<Search size={18} />}>Buscar</BottomNav.Item>\n  <BottomNav.Item href="#" icon={<Bell size={18} />}>Alertas</BottomNav.Item>\n  <BottomNav.Item href="#" icon={<User size={18} />}>Perfil</BottomNav.Item>\n</BottomNav>',
     },
   ],
   usage: [

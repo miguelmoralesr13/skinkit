@@ -1,3 +1,4 @@
+import { Check, Copy } from 'lucide-react'
 import { useRef, useState, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { highlight } from './highlight'
@@ -60,7 +61,7 @@ export function Code({ block, copyable, lang, className, children, ...rest }: Co
           aria-label={copied ? 'Copiado' : 'Copiar'}
           onClick={copy}
         >
-          {copied ? '✓' : '⧉'}
+          {copied ? <Check size={14} /> : <Copy size={14} />}
         </button>
       ) : null}
     </pre>

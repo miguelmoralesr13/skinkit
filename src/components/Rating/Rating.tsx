@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react'
 import { forwardRef, type HTMLAttributes } from 'react'
 import { cx } from '../../lib/cx'
 
@@ -25,8 +26,8 @@ export interface RatingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onCha
 }
 
 /**
- * Rating headless — puntuación con estrellas (u otro glyph que ponga el CSS). Cada estrella
- * es un botón; el CSS las pinta llenas/vacías vía [data-filled]. La forma la da el CSS.
+ * Rating headless — puntuación con estrellas (ícono Star de lucide-react). Cada estrella
+ * es un botón; el CSS las pinta llenas/vacías vía [data-filled] (fill=currentColor si llena).
  *
  * Contrato:
  *   [data-sk="rating"]      [data-readonly]   raíz (role=radiogroup)
@@ -62,7 +63,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
           tabIndex={readOnly ? -1 : 0}
           onClick={() => onChange?.(n)}
         >
-          ★
+          <Star size={20} fill={n <= value ? 'currentColor' : 'none'} />
         </button>
       ))}
     </div>

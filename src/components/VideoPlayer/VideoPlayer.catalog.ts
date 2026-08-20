@@ -27,7 +27,7 @@ export const videoPlayerSpec: ComponentSpec = {
     { name: 'SkipBack / SkipForward', description: '<Button> — retrocede/adelanta `skipSeconds`.' },
     { name: 'Time', description: 'Texto "actual / duración" formateado mm:ss (h:mm:ss ≥ 1h).' },
     { name: 'Seek', description: 'input[type=range] con progreso reproducido + buffer visual (gradiente vía --sk-seek-played/--sk-seek-buffered).' },
-    { name: 'VolumeButton', description: '<Button variant="ghost"> — togglea mute, ícono 🔊/🔇 según el estado.' },
+    { name: 'VolumeButton', description: '<Button variant="ghost"> — togglea mute, ícono Volume2/VolumeX (lucide-react) según el estado.' },
     { name: 'VolumeSlider', description: 'input[type=range] 0 a 1 — volumen. Bespoke (no reusa <Slider>, que trae layout de campo de formulario que no encaja en una barra horizontal).' },
     { name: 'PlaybackRate', description: '<Select> con las opciones de `playbackRates`. Cambia editor.playbackRate.' },
     { name: 'FullscreenButton', description: '<Button> — pantalla completa sobre TODO el reproductor (no solo el video), así los controles siguen visibles/clicleables. No se renderiza si el navegador no soporta la Fullscreen API.' },

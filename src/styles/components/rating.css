@@ -12,9 +12,8 @@
   --sk-rating-star-fg: var(--color-sk-border);
   color: var(--sk-rating-star-fg);
   appearance: none;
-  line-height: 1;
   transition: color 0.1s ease, transform 0.1s ease;
-  @apply border-none bg-transparent cursor-pointer p-0 text-[1.4rem];
+  @apply border-none bg-transparent cursor-pointer p-0 inline-flex items-center justify-center;
 }
 
 [data-sk='rating'] [data-part='star'][data-filled] {

@@ -16,7 +16,7 @@ export const stepperSpec: ComponentSpec = {
   parts: [
     { name: 'root', description: '<ol>. Lleva [data-orientation].' },
     { name: 'step', description: 'Cada paso (<Stepper.Step label>). Lleva [data-state=complete|current|upcoming].' },
-    { name: 'marker', description: 'Círculo con número (o ✓ si completo).' },
+    { name: 'marker', description: 'Círculo con número (o ícono Check de lucide-react si completo).' },
     { name: 'label', description: 'Texto del paso.' },
     { name: 'connector', description: 'Línea entre pasos.' },
   ],

@@ -1,3 +1,4 @@
+import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'lucide-react'
 import { useEditorState } from '@tiptap/react'
 import { SegmentedControl, type SegmentedControlProps } from '../SegmentedControl'
 import { useRichTextEditorCtx } from './RichTextEditor'
@@ -6,10 +7,10 @@ import { useRichTextEditorCtx } from './RichTextEditor'
 // semántica de alineación de texto) en vez de inventar 4 botones toggle independientes.
 
 const ALIGNMENTS = [
-  { value: 'left', label: '⟸' },
-  { value: 'center', label: '≡' },
-  { value: 'right', label: '⟹' },
-  { value: 'justify', label: '☰' },
+  { value: 'left', label: <AlignLeft size={16} /> },
+  { value: 'center', label: <AlignCenter size={16} /> },
+  { value: 'right', label: <AlignRight size={16} /> },
+  { value: 'justify', label: <AlignJustify size={16} /> },
 ]
 
 export interface RichTextEditorAlignProps extends Omit<SegmentedControlProps, 'value' | 'onValueChange'> {}

@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useMemo, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
+import { Bell, Check, Compass, Folder, Home, Mail, Search, SearchX, Settings, User } from 'lucide-react'
 import {
   Button,
   ButtonGroup,
@@ -488,7 +489,15 @@ function PinInputDemo() {
         value={code}
         onChange={setCode}
         label="Código de verificación"
-        helper={code.length === 6 ? '✓ Completo' : `${code.length}/6 — pegá o tipeá`}
+        helper={
+          code.length === 6 ? (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Check size={14} /> Completo
+            </span>
+          ) : (
+            `${code.length}/6 — pegá o tipeá`
+          )
+        }
       />
     </div>
   )
@@ -1166,11 +1175,11 @@ function PopconfirmDemo() {
   )
 }
 
-const SHELL_NAV: [string, string, string][] = [
-  ['inicio', '🏠', 'Inicio'],
-  ['proyectos', '📁', 'Proyectos'],
-  ['mensajes', '✉️', 'Mensajes'],
-  ['ajustes', '⚙️', 'Ajustes'],
+const SHELL_NAV: [string, ReactNode, string][] = [
+  ['inicio', <Home size={18} />, 'Inicio'],
+  ['proyectos', <Folder size={18} />, 'Proyectos'],
+  ['mensajes', <Mail size={18} />, 'Mensajes'],
+  ['ajustes', <Settings size={18} />, 'Ajustes'],
 ]
 
 function AppShellDemo() {
@@ -1241,7 +1250,7 @@ function SidebarCollapsibleDemo() {
         </Button>
       </div>
       <div style={{ height: 320, display: 'flex' }}>
-        <Sidebar collapsed={collapsed}>
+        <Sidebar collapsed={collapsed} style={{ minHeight: 0 }}>
           <Sidebar.Section label="Principal">
             {SHELL_NAV.map(([id, ic, label]) => (
               <Sidebar.Item
@@ -1261,6 +1270,48 @@ function SidebarCollapsibleDemo() {
           </Sidebar.Section>
         </Sidebar>
       </div>
+    </div>
+  )
+}
+
+// Sidebar "enterprise": Header fijo + Section estática + Group colapsable (con items anidados) +
+// Footer fijo, todo dentro de un contenedor de altura fija para que se note el scroll interno.
+function SidebarGroupDemo() {
+  const [active, setActive] = useState('perfil')
+  const go = (id: string) => (e: MouseEvent) => {
+    e.preventDefault()
+    setActive(id)
+  }
+  return (
+    <div style={{ height: 520, display: 'flex' }}>
+      <Sidebar style={{ minHeight: 0 }}>
+        <Sidebar.Header>
+          <strong>Acme Inc.</strong>
+        </Sidebar.Header>
+        <Sidebar.Section label="Principal">
+          {SHELL_NAV.map(([id, ic, label]) => (
+            <Sidebar.Item key={id} href="#" icon={ic} active={active === id} onClick={go(id)}>
+              {label}
+            </Sidebar.Item>
+          ))}
+        </Sidebar.Section>
+        <Sidebar.Group icon={<Settings size={18} />} label="Configuración" badge="3" defaultOpen>
+          <Sidebar.Item href="#" active={active === 'perfil'} onClick={go('perfil')}>
+            Perfil
+          </Sidebar.Item>
+          <Sidebar.Item href="#" active={active === 'facturacion'} onClick={go('facturacion')}>
+            Facturación
+          </Sidebar.Item>
+          <Sidebar.Item href="#" active={active === 'equipo'} onClick={go('equipo')}>
+            Equipo
+          </Sidebar.Item>
+        </Sidebar.Group>
+        <Sidebar.Footer>
+          <Sidebar.Item href="#" icon={<User size={18} />}>
+            Jane Doe
+          </Sidebar.Item>
+        </Sidebar.Footer>
+      </Sidebar>
     </div>
   )
 }
@@ -1301,14 +1352,45 @@ function TopbarNavDemo() {
   )
 }
 
+// Topbar "enterprise": hamburguesa + búsqueda + notificaciones con badge + user menu (compone Menu).
+function TopbarEnterpriseDemo() {
+  const [collapsed, setCollapsed] = useState(false)
+  return (
+    <div style={{ width: '100%' }}>
+      <Topbar>
+        <Topbar.MenuToggle onClick={() => setCollapsed((v) => !v)} />
+        <Topbar.Brand>Acme</Topbar.Brand>
+        <Topbar.Search icon={<Search size={16} />} placeholder="Buscar…" shortcut="⌘K" />
+        <Topbar.Actions>
+          <Topbar.IconButton icon={<Bell size={18} />} badge={3} label="Notificaciones" />
+          <Topbar.UserMenu
+            trigger={
+              <>
+                <Avatar fallback="JD" size="sm" /> Jane
+              </>
+            }
+          >
+            <Topbar.UserMenu.Item>Perfil</Topbar.UserMenu.Item>
+            <Topbar.UserMenu.Item>Cerrar sesión</Topbar.UserMenu.Item>
+          </Topbar.UserMenu>
+        </Topbar.Actions>
+      </Topbar>
+      <p style={{ color: 'var(--color-sk-text-muted)', marginTop: '0.75rem', fontSize: '0.85em' }}>
+        Toggle de la hamburguesa: {collapsed ? 'activado' : 'sin activar'} — en tu app se lo pasarías a{' '}
+        <code>{'<Sidebar collapsed>'}</code>.
+      </p>
+    </div>
+  )
+}
+
 // BottomNav interactivo.
 function BottomNavDemo() {
   const [active, setActive] = useState('inicio')
-  const items: [string, string, string][] = [
-    ['inicio', '🏠', 'Inicio'],
-    ['buscar', '🔍', 'Buscar'],
-    ['alertas', '🔔', 'Alertas'],
-    ['perfil', '👤', 'Perfil'],
+  const items: [string, ReactNode, string][] = [
+    ['inicio', <Home size={18} />, 'Inicio'],
+    ['buscar', <Search size={18} />, 'Buscar'],
+    ['alertas', <Bell size={18} />, 'Alertas'],
+    ['perfil', <User size={18} />, 'Perfil'],
   ]
   return (
     <div style={{ width: '100%', maxWidth: 380 }}>
@@ -1335,11 +1417,11 @@ function BottomNavDemo() {
 // AppShell mobile: sin sidebar, con BottomNav en el footer.
 function AppShellMobileDemo() {
   const [active, setActive] = useState('inicio')
-  const items: [string, string, string][] = [
-    ['inicio', '🏠', 'Inicio'],
-    ['buscar', '🔍', 'Buscar'],
-    ['alertas', '🔔', 'Alertas'],
-    ['perfil', '👤', 'Perfil'],
+  const items: [string, ReactNode, string][] = [
+    ['inicio', <Home size={18} />, 'Inicio'],
+    ['buscar', <Search size={18} />, 'Buscar'],
+    ['alertas', <Bell size={18} />, 'Alertas'],
+    ['perfil', <User size={18} />, 'Perfil'],
   ]
   return (
     <div style={{ width: '100%', maxWidth: 380, height: 440, border: '1px solid var(--sk-border)', borderRadius: 8, overflow: 'hidden' }}>
@@ -2627,7 +2709,7 @@ function App() {
         render: () => (
           <div className="sb-col">
             <Button variant="ghost">
-              ⚙️
+              <Settings size={18} />
               <VisuallyHidden> Ajustes</VisuallyHidden>
             </Button>
             <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>
@@ -2806,7 +2888,7 @@ function App() {
         name: 'Sin resultados',
         render: () => (
           <EmptyState
-            icon={<span>📭</span>}
+            icon={<SearchX />}
             title="Sin resultados"
             description="No encontramos nada con esos filtros. Probá con otros términos."
           >
@@ -3822,6 +3904,7 @@ function App() {
         ),
       },
       { name: 'Navegación activa', render: () => <TopbarNavDemo /> },
+      { name: 'Búsqueda + notificaciones + user menu', render: () => <TopbarEnterpriseDemo /> },
       {
         name: 'Con búsqueda',
         render: () => (
@@ -3882,20 +3965,20 @@ function App() {
         name: 'Con secciones',
         render: () => (
           <div style={{ height: 320, display: 'flex' }}>
-            <Sidebar>
+            <Sidebar style={{ minHeight: 0 }}>
               <Sidebar.Section label="Principal">
-                <Sidebar.Item href="#" icon="🏠" active onClick={(e) => e.preventDefault()}>
+                <Sidebar.Item href="#" icon={<Home size={18} />} active onClick={(e) => e.preventDefault()}>
                   Inicio
                 </Sidebar.Item>
-                <Sidebar.Item href="#" icon="✉️" badge="3" onClick={(e) => e.preventDefault()}>
+                <Sidebar.Item href="#" icon={<Mail size={18} />} badge="3" onClick={(e) => e.preventDefault()}>
                   Mensajes
                 </Sidebar.Item>
-                <Sidebar.Item href="#" icon="📁" onClick={(e) => e.preventDefault()}>
+                <Sidebar.Item href="#" icon={<Folder size={18} />} onClick={(e) => e.preventDefault()}>
                   Proyectos
                 </Sidebar.Item>
               </Sidebar.Section>
               <Sidebar.Section label="Cuenta">
-                <Sidebar.Item href="#" icon="⚙️" onClick={(e) => e.preventDefault()}>
+                <Sidebar.Item href="#" icon={<Settings size={18} />} onClick={(e) => e.preventDefault()}>
                   Ajustes
                 </Sidebar.Item>
               </Sidebar.Section>
@@ -3904,19 +3987,20 @@ function App() {
         ),
       },
       { name: 'Colapsable (botón externo)', render: () => <SidebarCollapsibleDemo /> },
+      { name: 'Header + Group colapsable + Footer', render: () => <SidebarGroupDemo /> },
       {
         name: 'Colapsado (rail)',
         render: () => (
           <div style={{ height: 260, display: 'flex' }}>
-            <Sidebar collapsed>
+            <Sidebar collapsed style={{ minHeight: 0 }}>
               <Sidebar.Section label="Principal">
-                <Sidebar.Item href="#" icon="🏠" active onClick={(e) => e.preventDefault()}>
+                <Sidebar.Item href="#" icon={<Home size={18} />} active onClick={(e) => e.preventDefault()}>
                   Inicio
                 </Sidebar.Item>
-                <Sidebar.Item href="#" icon="✉️" onClick={(e) => e.preventDefault()}>
+                <Sidebar.Item href="#" icon={<Mail size={18} />} onClick={(e) => e.preventDefault()}>
                   Mensajes
                 </Sidebar.Item>
-                <Sidebar.Item href="#" icon="⚙️" onClick={(e) => e.preventDefault()}>
+                <Sidebar.Item href="#" icon={<Settings size={18} />} onClick={(e) => e.preventDefault()}>
                   Ajustes
                 </Sidebar.Item>
               </Sidebar.Section>
@@ -3934,12 +4018,12 @@ function App() {
         render: () => (
           <div className="sb-col" style={{ gap: '1rem', width: '100%' }}>
             <BottomNav tone="primary">
-              <BottomNav.Item icon="🏠" active>Inicio</BottomNav.Item>
-              <BottomNav.Item icon="🧭">Explorar</BottomNav.Item>
+              <BottomNav.Item icon={<Home size={18} />} active>Inicio</BottomNav.Item>
+              <BottomNav.Item icon={<Compass size={18} />}>Explorar</BottomNav.Item>
             </BottomNav>
             <BottomNav tone="success">
-              <BottomNav.Item icon="🏠" active>Inicio</BottomNav.Item>
-              <BottomNav.Item icon="🧭">Explorar</BottomNav.Item>
+              <BottomNav.Item icon={<Home size={18} />} active>Inicio</BottomNav.Item>
+              <BottomNav.Item icon={<Compass size={18} />}>Explorar</BottomNav.Item>
             </BottomNav>
           </div>
         ),
@@ -3950,13 +4034,13 @@ function App() {
         render: () => (
           <div style={{ width: '100%', maxWidth: 300 }}>
             <BottomNav>
-              <BottomNav.Item href="#" icon="🏠" active onClick={(e) => e.preventDefault()}>
+              <BottomNav.Item href="#" icon={<Home size={18} />} active onClick={(e) => e.preventDefault()}>
                 Inicio
               </BottomNav.Item>
-              <BottomNav.Item href="#" icon="🧭" onClick={(e) => e.preventDefault()}>
+              <BottomNav.Item href="#" icon={<Compass size={18} />} onClick={(e) => e.preventDefault()}>
                 Explorar
               </BottomNav.Item>
-              <BottomNav.Item href="#" icon="👤" onClick={(e) => e.preventDefault()}>
+              <BottomNav.Item href="#" icon={<User size={18} />} onClick={(e) => e.preventDefault()}>
                 Perfil
               </BottomNav.Item>
             </BottomNav>

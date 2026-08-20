@@ -17,6 +17,108 @@
 [data-sk='topbar'] [data-part='actions'] {
   @apply ml-auto flex items-center gap-2;
 }
+
+/* Topbar.Search — sin lógica, sólo el input estilado. */
+[data-sk='topbar'] [data-part='search'] {
+  --sk-topbar-search-bg: var(--color-sk-surface-2);
+  --sk-topbar-search-border: var(--color-sk-border);
+  --sk-topbar-search-radius: var(--radius-sk-md);
+  background-color: var(--sk-topbar-search-bg);
+  border-color: var(--sk-topbar-search-border);
+  border-radius: var(--sk-topbar-search-radius);
+  @apply flex items-center gap-2 px-3 py-1.5 border;
+}
+[data-sk='topbar'] [data-part='search-icon'] {
+  --sk-topbar-search-icon-fg: var(--color-sk-text-muted);
+  color: var(--sk-topbar-search-icon-fg);
+  @apply flex-none flex items-center;
+}
+[data-sk='topbar'] [data-part='search-input'] {
+  --sk-topbar-search-input-fg: var(--color-sk-text);
+  color: var(--sk-topbar-search-input-fg);
+  @apply flex-1 bg-transparent border-0 outline-none text-sk-md min-w-0;
+}
+[data-sk='topbar'] [data-part='search-input']::placeholder {
+  color: var(--color-sk-text-muted);
+}
+[data-sk='topbar'] [data-part='search-shortcut'] {
+  --sk-topbar-search-shortcut-fg: var(--color-sk-text-muted);
+  --sk-topbar-search-shortcut-bg: var(--color-sk-surface);
+  --sk-topbar-search-shortcut-radius: var(--radius-sk-sm);
+  color: var(--sk-topbar-search-shortcut-fg);
+  background-color: var(--sk-topbar-search-shortcut-bg);
+  border-radius: var(--sk-topbar-search-shortcut-radius);
+  @apply flex-none text-sk-sm px-1.5 py-0.5;
+}
+
+/* Topbar.UserMenu — compone <Menu>, cuyo trigger/panel ya trae look propio de menu.css. Acá
+   sólo se ajusta el LAYOUT del trigger (fila avatar+nombre+chevron, sin el borde/pill genérico
+   de un trigger de menú común) pisando las custom properties locales de Menu — mismo mecanismo
+   de override que documenta el proyecto, no un selector nuevo por fuera del contrato de Menu. */
+[data-sk='topbar'] [data-part='user-menu'] [data-part='trigger'] {
+  --sk-menu-trigger-bg: transparent;
+  --sk-menu-trigger-border: transparent;
+  --sk-menu-trigger-fg: var(--color-sk-text);
+  @apply inline-flex items-center gap-2 rounded-full px-2 py-1 font-normal text-sk-md;
+}
+[data-sk='topbar'] [data-part='user-menu'] [data-part='trigger']:hover {
+  --sk-menu-trigger-bg: var(--color-sk-surface-2);
+}
+
+/* Topbar.IconButton — sólo-ícono, con badge opcional (punto o contador). Sin dropdown propio. */
+[data-sk='topbar'] [data-part='icon-button'] {
+  --sk-topbar-icon-button-fg: var(--color-sk-text-muted);
+  --sk-topbar-icon-button-radius: var(--radius-sk-pill);
+  color: var(--sk-topbar-icon-button-fg);
+  border-radius: var(--sk-topbar-icon-button-radius);
+  @apply relative appearance-none border-0 bg-transparent cursor-pointer
+         inline-flex items-center justify-center w-9 h-9 flex-none;
+}
+[data-sk='topbar'] [data-part='icon-button']:hover {
+  --sk-topbar-icon-button-bg: var(--color-sk-surface-2);
+  --sk-topbar-icon-button-fg: var(--color-sk-text);
+  background-color: var(--sk-topbar-icon-button-bg);
+  color: var(--sk-topbar-icon-button-fg);
+}
+[data-sk='topbar'] [data-part='icon-button-badge'] {
+  --sk-topbar-icon-button-badge-bg: var(--color-sk-danger);
+  --sk-topbar-icon-button-badge-fg: var(--color-sk-on-danger);
+  background-color: var(--sk-topbar-icon-button-badge-bg);
+  color: var(--sk-topbar-icon-button-badge-fg);
+  @apply absolute top-1 right-1 flex items-center justify-center
+         min-w-4 h-4 px-1 rounded-full text-[10px] leading-none font-semibold;
+}
+[data-sk='topbar'] [data-part='icon-button-badge'][data-dot] {
+  @apply w-2 h-2 min-w-0 p-0 top-1.5 right-1.5;
+}
+
+/* Topbar.MenuToggle — hamburguesa dibujada en CSS (3 barras vía ::before/::after), sin ícono
+   embebido ni dependencia externa. */
+[data-sk='topbar'] [data-part='menu-toggle'] {
+  --sk-topbar-menu-toggle-fg: var(--color-sk-text);
+  color: var(--sk-topbar-menu-toggle-fg);
+  border-radius: var(--radius-sk-pill);
+  @apply appearance-none border-0 bg-transparent cursor-pointer
+         inline-flex items-center justify-center w-9 h-9 flex-none;
+}
+[data-sk='topbar'] [data-part='menu-toggle']:hover {
+  --sk-topbar-menu-toggle-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-topbar-menu-toggle-bg);
+}
+[data-sk='topbar'] [data-part='menu-toggle-icon'] {
+  @apply relative block w-4 h-0.5 bg-current;
+}
+[data-sk='topbar'] [data-part='menu-toggle-icon']::before,
+[data-sk='topbar'] [data-part='menu-toggle-icon']::after {
+  content: '';
+  @apply absolute left-0 w-4 h-0.5 bg-current;
+}
+[data-sk='topbar'] [data-part='menu-toggle-icon']::before {
+  @apply -top-1.5;
+}
+[data-sk='topbar'] [data-part='menu-toggle-icon']::after {
+  @apply top-1.5;
+}
 [data-sk='topbar'] [data-part='item'] {
   --sk-topbar-item-radius: var(--radius-sk-sm);
   --sk-topbar-item-fg: var(--color-sk-text-muted);

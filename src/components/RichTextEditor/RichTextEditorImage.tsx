@@ -1,3 +1,4 @@
+import { Image as ImageIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Button, type ButtonProps } from '../Button'
 import { PromptDialog } from '../Dialog'
@@ -8,7 +9,7 @@ import { useRichTextEditorCtx } from './RichTextEditor'
 
 export type RichTextEditorImageProps = Omit<ButtonProps, 'variant'>
 
-export function Image({ children = '🖼', ...rest }: RichTextEditorImageProps) {
+export function Image({ children = <ImageIcon size={16} />, ...rest }: RichTextEditorImageProps) {
   const { editor } = useRichTextEditorCtx('Image')
   const [open, setOpen] = useState(false)
 

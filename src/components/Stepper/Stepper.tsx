@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react'
 import {
   Children,
   cloneElement,
@@ -34,7 +35,7 @@ export interface StepperProps extends HTMLAttributes<HTMLOListElement> {
  * Contrato:
  *   [data-sk="stepper"]     [data-orientation]   raíz (<ol>)
  *   [data-part="step"]      [data-state]         cada paso (complete|current|upcoming)
- *   [data-part="marker"]                          círculo con número o ✓
+ *   [data-part="marker"]                          círculo con número o ícono Check
  *   [data-part="label"]                           texto del paso
  *   [data-part="connector"]                       línea entre pasos
  */
@@ -83,7 +84,7 @@ function Step({ label, _state = 'upcoming', _index, className, children, ...rest
     >
       <span data-part="connector" aria-hidden="true" />
       <span data-part="marker">
-        {_state === 'complete' ? '✓' : _index != null ? _index + 1 : null}
+        {_state === 'complete' ? <Check size={14} /> : _index != null ? _index + 1 : null}
       </span>
       <span data-part="label">{label ?? children}</span>
     </li>

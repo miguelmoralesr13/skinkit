@@ -7,6 +7,10 @@
   color: var(--sk-empty-icon-fg);
   @apply opacity-60 text-[2rem] leading-none;
 }
+[data-sk='empty'] [data-part='icon'] svg {
+  width: 2rem;
+  height: 2rem;
+}
 [data-sk='empty'] [data-part='title'] {
   --sk-empty-title-fg: var(--color-sk-text);
   color: var(--sk-empty-title-fg);

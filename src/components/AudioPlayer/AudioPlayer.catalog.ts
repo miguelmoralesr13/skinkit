@@ -25,7 +25,7 @@ export const audioPlayerSpec: ComponentSpec = {
     { name: 'SkipBack / SkipForward', description: '<Button> — retrocede/adelanta `skipSeconds`.' },
     { name: 'Time', description: 'Texto "actual / duración" formateado mm:ss (h:mm:ss ≥ 1h).' },
     { name: 'Seek', description: 'input[type=range] con progreso reproducido + buffer visual (gradiente vía --sk-seek-played/--sk-seek-buffered).' },
-    { name: 'VolumeButton', description: '<Button variant="ghost"> — togglea mute, ícono 🔊/🔇 según el estado.' },
+    { name: 'VolumeButton', description: '<Button variant="ghost"> — togglea mute, ícono Volume2/VolumeX (lucide-react) según el estado.' },
     { name: 'VolumeSlider', description: 'input[type=range] 0 a 1 — volumen.' },
     { name: 'PlaybackRate', description: '<Select> con las opciones de `playbackRates`.' },
     { name: 'Separator', description: '= Toolbar.Separator, divisor entre grupos de controles.' },
