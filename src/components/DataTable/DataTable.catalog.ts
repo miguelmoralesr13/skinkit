@@ -43,11 +43,14 @@ export const dataTableSpec: ComponentSpec = {
     { name: 'loading', type: 'boolean', required: false, description: 'Estado de carga.' },
     { name: 'emptyContent', type: 'ReactNode', required: false, default: "'Sin resultados'", description: 'Qué mostrar cuando no hay filas.' },
     { name: 'caption', type: 'ReactNode', required: false, description: 'Caption de la tabla.' },
+    { name: 'virtualized', type: 'boolean', required: false, default: 'false', description: 'Renderiza solo las filas visibles (+ overscan) en vez de todas. Requiere rowHeight y height. Solo aplica con view="table" (no en cards); con miles de filas, es la alternativa a pagination="server"/"infinite" cuando querés mostrarlas todas sin cortar.' },
+    { name: 'rowHeight', type: 'number', required: false, description: 'Alto en px de cada fila — uniforme, obligatorio cuando virtualized=true (la virtualización no soporta alto variable por fila).' },
+    { name: 'height', type: 'number', required: false, description: 'Alto en px del viewport con scroll — obligatorio cuando virtualized=true.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=datatable]. Lleva [data-view=table|cards], [data-density], [data-loading], [data-sticky-header].' },
     { name: 'toolbar', description: '[data-part=toolbar] + [data-part=search] (input), [data-part=toolbar-actions], [data-part=bulk-actions]/[data-part=bulk-count], [data-part=view-toggle].' },
-    { name: 'scroll', description: '[data-part=scroll]: contenedor con overflow-x para la tabla ancha.' },
+    { name: 'scroll', description: '[data-part=scroll]: contenedor con overflow-x para la tabla ancha. Con virtualized, lleva [data-virtualized] y overflow-y (el alto lo pone la prop height).' },
     { name: 'table', description: '[data-part=table] (+ caption), [data-part=thead], [data-part=th] ([data-sortable],[data-sort],[data-align],[data-cell=select|actions]) con [data-part=th-button]/[data-part=th-label]/[data-part=sort-icon].' },
     { name: 'row', description: '[data-part=tbody], [data-part=tr] ([data-selected]), [data-part=td] ([data-align],[data-cell]).' },
     { name: 'cards', description: '[data-part=cards], [data-part=card] ([data-selected]) con card-header/card-heading/card-title/card-subtitle/card-actions/card-body/card-field/card-label/card-value.' },
@@ -69,6 +72,10 @@ export const dataTableSpec: ComponentSpec = {
       title: 'Scroll infinito',
       code: '<DataTable\n  data={rows}\n  columns={columns}\n  rowKey={(r) => r.id}\n  pagination="infinite"\n  hasMore={hasMore}\n  loadingMore={loading}\n  onLoadMore={fetchNext}\n/>',
     },
+    {
+      title: 'Virtualizada (miles de filas, todas cargadas)',
+      code: '<DataTable\n  data={tenThousandRows}\n  columns={columns}\n  rowKey={(r) => r.id}\n  pagination="none"\n  view="table"\n  virtualized\n  rowHeight={44}\n  height={480}\n/>',
+    },
   ],
   usage: [
     'Definí las columnas como datos (JSON). Usá `cell` sólo cuando el render por defecto (valor como texto) no alcanza, y `accessor` cuando el valor no es `row[key]`.',
@@ -76,7 +83,7 @@ export const dataTableSpec: ComponentSpec = {
     'En server, `data` es la página actual y `total` es obligatorio para calcular páginas.',
     "Para cards: marcá una columna con cardRole:'title' y otra 'subtitle'; el resto va como label:valor. cardRole:'hidden' la saca de las cards.",
     "view='auto' (default) mide el ancho del root y pasa a cards bajo cardBreakpoint; forzá con view='cards' o dejá que el usuario alterne con allowViewToggle.",
-    'Para muchísimas filas usá pagination="server" o "infinite": el componente NO virtualiza; renderiza lo que le pasás.',
+    'Para muchísimas filas tenés dos caminos: pagination="server"/"infinite" (cortás los datos vos), o virtualized (mostrás todas las filas, pero el DOM solo renderiza las visibles). virtualized requiere rowHeight (fila de alto uniforme) y height (alto del viewport), y solo aplica con view="table" — en cards no hace nada.',
   ],
   a11y: [
     'La tabla usa <table>/<thead>/<tbody>; los th ordenables exponen aria-sort y un <button> interno.',

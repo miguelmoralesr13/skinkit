@@ -1,6 +1,8 @@
 /* ── Prose ──────────────────────────────────────────────────── */
 [data-sk='prose'] {
-  @apply text-sk-text text-sk-md leading-[1.7];
+  --sk-prose-fg: var(--color-sk-text);
+  color: var(--sk-prose-fg);
+  @apply text-sk-md leading-[1.7];
 }
 [data-sk='prose'][data-size='sm'] {
   @apply text-sk-sm;
@@ -18,7 +20,9 @@
 [data-sk='prose'] h2,
 [data-sk='prose'] h3,
 [data-sk='prose'] h4 {
-  @apply text-sk-text font-bold leading-[1.25];
+  --sk-prose-h1-h2-h3-h4-fg: var(--color-sk-text);
+  color: var(--sk-prose-h1-h2-h3-h4-fg);
+  @apply font-bold leading-[1.25];
   margin: 1.6em 0 0.6em;
 }
 [data-sk='prose'] h1 {
@@ -45,26 +49,44 @@
   margin: 0.3em 0;
 }
 [data-sk='prose'] a {
-  @apply text-sk-primary underline underline-offset-2;
+  --sk-prose-a-fg: var(--color-sk-primary);
+  color: var(--sk-prose-a-fg);
+  @apply underline underline-offset-2;
 }
 [data-sk='prose'] code {
-  @apply font-sk-mono rounded-[6px] bg-sk-surface-2;
+  --sk-prose-code-radius: 6px;
+  --sk-prose-code-bg: var(--color-sk-surface-2);
+  border-radius: var(--sk-prose-code-radius);
+  background-color: var(--sk-prose-code-bg);
   font-size: 0.9em;
   padding: 0.1em 0.35em;
+  @apply font-sk-mono;
 }
 [data-sk='prose'] pre {
-  @apply font-sk-mono p-3 rounded-sk-md bg-sk-surface-2 overflow-auto;
+  --sk-prose-pre-radius: var(--radius-sk-md);
+  --sk-prose-pre-bg: var(--color-sk-surface-2);
+  border-radius: var(--sk-prose-pre-radius);
+  background-color: var(--sk-prose-pre-bg);
+  @apply font-sk-mono p-3 overflow-auto;
 }
 [data-sk='prose'] pre code {
   @apply p-0 bg-transparent;
 }
 [data-sk='prose'] blockquote {
-  @apply pl-3 border-l-[3px] border-sk-border text-sk-text-muted;
+  --sk-prose-blockquote-border: var(--color-sk-border);
+  --sk-prose-blockquote-fg: var(--color-sk-text-muted);
+  border-color: var(--sk-prose-blockquote-border);
+  color: var(--sk-prose-blockquote-fg);
+  @apply pl-3 border-l-[3px];
 }
 [data-sk='prose'] hr {
-  @apply border-0 border-t border-sk-border;
+  --sk-prose-hr-border: var(--color-sk-border);
+  border-color: var(--sk-prose-hr-border);
   margin: 1.6em 0;
+  @apply border-0 border-t;
 }
 [data-sk='prose'] img {
-  @apply max-w-full rounded-sk-md;
+  --sk-prose-img-radius: var(--radius-sk-md);
+  border-radius: var(--sk-prose-img-radius);
+  @apply max-w-full;
 }

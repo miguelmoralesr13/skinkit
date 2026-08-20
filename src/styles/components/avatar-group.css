@@ -6,5 +6,7 @@
   @apply -ml-2.5;
 }
 [data-sk='avatar-group'] [data-sk='avatar'] {
-  @apply border-2 border-sk-surface;
+  --sk-avatar-group-avatar-border: var(--color-sk-surface);
+  border-color: var(--sk-avatar-group-avatar-border);
+  @apply border-2;
 }

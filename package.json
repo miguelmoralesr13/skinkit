@@ -27,6 +27,14 @@
       "types": "./dist/components/DynamicForm/index.d.ts",
       "import": "./dist/components/DynamicForm/index.js"
     },
+    "./editor": {
+      "types": "./dist/components/RichTextEditor/index.d.ts",
+      "import": "./dist/components/RichTextEditor/index.js"
+    },
+    "./file-preview-office": {
+      "types": "./dist/components/FilePreviewer/office/index.d.ts",
+      "import": "./dist/components/FilePreviewer/office/index.js"
+    },
     "./styles/base": "./dist/styles/skinkit.css",
     "./tailwind-preset": "./src/styles/tokens.css"
   },
@@ -42,11 +50,22 @@
     "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {
+    "@hookform/resolvers": ">=3",
+    "@tiptap/core": "^3.0.0",
+    "@tiptap/extension-image": "^3.0.0",
+    "@tiptap/extension-placeholder": "^3.0.0",
+    "@tiptap/extension-table": "^3.0.0",
+    "@tiptap/extension-text-align": "^3.0.0",
+    "@tiptap/extension-text-style": "^3.0.0",
+    "@tiptap/pm": "^3.0.0",
+    "@tiptap/react": "^3.0.0",
+    "@tiptap/starter-kit": "^3.0.0",
+    "docx-preview": "^0.4.0",
     "react": ">=18",
     "react-dom": ">=18",
     "react-hook-form": ">=7",
-    "zod": ">=3",
-    "@hookform/resolvers": ">=3"
+    "xlsx": "^0.18.5",
+    "zod": ">=3"
   },
   "peerDependenciesMeta": {
     "react-hook-form": {
@@ -57,23 +76,67 @@
     },
     "@hookform/resolvers": {
       "optional": true
+    },
+    "@tiptap/core": {
+      "optional": true
+    },
+    "@tiptap/pm": {
+      "optional": true
+    },
+    "@tiptap/react": {
+      "optional": true
+    },
+    "@tiptap/starter-kit": {
+      "optional": true
+    },
+    "@tiptap/extension-image": {
+      "optional": true
+    },
+    "@tiptap/extension-text-align": {
+      "optional": true
+    },
+    "@tiptap/extension-text-style": {
+      "optional": true
+    },
+    "@tiptap/extension-table": {
+      "optional": true
+    },
+    "@tiptap/extension-placeholder": {
+      "optional": true
+    },
+    "docx-preview": {
+      "optional": true
+    },
+    "xlsx": {
+      "optional": true
     }
   },
   "devDependencies": {
     "@hookform/resolvers": "^5.7.1",
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
+    "@tiptap/core": "^3.30.2",
+    "@tiptap/extension-image": "^3.30.2",
+    "@tiptap/extension-placeholder": "^3.30.2",
+    "@tiptap/extension-table": "^3.30.2",
+    "@tiptap/extension-text-align": "^3.30.2",
+    "@tiptap/extension-text-style": "^3.30.2",
+    "@tiptap/pm": "^3.30.2",
+    "@tiptap/react": "^3.30.2",
+    "@tiptap/starter-kit": "^3.30.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",
+    "docx-preview": "^0.4.0",
     "playwright": "^1.62.1",
-    "tailwindcss": "^4.3.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.85.0",
+    "tailwindcss": "^4.3.3",
     "tsup": "^8.5.1",
     "typescript": "^7.0.2",
     "vite": "^8.2.1",
+    "xlsx": "^0.18.5",
     "zod": "^4.4.3"
   }
 }

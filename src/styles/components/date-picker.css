@@ -11,7 +11,9 @@
 }
 
 [data-sk='date-picker'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-date-picker-label-fg: var(--color-sk-text);
+  color: var(--sk-date-picker-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='date-picker'] [data-sk='popover'] {
@@ -19,21 +21,32 @@
 }
 
 [data-sk='date-picker'] [data-sk='popover'] [data-part='trigger'] {
+  --sk-date-picker-trigger-border: var(--color-sk-border);
+  --sk-date-picker-trigger-radius: var(--radius-sk-md);
+  --sk-date-picker-trigger-bg: var(--color-sk-surface);
+  --sk-date-picker-trigger-fg: var(--color-sk-text);
   text-align: left;
-  @apply w-full px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text font-medium;
+  border-color: var(--sk-date-picker-trigger-border);
+  border-radius: var(--sk-date-picker-trigger-radius);
+  background-color: var(--sk-date-picker-trigger-bg);
+  color: var(--sk-date-picker-trigger-fg);
+  @apply w-full px-4 py-3 border font-medium;
 }
 
 [data-sk='date-picker'] [data-sk='popover'] [data-part='trigger'][data-state='open'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply border-sk-primary;
+  --sk-date-picker-trigger-border: var(--color-sk-primary);
+  border-color: var(--sk-date-picker-trigger-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-date-picker-trigger-border) 25%, transparent);
 }
 
 [data-sk='date-picker'][data-error] [data-sk='popover'] [data-part='trigger'] {
-  @apply border-sk-danger;
+  --sk-date-picker-trigger-border: var(--color-sk-danger);
+  border-color: var(--sk-date-picker-trigger-border);
 }
 
 [data-sk='date-picker'] [data-part='value'][data-placeholder] {
-  @apply text-sk-text-muted;
+  --sk-date-picker-value-fg: var(--color-sk-text-muted);
+  color: var(--sk-date-picker-value-fg);
 }
 
 [data-sk='date-picker'] [data-sk='popover'] [data-part='content'] {
@@ -41,9 +54,12 @@
 }
 
 [data-sk='date-picker'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-date-picker-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-date-picker-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='date-picker'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-date-picker-helper-fg: var(--color-sk-danger);
+  color: var(--sk-date-picker-helper-fg);
 }

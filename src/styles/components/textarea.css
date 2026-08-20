@@ -8,31 +8,46 @@
 }
 
 [data-sk='textarea'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-textarea-label-fg: var(--color-sk-text);
+  color: var(--sk-textarea-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='textarea'] [data-part='field'] {
+  --sk-textarea-field-bg: var(--color-sk-surface);
+  --sk-textarea-field-border: var(--color-sk-border);
+  --sk-textarea-field-radius: var(--radius-sk-md);
+  --sk-textarea-field-fg: var(--color-sk-text);
+  background-color: var(--sk-textarea-field-bg);
+  border-color: var(--sk-textarea-field-border);
+  border-radius: var(--sk-textarea-field-radius);
+  color: var(--sk-textarea-field-fg);
   font: inherit;
   min-height: 5rem;
   resize: vertical;
-  @apply px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text text-sk-md
+  @apply px-4 py-3 border text-sk-md
          transition-[border-color,box-shadow] duration-150 ease-in-out;
 }
 
 [data-sk='textarea'] [data-part='field']:focus {
+  --sk-textarea-field-border: var(--color-sk-primary);
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply border-sk-primary;
+  border-color: var(--sk-textarea-field-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-textarea-field-border) 25%, transparent);
 }
 
 [data-sk='textarea'][data-error] [data-part='field'] {
-  @apply border-sk-danger;
+  --sk-textarea-field-border: var(--color-sk-danger);
+  border-color: var(--sk-textarea-field-border);
 }
 
 [data-sk='textarea'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-textarea-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-textarea-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='textarea'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-textarea-helper-fg: var(--color-sk-danger);
+  color: var(--sk-textarea-helper-fg);
 }

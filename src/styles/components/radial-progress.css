@@ -3,24 +3,48 @@
   @apply relative inline-flex items-center justify-center;
 }
 [data-sk='radial-progress'] [data-part='track'] {
-  stroke: var(--color-sk-surface-2);
+  --sk-radial-progress-track-fg: var(--color-sk-surface-2);
+  stroke: var(--sk-radial-progress-track-fg);
 }
 [data-sk='radial-progress'] [data-part='indicator'] {
-  stroke: var(--color-sk-primary);
+  --sk-radial-progress-indicator-fg: var(--color-sk-primary);
+  stroke: var(--sk-radial-progress-indicator-fg);
   transition: stroke-dashoffset 0.4s ease;
 }
 [data-sk='radial-progress'][data-tone='danger'] [data-part='indicator'] {
-  stroke: var(--color-sk-danger);
+  --sk-radial-progress-indicator-fg: var(--color-sk-danger);
+  stroke: var(--sk-radial-progress-indicator-fg);
 }
 [data-sk='radial-progress'][data-tone='neutral'] [data-part='indicator'] {
-  stroke: var(--color-sk-text-muted);
+  --sk-radial-progress-indicator-fg: var(--color-sk-text-muted);
+  stroke: var(--sk-radial-progress-indicator-fg);
 }
-[data-sk='radial-progress'][data-tone='secondary'] [data-part='indicator'] { stroke: var(--color-sk-secondary); }
-[data-sk='radial-progress'][data-tone='tertiary'] [data-part='indicator'] { stroke: var(--color-sk-tertiary); }
-[data-sk='radial-progress'][data-tone='accent'] [data-part='indicator'] { stroke: var(--color-sk-accent); }
-[data-sk='radial-progress'][data-tone='success'] [data-part='indicator'] { stroke: var(--color-sk-success); }
-[data-sk='radial-progress'][data-tone='warning'] [data-part='indicator'] { stroke: var(--color-sk-warning); }
-[data-sk='radial-progress'][data-tone='info'] [data-part='indicator'] { stroke: var(--color-sk-info); }
+[data-sk='radial-progress'][data-tone='secondary'] [data-part='indicator'] {
+  --sk-radial-progress-indicator-fg: var(--color-sk-secondary);
+  stroke: var(--sk-radial-progress-indicator-fg);
+}
+[data-sk='radial-progress'][data-tone='tertiary'] [data-part='indicator'] {
+  --sk-radial-progress-indicator-fg: var(--color-sk-tertiary);
+  stroke: var(--sk-radial-progress-indicator-fg);
+}
+[data-sk='radial-progress'][data-tone='accent'] [data-part='indicator'] {
+  --sk-radial-progress-indicator-fg: var(--color-sk-accent);
+  stroke: var(--sk-radial-progress-indicator-fg);
+}
+[data-sk='radial-progress'][data-tone='success'] [data-part='indicator'] {
+  --sk-radial-progress-indicator-fg: var(--color-sk-success);
+  stroke: var(--sk-radial-progress-indicator-fg);
+}
+[data-sk='radial-progress'][data-tone='warning'] [data-part='indicator'] {
+  --sk-radial-progress-indicator-fg: var(--color-sk-warning);
+  stroke: var(--sk-radial-progress-indicator-fg);
+}
+[data-sk='radial-progress'][data-tone='info'] [data-part='indicator'] {
+  --sk-radial-progress-indicator-fg: var(--color-sk-info);
+  stroke: var(--sk-radial-progress-indicator-fg);
+}
 [data-sk='radial-progress'] [data-part='label'] {
-  @apply absolute text-sk-sm font-bold text-sk-text;
+  --sk-radial-progress-label-fg: var(--color-sk-text);
+  color: var(--sk-radial-progress-label-fg);
+  @apply absolute text-sk-sm font-bold;
 }

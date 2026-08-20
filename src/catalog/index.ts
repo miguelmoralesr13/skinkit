@@ -98,6 +98,12 @@ import { stackSpec } from '../components/Stack/Stack.catalog'
 import { containerSpec } from '../components/Container/Container.catalog'
 import { spacerSpec } from '../components/Spacer/Spacer.catalog'
 import { dynamicFormSpec } from '../components/DynamicForm/DynamicForm.catalog'
+import { richTextEditorSpec } from '../components/RichTextEditor/RichTextEditor.catalog'
+import { videoPlayerSpec } from '../components/VideoPlayer/VideoPlayer.catalog'
+import { audioPlayerSpec } from '../components/AudioPlayer/AudioPlayer.catalog'
+import { filePreviewerSpec } from '../components/FilePreviewer/FilePreviewer.catalog'
+import { qrCodeSpec } from '../components/QRCode/QRCode.catalog'
+import { tourSpec } from '../components/Tour/Tour.catalog'
 import { fieldSpec } from '../components/Field/Field.catalog'
 import { inputGroupSpec } from '../components/InputGroup/InputGroup.catalog'
 import { imageSpec } from '../components/Image/Image.catalog'
@@ -198,6 +204,7 @@ export const COMPONENT_CATALOG: ComponentSpec[] = [
   containerSpec,
   spacerSpec,
   dynamicFormSpec,
+  richTextEditorSpec,
   fieldSpec,
   inputGroupSpec,
   imageSpec,
@@ -206,6 +213,11 @@ export const COMPONENT_CATALOG: ComponentSpec[] = [
   sidebarSpec,
   bottomNavSpec,
   appShellSpec,
+  videoPlayerSpec,
+  audioPlayerSpec,
+  filePreviewerSpec,
+  qrCodeSpec,
+  tourSpec,
 ]
 
 /** Busca el spec de un componente por su nombre de import. */

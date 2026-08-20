@@ -1,0 +1,87 @@
+/* Tour — overlay portalizado con 4 franjas de backdrop + un anillo decorativo + tooltip.
+   dataSk 'tour-overlay' es el root del portal (ver src/components/Tour/TourOverlay.tsx), igual que
+   'toast-viewport' en Toast — NO declara variables --sk-* (por eso no importa que no coincida con
+   el dataSk 'tour' del catálogo). La tarjeta visible SÍ usa [data-sk='tour'] (coincide exacto con
+   dataSk), igual que Toast usa [data-sk='toast'] para su item — así el panel "Editar" del
+   playground (que busca [data-sk='<dataSk>'] literal) encuentra sus variables. z-index por encima
+   de Dialog (1000) y Toast (1100): un tour guía activamente al usuario, debe ganar. */
+[data-sk='tour-overlay'] {
+  @apply fixed inset-0 z-[1200] pointer-events-none;
+}
+[data-sk='tour-overlay'] [data-part='backdrop'] {
+  --sk-tour-backdrop-bg: rgba(0, 0, 0, 0.55);
+  background-color: var(--sk-tour-backdrop-bg);
+  @apply pointer-events-auto;
+}
+[data-sk='tour-overlay'] [data-part='spotlight'] {
+  --sk-tour-spotlight-radius: var(--radius-sk-md);
+  --sk-tour-spotlight-ring: var(--color-sk-primary);
+  border-radius: var(--sk-tour-spotlight-radius);
+  box-shadow: 0 0 0 3px var(--sk-tour-spotlight-ring);
+  @apply pointer-events-none transition-all duration-200 ease-out;
+}
+[data-sk='tour'] {
+  --sk-tour-bg: var(--color-sk-surface);
+  --sk-tour-fg: var(--color-sk-text);
+  --sk-tour-radius: var(--radius-sk-lg);
+  --sk-tour-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  background-color: var(--sk-tour-bg);
+  color: var(--sk-tour-fg);
+  border-radius: var(--sk-tour-radius);
+  box-shadow: var(--sk-tour-shadow);
+  @apply pointer-events-auto z-[1201] flex flex-col gap-2 w-72 p-4;
+}
+[data-sk='tour'] [data-part='header'] {
+  @apply flex items-start justify-between gap-3;
+}
+[data-sk='tour'] [data-part='title'] {
+  @apply m-0 text-sk-md font-bold;
+}
+[data-sk='tour'] [data-part='close'] {
+  --sk-tour-close-fg: var(--color-sk-text-muted);
+  appearance: none;
+  border: none;
+  color: var(--sk-tour-close-fg);
+  @apply bg-transparent cursor-pointer flex-none w-6 h-6 leading-none text-base;
+}
+[data-sk='tour'] [data-part='close']:hover {
+  --sk-tour-close-fg: var(--color-sk-text);
+  color: var(--sk-tour-close-fg);
+}
+[data-sk='tour'] [data-part='body'] {
+  --sk-tour-body-fg: var(--color-sk-text-muted);
+  color: var(--sk-tour-body-fg);
+  @apply text-sk-sm leading-normal;
+}
+[data-sk='tour'] [data-part='footer'] {
+  @apply flex items-center justify-between gap-2 pt-1;
+}
+[data-sk='tour'] [data-part='prev'],
+[data-sk='tour'] [data-part='next'] {
+  --sk-tour-btn-radius: var(--radius-sk-sm);
+  appearance: none;
+  border: none;
+  border-radius: var(--sk-tour-btn-radius);
+  @apply cursor-pointer text-sk-sm font-medium py-1.5 px-3;
+}
+[data-sk='tour'] [data-part='prev'] {
+  --sk-tour-prev-fg: var(--color-sk-text-muted);
+  color: var(--sk-tour-prev-fg);
+  @apply bg-transparent;
+}
+[data-sk='tour'] [data-part='prev']:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+[data-sk='tour'] [data-part='prev']:not(:disabled):hover {
+  --sk-tour-prev-fg: var(--color-sk-text);
+  color: var(--sk-tour-prev-fg);
+}
+[data-sk='tour'] [data-part='next'] {
+  --sk-tour-next-bg: var(--color-sk-primary);
+  --sk-tour-next-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-tour-next-bg);
+  color: var(--sk-tour-next-fg);
+}
+[data-sk='tour'] [data-part='next']:hover {
+  filter: brightness(1.08);
+}

@@ -4,7 +4,15 @@
  */
 
 [data-sk='calendar'] {
-  @apply inline-block p-4 bg-sk-surface border border-sk-border rounded-sk-lg shadow-sk-lg;
+  --sk-calendar-bg: var(--color-sk-surface);
+  --sk-calendar-border: var(--color-sk-border);
+  --sk-calendar-radius: var(--radius-sk-lg);
+  --sk-calendar-shadow: var(--shadow-sk-lg);
+  background-color: var(--sk-calendar-bg);
+  border-color: var(--sk-calendar-border);
+  border-radius: var(--sk-calendar-radius);
+  box-shadow: var(--sk-calendar-shadow);
+  @apply inline-block p-4 border;
 }
 
 [data-sk='calendar'] [data-part='header'] {
@@ -12,19 +20,25 @@
 }
 
 [data-sk='calendar'] [data-part='title'] {
-  @apply font-bold capitalize text-sk-text;
+  --sk-calendar-title-fg: var(--color-sk-text);
+  color: var(--sk-calendar-title-fg);
+  @apply font-bold capitalize;
 }
 
 [data-sk='calendar'] [data-part='prev'],
 [data-sk='calendar'] [data-part='next'] {
   appearance: none;
-  @apply border-none bg-transparent cursor-pointer w-[30px] h-[30px] rounded-sk-sm text-sk-text
-         text-[1.2rem];
+  --sk-calendar-nav-radius: var(--radius-sk-sm);
+  --sk-calendar-nav-fg: var(--color-sk-text);
+  border-radius: var(--sk-calendar-nav-radius);
+  color: var(--sk-calendar-nav-fg);
+  @apply border-none bg-transparent cursor-pointer w-[30px] h-[30px] text-[1.2rem];
 }
 
 [data-sk='calendar'] [data-part='prev']:hover,
 [data-sk='calendar'] [data-part='next']:hover {
-  @apply bg-sk-surface-2;
+  --sk-calendar-nav-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-calendar-nav-bg);
 }
 
 [data-sk='calendar'] [data-part='weekdays'],
@@ -34,30 +48,43 @@
 }
 
 [data-sk='calendar'] [data-part='weekday'] {
-  @apply text-center text-sk-sm text-sk-text-muted capitalize pb-1;
+  --sk-calendar-weekday-fg: var(--color-sk-text-muted);
+  color: var(--sk-calendar-weekday-fg);
+  @apply text-center text-sk-sm capitalize pb-1;
 }
 
 [data-sk='calendar'] [data-part='day'] {
   appearance: none;
   font: inherit;
   height: 2.2rem;
-  @apply border-none bg-transparent cursor-pointer rounded-sk-sm text-sk-text text-sk-sm;
+  --sk-calendar-day-radius: var(--radius-sk-sm);
+  --sk-calendar-day-fg: var(--color-sk-text);
+  border-radius: var(--sk-calendar-day-radius);
+  color: var(--sk-calendar-day-fg);
+  @apply border-none bg-transparent cursor-pointer text-sk-sm;
 }
 
 [data-sk='calendar'] [data-part='day']:hover:not(:disabled) {
-  @apply bg-sk-surface-2;
+  --sk-calendar-day-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-calendar-day-bg);
 }
 
 [data-sk='calendar'] [data-part='day'][data-outside] {
-  @apply text-sk-text-muted opacity-50;
+  --sk-calendar-day-fg: var(--color-sk-text-muted);
+  color: var(--sk-calendar-day-fg);
+  @apply opacity-50;
 }
 
 [data-sk='calendar'] [data-part='day'][data-today] {
-  box-shadow: inset 0 0 0 1px var(--color-sk-primary);
+  --sk-calendar-day-border: var(--color-sk-primary);
+  box-shadow: inset 0 0 0 1px var(--sk-calendar-day-border);
 }
 
 [data-sk='calendar'] [data-part='day'][data-selected] {
-  @apply bg-sk-primary text-sk-on-primary;
+  --sk-calendar-day-bg: var(--color-sk-primary);
+  --sk-calendar-day-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-calendar-day-bg);
+  color: var(--sk-calendar-day-fg);
 }
 
 [data-sk='calendar'] [data-part='day']:disabled {
@@ -65,7 +92,9 @@
 }
 
 [data-sk='calendar'] [data-part='day']:focus-visible {
-  @apply outline outline-2 outline-sk-primary -outline-offset-2;
+  --sk-calendar-day-border: var(--color-sk-primary);
+  outline-color: var(--sk-calendar-day-border);
+  @apply outline outline-2 -outline-offset-2;
 }
 
 /* ── RangeCalendar: estados de rango sobre el mismo Calendar ── */
@@ -74,22 +103,38 @@
 }
 
 [data-sk='calendar'][data-range] [data-part='day'] {
-  @apply rounded-none;
+  --sk-calendar-day-radius: 0px;
+  border-radius: var(--sk-calendar-day-radius);
 }
 
 [data-sk='calendar'][data-range] [data-part='day'][data-in-range] {
-  background: color-mix(in srgb, var(--color-sk-primary) 15%, var(--color-sk-surface));
-  @apply text-sk-text;
+  --sk-calendar-day-bg: var(--color-sk-primary);
+  --sk-calendar-day-fg: var(--color-sk-text);
+  background: color-mix(in srgb, var(--sk-calendar-day-bg) 15%, var(--color-sk-surface));
+  color: var(--sk-calendar-day-fg);
 }
 
 [data-sk='calendar'][data-range] [data-part='day'][data-range-start] {
-  @apply bg-sk-primary text-sk-on-primary rounded-l-sk-sm;
+  --sk-calendar-day-bg: var(--color-sk-primary);
+  --sk-calendar-day-fg: var(--color-sk-on-primary);
+  --sk-calendar-day-radius: var(--radius-sk-sm);
+  background-color: var(--sk-calendar-day-bg);
+  color: var(--sk-calendar-day-fg);
+  border-top-left-radius: var(--sk-calendar-day-radius);
+  border-bottom-left-radius: var(--sk-calendar-day-radius);
 }
 
 [data-sk='calendar'][data-range] [data-part='day'][data-range-end] {
-  @apply bg-sk-primary text-sk-on-primary rounded-r-sk-sm;
+  --sk-calendar-day-bg: var(--color-sk-primary);
+  --sk-calendar-day-fg: var(--color-sk-on-primary);
+  --sk-calendar-day-radius: var(--radius-sk-sm);
+  background-color: var(--sk-calendar-day-bg);
+  color: var(--sk-calendar-day-fg);
+  border-top-right-radius: var(--sk-calendar-day-radius);
+  border-bottom-right-radius: var(--sk-calendar-day-radius);
 }
 
 [data-sk='calendar'][data-range] [data-part='day'][data-range-start][data-range-end] {
-  @apply rounded-sk-sm;
+  --sk-calendar-day-radius: var(--radius-sk-sm);
+  border-radius: var(--sk-calendar-day-radius);
 }

@@ -1,0 +1,135 @@
+/**
+ * video-player.css — estilo de <VideoPlayer> (data-sk="video-player").
+ * Ver VideoPlayer.tsx / .catalog.ts para el contrato de props/parts.
+ *
+ * Look: overlay flotante sobre el video con degradado (no una barra opaca aparte) — controles
+ * chicos, atenuados en reposo, que ganan opacidad/foco al pasar el mouse. Íconos vía
+ * src/lib/mediaIcons.tsx (SVG con stroke=currentColor), nunca emoji: un emoji ignora `color`/
+ * `opacity`, así que no puede atenuarse ni tintarse junto con el resto del overlay.
+ */
+
+[data-sk='video-player'] {
+  --sk-video-player-radius: var(--radius-sk-lg);
+  border-radius: var(--sk-video-player-radius);
+  @apply relative flex bg-black overflow-hidden;
+}
+
+[data-sk='video-player'][data-fullscreen] {
+  @apply rounded-none w-screen h-screen;
+}
+
+[data-sk='video-player'] [data-part='surface'] {
+  @apply block w-full;
+}
+[data-sk='video-player'][data-fullscreen] [data-part='surface'] {
+  @apply h-full object-contain;
+}
+
+/* ── Controls: overlay flotante, no una barra separada debajo del video ── */
+[data-sk='video-player'] [data-part='controls'] {
+  @apply absolute inset-x-0 bottom-0 flex-wrap items-center gap-1 rounded-none p-2 pt-6;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0) 100%);
+}
+
+/* Botones: chicos, sin fondo en reposo, apenas se insinúan al hover — la sutileza pasa por acá. */
+[data-sk='video-player'] [data-part='controls'] [data-sk='button'][data-variant='ghost'] {
+  @apply text-white/80 px-2 py-2;
+}
+[data-sk='video-player'] [data-part='controls'] [data-sk='button'][data-variant='ghost']:hover:not(:disabled) {
+  @apply text-white;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Seek: fino, discreto en reposo, se engrosa apenas al hover — gradiente reproducido/buffer.
+ * NO uses accent-color acá (a diferencia de volume): accent-color solo pinta un color plano de
+ * track+thumb, no un degradado de dos colores — el buffer visual REQUIERE targetear
+ * ::-webkit-slider-runnable-track / ::-moz-range-track a mano. No lo simplifiques. */
+[data-sk='video-player'] [data-part='seek'] {
+  @apply block w-full min-w-[6rem] cursor-pointer mb-1;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 12px;
+}
+[data-sk='video-player'] [data-part='seek']::-webkit-slider-runnable-track {
+  --sk-video-player-seek-radius: var(--radius-sk-pill);
+  --sk-video-player-seek-bg: var(--color-sk-primary);
+  height: 3px;
+  border-radius: var(--sk-video-player-seek-radius);
+  background: linear-gradient(
+    to right,
+    var(--sk-video-player-seek-bg) 0%,
+    var(--sk-video-player-seek-bg) var(--sk-seek-played, 0%),
+    rgba(255, 255, 255, 0.4) var(--sk-seek-played, 0%),
+    rgba(255, 255, 255, 0.4) var(--sk-seek-buffered, 0%),
+    rgba(255, 255, 255, 0.2) var(--sk-seek-buffered, 0%),
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  transition: height 0.1s ease-out;
+}
+[data-sk='video-player'] [data-part='seek']::-moz-range-track {
+  --sk-video-player-seek-radius: var(--radius-sk-pill);
+  --sk-video-player-seek-bg: var(--color-sk-primary);
+  height: 3px;
+  border-radius: var(--sk-video-player-seek-radius);
+  background: linear-gradient(
+    to right,
+    var(--sk-video-player-seek-bg) 0%,
+    var(--sk-video-player-seek-bg) var(--sk-seek-played, 0%),
+    rgba(255, 255, 255, 0.4) var(--sk-seek-played, 0%),
+    rgba(255, 255, 255, 0.4) var(--sk-seek-buffered, 0%),
+    rgba(255, 255, 255, 0.2) var(--sk-seek-buffered, 0%),
+    rgba(255, 255, 255, 0.2) 100%
+  );
+}
+[data-sk='video-player'] [data-part='seek']:hover::-webkit-slider-runnable-track,
+[data-sk='video-player'] [data-part='seek']:focus-visible::-webkit-slider-runnable-track {
+  height: 5px;
+}
+[data-sk='video-player'] [data-part='seek']::-webkit-slider-thumb {
+  --sk-video-player-seek-bg: var(--color-sk-primary);
+  -webkit-appearance: none;
+  background-color: var(--sk-video-player-seek-bg);
+  @apply rounded-full;
+  width: 11px;
+  height: 11px;
+  margin-top: -4px;
+}
+[data-sk='video-player'] [data-part='seek']::-moz-range-thumb {
+  --sk-video-player-seek-bg: var(--color-sk-primary);
+  background-color: var(--sk-video-player-seek-bg);
+  @apply rounded-full border-0;
+  width: 11px;
+  height: 11px;
+}
+
+[data-sk='video-player'] [data-part='time'] {
+  @apply text-white/80 text-sk-sm px-1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Volumen: sin buffer, accent-color alcanza ── */
+[data-sk='video-player'] [data-part='volume'] {
+  @apply w-16 accent-sk-primary cursor-pointer;
+  height: 3px;
+}
+
+/* ── PlaybackRate: <Select> despojado de su chrome de campo de formulario para integrarse al
+ * overlay (mismo criterio que button-group.css: un compuesto puede estilar a su hijo, scoped a
+ * su propia raíz, sin tocar [data-sk='select'] en general). ── */
+[data-sk='video-player'] [data-part='controls'] [data-sk='select'] {
+  @apply gap-0;
+}
+[data-sk='video-player'] [data-part='controls'] [data-part='field'] {
+  @apply bg-transparent border-0 text-white/80 text-sk-sm px-2 py-2 shadow-none;
+}
+[data-sk='video-player'] [data-part='controls'] [data-part='field']:hover {
+  @apply text-white;
+}
+[data-sk='video-player'] [data-part='controls'] [data-part='field']:focus {
+  box-shadow: none;
+  @apply text-white;
+}
+[data-sk='video-player'] [data-part='controls'] [data-part='field'] option {
+  color: initial;
+}

@@ -1,6 +1,12 @@
 /* Banner — ver src/components/Banner/Banner.tsx / Banner.catalog.ts para el contrato de props/parts. */
 [data-sk='banner'] {
-  @apply flex items-center gap-3 py-3 px-4 rounded-sk-md bg-sk-surface-2 text-sk-text text-sk-md;
+  --sk-banner-bg: var(--color-sk-surface-2);
+  --sk-banner-fg: var(--color-sk-text);
+  --sk-banner-radius: var(--radius-sk-md);
+  background-color: var(--sk-banner-bg);
+  color: var(--sk-banner-fg);
+  border-radius: var(--sk-banner-radius);
+  @apply flex items-center gap-3 py-3 px-4 text-sk-md;
 }
 [data-sk='banner'] [data-part='icon'] {
   @apply flex-none inline-flex;
@@ -12,27 +18,37 @@
   @apply flex-none;
 }
 [data-sk='banner'] [data-part='close'] {
+  --sk-banner-close-fg: var(--color-sk-text-muted);
+  --sk-banner-close-radius: 6px;
+  color: var(--sk-banner-close-fg);
+  border-radius: var(--sk-banner-close-radius);
   @apply appearance-none border-0 bg-transparent cursor-pointer flex-none w-6 h-6
-         rounded-[6px] text-sk-text-muted text-[1.1rem] leading-none;
+         text-[1.1rem] leading-none;
 }
 [data-sk='banner'] [data-part='close']:hover {
-  @apply text-sk-text;
+  --sk-banner-close-fg: var(--color-sk-text);
+  color: var(--sk-banner-close-fg);
   background: rgba(0, 0, 0, 0.06);
 }
 
 /* Variantes — color-mix() no tiene equivalente en @apply, queda como CSS plano. */
 [data-sk='banner'][data-variant='primary'] {
-  background: color-mix(in srgb, var(--color-sk-primary) 14%, var(--color-sk-surface));
+  --sk-banner-bg: var(--color-sk-primary);
+  background: color-mix(in srgb, var(--sk-banner-bg) 14%, var(--color-sk-surface));
 }
 [data-sk='banner'][data-variant='danger'] {
-  background: color-mix(in srgb, var(--color-sk-danger) 14%, var(--color-sk-surface));
+  --sk-banner-bg: var(--color-sk-danger);
+  background: color-mix(in srgb, var(--sk-banner-bg) 14%, var(--color-sk-surface));
 }
 [data-sk='banner'][data-variant='success'] {
-  background: color-mix(in srgb, var(--color-sk-success) 14%, var(--color-sk-surface));
+  --sk-banner-bg: var(--color-sk-success);
+  background: color-mix(in srgb, var(--sk-banner-bg) 14%, var(--color-sk-surface));
 }
 [data-sk='banner'][data-variant='warning'] {
-  background: color-mix(in srgb, var(--color-sk-warning) 14%, var(--color-sk-surface));
+  --sk-banner-bg: var(--color-sk-warning);
+  background: color-mix(in srgb, var(--sk-banner-bg) 14%, var(--color-sk-surface));
 }
 [data-sk='banner'][data-variant='info'] {
-  background: color-mix(in srgb, var(--color-sk-info) 14%, var(--color-sk-surface));
+  --sk-banner-bg: var(--color-sk-info);
+  background: color-mix(in srgb, var(--sk-banner-bg) 14%, var(--color-sk-surface));
 }

@@ -19,22 +19,33 @@
 }
 
 [data-sk='radio-card'] {
+  --sk-radio-card-border: var(--color-sk-border);
+  --sk-radio-card-radius: 14px;
+  --sk-radio-card-bg: var(--color-sk-surface);
+  border-color: var(--sk-radio-card-border);
+  border-radius: var(--sk-radio-card-radius);
+  background-color: var(--sk-radio-card-bg);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  @apply relative flex items-start gap-3 p-4 border border-sk-border rounded-[14px] bg-sk-surface
-         cursor-pointer;
+  @apply relative flex items-start gap-3 p-4 border cursor-pointer;
 }
 
 [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 22%, transparent);
-  @apply border-sk-primary;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-primary);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 
 [data-sk='radio-card'] [data-part='control']:focus-visible ~ [data-part='indicator'] {
-  @apply outline outline-2 outline-sk-primary outline-offset-2;
+  --sk-radio-card-indicator-border: var(--color-sk-primary);
+  outline-color: var(--sk-radio-card-indicator-border);
+  @apply outline outline-2 outline-offset-2;
 }
 
 [data-sk='radio-card'] [data-part='icon'] {
-  @apply flex-none text-sk-primary;
+  --sk-radio-card-icon-fg: var(--color-sk-primary);
+  color: var(--sk-radio-card-icon-fg);
+  @apply flex-none;
 }
 
 [data-sk='radio-card'] [data-part='body'] {
@@ -42,19 +53,27 @@
 }
 
 [data-sk='radio-card'] [data-part='title'] {
-  @apply font-semibold text-sk-text;
+  --sk-radio-card-title-fg: var(--color-sk-text);
+  color: var(--sk-radio-card-title-fg);
+  @apply font-semibold;
 }
 
 [data-sk='radio-card'] [data-part='description'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-radio-card-description-fg: var(--color-sk-text-muted);
+  color: var(--sk-radio-card-description-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='radio-card'] [data-part='indicator'] {
+  --sk-radio-card-indicator-border: var(--color-sk-border);
   margin-top: 2px;
-  @apply flex-none w-[18px] h-[18px] rounded-full border-2 border-sk-border;
+  border-color: var(--sk-radio-card-indicator-border);
+  @apply flex-none w-[18px] h-[18px] rounded-full border-2;
 }
 
 [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-primary) 0 45%, transparent 50%);
-  @apply border-sk-primary;
+  --sk-radio-card-indicator-bg: var(--color-sk-primary);
+  --sk-radio-card-indicator-border: var(--color-sk-primary);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }

@@ -1,6 +1,14 @@
 /* ── Kbd ────────────────────────────────────────────────────── */
 [data-sk='kbd'] {
-  @apply inline-flex items-center justify-center min-w-[1.5em] py-px px-1 rounded-[6px]
-         border border-sk-border border-b-2 bg-sk-surface text-sk-text font-sk-mono text-sk-sm
+  --sk-kbd-radius: 6px;
+  --sk-kbd-border: var(--color-sk-border);
+  --sk-kbd-bg: var(--color-sk-surface);
+  --sk-kbd-fg: var(--color-sk-text);
+  border-radius: var(--sk-kbd-radius);
+  border-color: var(--sk-kbd-border);
+  background-color: var(--sk-kbd-bg);
+  color: var(--sk-kbd-fg);
+  @apply inline-flex items-center justify-center min-w-[1.5em] py-px px-1
+         border border-b-2 font-sk-mono text-sk-sm
          leading-[1.4];
 }

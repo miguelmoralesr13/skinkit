@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`skinkit` — a headless React component library (npm name `skinkit`, `v0.1.0`, 94 components).
+`skinkit` — a headless React component library (npm name `skinkit`, `v0.1.0`, 99 components).
 Components emit **zero style**: only structure plus a stable `data-sk`/`data-part` attribute
 contract. All visuals live in **one Tailwind v4-native design-token + CSS system**: a single
 `@theme` (color + shape tokens) plus one CSS file per component, both fully overridable via CSS
@@ -139,13 +139,25 @@ height/collapse animation. CSS that wants an animated panel must drive open/clos
 
 `tsup` compiles **only the JS/TS** into `dist/` (`dts: false` in `tsup.config.ts` — declarations
 are emitted separately by `tsc -p tsconfig.build.json`, since tsup's dts rollup isn't compatible
-with TypeScript 7/tsgo; that's why `build` is a multi-step script). Three JS entries:
+with TypeScript 7/tsgo; that's why `build` is a multi-step script). Five JS entries:
 - `src/index.ts` — the core components + provider.
 - `src/catalog/index.ts` — the catalog, importable without pulling in any component code.
-- `src/components/DynamicForm/index.ts` — the **only** entry that pulls in `react-hook-form` /
-  `zod` / `@hookform/resolvers` (all three are optional peer deps). Keeping it a separate tsup
-  entry/export means importing `skinkit` alone never drags form-validation deps into a consumer's
-  bundle.
+- `src/components/DynamicForm/index.ts` — pulls in `react-hook-form` / `zod` /
+  `@hookform/resolvers` (all three are optional peer deps).
+- `src/components/RichTextEditor/index.ts` — pulls in `@tiptap/*` (9 packages, all optional peer
+  deps — see `package.json`). Same reasoning as DynamicForm: a compound family (~20 sub-components
+  across `RichTextEditor*.tsx` sibling files, assembled via `Object.assign` in `index.ts` because
+  TS doesn't infer a static property assigned to a function from a *different* file than where the
+  function was declared — the same-file pattern Dialog/Accordion use doesn't work across files).
+- `src/components/FilePreviewer/office/index.tsx` — pulls in `docx-preview` + `xlsx` (both
+  optional peer deps). `FilePreviewer` itself (core, exported from `src/index.ts`) stays
+  dependency-free — it previews image/video/audio/pdf/code out of the box and falls back to an
+  icon+download panel for Word/Excel; this entry exports `officeRenderers`, an object you spread
+  into `FilePreviewer`'s `renderers` prop to get real Word/Excel rendering instead of the fallback.
+
+These three are the **only** entries that pull in extra runtime deps. Keeping each a separate tsup
+entry/export means importing `skinkit` alone never drags form-validation/editor/office-preview
+deps into a consumer's bundle.
 
 **CSS is a separate, real build step now** (this changed from the old "ship raw CSS" model):
 `npm run build:css` runs `@tailwindcss/cli` (`tailwindcss -i ./src/styles/index.css -o
@@ -156,6 +168,8 @@ with TypeScript 7/tsgo; that's why `build` is a multi-step script). Three JS ent
 - `skinkit` → `dist/index.js` (components + provider)
 - `skinkit/catalog` → `dist/catalog/index.js` (`COMPONENT_CATALOG`, `getComponentSpec`, spec types)
 - `skinkit/form` → `dist/components/DynamicForm/index.js` (schema-driven form, needs the optional peer deps above)
+- `skinkit/editor` → `dist/components/RichTextEditor/index.js` (Tiptap-backed rich text editor, needs the optional `@tiptap/*` peer deps)
+- `skinkit/file-preview-office` → `dist/components/FilePreviewer/office/index.js` (`officeRenderers` for real Word/Excel preview in `FilePreviewer`, needs the optional `docx-preview`/`xlsx` peer deps)
 - `skinkit/styles/base` → `dist/styles/skinkit.css` (**compiled**, not raw source — the one
   exception to "CSS ships as-is" from the old architecture, forced by needing Tailwind's engine)
 - `skinkit/tailwind-preset` → `src/styles/tokens.css` (**uncompiled** — just the `@theme` block,

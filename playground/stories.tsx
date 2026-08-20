@@ -45,6 +45,7 @@ import {
   AnimatedNumber,
   Blockquote,
   Sparkline,
+  QRCode,
   Resizable,
   Countdown,
   DatePicker,
@@ -99,11 +100,18 @@ import {
   Sidebar,
   BottomNav,
   AppShell,
+  VideoPlayer,
+  AudioPlayer,
+  FilePreviewer,
+  TourProvider,
+  useTour,
 } from '../src'
-import type { ColumnDef, SortState } from '../src'
+import type { ColumnDef, SortState, TourConfig } from '../src'
 import { useForm } from 'react-hook-form'
 import { DynamicForm } from '../src/components/DynamicForm'
 import type { FormConfig, FormValues } from '../src/components/DynamicForm'
+import { RichTextEditor } from '../src/components/RichTextEditor'
+import { officeRenderers } from '../src/components/FilePreviewer/office'
 
 export interface Story {
   name: string
@@ -224,6 +232,88 @@ function ToastDemo() {
     <ToastProvider position="bottom-right">
       <ToastButtons />
     </ToastProvider>
+  )
+}
+
+const TOUR_DEMO_CONFIG: TourConfig = {
+  flows: [
+    {
+      // Sub-flujo reusado: no se arranca directo con start(), solo vive referenciado desde
+      // 'onboarding-tabla' y 'onboarding-panel' — ver ambos entries más abajo.
+      id: 'explicar-filtros',
+      entries: [
+        {
+          id: 'f1',
+          target: '[data-tour-target="filtros"]',
+          title: 'Filtros',
+          body: 'Filtrá por estado o fecha — este paso vive en un sub-flujo, reusado por dos tours distintos.',
+        },
+      ],
+    },
+    {
+      id: 'onboarding-tabla',
+      entries: [
+        { id: 't1', target: '[data-tour-target="tabla"]', title: 'Tu tabla', body: 'Acá ves tus datos.' },
+        { subFlow: 'explicar-filtros' },
+        { id: 't2', target: '[data-tour-target="exportar"]', title: 'Exportar', placement: 'left' },
+      ],
+    },
+    {
+      id: 'onboarding-panel',
+      // Arranca solo la primera vez que el panel aparece en pantalla — sin llamar a start().
+      trigger: { type: 'elementVisible', target: '[data-tour-target="panel-nuevo"]' },
+      entries: [
+        {
+          id: 'p1',
+          target: '[data-tour-target="panel-nuevo"]',
+          title: '¡Nuevo panel!',
+          body: 'Este tour arranca solo al aparecer el panel. Si otro tour ya está activo, éste se encola y no se solapan.',
+        },
+        { subFlow: 'explicar-filtros' },
+      ],
+    },
+  ],
+}
+
+function TourPlayground() {
+  const { start } = useTour()
+  const [showPanel, setShowPanel] = useState(false)
+  const boxStyle: CSSProperties = {
+    padding: '0.75rem',
+    border: '1px dashed var(--color-sk-border)',
+    borderRadius: 8,
+  }
+  return (
+    <div className="sb-col" style={{ gap: '0.75rem' }}>
+      <div className="sb-row">
+        <Button onClick={() => start('onboarding-tabla')}>Iniciar tour tabla</Button>
+        <Button variant="outlined" onClick={() => setShowPanel(true)}>
+          Mostrar panel nuevo (auto-arranca su tour, se encola si hay uno activo)
+        </Button>
+      </div>
+      <div data-tour-target="tabla" style={boxStyle}>
+        Tabla
+      </div>
+      <div data-tour-target="filtros" style={boxStyle}>
+        Filtros
+      </div>
+      <div data-tour-target="exportar" style={boxStyle}>
+        Exportar
+      </div>
+      {showPanel && (
+        <div data-tour-target="panel-nuevo" style={boxStyle}>
+          Panel nuevo
+        </div>
+      )}
+    </div>
+  )
+}
+
+function TourDemo() {
+  return (
+    <TourProvider config={TOUR_DEMO_CONFIG}>
+      <TourPlayground />
+    </TourProvider>
   )
 }
 
@@ -511,6 +601,34 @@ function DataTableDemo() {
             Borrar sel.
           </Button>
         )}
+      />
+    </div>
+  )
+}
+
+// Virtualizada: 10.000 filas cargadas de una, el DOM solo renderiza las visibles (+ overscan).
+const DEMO_BIG_USERS: DemoUser[] = Array.from({ length: 10_000 }, (_, i) => ({
+  id: i + 1,
+  name: `Usuario ${i + 1}`,
+  email: `user${i + 1}@demo.io`,
+  role: DEMO_ROLES[i % 3],
+  status: i % 4 === 0 ? 'Inactivo' : 'Activo',
+  age: 20 + ((i * 7) % 40),
+}))
+
+function DataTableVirtualizedDemo() {
+  return (
+    <div style={{ width: '100%' }}>
+      <DataTable
+        data={DEMO_BIG_USERS}
+        columns={DEMO_COLUMNS}
+        rowKey={(u) => u.id}
+        pagination="none"
+        view="table"
+        virtualized
+        rowHeight={44}
+        height={420}
+        caption={`${DEMO_BIG_USERS.length.toLocaleString('es')} filas — scrolleá para probar`}
       />
     </div>
   )
@@ -1276,6 +1394,227 @@ const layoutCell: CSSProperties = {
 }
 function LCell({ children }: { children: ReactNode }) {
   return <div style={layoutCell}>{children}</div>
+}
+
+// ── RichTextEditor: demo mínima — sin toolbar, solo confirma que el editor monta, es editable
+// y el undo/redo nativo (Ctrl+Z) de Tiptap funciona.
+function RichTextEditorMinimalDemo() {
+  const [html, setHtml] = useState('<p>Escribí algo acá y probá <strong>Ctrl+Z</strong>.</p>')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <RichTextEditor content={html} onChange={setHtml}>
+        <RichTextEditor.Content />
+      </RichTextEditor>
+      <details>
+        <summary>HTML actual</summary>
+        <pre style={{ fontSize: '0.78rem', whiteSpace: 'pre-wrap' }}>{html}</pre>
+      </details>
+    </div>
+  )
+}
+
+// ── RichTextEditor: formato + bloques (batch 2) — negrita/cursiva/subrayado/tachado, estilo de
+// bloque (párrafo/títulos), listas, cita, código, línea horizontal, undo/redo.
+function RichTextEditorFormattingDemo() {
+  const [html, setHtml] = useState(
+    '<h2>Probá cada botón</h2><p>Seleccioná texto y aplicá <strong>negrita</strong>, <em>cursiva</em>, etc.</p><ul><li>Un ítem</li><li>Otro ítem</li></ul>',
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <RichTextEditor content={html} onChange={setHtml}>
+        <RichTextEditor.Toolbar>
+          <RichTextEditor.BlockType />
+          <RichTextEditor.Separator />
+          <RichTextEditor.Bold />
+          <RichTextEditor.Italic />
+          <RichTextEditor.Underline />
+          <RichTextEditor.Strike />
+          <RichTextEditor.Separator />
+          <RichTextEditor.BulletList />
+          <RichTextEditor.OrderedList />
+          <RichTextEditor.Blockquote />
+          <RichTextEditor.CodeBlock />
+          <RichTextEditor.HorizontalRule />
+          <RichTextEditor.Separator />
+          <RichTextEditor.Undo />
+          <RichTextEditor.Redo />
+        </RichTextEditor.Toolbar>
+        <RichTextEditor.Content />
+      </RichTextEditor>
+      <details>
+        <summary>HTML actual</summary>
+        <pre style={{ fontSize: '0.78rem', whiteSpace: 'pre-wrap' }}>{html}</pre>
+      </details>
+    </div>
+  )
+}
+
+// ── RichTextEditor: link + imagen (batch 3) — ambos abren un PromptDialog reusado de Dialog.
+function RichTextEditorLinkImageDemo() {
+  const [html, setHtml] = useState('<p>Seleccioná esta frase y probá insertar un link.</p>')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <RichTextEditor content={html} onChange={setHtml}>
+        <RichTextEditor.Toolbar>
+          <RichTextEditor.Link />
+          <RichTextEditor.Image />
+        </RichTextEditor.Toolbar>
+        <RichTextEditor.Content />
+      </RichTextEditor>
+      <details>
+        <summary>HTML actual</summary>
+        <pre style={{ fontSize: '0.78rem', whiteSpace: 'pre-wrap' }}>{html}</pre>
+      </details>
+    </div>
+  )
+}
+
+// ── RichTextEditor: alinear + color + tabla (batch 4) — .TableControls solo aparece con el
+// cursor dentro de una tabla, probá insertar una y hacer click adentro.
+function RichTextEditorAlignColorTableDemo() {
+  const [html, setHtml] = useState('<h2>Encabezado</h2><p>Seleccioná texto y probá alinear o cambiar el color.</p>')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <RichTextEditor content={html} onChange={setHtml}>
+        <RichTextEditor.Toolbar>
+          <RichTextEditor.Align />
+          <RichTextEditor.Separator />
+          <RichTextEditor.Color />
+          <RichTextEditor.Separator />
+          <RichTextEditor.Table />
+        </RichTextEditor.Toolbar>
+        <RichTextEditor.TableControls />
+        <RichTextEditor.Content />
+      </RichTextEditor>
+      <details>
+        <summary>HTML actual</summary>
+        <pre style={{ fontSize: '0.78rem', whiteSpace: 'pre-wrap' }}>{html}</pre>
+      </details>
+    </div>
+  )
+}
+
+// ── VideoPlayer: assets CC0 públicos de MDN (estándar en demos web, MDN los usa en su propia
+// documentación de <video>/<audio>) — sin poster propio para este archivo, se omite.
+const VIDEO_DEMO_SRC = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+const AUDIO_DEMO_SRC = 'https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3'
+
+function VideoPlayerDemo() {
+  return (
+    <VideoPlayer src={VIDEO_DEMO_SRC} style={{ maxWidth: 480 }}>
+      <VideoPlayer.Controls>
+        <VideoPlayer.PlayButton />
+        <VideoPlayer.SkipBack />
+        <VideoPlayer.SkipForward />
+        <VideoPlayer.Seek />
+        <VideoPlayer.Time />
+        <VideoPlayer.Separator />
+        <VideoPlayer.VolumeButton />
+        <VideoPlayer.VolumeSlider />
+        <VideoPlayer.Separator />
+        <VideoPlayer.PlaybackRate />
+        <VideoPlayer.PipButton />
+        <VideoPlayer.FullscreenButton />
+      </VideoPlayer.Controls>
+    </VideoPlayer>
+  )
+}
+
+function AudioPlayerDemo() {
+  return (
+    <AudioPlayer src={AUDIO_DEMO_SRC} style={{ maxWidth: 480 }}>
+      <AudioPlayer.Controls>
+        <AudioPlayer.PlayButton />
+        <AudioPlayer.SkipBack />
+        <AudioPlayer.SkipForward />
+        <AudioPlayer.Seek />
+        <AudioPlayer.Time />
+        <AudioPlayer.Separator />
+        <AudioPlayer.VolumeButton />
+        <AudioPlayer.VolumeSlider />
+        <AudioPlayer.Separator />
+        <AudioPlayer.PlaybackRate />
+      </AudioPlayer.Controls>
+    </AudioPlayer>
+  )
+}
+
+// ── FilePreviewer: assets de demo — imagen data-URI (sin red), video/audio CC0 de MDN (mismos
+// que VideoPlayer/AudioPlayer arriba), PDF público estándar de pdf.js, código como data-URI.
+const CODE_DEMO_SRC =
+  'data:text/plain,' + encodeURIComponent('export function hello() {\n  return "hola"\n}\n')
+const PDF_DEMO_SRC = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
+
+function FilePreviewerSingleDemo() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Ver imagen</Button>
+      <FilePreviewer
+        open={open}
+        onClose={() => setOpen(false)}
+        files={[{ url: DEMO_IMG, name: 'skinkit.svg', size: 1280, type: 'image/svg+xml' }]}
+      />
+    </>
+  )
+}
+
+function FilePreviewerGalleryDemo() {
+  const [open, setOpen] = useState(false)
+  const [index, setIndex] = useState(0)
+  const files = [
+    { url: DEMO_IMG, name: 'skinkit.svg', size: 1280, type: 'image/svg+xml' },
+    { url: VIDEO_DEMO_SRC, name: 'flower.mp4', type: 'video/mp4' },
+    { url: AUDIO_DEMO_SRC, name: 't-rex-roar.mp3', type: 'audio/mpeg' },
+    { url: PDF_DEMO_SRC, name: 'paper.pdf', type: 'application/pdf' },
+    { url: CODE_DEMO_SRC, name: 'hello.ts' },
+    { url: '#', name: 'reporte.docx', size: 45_000 },
+  ]
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Abrir galería</Button>
+      <FilePreviewer open={open} onClose={() => setOpen(false)} files={files} index={index} onIndexChange={setIndex} />
+    </>
+  )
+}
+
+// ── FilePreviewer: skinkit/file-preview-office — demo 100% en vivo con .docx/.xlsx de muestra
+// servidos localmente desde playground/public (sin depender de ningún host externo/CORS).
+const WORD_DEMO_SRC = '/sample.docx'
+const EXCEL_DEMO_SRC = '/sample.xlsx'
+
+function FilePreviewerOfficeDemo() {
+  const [open, setOpen] = useState(false)
+  const [index, setIndex] = useState(0)
+  const files = [
+    { url: WORD_DEMO_SRC, name: 'sample.docx' },
+    { url: EXCEL_DEMO_SRC, name: 'sample.xlsx' },
+  ]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <p style={{ margin: 0 }}>
+        <code>officeRenderers</code> ({Object.keys(officeRenderers).join(', ')}) se importa desde{' '}
+        <code>skinkit/file-preview-office</code> y se combina con la prop <code>renderers</code>:
+      </p>
+      <Code block lang="tsx" copyable>
+        {`import { FilePreviewer } from 'skinkit'
+import { officeRenderers } from 'skinkit/file-preview-office'
+
+<FilePreviewer files={archivos} renderers={officeRenderers} open={open} onClose={onClose} />`}
+      </Code>
+      <div>
+        <Button onClick={() => setOpen(true)}>Ver .docx / .xlsx de muestra</Button>
+      </div>
+      <FilePreviewer
+        open={open}
+        onClose={() => setOpen(false)}
+        files={files}
+        index={index}
+        onIndexChange={setIndex}
+        renderers={officeRenderers}
+      />
+    </div>
+  )
 }
 
 /**
@@ -2334,6 +2673,39 @@ function App() {
     ],
   },
   {
+    component: 'QRCode',
+    stories: [
+      {
+        name: 'Básico',
+        render: () => (
+          <div className="sb-row">
+            <QRCode value="https://skinkit.dev" />
+            <QRCode value="skinkit" size={80} errorCorrectionLevel="H" />
+          </div>
+        ),
+      },
+      {
+        name: 'Contenido largo (versión más alta)',
+        render: () => (
+          <QRCode
+            value="WIFI:T:WPA;S:MiRedWifi;P:unaContraseñaLarga123;;"
+            size={180}
+            errorCorrectionLevel="Q"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    component: 'Tour',
+    stories: [
+      {
+        name: 'Anidado + reusado + auto-trigger',
+        render: () => <TourDemo />,
+      },
+    ],
+  },
+  {
     component: 'Resizable',
     stories: [
       {
@@ -3176,6 +3548,10 @@ function App() {
           </div>
         ),
       },
+      {
+        name: 'Virtualizada (10k filas)',
+        render: () => <DataTableVirtualizedDemo />,
+      },
     ],
   },
   {
@@ -3609,6 +3985,31 @@ function App() {
       { name: 'Lista (array)', render: () => <DFStory schema={DF_ARRAY} /> },
       { name: 'Todos los tipos de campo', render: () => <DFStory schema={DF_ALLTYPES} /> },
       { name: 'Form externo (tu useForm)', render: () => <DynamicFormExternalFormDemo /> },
+    ],
+  },
+  {
+    component: 'RichTextEditor',
+    stories: [
+      { name: 'Mínimo (sin toolbar)', render: () => <RichTextEditorMinimalDemo /> },
+      { name: 'Formato + bloques', render: () => <RichTextEditorFormattingDemo /> },
+      { name: 'Link + imagen', render: () => <RichTextEditorLinkImageDemo /> },
+      { name: 'Alinear + color + tabla', render: () => <RichTextEditorAlignColorTableDemo /> },
+    ],
+  },
+  {
+    component: 'VideoPlayer',
+    stories: [{ name: 'Completo', render: () => <VideoPlayerDemo /> }],
+  },
+  {
+    component: 'AudioPlayer',
+    stories: [{ name: 'Completo', render: () => <AudioPlayerDemo /> }],
+  },
+  {
+    component: 'FilePreviewer',
+    stories: [
+      { name: 'Un archivo', render: () => <FilePreviewerSingleDemo /> },
+      { name: 'Galería (todos los tipos)', render: () => <FilePreviewerGalleryDemo /> },
+      { name: 'Word/Excel (skinkit/file-preview-office)', render: () => <FilePreviewerOfficeDemo /> },
     ],
   },
 ]

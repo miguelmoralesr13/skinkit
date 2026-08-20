@@ -7,26 +7,33 @@
   @apply flex-col;
 }
 [data-sk='button-group'] [data-sk='button'] {
-  @apply rounded-none shadow-none;
+  --sk-button-group-button-radius: 0px;
+  --sk-button-group-button-shadow: none;
+  border-radius: var(--sk-button-group-button-radius);
+  box-shadow: var(--sk-button-group-button-shadow);
 }
 [data-sk='button-group'][data-orientation='horizontal'] [data-sk='button']:first-child {
-  border-top-left-radius: var(--radius-sk-pill);
-  border-bottom-left-radius: var(--radius-sk-pill);
+  --sk-button-group-button-radius: var(--radius-sk-pill);
+  border-top-left-radius: var(--sk-button-group-button-radius);
+  border-bottom-left-radius: var(--sk-button-group-button-radius);
 }
 [data-sk='button-group'][data-orientation='horizontal'] [data-sk='button']:last-child {
-  border-top-right-radius: var(--radius-sk-pill);
-  border-bottom-right-radius: var(--radius-sk-pill);
+  --sk-button-group-button-radius: var(--radius-sk-pill);
+  border-top-right-radius: var(--sk-button-group-button-radius);
+  border-bottom-right-radius: var(--sk-button-group-button-radius);
 }
 [data-sk='button-group'][data-orientation='horizontal'] [data-sk='button']:not(:first-child) {
   @apply -ml-px;
 }
 [data-sk='button-group'][data-orientation='vertical'] [data-sk='button']:first-child {
-  border-top-left-radius: var(--radius-sk-pill);
-  border-top-right-radius: var(--radius-sk-pill);
+  --sk-button-group-button-radius: var(--radius-sk-pill);
+  border-top-left-radius: var(--sk-button-group-button-radius);
+  border-top-right-radius: var(--sk-button-group-button-radius);
 }
 [data-sk='button-group'][data-orientation='vertical'] [data-sk='button']:last-child {
-  border-bottom-left-radius: var(--radius-sk-pill);
-  border-bottom-right-radius: var(--radius-sk-pill);
+  --sk-button-group-button-radius: var(--radius-sk-pill);
+  border-bottom-left-radius: var(--sk-button-group-button-radius);
+  border-bottom-right-radius: var(--sk-button-group-button-radius);
 }
 [data-sk='button-group'][data-orientation='vertical'] [data-sk='button']:not(:first-child) {
   @apply -mt-px;

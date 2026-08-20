@@ -8,28 +8,42 @@
 }
 
 [data-sk='number-input'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-number-input-label-fg: var(--color-sk-text);
+  color: var(--sk-number-input-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='number-input'] [data-part='control'] {
+  --sk-number-input-control-border: var(--color-sk-border);
+  --sk-number-input-control-radius: var(--radius-sk-md);
+  --sk-number-input-control-bg: var(--color-sk-surface);
+  border-color: var(--sk-number-input-control-border);
+  border-radius: var(--sk-number-input-control-radius);
+  background-color: var(--sk-number-input-control-bg);
   width: fit-content;
-  @apply inline-flex items-stretch border border-sk-border rounded-sk-md overflow-hidden bg-sk-surface;
+  @apply inline-flex items-stretch border overflow-hidden;
 }
 
 [data-sk='number-input'][data-error] [data-part='control'] {
-  @apply border-sk-danger;
+  --sk-number-input-control-border: var(--color-sk-danger);
+  border-color: var(--sk-number-input-control-border);
 }
 
 [data-sk='number-input'] [data-part='decrement'],
 [data-sk='number-input'] [data-part='increment'] {
+  --sk-number-input-decrement-increment-bg: var(--color-sk-surface-2);
+  --sk-number-input-decrement-increment-fg: var(--color-sk-text);
+  background-color: var(--sk-number-input-decrement-increment-bg);
+  color: var(--sk-number-input-decrement-increment-fg);
   appearance: none;
   line-height: 1;
-  @apply border-none w-10 bg-sk-surface-2 text-sk-text cursor-pointer text-[1.2rem];
+  @apply border-none w-10 cursor-pointer text-[1.2rem];
 }
 
 [data-sk='number-input'] [data-part='decrement']:hover:not(:disabled),
 [data-sk='number-input'] [data-part='increment']:hover:not(:disabled) {
-  @apply bg-sk-border;
+  --sk-number-input-decrement-increment-bg: var(--color-sk-border);
+  background-color: var(--sk-number-input-decrement-increment-bg);
 }
 
 [data-sk='number-input'] [data-part='decrement']:disabled,
@@ -38,9 +52,13 @@
 }
 
 [data-sk='number-input'] [data-part='field'] {
+  --sk-number-input-field-bg: var(--color-sk-surface);
+  --sk-number-input-field-fg: var(--color-sk-text);
+  background-color: var(--sk-number-input-field-bg);
+  color: var(--sk-number-input-field-fg);
   font: inherit;
   -moz-appearance: textfield;
-  @apply w-16 border-none text-center bg-sk-surface text-sk-text text-sk-md;
+  @apply w-16 border-none text-center text-sk-md;
 }
 
 [data-sk='number-input'] [data-part='field']:focus {
@@ -54,9 +72,12 @@
 }
 
 [data-sk='number-input'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-number-input-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-number-input-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='number-input'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-number-input-helper-fg: var(--color-sk-danger);
+  color: var(--sk-number-input-helper-fg);
 }

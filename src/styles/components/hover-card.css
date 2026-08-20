@@ -3,9 +3,16 @@
   @apply relative inline-flex;
 }
 [data-sk='hover-card'] [data-part='content'] {
-  @apply absolute z-[60] min-w-56 max-w-80 p-4 bg-sk-surface border border-sk-border
-         rounded-[14px] text-sk-text text-sk-md;
+  --sk-hover-card-content-bg: var(--color-sk-surface);
+  --sk-hover-card-content-border: var(--color-sk-border);
+  --sk-hover-card-content-radius: 14px;
+  --sk-hover-card-content-fg: var(--color-sk-text);
+  background-color: var(--sk-hover-card-content-bg);
+  border-color: var(--sk-hover-card-content-border);
+  border-radius: var(--sk-hover-card-content-radius);
+  color: var(--sk-hover-card-content-fg);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  @apply absolute z-[60] min-w-56 max-w-80 p-4 border text-sk-md;
 }
 [data-sk='hover-card'][data-side='bottom'] [data-part='content'] {
   @apply top-full left-0 mt-2;

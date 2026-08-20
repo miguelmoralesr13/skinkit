@@ -1,0 +1,111 @@
+/**
+ * file-previewer.css — estilo de <FilePreviewer>. Compone <Dialog> por dentro sin declarar su
+ * propio [data-sk] en la raíz (mismo criterio que ConfirmDialog/AlertDialog/PromptDialog en
+ * dialog.css) — pero SÍ necesita [data-part] nuevos (fallback/prev/next/download/size) que las
+ * otras variantes de Dialog no necesitan, así que a diferencia de esas, FilePreviewer pasa
+ * `data-sk="file-previewer"` a través del `...rest` de <Dialog> — termina en el mismo elemento
+ * que [data-part="panel"] (dialog.css), dándole a este archivo un scope propio sin pisar el de
+ * otro componente que también use partes genéricas como "prev"/"next"/"size" (ej. Carousel).
+ * Ver FilePreviewer.tsx / .catalog.ts para el contrato completo.
+ */
+
+[data-sk='file-previewer'] {
+  --sk-file-previewer-panel-max-width: 56rem;
+  max-width: var(--sk-file-previewer-panel-max-width);
+}
+
+[data-sk='file-previewer'] [data-part='body'] {
+  @apply flex items-center justify-center min-h-[50vh];
+}
+
+[data-sk='file-previewer'] [data-part='body'] > [data-sk='image'],
+[data-sk='file-previewer'] [data-part='body'] > [data-sk='video-player'],
+[data-sk='file-previewer'] [data-part='body'] > [data-sk='audio-player'] {
+  @apply w-full;
+}
+
+[data-sk='file-previewer'] [data-part='pdf-frame'] {
+  @apply w-full h-[70vh] border-0;
+}
+
+[data-sk='file-previewer'] [data-part='loading'] {
+  --sk-file-previewer-loading-fg: var(--color-sk-text-muted);
+  color: var(--sk-file-previewer-loading-fg);
+}
+
+/* ── Office (skinkit/file-preview-office, opcional) — tabla "básica" para Excel, contenedor de
+ * docx-preview para Word. Viven acá (no en un CSS propio) porque igual se renderizan adentro de
+ * [data-part='body'] de este mismo componente. */
+[data-sk='file-previewer'] [data-part='office-word'] {
+  @apply w-full overflow-auto max-h-[70vh];
+}
+[data-sk='file-previewer'] table[data-part='office-excel'] {
+  --sk-file-previewer-excel-border: var(--color-sk-border);
+  --sk-file-previewer-excel-header-bg: var(--color-sk-surface-2);
+  border-color: var(--sk-file-previewer-excel-border);
+  @apply w-full border-collapse text-sk-sm;
+}
+[data-sk='file-previewer'] table[data-part='office-excel'] td {
+  --sk-file-previewer-excel-cell-border: var(--color-sk-border);
+  border-color: var(--sk-file-previewer-excel-cell-border);
+  @apply border px-2 py-1;
+}
+[data-sk='file-previewer'] table[data-part='office-excel'] tr:first-child td {
+  background-color: var(--sk-file-previewer-excel-header-bg);
+  @apply font-semibold;
+}
+
+/* ── Fallback: tipos sin preview real (word/excel/unknown, o código que no pudo cargar) ── */
+[data-sk='file-previewer'] [data-part='fallback'] {
+  --sk-file-previewer-fallback-fg: var(--color-sk-text-muted);
+  color: var(--sk-file-previewer-fallback-fg);
+  @apply flex flex-col items-center justify-center gap-3 py-10 text-center;
+}
+[data-sk='file-previewer'] [data-part='fallback-icon'] {
+  --sk-file-previewer-fallback-icon-fg: var(--color-sk-text-muted);
+  color: var(--sk-file-previewer-fallback-icon-fg);
+}
+[data-sk='file-previewer'] [data-part='fallback-name'] {
+  --sk-file-previewer-fallback-name-fg: var(--color-sk-text);
+  color: var(--sk-file-previewer-fallback-name-fg);
+  @apply font-semibold m-0;
+}
+
+/* ── Footer: prev · size · download · next ── */
+[data-sk='file-previewer'] [data-part='footer'] {
+  @apply justify-between items-center;
+}
+[data-sk='file-previewer'] [data-part='size'] {
+  --sk-file-previewer-size-fg: var(--color-sk-text-muted);
+  color: var(--sk-file-previewer-size-fg);
+  @apply text-sk-sm flex-1;
+  font-variant-numeric: tabular-nums;
+}
+[data-sk='file-previewer'] [data-part='prev'],
+[data-sk='file-previewer'] [data-part='next'] {
+  --sk-file-previewer-nav-bg: var(--color-sk-surface-2);
+  --sk-file-previewer-nav-fg: var(--color-sk-text);
+  --sk-file-previewer-nav-radius: var(--radius-sk-pill);
+  background-color: var(--sk-file-previewer-nav-bg);
+  color: var(--sk-file-previewer-nav-fg);
+  border-radius: var(--sk-file-previewer-nav-radius);
+  @apply flex items-center justify-center w-8 h-8 border-none cursor-pointer text-lg leading-none;
+}
+[data-sk='file-previewer'] [data-part='prev']:disabled,
+[data-sk='file-previewer'] [data-part='next']:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+[data-sk='file-previewer'] [data-part='download'] {
+  --sk-file-previewer-download-bg: var(--color-sk-primary);
+  --sk-file-previewer-download-fg: var(--color-sk-on-primary);
+  --sk-file-previewer-download-radius: var(--radius-sk-pill);
+  background-color: var(--sk-file-previewer-download-bg);
+  color: var(--sk-file-previewer-download-fg);
+  border-radius: var(--sk-file-previewer-download-radius);
+  text-decoration: none;
+  @apply inline-flex items-center gap-2 px-4 py-2 text-sk-sm font-semibold cursor-pointer;
+}
+[data-sk='file-previewer'] [data-part='download']:hover {
+  --sk-file-previewer-download-bg: var(--color-sk-primary-hover);
+  background-color: var(--sk-file-previewer-download-bg);
+}

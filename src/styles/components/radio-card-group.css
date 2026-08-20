@@ -10,58 +10,86 @@
 
 /* ── cascada de tone del grupo hacia las tarjetas anidadas ── */
 [data-sk='radio-card-group'][data-tone='secondary'] [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-secondary) 22%, transparent);
-  @apply border-sk-secondary;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-secondary) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-secondary);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 [data-sk='radio-card-group'][data-tone='secondary'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-secondary) 0 45%, transparent 50%);
-  @apply border-sk-secondary;
+  --sk-radio-card-indicator-bg: var(--color-sk-secondary);
+  --sk-radio-card-indicator-border: var(--color-sk-secondary);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }
 [data-sk='radio-card-group'][data-tone='tertiary'] [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-tertiary) 22%, transparent);
-  @apply border-sk-tertiary;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-tertiary) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-tertiary);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 [data-sk='radio-card-group'][data-tone='tertiary'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-tertiary) 0 45%, transparent 50%);
-  @apply border-sk-tertiary;
+  --sk-radio-card-indicator-bg: var(--color-sk-tertiary);
+  --sk-radio-card-indicator-border: var(--color-sk-tertiary);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }
 [data-sk='radio-card-group'][data-tone='accent'] [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-accent) 22%, transparent);
-  @apply border-sk-accent;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-accent) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-accent);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 [data-sk='radio-card-group'][data-tone='accent'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-accent) 0 45%, transparent 50%);
-  @apply border-sk-accent;
+  --sk-radio-card-indicator-bg: var(--color-sk-accent);
+  --sk-radio-card-indicator-border: var(--color-sk-accent);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }
 [data-sk='radio-card-group'][data-tone='success'] [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-success) 22%, transparent);
-  @apply border-sk-success;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-success) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-success);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 [data-sk='radio-card-group'][data-tone='success'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-success) 0 45%, transparent 50%);
-  @apply border-sk-success;
+  --sk-radio-card-indicator-bg: var(--color-sk-success);
+  --sk-radio-card-indicator-border: var(--color-sk-success);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }
 [data-sk='radio-card-group'][data-tone='warning'] [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-warning) 22%, transparent);
-  @apply border-sk-warning;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-warning) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-warning);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 [data-sk='radio-card-group'][data-tone='warning'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-warning) 0 45%, transparent 50%);
-  @apply border-sk-warning;
+  --sk-radio-card-indicator-bg: var(--color-sk-warning);
+  --sk-radio-card-indicator-border: var(--color-sk-warning);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }
 [data-sk='radio-card-group'][data-tone='info'] [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-info) 22%, transparent);
-  @apply border-sk-info;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-info) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-info);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 [data-sk='radio-card-group'][data-tone='info'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-info) 0 45%, transparent 50%);
-  @apply border-sk-info;
+  --sk-radio-card-indicator-bg: var(--color-sk-info);
+  --sk-radio-card-indicator-border: var(--color-sk-info);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }
 [data-sk='radio-card-group'][data-tone='danger'] [data-sk='radio-card'][data-state='checked'] {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-danger) 22%, transparent);
-  @apply border-sk-danger;
+  --sk-radio-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-danger) 22%, transparent);
+  --sk-radio-card-border: var(--color-sk-danger);
+  box-shadow: var(--sk-radio-card-shadow);
+  border-color: var(--sk-radio-card-border);
 }
 [data-sk='radio-card-group'][data-tone='danger'] [data-sk='radio-card'][data-state='checked'] [data-part='indicator'] {
-  background: radial-gradient(circle, var(--color-sk-danger) 0 45%, transparent 50%);
-  @apply border-sk-danger;
+  --sk-radio-card-indicator-bg: var(--color-sk-danger);
+  --sk-radio-card-indicator-border: var(--color-sk-danger);
+  background: radial-gradient(circle, var(--sk-radio-card-indicator-bg) 0 45%, transparent 50%);
+  border-color: var(--sk-radio-card-indicator-border);
 }

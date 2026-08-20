@@ -1,6 +1,10 @@
 /* ── Resizable ──────────────────────────────────────────────── */
 [data-sk='resizable'] {
-  @apply flex w-full border border-sk-border rounded-[14px] overflow-hidden;
+  --sk-resizable-border: var(--color-sk-border);
+  --sk-resizable-radius: 14px;
+  border-color: var(--sk-resizable-border);
+  border-radius: var(--sk-resizable-radius);
+  @apply flex w-full border overflow-hidden;
 }
 [data-sk='resizable'][data-direction='vertical'] {
   @apply flex-col;
@@ -13,7 +17,9 @@
   @apply min-w-0 min-h-0 flex-[1_1_auto];
 }
 [data-sk='resizable'] [data-part='handle'] {
-  @apply flex-none relative bg-sk-border;
+  --sk-resizable-handle-bg: var(--color-sk-border);
+  background-color: var(--sk-resizable-handle-bg);
+  @apply flex-none relative;
 }
 [data-sk='resizable'][data-direction='horizontal'] [data-part='handle'] {
   @apply w-1.5 cursor-col-resize;
@@ -23,5 +29,7 @@
 }
 [data-sk='resizable'] [data-part='handle']:hover,
 [data-sk='resizable'] [data-part='handle']:focus-visible {
-  @apply bg-sk-primary outline-none;
+  --sk-resizable-handle-bg: var(--color-sk-primary);
+  background-color: var(--sk-resizable-handle-bg);
+  @apply outline-none;
 }

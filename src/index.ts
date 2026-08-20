@@ -322,3 +322,50 @@ export type {
   RowKey,
   Row,
 } from './components/DataTable'
+
+export { VideoPlayer } from './components/VideoPlayer'
+export type {
+  VideoPlayerProps,
+  VideoPlayerControlsProps,
+  VideoPlayerPlayButtonProps,
+  VideoPlayerSkipButtonProps,
+  VideoPlayerTimeProps,
+  VideoPlayerSeekProps,
+  VideoPlayerVolumeButtonProps,
+  VideoPlayerVolumeSliderProps,
+  VideoPlayerPlaybackRateProps,
+  VideoPlayerFullscreenButtonProps,
+  VideoPlayerPipButtonProps,
+} from './components/VideoPlayer'
+
+export { AudioPlayer } from './components/AudioPlayer'
+export type {
+  AudioPlayerProps,
+  AudioPlayerControlsProps,
+  AudioPlayerPlayButtonProps,
+  AudioPlayerSkipButtonProps,
+  AudioPlayerTimeProps,
+  AudioPlayerSeekProps,
+  AudioPlayerVolumeButtonProps,
+  AudioPlayerVolumeSliderProps,
+  AudioPlayerPlaybackRateProps,
+} from './components/AudioPlayer'
+
+export { FilePreviewer } from './components/FilePreviewer'
+export type { FilePreviewerProps, PreviewRenderer, FileKind, PreviewFile } from './components/FilePreviewer'
+
+export { QRCode } from './components/QRCode'
+export type { QRCodeProps, ErrorCorrectionLevel } from './components/QRCode'
+
+export { TourProvider, useTour } from './components/Tour'
+export type {
+  TourProviderProps,
+  TourActiveStep,
+  TourConfig,
+  TourFlowDef,
+  TourFlowEntry,
+  TourPlacement,
+  TourStepDef,
+  TourTrigger,
+  UseTourEngineResult,
+} from './components/Tour'

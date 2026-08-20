@@ -1,27 +1,46 @@
 /* Button — ver src/components/Button/Button.tsx / Button.catalog.ts para el contrato de props/parts. */
 [data-sk='button'] {
-  @apply inline-flex items-center justify-center gap-2 px-5 py-2 rounded-sk-pill
+  --sk-button-bg: var(--color-sk-primary);
+  --sk-button-fg: var(--color-sk-on-primary);
+  --sk-button-radius: var(--radius-sk-pill);
+  --sk-button-shadow: var(--shadow-sk-sm);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
+  border-radius: var(--sk-button-radius);
+  box-shadow: var(--sk-button-shadow);
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2
          border border-transparent text-sk-md font-semibold leading-tight cursor-pointer
-         bg-sk-primary text-sk-on-primary shadow-sk-sm
          transition-[background,transform,box-shadow] duration-150 ease-out;
 }
 [data-sk='button']:hover:not(:disabled) {
-  @apply bg-sk-primary-hover -translate-y-px shadow-sk-md;
+  --sk-button-bg: var(--color-sk-primary-hover);
+  --sk-button-shadow: var(--shadow-sk-md);
+  background-color: var(--sk-button-bg);
+  box-shadow: var(--sk-button-shadow);
+  @apply -translate-y-px;
 }
 [data-sk='button']:active:not(:disabled) {
   @apply translate-y-0;
 }
 [data-sk='button'][data-variant='outlined'] {
-  @apply bg-transparent border-sk-border text-sk-text shadow-none;
+  --sk-button-border: var(--color-sk-border);
+  --sk-button-fg: var(--color-sk-text);
+  border-color: var(--sk-button-border);
+  color: var(--sk-button-fg);
+  @apply bg-transparent shadow-none;
 }
 [data-sk='button'][data-variant='outlined']:hover:not(:disabled) {
-  @apply bg-sk-surface-2;
+  --sk-button-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-button-bg);
 }
 [data-sk='button'][data-variant='ghost'] {
-  @apply bg-transparent text-sk-text shadow-none;
+  --sk-button-fg: var(--color-sk-text);
+  color: var(--sk-button-fg);
+  @apply bg-transparent shadow-none;
 }
 [data-sk='button'][data-variant='ghost']:hover:not(:disabled) {
-  @apply bg-sk-surface-2;
+  --sk-button-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-button-bg);
 }
 [data-sk='button'][data-size='sm'] {
   @apply px-4 py-1 text-sk-sm;
@@ -35,44 +54,72 @@
 
 /* Tones — color-mix() no tiene equivalente en @apply, queda como CSS plano. */
 [data-sk='button'][data-tone='secondary'] {
-  @apply bg-sk-secondary text-sk-on-secondary;
+  --sk-button-bg: var(--color-sk-secondary);
+  --sk-button-fg: var(--color-sk-on-secondary);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
 }
 [data-sk='button'][data-tone='secondary']:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-sk-secondary) 85%, #000);
+  --sk-button-bg: var(--color-sk-secondary);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
 }
 [data-sk='button'][data-tone='tertiary'] {
-  @apply bg-sk-tertiary text-sk-on-tertiary;
+  --sk-button-bg: var(--color-sk-tertiary);
+  --sk-button-fg: var(--color-sk-on-tertiary);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
 }
 [data-sk='button'][data-tone='tertiary']:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-sk-tertiary) 85%, #000);
+  --sk-button-bg: var(--color-sk-tertiary);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
 }
 [data-sk='button'][data-tone='accent'] {
-  @apply bg-sk-accent text-sk-on-accent;
+  --sk-button-bg: var(--color-sk-accent);
+  --sk-button-fg: var(--color-sk-on-accent);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
 }
 [data-sk='button'][data-tone='accent']:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-sk-accent) 85%, #000);
+  --sk-button-bg: var(--color-sk-accent);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
 }
 [data-sk='button'][data-tone='success'] {
-  @apply bg-sk-success text-sk-on-success;
+  --sk-button-bg: var(--color-sk-success);
+  --sk-button-fg: var(--color-sk-on-success);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
 }
 [data-sk='button'][data-tone='success']:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-sk-success) 85%, #000);
+  --sk-button-bg: var(--color-sk-success);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
 }
 [data-sk='button'][data-tone='warning'] {
-  @apply bg-sk-warning text-sk-on-warning;
+  --sk-button-bg: var(--color-sk-warning);
+  --sk-button-fg: var(--color-sk-on-warning);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
 }
 [data-sk='button'][data-tone='warning']:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-sk-warning) 85%, #000);
+  --sk-button-bg: var(--color-sk-warning);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
 }
 [data-sk='button'][data-tone='info'] {
-  @apply bg-sk-info text-sk-on-info;
+  --sk-button-bg: var(--color-sk-info);
+  --sk-button-fg: var(--color-sk-on-info);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
 }
 [data-sk='button'][data-tone='info']:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-sk-info) 85%, #000);
+  --sk-button-bg: var(--color-sk-info);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
 }
 [data-sk='button'][data-tone='danger'] {
-  @apply bg-sk-danger text-sk-on-danger;
+  --sk-button-bg: var(--color-sk-danger);
+  --sk-button-fg: var(--color-sk-on-danger);
+  background-color: var(--sk-button-bg);
+  color: var(--sk-button-fg);
 }
 [data-sk='button'][data-tone='danger']:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-sk-danger) 85%, #000);
+  --sk-button-bg: var(--color-sk-danger);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
 }

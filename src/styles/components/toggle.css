@@ -1,17 +1,30 @@
 /* Toggle — ver src/components/Toggle/Toggle.tsx. Botón de dos estados (on/off), no un input de
    formulario (eso es Switch). */
 [data-sk='toggle'] {
+  --sk-toggle-radius: var(--radius-sk-pill);
+  --sk-toggle-border: var(--color-sk-border);
+  --sk-toggle-bg: var(--color-sk-surface);
+  --sk-toggle-fg: var(--color-sk-text);
+  border-radius: var(--sk-toggle-radius);
+  border-color: var(--sk-toggle-border);
+  background-color: var(--sk-toggle-bg);
+  color: var(--sk-toggle-fg);
   font: inherit;
   @apply appearance-none inline-flex items-center justify-center gap-2 px-4 py-2 min-w-[2.4rem]
-         rounded-sk-pill border border-sk-border bg-sk-surface text-sk-text cursor-pointer
-         text-sk-md font-semibold
+         border cursor-pointer text-sk-md font-semibold
          transition-[background,color,border-color] duration-150 ease-out;
 }
 [data-sk='toggle']:hover:not(:disabled) {
-  @apply bg-sk-surface-2;
+  --sk-toggle-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-toggle-bg);
 }
 [data-sk='toggle'][data-state='on'] {
-  @apply bg-sk-primary border-sk-primary text-sk-on-primary;
+  --sk-toggle-bg: var(--color-sk-primary);
+  --sk-toggle-border: var(--color-sk-primary);
+  --sk-toggle-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }
 [data-sk='toggle'][data-size='sm'] {
   @apply px-3 py-1 text-sk-sm;
@@ -24,23 +37,58 @@
 }
 
 [data-sk='toggle'][data-tone='secondary'][data-state='on'] {
-  @apply bg-sk-secondary border-sk-secondary text-sk-on-secondary;
+  --sk-toggle-bg: var(--color-sk-secondary);
+  --sk-toggle-border: var(--color-sk-secondary);
+  --sk-toggle-fg: var(--color-sk-on-secondary);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }
 [data-sk='toggle'][data-tone='tertiary'][data-state='on'] {
-  @apply bg-sk-tertiary border-sk-tertiary text-sk-on-tertiary;
+  --sk-toggle-bg: var(--color-sk-tertiary);
+  --sk-toggle-border: var(--color-sk-tertiary);
+  --sk-toggle-fg: var(--color-sk-on-tertiary);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }
 [data-sk='toggle'][data-tone='accent'][data-state='on'] {
-  @apply bg-sk-accent border-sk-accent text-sk-on-accent;
+  --sk-toggle-bg: var(--color-sk-accent);
+  --sk-toggle-border: var(--color-sk-accent);
+  --sk-toggle-fg: var(--color-sk-on-accent);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }
 [data-sk='toggle'][data-tone='success'][data-state='on'] {
-  @apply bg-sk-success border-sk-success text-sk-on-success;
+  --sk-toggle-bg: var(--color-sk-success);
+  --sk-toggle-border: var(--color-sk-success);
+  --sk-toggle-fg: var(--color-sk-on-success);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }
 [data-sk='toggle'][data-tone='warning'][data-state='on'] {
-  @apply bg-sk-warning border-sk-warning text-sk-on-warning;
+  --sk-toggle-bg: var(--color-sk-warning);
+  --sk-toggle-border: var(--color-sk-warning);
+  --sk-toggle-fg: var(--color-sk-on-warning);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }
 [data-sk='toggle'][data-tone='info'][data-state='on'] {
-  @apply bg-sk-info border-sk-info text-sk-on-info;
+  --sk-toggle-bg: var(--color-sk-info);
+  --sk-toggle-border: var(--color-sk-info);
+  --sk-toggle-fg: var(--color-sk-on-info);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }
 [data-sk='toggle'][data-tone='danger'][data-state='on'] {
-  @apply bg-sk-danger border-sk-danger text-sk-on-danger;
+  --sk-toggle-bg: var(--color-sk-danger);
+  --sk-toggle-border: var(--color-sk-danger);
+  --sk-toggle-fg: var(--color-sk-on-danger);
+  background-color: var(--sk-toggle-bg);
+  border-color: var(--sk-toggle-border);
+  color: var(--sk-toggle-fg);
 }

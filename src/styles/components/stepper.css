@@ -6,68 +6,178 @@
   @apply flex-col;
 }
 [data-sk='stepper'] [data-part='step'] {
-  @apply relative flex-1 flex flex-col items-center gap-2 text-center text-sk-text-muted text-sk-sm;
+  --sk-stepper-step-fg: var(--color-sk-text-muted);
+  color: var(--sk-stepper-step-fg);
+  @apply relative flex-1 flex flex-col items-center gap-2 text-center text-sk-sm;
 }
 [data-sk='stepper'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-surface-2);
+  --sk-stepper-marker-fg: var(--color-sk-text-muted);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
   @apply relative z-[1] inline-flex items-center justify-center w-7 h-7 rounded-full
-         bg-sk-surface-2 text-sk-text-muted font-semibold text-sk-sm border-2 border-transparent;
+         font-semibold text-sk-sm border-2 border-transparent;
 }
 [data-sk='stepper'] [data-part='step'][data-state='current'] [data-part='marker'] {
-  @apply border-sk-primary text-sk-primary bg-sk-surface;
+  --sk-stepper-marker-border: var(--color-sk-primary);
+  --sk-stepper-marker-fg: var(--color-sk-primary);
+  --sk-stepper-marker-bg: var(--color-sk-surface);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+  background-color: var(--sk-stepper-marker-bg);
 }
 [data-sk='stepper'] [data-part='step'][data-state='complete'] [data-part='marker'] {
-  @apply bg-sk-primary text-sk-on-primary;
+  --sk-stepper-marker-bg: var(--color-sk-primary);
+  --sk-stepper-marker-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
 }
 [data-sk='stepper'] [data-part='step'][data-state='current'] {
-  @apply text-sk-text font-semibold;
+  --sk-stepper-step-fg: var(--color-sk-text);
+  color: var(--sk-stepper-step-fg);
+  @apply font-semibold;
 }
 /* Conector: línea entre marcadores (horizontal) */
 [data-sk='stepper'][data-orientation='horizontal'] [data-part='connector'] {
-  @apply absolute right-1/2 w-full h-0.5 bg-sk-border top-[14px];
+  --sk-stepper-connector-bg: var(--color-sk-border);
+  background-color: var(--sk-stepper-connector-bg);
+  @apply absolute right-1/2 w-full h-0.5 top-[14px];
 }
 [data-sk='stepper'][data-orientation='horizontal'] [data-part='step']:first-child [data-part='connector'] {
   @apply hidden;
 }
 [data-sk='stepper'] [data-part='step'][data-state='complete'] [data-part='connector'],
 [data-sk='stepper'] [data-part='step'][data-state='current'] [data-part='connector'] {
-  @apply bg-sk-primary;
+  --sk-stepper-connector-bg: var(--color-sk-primary);
+  background-color: var(--sk-stepper-connector-bg);
 }
 [data-sk='stepper'][data-orientation='vertical'] [data-part='connector'] {
   @apply hidden;
 }
 
 /* Tonos (paso actual/completo) */
-[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-secondary text-sk-secondary; }
-[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-secondary text-sk-on-secondary; }
+[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  --sk-stepper-marker-border: var(--color-sk-secondary);
+  --sk-stepper-marker-fg: var(--color-sk-secondary);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+}
+[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-secondary);
+  --sk-stepper-marker-fg: var(--color-sk-on-secondary);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
+}
 [data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='complete'] [data-part='connector'],
-[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-secondary; }
+[data-sk='stepper'][data-tone='secondary'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  --sk-stepper-connector-bg: var(--color-sk-secondary);
+  background-color: var(--sk-stepper-connector-bg);
+}
 
-[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-tertiary text-sk-tertiary; }
-[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-tertiary text-sk-on-tertiary; }
+[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  --sk-stepper-marker-border: var(--color-sk-tertiary);
+  --sk-stepper-marker-fg: var(--color-sk-tertiary);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+}
+[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-tertiary);
+  --sk-stepper-marker-fg: var(--color-sk-on-tertiary);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
+}
 [data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='complete'] [data-part='connector'],
-[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-tertiary; }
+[data-sk='stepper'][data-tone='tertiary'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  --sk-stepper-connector-bg: var(--color-sk-tertiary);
+  background-color: var(--sk-stepper-connector-bg);
+}
 
-[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-accent text-sk-accent; }
-[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-accent text-sk-on-accent; }
+[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  --sk-stepper-marker-border: var(--color-sk-accent);
+  --sk-stepper-marker-fg: var(--color-sk-accent);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+}
+[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-accent);
+  --sk-stepper-marker-fg: var(--color-sk-on-accent);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
+}
 [data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='complete'] [data-part='connector'],
-[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-accent; }
+[data-sk='stepper'][data-tone='accent'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  --sk-stepper-connector-bg: var(--color-sk-accent);
+  background-color: var(--sk-stepper-connector-bg);
+}
 
-[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-success text-sk-success; }
-[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-success text-sk-on-success; }
+[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  --sk-stepper-marker-border: var(--color-sk-success);
+  --sk-stepper-marker-fg: var(--color-sk-success);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+}
+[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-success);
+  --sk-stepper-marker-fg: var(--color-sk-on-success);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
+}
 [data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='complete'] [data-part='connector'],
-[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-success; }
+[data-sk='stepper'][data-tone='success'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  --sk-stepper-connector-bg: var(--color-sk-success);
+  background-color: var(--sk-stepper-connector-bg);
+}
 
-[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-warning text-sk-warning; }
-[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-warning text-sk-on-warning; }
+[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  --sk-stepper-marker-border: var(--color-sk-warning);
+  --sk-stepper-marker-fg: var(--color-sk-warning);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+}
+[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-warning);
+  --sk-stepper-marker-fg: var(--color-sk-on-warning);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
+}
 [data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='complete'] [data-part='connector'],
-[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-warning; }
+[data-sk='stepper'][data-tone='warning'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  --sk-stepper-connector-bg: var(--color-sk-warning);
+  background-color: var(--sk-stepper-connector-bg);
+}
 
-[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-info text-sk-info; }
-[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-info text-sk-on-info; }
+[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  --sk-stepper-marker-border: var(--color-sk-info);
+  --sk-stepper-marker-fg: var(--color-sk-info);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+}
+[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-info);
+  --sk-stepper-marker-fg: var(--color-sk-on-info);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
+}
 [data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='complete'] [data-part='connector'],
-[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-info; }
+[data-sk='stepper'][data-tone='info'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  --sk-stepper-connector-bg: var(--color-sk-info);
+  background-color: var(--sk-stepper-connector-bg);
+}
 
-[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='current'] [data-part='marker'] { @apply border-sk-danger text-sk-danger; }
-[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='complete'] [data-part='marker'] { @apply bg-sk-danger text-sk-on-danger; }
+[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='current'] [data-part='marker'] {
+  --sk-stepper-marker-border: var(--color-sk-danger);
+  --sk-stepper-marker-fg: var(--color-sk-danger);
+  border-color: var(--sk-stepper-marker-border);
+  color: var(--sk-stepper-marker-fg);
+}
+[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='complete'] [data-part='marker'] {
+  --sk-stepper-marker-bg: var(--color-sk-danger);
+  --sk-stepper-marker-fg: var(--color-sk-on-danger);
+  background-color: var(--sk-stepper-marker-bg);
+  color: var(--sk-stepper-marker-fg);
+}
 [data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='complete'] [data-part='connector'],
-[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='current'] [data-part='connector'] { @apply bg-sk-danger; }
+[data-sk='stepper'][data-tone='danger'] [data-part='step'][data-state='current'] [data-part='connector'] {
+  --sk-stepper-connector-bg: var(--color-sk-danger);
+  background-color: var(--sk-stepper-connector-bg);
+}

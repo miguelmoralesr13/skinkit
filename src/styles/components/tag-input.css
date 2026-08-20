@@ -10,35 +10,50 @@
 }
 
 [data-sk='tag-input'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-tag-input-label-fg: var(--color-sk-text);
+  color: var(--sk-tag-input-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='tag-input'] [data-part='control'] {
+  --sk-tag-input-control-bg: var(--color-sk-surface);
+  --sk-tag-input-control-border: var(--color-sk-border);
+  --sk-tag-input-control-radius: var(--radius-sk-md);
+  background-color: var(--sk-tag-input-control-bg);
+  border-color: var(--sk-tag-input-control-border);
+  border-radius: var(--sk-tag-input-control-radius);
   cursor: text;
-  @apply flex flex-wrap items-center gap-2 px-3 py-2 border border-sk-border rounded-sk-md
-         bg-sk-surface transition-[border-color,box-shadow] duration-150 ease-in-out;
+  @apply flex flex-wrap items-center gap-2 px-3 py-2 border
+         transition-[border-color,box-shadow] duration-150 ease-in-out;
 }
 
 [data-sk='tag-input'] [data-part='control']:focus-within {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply border-sk-primary;
+  --sk-tag-input-control-border: var(--color-sk-primary);
+  border-color: var(--sk-tag-input-control-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-tag-input-control-border) 25%, transparent);
 }
 
 [data-sk='tag-input'][data-error] [data-part='control'] {
-  @apply border-sk-danger;
+  --sk-tag-input-control-border: var(--color-sk-danger);
+  border-color: var(--sk-tag-input-control-border);
 }
 
 [data-sk='tag-input'] [data-part='field'] {
+  --sk-tag-input-field-fg: var(--color-sk-text);
+  color: var(--sk-tag-input-field-fg);
   min-width: 6ch;
   outline: none;
   font: inherit;
-  @apply flex-1 border-none bg-transparent text-sk-text text-sk-md;
+  @apply flex-1 border-none bg-transparent text-sk-md;
 }
 
 [data-sk='tag-input'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-tag-input-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-tag-input-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='tag-input'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-tag-input-helper-fg: var(--color-sk-danger);
+  color: var(--sk-tag-input-helper-fg);
 }

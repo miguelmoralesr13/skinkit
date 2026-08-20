@@ -12,12 +12,16 @@
 }
 
 [data-sk='slider'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-slider-label-fg: var(--color-sk-text);
+  color: var(--sk-slider-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='slider'] [data-part='value'] {
+  --sk-slider-value-fg: var(--color-sk-text-muted);
+  color: var(--sk-slider-value-fg);
   font-variant-numeric: tabular-nums;
-  @apply text-sk-sm text-sk-text-muted;
+  @apply text-sk-sm;
 }
 
 [data-sk='slider'] [data-part='field'] {
@@ -25,7 +29,9 @@
 }
 
 [data-sk='slider'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-slider-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-slider-helper-fg);
+  @apply text-sk-sm;
 }
 
 /* ── tones ── */

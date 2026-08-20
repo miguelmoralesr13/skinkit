@@ -8,13 +8,22 @@
   background: rgba(0, 0, 0, 0.4);
 }
 [data-sk='command-menu'] [data-part='panel'] {
-  @apply relative z-[1] w-full max-w-lg max-h-[60vh] flex flex-col bg-sk-surface
-         border border-sk-border rounded-sk-lg overflow-hidden;
+  --sk-command-menu-panel-bg: var(--color-sk-surface);
+  --sk-command-menu-panel-border: var(--color-sk-border);
+  --sk-command-menu-panel-radius: var(--radius-sk-lg);
+  background-color: var(--sk-command-menu-panel-bg);
+  border-color: var(--sk-command-menu-panel-border);
+  border-radius: var(--sk-command-menu-panel-radius);
+  @apply relative z-[1] w-full max-w-lg max-h-[60vh] flex flex-col border overflow-hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
 }
 [data-sk='command-menu'] [data-part='input'] {
   font: inherit;
-  @apply border-0 border-b border-sk-border bg-transparent text-sk-text text-sk-lg px-5 py-4;
+  --sk-command-menu-input-border: var(--color-sk-border);
+  --sk-command-menu-input-fg: var(--color-sk-text);
+  border-color: var(--sk-command-menu-input-border);
+  color: var(--sk-command-menu-input-fg);
+  @apply border-0 border-b bg-transparent text-sk-lg px-5 py-4;
 }
 [data-sk='command-menu'] [data-part='input']:focus {
   @apply outline-none;
@@ -26,14 +35,23 @@
   @apply list-none m-0 p-0;
 }
 [data-sk='command-menu'] [data-part='group-label'] {
-  @apply pt-2 px-3 pb-1 text-sk-sm font-semibold text-sk-text-muted uppercase;
+  --sk-command-menu-group-label-fg: var(--color-sk-text-muted);
+  color: var(--sk-command-menu-group-label-fg);
+  @apply pt-2 px-3 pb-1 text-sk-sm font-semibold uppercase;
   letter-spacing: 0.04em;
 }
 [data-sk='command-menu'] [data-part='item'] {
-  @apply flex items-center gap-3 px-3 py-2 rounded-[10px] cursor-pointer text-sk-text text-sk-md;
+  --sk-command-menu-item-radius: 10px;
+  --sk-command-menu-item-fg: var(--color-sk-text);
+  border-radius: var(--sk-command-menu-item-radius);
+  color: var(--sk-command-menu-item-fg);
+  @apply flex items-center gap-3 px-3 py-2 cursor-pointer text-sk-md;
 }
 [data-sk='command-menu'] [data-part='item'][data-active] {
-  @apply bg-sk-primary text-sk-on-primary;
+  --sk-command-menu-item-bg: var(--color-sk-primary);
+  --sk-command-menu-item-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-command-menu-item-bg);
+  color: var(--sk-command-menu-item-fg);
 }
 [data-sk='command-menu'] [data-part='item'] [data-part='label'] {
   @apply flex-1;
@@ -42,5 +60,7 @@
   @apply text-sk-sm opacity-70;
 }
 [data-sk='command-menu'] [data-part='empty'] {
-  @apply p-4 text-center text-sk-text-muted;
+  --sk-command-menu-empty-fg: var(--color-sk-text-muted);
+  color: var(--sk-command-menu-empty-fg);
+  @apply p-4 text-center;
 }

@@ -23,9 +23,26 @@
   @apply bottom-0 left-1/2 -translate-x-1/2;
 }
 [data-sk='toast'] {
+  /* --sk-toast-border = borde ambiente (los 4 lados, siempre gris, nunca cambia por variante).
+     --sk-toast-accent-border = franja izquierda de acento (la que sí cambia por data-variant).
+     Son dos variables porque son dos cosas visualmente distintas aunque ambas partan del mismo
+     token por defecto — reusar una sola var para las dos habría hecho que, al fijar el acento de
+     una variante, el borde de los OTROS 3 lados se pintara también del color de esa variante
+     (las custom properties de CSS se resuelven por elemento, no por regla). */
+  --sk-toast-radius: var(--radius-sk-md);
+  --sk-toast-bg: var(--color-sk-surface);
+  --sk-toast-fg: var(--color-sk-text);
+  --sk-toast-border: var(--color-sk-border);
+  --sk-toast-accent-border: var(--color-sk-border);
+  --sk-toast-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  border-radius: var(--sk-toast-radius);
+  background-color: var(--sk-toast-bg);
+  color: var(--sk-toast-fg);
+  border-color: var(--sk-toast-border);
+  border-left-color: var(--sk-toast-accent-border);
+  box-shadow: var(--sk-toast-shadow);
   @apply pointer-events-auto flex items-start gap-3 min-w-64 max-w-[22rem] py-3 px-4
-         rounded-sk-md bg-sk-surface text-sk-text border border-sk-border border-l-4 border-l-sk-border;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+         border border-l-4;
 }
 [data-sk='toast'] [data-part='content'] {
   @apply flex-1 flex flex-col gap-0.5;
@@ -34,29 +51,41 @@
   @apply font-semibold text-sk-md;
 }
 [data-sk='toast'] [data-part='description'] {
-  @apply text-sk-sm text-sk-text-muted leading-normal;
+  --sk-toast-description-fg: var(--color-sk-text-muted);
+  color: var(--sk-toast-description-fg);
+  @apply text-sk-sm leading-normal;
 }
 [data-sk='toast'] [data-part='close'] {
+  --sk-toast-close-radius: 6px;
+  --sk-toast-close-fg: var(--color-sk-text-muted);
+  border-radius: var(--sk-toast-close-radius);
+  color: var(--sk-toast-close-fg);
   @apply appearance-none border-0 bg-transparent cursor-pointer flex-none w-5 h-5
-         rounded-[6px] text-sk-text-muted text-base leading-none;
+         text-base leading-none;
 }
 [data-sk='toast'] [data-part='close']:hover {
-  @apply text-sk-text;
+  --sk-toast-close-fg: var(--color-sk-text);
+  color: var(--sk-toast-close-fg);
 }
 
 /* Variantes — el color de acento va en el borde izquierdo. */
 [data-sk='toast'][data-variant='primary'] {
-  @apply border-l-sk-primary;
+  --sk-toast-accent-border: var(--color-sk-primary);
+  border-left-color: var(--sk-toast-accent-border);
 }
 [data-sk='toast'][data-variant='danger'] {
-  @apply border-l-sk-danger;
+  --sk-toast-accent-border: var(--color-sk-danger);
+  border-left-color: var(--sk-toast-accent-border);
 }
 [data-sk='toast'][data-variant='success'] {
-  @apply border-l-sk-success;
+  --sk-toast-accent-border: var(--color-sk-success);
+  border-left-color: var(--sk-toast-accent-border);
 }
 [data-sk='toast'][data-variant='warning'] {
-  @apply border-l-sk-warning;
+  --sk-toast-accent-border: var(--color-sk-warning);
+  border-left-color: var(--sk-toast-accent-border);
 }
 [data-sk='toast'][data-variant='info'] {
-  @apply border-l-sk-info;
+  --sk-toast-accent-border: var(--color-sk-info);
+  border-left-color: var(--sk-toast-accent-border);
 }

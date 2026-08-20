@@ -7,12 +7,19 @@
  */
 
 [data-sk='input-group'] {
-  @apply flex items-stretch bg-sk-surface border border-sk-border rounded-[10px] overflow-hidden;
+  --sk-input-group-bg: var(--color-sk-surface);
+  --sk-input-group-border: var(--color-sk-border);
+  --sk-input-group-radius: 10px;
+  background-color: var(--sk-input-group-bg);
+  border-color: var(--sk-input-group-border);
+  border-radius: var(--sk-input-group-radius);
+  @apply flex items-stretch border overflow-hidden;
 }
 
 [data-sk='input-group']:focus-within {
-  box-shadow: 0 0 0 1px var(--color-sk-primary);
-  @apply border-sk-primary;
+  --sk-input-group-border: var(--color-sk-primary);
+  border-color: var(--sk-input-group-border);
+  box-shadow: 0 0 0 1px var(--sk-input-group-border);
 }
 
 /* El Input anidado ocupa el espacio disponible y pierde su propio borde/fondo/radio */
@@ -29,13 +36,21 @@
 }
 
 [data-sk='input-group'] [data-part='addon'] {
-  @apply inline-flex items-center px-3 bg-sk-surface-2 text-sk-text-muted whitespace-nowrap;
+  --sk-input-group-addon-bg: var(--color-sk-surface-2);
+  --sk-input-group-addon-fg: var(--color-sk-text-muted);
+  background-color: var(--sk-input-group-addon-bg);
+  color: var(--sk-input-group-addon-fg);
+  @apply inline-flex items-center px-3 whitespace-nowrap;
 }
 
 [data-sk='input-group'] [data-part='addon']:first-child {
-  @apply border-r border-sk-border;
+  --sk-input-group-addon-border: var(--color-sk-border);
+  border-color: var(--sk-input-group-addon-border);
+  @apply border-r;
 }
 
 [data-sk='input-group'] [data-part='addon']:last-child {
-  @apply border-l border-sk-border;
+  --sk-input-group-addon-border: var(--color-sk-border);
+  border-color: var(--sk-input-group-addon-border);
+  @apply border-l;
 }

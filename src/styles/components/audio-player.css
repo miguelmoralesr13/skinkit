@@ -1,0 +1,127 @@
+/**
+ * audio-player.css — estilo de <AudioPlayer> (data-sk="audio-player").
+ * Ver AudioPlayer.tsx / .catalog.ts para el contrato de props/parts. Mismo criterio de sutileza
+ * que video-player.css: seek fino, controles chicos y discretos, íconos SVG (ver
+ * src/lib/mediaIcons.tsx) en vez de emoji.
+ */
+
+[data-sk='audio-player'] {
+  --sk-audio-player-border: var(--color-sk-border);
+  --sk-audio-player-bg: var(--color-sk-surface);
+  --sk-audio-player-radius: var(--radius-sk-lg);
+  border-color: var(--sk-audio-player-border);
+  background-color: var(--sk-audio-player-bg);
+  border-radius: var(--sk-audio-player-radius);
+  @apply flex border overflow-hidden;
+}
+
+[data-sk='audio-player'] [data-part='controls'] {
+  --sk-audio-player-controls-radius: 0;
+  border-radius: var(--sk-audio-player-controls-radius);
+  @apply w-full flex-wrap items-center gap-1 bg-transparent p-2;
+}
+
+[data-sk='audio-player'] [data-part='controls'] [data-sk='button'][data-variant='ghost'] {
+  @apply px-2 py-2;
+}
+
+/* ── Seek: mismo truco de gradiente que video-player.css — ver el comentario ahí. No lo
+ * simplifiques a accent-color, perdería el buffer visual. ── */
+[data-sk='audio-player'] [data-part='seek'] {
+  @apply block w-full min-w-[6rem] cursor-pointer mb-1;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 12px;
+}
+[data-sk='audio-player'] [data-part='seek']::-webkit-slider-runnable-track {
+  --sk-audio-player-seek-fg: var(--color-sk-primary);
+  --sk-audio-player-seek-bg: var(--color-sk-surface-2);
+  --sk-audio-player-seek-radius: var(--radius-sk-pill);
+  height: 3px;
+  border-radius: var(--sk-audio-player-seek-radius);
+  background: linear-gradient(
+    to right,
+    var(--sk-audio-player-seek-fg) 0%,
+    var(--sk-audio-player-seek-fg) var(--sk-seek-played, 0%),
+    color-mix(in srgb, var(--sk-audio-player-seek-fg) 30%, var(--sk-audio-player-seek-bg)) var(--sk-seek-played, 0%),
+    color-mix(in srgb, var(--sk-audio-player-seek-fg) 30%, var(--sk-audio-player-seek-bg)) var(--sk-seek-buffered, 0%),
+    var(--sk-audio-player-seek-bg) var(--sk-seek-buffered, 0%),
+    var(--sk-audio-player-seek-bg) 100%
+  );
+  transition: height 0.1s ease-out;
+}
+[data-sk='audio-player'] [data-part='seek']::-moz-range-track {
+  --sk-audio-player-seek-fg: var(--color-sk-primary);
+  --sk-audio-player-seek-bg: var(--color-sk-surface-2);
+  --sk-audio-player-seek-radius: var(--radius-sk-pill);
+  height: 3px;
+  border-radius: var(--sk-audio-player-seek-radius);
+  background: linear-gradient(
+    to right,
+    var(--sk-audio-player-seek-fg) 0%,
+    var(--sk-audio-player-seek-fg) var(--sk-seek-played, 0%),
+    color-mix(in srgb, var(--sk-audio-player-seek-fg) 30%, var(--sk-audio-player-seek-bg)) var(--sk-seek-played, 0%),
+    color-mix(in srgb, var(--sk-audio-player-seek-fg) 30%, var(--sk-audio-player-seek-bg)) var(--sk-seek-buffered, 0%),
+    var(--sk-audio-player-seek-bg) var(--sk-seek-buffered, 0%),
+    var(--sk-audio-player-seek-bg) 100%
+  );
+}
+[data-sk='audio-player'] [data-part='seek']:hover::-webkit-slider-runnable-track,
+[data-sk='audio-player'] [data-part='seek']:focus-visible::-webkit-slider-runnable-track {
+  height: 5px;
+}
+[data-sk='audio-player'] [data-part='seek']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  --sk-audio-player-thumb-bg: var(--color-sk-primary);
+  --sk-audio-player-thumb-radius: var(--radius-sk-pill);
+  background-color: var(--sk-audio-player-thumb-bg);
+  border-radius: var(--sk-audio-player-thumb-radius);
+  width: 11px;
+  height: 11px;
+  margin-top: -4px;
+}
+[data-sk='audio-player'] [data-part='seek']::-moz-range-thumb {
+  --sk-audio-player-thumb-bg: var(--color-sk-primary);
+  --sk-audio-player-thumb-radius: var(--radius-sk-pill);
+  background-color: var(--sk-audio-player-thumb-bg);
+  border-radius: var(--sk-audio-player-thumb-radius);
+  @apply border-0;
+  width: 11px;
+  height: 11px;
+}
+
+[data-sk='audio-player'] [data-part='time'] {
+  --sk-audio-player-time-fg: var(--color-sk-text-muted);
+  color: var(--sk-audio-player-time-fg);
+  @apply text-sk-sm px-1;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-sk='audio-player'] [data-part='volume'] {
+  @apply w-16 accent-sk-primary cursor-pointer;
+  height: 3px;
+}
+
+/* ── PlaybackRate: <Select> despojado de su chrome de campo de formulario, mismo criterio que en
+ * video-player.css (scoped a la propia raíz, precedente en button-group.css). ── */
+[data-sk='audio-player'] [data-part='controls'] [data-sk='select'] {
+  @apply gap-0;
+}
+[data-sk='audio-player'] [data-part='controls'] [data-part='field'] {
+  --sk-audio-player-field-fg: var(--color-sk-text-muted);
+  --sk-audio-player-field-shadow: none;
+  color: var(--sk-audio-player-field-fg);
+  box-shadow: var(--sk-audio-player-field-shadow);
+  @apply bg-transparent border-0 text-sk-sm px-2 py-2;
+}
+[data-sk='audio-player'] [data-part='controls'] [data-part='field']:hover {
+  --sk-audio-player-field-fg: var(--color-sk-text);
+  color: var(--sk-audio-player-field-fg);
+}
+[data-sk='audio-player'] [data-part='controls'] [data-part='field']:focus {
+  --sk-audio-player-field-shadow: none;
+  --sk-audio-player-field-fg: var(--color-sk-text);
+  box-shadow: var(--sk-audio-player-field-shadow);
+  color: var(--sk-audio-player-field-fg);
+}

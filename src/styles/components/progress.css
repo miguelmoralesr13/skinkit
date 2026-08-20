@@ -3,10 +3,18 @@
   @apply w-full;
 }
 [data-sk='progress'] [data-part='track'] {
-  @apply h-2 rounded-sk-pill bg-sk-surface-2 overflow-hidden;
+  --sk-progress-track-radius: var(--radius-sk-pill);
+  --sk-progress-track-bg: var(--color-sk-surface-2);
+  border-radius: var(--sk-progress-track-radius);
+  background-color: var(--sk-progress-track-bg);
+  @apply h-2 overflow-hidden;
 }
 [data-sk='progress'] [data-part='indicator'] {
-  @apply h-full rounded-sk-pill bg-sk-primary transition-[width] duration-300 ease-in-out;
+  --sk-progress-indicator-radius: var(--radius-sk-pill);
+  --sk-progress-indicator-bg: var(--color-sk-primary);
+  border-radius: var(--sk-progress-indicator-radius);
+  background-color: var(--sk-progress-indicator-bg);
+  @apply h-full transition-[width] duration-300 ease-in-out;
   width: calc(var(--sk-progress, 0) * 100%);
 }
 [data-sk='progress'][data-indeterminate] [data-part='indicator'] {
@@ -21,11 +29,35 @@
     transform: translateX(350%);
   }
 }
-[data-sk='progress'][data-tone='secondary'] [data-part='indicator'] { @apply bg-sk-secondary; }
-[data-sk='progress'][data-tone='tertiary'] [data-part='indicator'] { @apply bg-sk-tertiary; }
-[data-sk='progress'][data-tone='accent'] [data-part='indicator'] { @apply bg-sk-accent; }
-[data-sk='progress'][data-tone='success'] [data-part='indicator'] { @apply bg-sk-success; }
-[data-sk='progress'][data-tone='warning'] [data-part='indicator'] { @apply bg-sk-warning; }
-[data-sk='progress'][data-tone='info'] [data-part='indicator'] { @apply bg-sk-info; }
-[data-sk='progress'][data-tone='danger'] [data-part='indicator'] { @apply bg-sk-danger; }
-[data-sk='progress'][data-tone='neutral'] [data-part='indicator'] { @apply bg-sk-text-muted; }
+[data-sk='progress'][data-tone='secondary'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-secondary);
+  background-color: var(--sk-progress-indicator-bg);
+}
+[data-sk='progress'][data-tone='tertiary'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-tertiary);
+  background-color: var(--sk-progress-indicator-bg);
+}
+[data-sk='progress'][data-tone='accent'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-accent);
+  background-color: var(--sk-progress-indicator-bg);
+}
+[data-sk='progress'][data-tone='success'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-success);
+  background-color: var(--sk-progress-indicator-bg);
+}
+[data-sk='progress'][data-tone='warning'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-warning);
+  background-color: var(--sk-progress-indicator-bg);
+}
+[data-sk='progress'][data-tone='info'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-info);
+  background-color: var(--sk-progress-indicator-bg);
+}
+[data-sk='progress'][data-tone='danger'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-danger);
+  background-color: var(--sk-progress-indicator-bg);
+}
+[data-sk='progress'][data-tone='neutral'] [data-part='indicator'] {
+  --sk-progress-indicator-bg: var(--color-sk-text-muted);
+  background-color: var(--sk-progress-indicator-bg);
+}

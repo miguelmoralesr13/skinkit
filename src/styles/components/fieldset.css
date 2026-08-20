@@ -5,15 +5,22 @@
  */
 
 [data-sk='fieldset'] {
-  @apply border border-sk-border rounded-[14px] px-5 pt-4 pb-5 m-0;
+  --sk-fieldset-border: var(--color-sk-border);
+  --sk-fieldset-radius: 14px;
+  border-color: var(--sk-fieldset-border);
+  border-radius: var(--sk-fieldset-radius);
+  @apply border px-5 pt-4 pb-5 m-0;
 }
 
 [data-sk='fieldset'][data-error] {
-  @apply border-sk-danger;
+  --sk-fieldset-border: var(--color-sk-danger);
+  border-color: var(--sk-fieldset-border);
 }
 
 [data-sk='fieldset'] [data-part='legend'] {
-  @apply px-2 font-bold text-sk-md text-sk-text;
+  --sk-fieldset-legend-fg: var(--color-sk-text);
+  color: var(--sk-fieldset-legend-fg);
+  @apply px-2 font-bold text-sk-md;
 }
 
 [data-sk='fieldset'] [data-part='content'] {
@@ -21,9 +28,12 @@
 }
 
 [data-sk='fieldset'] [data-part='helper'] {
-  @apply mt-3 text-sk-sm text-sk-text-muted;
+  --sk-fieldset-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-fieldset-helper-fg);
+  @apply mt-3 text-sk-sm;
 }
 
 [data-sk='fieldset'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-fieldset-helper-fg: var(--color-sk-danger);
+  color: var(--sk-fieldset-helper-fg);
 }

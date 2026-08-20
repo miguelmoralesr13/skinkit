@@ -50,6 +50,7 @@
 @import './date-picker.css' layer(components);
 @import './time-picker.css' layer(components);
 @import './dynamic-form.css' layer(components);
+@import './rich-text-editor.css' layer(components);
 
 /* Navegación */
 @import './accordion.css' layer(components);
@@ -73,6 +74,7 @@
 @import './popover.css' layer(components);
 @import './popconfirm.css' layer(components);
 @import './hover-card.css' layer(components);
+@import './file-previewer.css' layer(components);
 
 /* Feedback */
 @import './alert.css' layer(components);
@@ -104,12 +106,16 @@
 @import './radial-progress.css' layer(components);
 @import './meter.css' layer(components);
 @import './sparkline.css' layer(components);
+@import './qrcode.css' layer(components);
 @import './animated-number.css' layer(components);
 @import './countdown.css' layer(components);
 @import './timeline.css' layer(components);
 @import './carousel.css' layer(components);
+@import './video-player.css' layer(components);
+@import './audio-player.css' layer(components);
 @import './comparison.css' layer(components);
 @import './marquee.css' layer(components);
 @import './resizable.css' layer(components);
 @import './scroll-area.css' layer(components);
 @import './datatable.css' layer(components);
+@import './tour.css' layer(components);

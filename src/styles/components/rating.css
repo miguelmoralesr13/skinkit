@@ -9,14 +9,17 @@
 }
 
 [data-sk='rating'] [data-part='star'] {
+  --sk-rating-star-fg: var(--color-sk-border);
+  color: var(--sk-rating-star-fg);
   appearance: none;
   line-height: 1;
   transition: color 0.1s ease, transform 0.1s ease;
-  @apply border-none bg-transparent cursor-pointer p-0 text-[1.4rem] text-sk-border;
+  @apply border-none bg-transparent cursor-pointer p-0 text-[1.4rem];
 }
 
 [data-sk='rating'] [data-part='star'][data-filled] {
-  @apply text-sk-primary;
+  --sk-rating-star-fg: var(--color-sk-primary);
+  color: var(--sk-rating-star-fg);
 }
 
 [data-sk='rating']:not([data-readonly]) [data-part='star']:hover {
@@ -28,14 +31,39 @@
 }
 
 [data-sk='rating'] [data-part='star']:focus-visible {
-  @apply outline outline-2 outline-sk-primary outline-offset-2 rounded-[4px];
+  --sk-rating-star-border: var(--color-sk-primary);
+  --sk-rating-star-radius: 4px;
+  outline-color: var(--sk-rating-star-border);
+  border-radius: var(--sk-rating-star-radius);
+  @apply outline outline-2 outline-offset-2;
 }
 
 /* ── tones ── */
-[data-sk='rating'][data-tone='secondary'] [data-part='star'][data-filled] { @apply text-sk-secondary; }
-[data-sk='rating'][data-tone='tertiary'] [data-part='star'][data-filled] { @apply text-sk-tertiary; }
-[data-sk='rating'][data-tone='accent'] [data-part='star'][data-filled] { @apply text-sk-accent; }
-[data-sk='rating'][data-tone='success'] [data-part='star'][data-filled] { @apply text-sk-success; }
-[data-sk='rating'][data-tone='warning'] [data-part='star'][data-filled] { @apply text-sk-warning; }
-[data-sk='rating'][data-tone='info'] [data-part='star'][data-filled] { @apply text-sk-info; }
-[data-sk='rating'][data-tone='danger'] [data-part='star'][data-filled] { @apply text-sk-danger; }
+[data-sk='rating'][data-tone='secondary'] [data-part='star'][data-filled] {
+  --sk-rating-star-fg: var(--color-sk-secondary);
+  color: var(--sk-rating-star-fg);
+}
+[data-sk='rating'][data-tone='tertiary'] [data-part='star'][data-filled] {
+  --sk-rating-star-fg: var(--color-sk-tertiary);
+  color: var(--sk-rating-star-fg);
+}
+[data-sk='rating'][data-tone='accent'] [data-part='star'][data-filled] {
+  --sk-rating-star-fg: var(--color-sk-accent);
+  color: var(--sk-rating-star-fg);
+}
+[data-sk='rating'][data-tone='success'] [data-part='star'][data-filled] {
+  --sk-rating-star-fg: var(--color-sk-success);
+  color: var(--sk-rating-star-fg);
+}
+[data-sk='rating'][data-tone='warning'] [data-part='star'][data-filled] {
+  --sk-rating-star-fg: var(--color-sk-warning);
+  color: var(--sk-rating-star-fg);
+}
+[data-sk='rating'][data-tone='info'] [data-part='star'][data-filled] {
+  --sk-rating-star-fg: var(--color-sk-info);
+  color: var(--sk-rating-star-fg);
+}
+[data-sk='rating'][data-tone='danger'] [data-part='star'][data-filled] {
+  --sk-rating-star-fg: var(--color-sk-danger);
+  color: var(--sk-rating-star-fg);
+}

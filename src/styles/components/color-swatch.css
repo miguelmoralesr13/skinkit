@@ -1,22 +1,32 @@
 /* ── ColorSwatch ────────────────────────────────────────────── */
 [data-sk='color-swatch'] {
-  @apply appearance-none border-none cursor-pointer p-0 w-7 h-7 rounded-sk-sm transition-transform
+  --sk-color-swatch-radius: var(--radius-sk-sm);
+  border-radius: var(--sk-color-swatch-radius);
+  @apply appearance-none border-none cursor-pointer p-0 w-7 h-7 transition-transform
          duration-100 ease-in-out;
   background: var(--sk-swatch);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 [data-sk='color-swatch'][data-size='sm'] {
-  @apply w-5 h-5 rounded-[6px];
+  --sk-color-swatch-radius: 6px;
+  border-radius: var(--sk-color-swatch-radius);
+  @apply w-5 h-5;
 }
 [data-sk='color-swatch'][data-size='lg'] {
-  @apply w-10 h-10 rounded-[10px];
+  --sk-color-swatch-radius: 10px;
+  border-radius: var(--sk-color-swatch-radius);
+  @apply w-10 h-10;
 }
 [data-sk='color-swatch']:hover {
   @apply scale-[1.08];
 }
 [data-sk='color-swatch'][data-selected] {
-  @apply outline outline-2 outline-sk-primary outline-offset-2;
+  --sk-color-swatch-border: var(--color-sk-primary);
+  outline-color: var(--sk-color-swatch-border);
+  @apply outline outline-2 outline-offset-2;
 }
 [data-sk='color-swatch']:focus-visible {
-  @apply outline outline-2 outline-sk-primary outline-offset-2;
+  --sk-color-swatch-border: var(--color-sk-primary);
+  outline-color: var(--sk-color-swatch-border);
+  @apply outline outline-2 outline-offset-2;
 }

@@ -1,36 +1,68 @@
 /* CopyButton — ver src/components/CopyButton/CopyButton.tsx. */
 [data-sk='copy-button'] {
+  --sk-copy-button-radius: var(--radius-sk-pill);
+  --sk-copy-button-border: var(--color-sk-border);
+  --sk-copy-button-bg: var(--color-sk-surface);
+  --sk-copy-button-fg: var(--color-sk-text);
   appearance: none;
   font: inherit;
-  @apply inline-flex items-center gap-2 px-4 py-2 rounded-sk-pill border border-sk-border
-         bg-sk-surface text-sk-text cursor-pointer text-sk-sm font-semibold;
+  border-radius: var(--sk-copy-button-radius);
+  border-color: var(--sk-copy-button-border);
+  background-color: var(--sk-copy-button-bg);
+  color: var(--sk-copy-button-fg);
+  @apply inline-flex items-center gap-2 px-4 py-2 border cursor-pointer text-sk-sm font-semibold;
 }
 [data-sk='copy-button']:hover {
-  @apply bg-sk-surface-2;
+  --sk-copy-button-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-copy-button-bg);
 }
 [data-sk='copy-button'][data-copied] {
-  @apply border-sk-primary text-sk-primary;
+  --sk-copy-button-border: var(--color-sk-primary);
+  --sk-copy-button-fg: var(--color-sk-primary);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }
 
 /* Tones */
 [data-sk='copy-button'][data-tone='secondary'] {
-  @apply border-sk-secondary text-sk-secondary;
+  --sk-copy-button-border: var(--color-sk-secondary);
+  --sk-copy-button-fg: var(--color-sk-secondary);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }
 [data-sk='copy-button'][data-tone='tertiary'] {
-  @apply border-sk-tertiary text-sk-tertiary;
+  --sk-copy-button-border: var(--color-sk-tertiary);
+  --sk-copy-button-fg: var(--color-sk-tertiary);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }
 [data-sk='copy-button'][data-tone='accent'] {
-  @apply border-sk-accent text-sk-accent;
+  --sk-copy-button-border: var(--color-sk-accent);
+  --sk-copy-button-fg: var(--color-sk-accent);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }
 [data-sk='copy-button'][data-tone='success'] {
-  @apply border-sk-success text-sk-success;
+  --sk-copy-button-border: var(--color-sk-success);
+  --sk-copy-button-fg: var(--color-sk-success);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }
 [data-sk='copy-button'][data-tone='warning'] {
-  @apply border-sk-warning text-sk-warning;
+  --sk-copy-button-border: var(--color-sk-warning);
+  --sk-copy-button-fg: var(--color-sk-warning);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }
 [data-sk='copy-button'][data-tone='info'] {
-  @apply border-sk-info text-sk-info;
+  --sk-copy-button-border: var(--color-sk-info);
+  --sk-copy-button-fg: var(--color-sk-info);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }
 [data-sk='copy-button'][data-tone='danger'] {
-  @apply border-sk-danger text-sk-danger;
+  --sk-copy-button-border: var(--color-sk-danger);
+  --sk-copy-button-fg: var(--color-sk-danger);
+  border-color: var(--sk-copy-button-border);
+  color: var(--sk-copy-button-fg);
 }

@@ -3,14 +3,23 @@
   @apply inline-flex gap-2;
 }
 [data-sk='countdown'] [data-part='segment'] {
-  @apply flex flex-col items-center min-w-[3.25rem] p-2 rounded-sk-md bg-sk-surface-2;
+  --sk-countdown-segment-radius: var(--radius-sk-md);
+  --sk-countdown-segment-bg: var(--color-sk-surface-2);
+  border-radius: var(--sk-countdown-segment-radius);
+  background-color: var(--sk-countdown-segment-bg);
+  @apply flex flex-col items-center min-w-[3.25rem] p-2;
 }
 [data-sk='countdown'] [data-part='value'] {
-  @apply text-[1.5rem] font-bold tabular-nums leading-[1.1] text-sk-text;
+  --sk-countdown-value-fg: var(--color-sk-text);
+  color: var(--sk-countdown-value-fg);
+  @apply text-[1.5rem] font-bold tabular-nums leading-[1.1];
 }
 [data-sk='countdown'] [data-part='label'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-countdown-label-fg: var(--color-sk-text-muted);
+  color: var(--sk-countdown-label-fg);
+  @apply text-sk-sm;
 }
 [data-sk='countdown'][data-done] [data-part='value'] {
-  @apply text-sk-text-muted;
+  --sk-countdown-value-fg: var(--color-sk-text-muted);
+  color: var(--sk-countdown-value-fg);
 }

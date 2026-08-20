@@ -8,13 +8,19 @@
   @apply gap-3 items-baseline;
 }
 [data-sk='dlist'] [data-part='term'] {
-  @apply text-sk-sm font-semibold text-sk-text-muted;
+  --sk-dlist-term-fg: var(--color-sk-text-muted);
+  color: var(--sk-dlist-term-fg);
+  @apply text-sk-sm font-semibold;
 }
 [data-sk='dlist'] [data-part='description'] {
-  @apply m-0 text-sk-text text-sk-md;
+  --sk-dlist-description-fg: var(--color-sk-text);
+  color: var(--sk-dlist-description-fg);
+  @apply m-0 text-sk-md;
 }
 [data-sk='dlist'][data-orientation='vertical'] [data-part='row'] {
-  @apply pb-2 border-b border-sk-border;
+  --sk-dlist-row-border: var(--color-sk-border);
+  border-color: var(--sk-dlist-row-border);
+  @apply pb-2 border-b;
 }
 [data-sk='dlist'][data-orientation='vertical'] [data-part='description'] {
   @apply mt-0.5;

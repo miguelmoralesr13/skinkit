@@ -5,14 +5,23 @@
   @apply flex flex-col gap-2 min-w-48 max-w-72;
 }
 [data-sk='popconfirm'] [data-part='title'] {
-  @apply font-semibold text-sk-text;
+  --sk-popconfirm-title-fg: var(--color-sk-text);
+  color: var(--sk-popconfirm-title-fg);
+  @apply font-semibold;
 }
 [data-sk='popconfirm'] [data-part='description'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-popconfirm-description-fg: var(--color-sk-text-muted);
+  color: var(--sk-popconfirm-description-fg);
+  @apply text-sk-sm;
 }
 [data-sk='popconfirm'] [data-part='actions'] {
   @apply flex justify-end gap-2 mt-1;
 }
 [data-sk='popconfirm'][data-tone='danger'] [data-part='confirm'] {
-  @apply bg-sk-danger border-sk-danger text-sk-on-primary;
+  --sk-popconfirm-confirm-bg: var(--color-sk-danger);
+  --sk-popconfirm-confirm-border: var(--color-sk-danger);
+  --sk-popconfirm-confirm-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-popconfirm-confirm-bg);
+  border-color: var(--sk-popconfirm-confirm-border);
+  color: var(--sk-popconfirm-confirm-fg);
 }

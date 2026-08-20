@@ -9,17 +9,24 @@
 }
 
 [data-sk='field'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-field-label-fg: var(--color-sk-text);
+  color: var(--sk-field-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='field'] [data-part='required'] {
-  @apply text-sk-danger;
+  --sk-field-required-fg: var(--color-sk-danger);
+  color: var(--sk-field-required-fg);
 }
 
 [data-sk='field'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-field-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-field-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='field'] [data-part='error'] {
-  @apply text-sk-sm text-sk-danger;
+  --sk-field-error-fg: var(--color-sk-danger);
+  color: var(--sk-field-error-fg);
+  @apply text-sk-sm;
 }

@@ -1,6 +1,14 @@
 /* Alert — ver src/components/Alert/Alert.tsx / Alert.catalog.ts para el contrato de props/parts. */
 [data-sk='alert'] {
-  @apply flex items-start gap-3 p-4 rounded-sk-md bg-sk-surface-2 text-sk-text border border-sk-border;
+  --sk-alert-bg: var(--color-sk-surface-2);
+  --sk-alert-fg: var(--color-sk-text);
+  --sk-alert-border: var(--color-sk-border);
+  --sk-alert-radius: var(--radius-sk-md);
+  background-color: var(--sk-alert-bg);
+  color: var(--sk-alert-fg);
+  border-color: var(--sk-alert-border);
+  border-radius: var(--sk-alert-radius);
+  @apply flex items-start gap-3 p-4 border;
 }
 [data-sk='alert'] [data-part='icon'] {
   @apply inline-flex flex-none mt-0.5;
@@ -12,50 +20,72 @@
   @apply font-bold text-sk-md;
 }
 [data-sk='alert'] [data-part='body'] {
-  @apply text-sk-md text-sk-text-muted leading-normal;
+  --sk-alert-body-fg: var(--color-sk-text-muted);
+  color: var(--sk-alert-body-fg);
+  @apply text-sk-md leading-normal;
 }
 [data-sk='alert'] [data-part='close'] {
+  --sk-alert-close-fg: var(--color-sk-text-muted);
+  --sk-alert-close-radius: 6px;
+  color: var(--sk-alert-close-fg);
+  border-radius: var(--sk-alert-close-radius);
   @apply appearance-none border-0 bg-transparent cursor-pointer flex-none w-[22px] h-[22px]
-         rounded-[6px] text-sk-text-muted text-[1.1rem] leading-none;
+         text-[1.1rem] leading-none;
 }
 [data-sk='alert'] [data-part='close']:hover {
-  @apply text-sk-text;
+  --sk-alert-close-fg: var(--color-sk-text);
+  color: var(--sk-alert-close-fg);
   background: rgba(0, 0, 0, 0.06);
 }
 
 /* Variantes — color-mix() no tiene equivalente en @apply, queda como CSS plano. */
 [data-sk='alert'][data-variant='primary'] {
-  background: color-mix(in srgb, var(--color-sk-primary) 12%, var(--color-sk-surface));
-  border-color: color-mix(in srgb, var(--color-sk-primary) 40%, transparent);
+  --sk-alert-bg: var(--color-sk-primary);
+  --sk-alert-border: var(--color-sk-primary);
+  background: color-mix(in srgb, var(--sk-alert-bg) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--sk-alert-border) 40%, transparent);
 }
 [data-sk='alert'][data-variant='primary'] [data-part='icon'] {
-  @apply text-sk-primary;
+  --sk-alert-icon-fg: var(--color-sk-primary);
+  color: var(--sk-alert-icon-fg);
 }
 [data-sk='alert'][data-variant='danger'] {
-  background: color-mix(in srgb, var(--color-sk-danger) 12%, var(--color-sk-surface));
-  border-color: color-mix(in srgb, var(--color-sk-danger) 40%, transparent);
+  --sk-alert-bg: var(--color-sk-danger);
+  --sk-alert-border: var(--color-sk-danger);
+  background: color-mix(in srgb, var(--sk-alert-bg) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--sk-alert-border) 40%, transparent);
 }
 [data-sk='alert'][data-variant='danger'] [data-part='icon'] {
-  @apply text-sk-danger;
+  --sk-alert-icon-fg: var(--color-sk-danger);
+  color: var(--sk-alert-icon-fg);
 }
 [data-sk='alert'][data-variant='success'] {
-  background: color-mix(in srgb, var(--color-sk-success) 12%, var(--color-sk-surface));
-  border-color: color-mix(in srgb, var(--color-sk-success) 40%, transparent);
+  --sk-alert-bg: var(--color-sk-success);
+  --sk-alert-border: var(--color-sk-success);
+  background: color-mix(in srgb, var(--sk-alert-bg) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--sk-alert-border) 40%, transparent);
 }
 [data-sk='alert'][data-variant='success'] [data-part='icon'] {
-  @apply text-sk-success;
+  --sk-alert-icon-fg: var(--color-sk-success);
+  color: var(--sk-alert-icon-fg);
 }
 [data-sk='alert'][data-variant='warning'] {
-  background: color-mix(in srgb, var(--color-sk-warning) 12%, var(--color-sk-surface));
-  border-color: color-mix(in srgb, var(--color-sk-warning) 40%, transparent);
+  --sk-alert-bg: var(--color-sk-warning);
+  --sk-alert-border: var(--color-sk-warning);
+  background: color-mix(in srgb, var(--sk-alert-bg) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--sk-alert-border) 40%, transparent);
 }
 [data-sk='alert'][data-variant='warning'] [data-part='icon'] {
-  @apply text-sk-warning;
+  --sk-alert-icon-fg: var(--color-sk-warning);
+  color: var(--sk-alert-icon-fg);
 }
 [data-sk='alert'][data-variant='info'] {
-  background: color-mix(in srgb, var(--color-sk-info) 12%, var(--color-sk-surface));
-  border-color: color-mix(in srgb, var(--color-sk-info) 40%, transparent);
+  --sk-alert-bg: var(--color-sk-info);
+  --sk-alert-border: var(--color-sk-info);
+  background: color-mix(in srgb, var(--sk-alert-bg) 12%, var(--color-sk-surface));
+  border-color: color-mix(in srgb, var(--sk-alert-border) 40%, transparent);
 }
 [data-sk='alert'][data-variant='info'] [data-part='icon'] {
-  @apply text-sk-info;
+  --sk-alert-icon-fg: var(--color-sk-info);
+  color: var(--sk-alert-icon-fg);
 }

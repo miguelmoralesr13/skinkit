@@ -1,6 +1,10 @@
 /* ── Spinner ────────────────────────────────────────────────── */
 [data-sk='spinner'] {
-  @apply inline-block w-5 h-5 rounded-full border-2 border-sk-border border-t-sk-primary;
+  --sk-spinner-border: var(--color-sk-border);
+  --sk-spinner-fg: var(--color-sk-primary);
+  border-color: var(--sk-spinner-border);
+  border-top-color: var(--sk-spinner-fg);
+  @apply inline-block w-5 h-5 rounded-full border-2;
   animation: sk-spin 0.6s linear infinite;
 }
 [data-sk='spinner'][data-size='sm'] {
@@ -20,11 +24,35 @@
   }
 }
 
-[data-sk='spinner'][data-tone='secondary'] { @apply border-t-sk-secondary; }
-[data-sk='spinner'][data-tone='tertiary'] { @apply border-t-sk-tertiary; }
-[data-sk='spinner'][data-tone='accent'] { @apply border-t-sk-accent; }
-[data-sk='spinner'][data-tone='success'] { @apply border-t-sk-success; }
-[data-sk='spinner'][data-tone='warning'] { @apply border-t-sk-warning; }
-[data-sk='spinner'][data-tone='info'] { @apply border-t-sk-info; }
-[data-sk='spinner'][data-tone='danger'] { @apply border-t-sk-danger; }
-[data-sk='spinner'][data-tone='neutral'] { @apply border-t-sk-text-muted; }
+[data-sk='spinner'][data-tone='secondary'] {
+  --sk-spinner-fg: var(--color-sk-secondary);
+  border-top-color: var(--sk-spinner-fg);
+}
+[data-sk='spinner'][data-tone='tertiary'] {
+  --sk-spinner-fg: var(--color-sk-tertiary);
+  border-top-color: var(--sk-spinner-fg);
+}
+[data-sk='spinner'][data-tone='accent'] {
+  --sk-spinner-fg: var(--color-sk-accent);
+  border-top-color: var(--sk-spinner-fg);
+}
+[data-sk='spinner'][data-tone='success'] {
+  --sk-spinner-fg: var(--color-sk-success);
+  border-top-color: var(--sk-spinner-fg);
+}
+[data-sk='spinner'][data-tone='warning'] {
+  --sk-spinner-fg: var(--color-sk-warning);
+  border-top-color: var(--sk-spinner-fg);
+}
+[data-sk='spinner'][data-tone='info'] {
+  --sk-spinner-fg: var(--color-sk-info);
+  border-top-color: var(--sk-spinner-fg);
+}
+[data-sk='spinner'][data-tone='danger'] {
+  --sk-spinner-fg: var(--color-sk-danger);
+  border-top-color: var(--sk-spinner-fg);
+}
+[data-sk='spinner'][data-tone='neutral'] {
+  --sk-spinner-fg: var(--color-sk-text-muted);
+  border-top-color: var(--sk-spinner-fg);
+}

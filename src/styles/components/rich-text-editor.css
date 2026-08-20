@@ -1,0 +1,93 @@
+/**
+ * rich-text-editor.css — estilo de <RichTextEditor> (data-sk="rich-text-editor").
+ * La mayoría del contenido reusa CSS ya existente (Toolbar, Prose, Toggle, Button); acá solo va
+ * la chrome propia (borde/fondo de la tarjeta), el foco del área editable de Tiptap, los estados
+ * de tabla (ausentes en prose.css) y el placeholder — ver RichTextEditor.tsx / .catalog.ts.
+ */
+
+[data-sk='rich-text-editor'] {
+  --sk-rich-text-editor-border: var(--color-sk-border);
+  --sk-rich-text-editor-radius: var(--radius-sk-lg);
+  --sk-rich-text-editor-bg: var(--color-sk-surface);
+  border-color: var(--sk-rich-text-editor-border);
+  border-radius: var(--sk-rich-text-editor-radius);
+  background-color: var(--sk-rich-text-editor-bg);
+  @apply flex flex-col border overflow-hidden;
+}
+
+[data-sk='rich-text-editor'] [data-part='toolbar'] {
+  --sk-rich-text-editor-toolbar-border: var(--color-sk-border);
+  border-color: var(--sk-rich-text-editor-toolbar-border);
+  @apply rounded-none border-b flex-wrap;
+}
+
+[data-sk='rich-text-editor'] [data-part='table-controls'] {
+  --sk-rich-text-editor-table-controls-border: var(--color-sk-border);
+  border-color: var(--sk-rich-text-editor-table-controls-border);
+  @apply rounded-none border-b;
+}
+
+[data-sk='rich-text-editor'] [data-part='content'] {
+  @apply p-4;
+}
+
+[data-sk='rich-text-editor'] [data-part='content'] [data-sk='prose'] {
+  @apply min-h-[8em];
+}
+
+/* Área editable de Tiptap (ProseMirror) — foco propio en vez del ring nativo del navegador. */
+[data-sk='rich-text-editor'] .ProseMirror {
+  outline: none;
+}
+
+/* Placeholder — convención de @tiptap/extension-placeholder. */
+[data-sk='rich-text-editor'] .ProseMirror .is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  --sk-rich-text-editor-placeholder-fg: var(--color-sk-text-muted);
+  color: var(--sk-rich-text-editor-placeholder-fg);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Tablas — prose.css no tiene reglas de tabla; el área editable las necesita para ser usable. */
+[data-sk='rich-text-editor'] .ProseMirror table {
+  @apply w-full border-collapse my-4;
+}
+[data-sk='rich-text-editor'] .ProseMirror th,
+[data-sk='rich-text-editor'] .ProseMirror td {
+  --sk-rich-text-editor-table-border: var(--color-sk-border);
+  border-color: var(--sk-rich-text-editor-table-border);
+  @apply border px-3 py-2 align-top;
+  min-width: 3em;
+}
+[data-sk='rich-text-editor'] .ProseMirror th {
+  --sk-rich-text-editor-table-header-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-rich-text-editor-table-header-bg);
+  @apply text-left font-semibold;
+}
+[data-sk='rich-text-editor'] .ProseMirror .selectedCell {
+  --sk-rich-text-editor-selected-cell-bg: var(--color-sk-primary);
+  background-color: color-mix(in srgb, var(--sk-rich-text-editor-selected-cell-bg) 15%, transparent);
+}
+[data-sk='rich-text-editor'] .ProseMirror .column-resize-handle {
+  --sk-rich-text-editor-column-resize-handle-bg: var(--color-sk-primary);
+  background-color: var(--sk-rich-text-editor-column-resize-handle-bg);
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: -2px;
+  width: 4px;
+  pointer-events: none;
+}
+
+/* .Color — <input type="color"> nativo, mismo tamaño que un botón de Toolbar. */
+[data-sk='rich-text-editor'] [data-part='color'] {
+  --sk-rich-text-editor-color-radius: var(--radius-sk-md);
+  --sk-rich-text-editor-color-border: var(--color-sk-border);
+  --sk-rich-text-editor-color-bg: var(--color-sk-surface);
+  border-radius: var(--sk-rich-text-editor-color-radius);
+  border-color: var(--sk-rich-text-editor-color-border);
+  background-color: var(--sk-rich-text-editor-color-bg);
+  @apply size-8 border cursor-pointer p-0.5;
+}

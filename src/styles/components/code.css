@@ -4,38 +4,67 @@
 }
 :not(pre) > [data-sk='code'],
 code[data-sk='code']:not([data-block]) {
-  @apply py-px px-1.5 rounded-[6px] bg-sk-surface-2 text-sk-text;
+  --sk-code-inline-radius: 6px;
+  --sk-code-inline-bg: var(--color-sk-surface-2);
+  --sk-code-inline-fg: var(--color-sk-text);
+  border-radius: var(--sk-code-inline-radius);
+  background-color: var(--sk-code-inline-bg);
+  color: var(--sk-code-inline-fg);
+  @apply py-px px-1.5;
 }
 [data-sk='code'][data-block] {
-  @apply relative block p-4 rounded-sk-md bg-sk-surface-2 text-sk-text overflow-x-auto leading-[1.5];
+  --sk-code-block-radius: var(--radius-sk-md);
+  --sk-code-block-bg: var(--color-sk-surface-2);
+  --sk-code-block-fg: var(--color-sk-text);
+  border-radius: var(--sk-code-block-radius);
+  background-color: var(--sk-code-block-bg);
+  color: var(--sk-code-block-fg);
+  @apply relative block p-4 overflow-x-auto leading-[1.5];
 }
 [data-sk='code'][data-block] [data-part='content'] {
   font-family: inherit;
 }
 [data-sk='code'] [data-part='copy'] {
-  @apply absolute top-2 right-2 appearance-none border border-sk-border bg-sk-surface cursor-pointer
-         w-7 h-7 rounded-sk-sm text-sk-text-muted text-[0.9rem];
+  --sk-code-copy-border: var(--color-sk-border);
+  --sk-code-copy-bg: var(--color-sk-surface);
+  --sk-code-copy-radius: var(--radius-sk-sm);
+  --sk-code-copy-fg: var(--color-sk-text-muted);
+  border-color: var(--sk-code-copy-border);
+  background-color: var(--sk-code-copy-bg);
+  border-radius: var(--sk-code-copy-radius);
+  color: var(--sk-code-copy-fg);
+  @apply absolute top-2 right-2 appearance-none border cursor-pointer w-7 h-7 text-[0.9rem];
 }
 [data-sk='code'] [data-part='copy']:hover {
-  @apply text-sk-text;
+  --sk-code-copy-fg: var(--color-sk-text);
+  color: var(--sk-code-copy-fg);
 }
 [data-sk='code'] [data-part='copy'][data-copied] {
-  @apply text-sk-primary border-sk-primary;
+  --sk-code-copy-fg: var(--color-sk-primary);
+  --sk-code-copy-border: var(--color-sk-primary);
+  color: var(--sk-code-copy-fg);
+  border-color: var(--sk-code-copy-border);
 }
 
 /* Sintaxis (color desde el theme) */
 [data-sk='code'] [data-token='comment'] {
-  @apply italic text-sk-code-comment;
+  --sk-code-token-comment-fg: var(--color-sk-code-comment);
+  color: var(--sk-code-token-comment-fg);
+  @apply italic;
 }
 [data-sk='code'] [data-token='string'] {
-  @apply text-sk-code-string;
+  --sk-code-token-string-fg: var(--color-sk-code-string);
+  color: var(--sk-code-token-string-fg);
 }
 [data-sk='code'] [data-token='number'] {
-  @apply text-sk-code-number;
+  --sk-code-token-number-fg: var(--color-sk-code-number);
+  color: var(--sk-code-token-number-fg);
 }
 [data-sk='code'] [data-token='keyword'] {
-  @apply text-sk-code-keyword;
+  --sk-code-token-keyword-fg: var(--color-sk-code-keyword);
+  color: var(--sk-code-token-keyword-fg);
 }
 [data-sk='code'] [data-token='function'] {
-  @apply text-sk-code-function;
+  --sk-code-token-function-fg: var(--color-sk-code-function);
+  color: var(--sk-code-token-function-fg);
 }

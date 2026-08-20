@@ -1,22 +1,49 @@
 /* ── Blockquote ─────────────────────────────────────────────── */
 [data-sk='blockquote'] {
-  @apply m-0 px-5 py-3 border-l-[3px] border-sk-primary;
+  --sk-blockquote-border: var(--color-sk-primary);
+  border-color: var(--sk-blockquote-border);
+  @apply m-0 px-5 py-3 border-l-[3px];
 }
 [data-sk='blockquote'] [data-part='quote'] {
-  @apply m-0 text-sk-lg leading-[1.5] text-sk-text;
+  --sk-blockquote-quote-fg: var(--color-sk-text);
+  color: var(--sk-blockquote-quote-fg);
+  @apply m-0 text-sk-lg leading-[1.5];
 }
 [data-sk='blockquote'] [data-part='author'] {
-  @apply mt-2 text-sk-sm text-sk-text-muted;
+  --sk-blockquote-author-fg: var(--color-sk-text-muted);
+  color: var(--sk-blockquote-author-fg);
+  @apply mt-2 text-sk-sm;
 }
 [data-sk='blockquote'] [data-part='author']::before {
   content: '— ';
 }
 
 /* tones */
-[data-sk='blockquote'][data-tone='secondary'] { @apply border-sk-secondary; }
-[data-sk='blockquote'][data-tone='tertiary'] { @apply border-sk-tertiary; }
-[data-sk='blockquote'][data-tone='accent'] { @apply border-sk-accent; }
-[data-sk='blockquote'][data-tone='success'] { @apply border-sk-success; }
-[data-sk='blockquote'][data-tone='warning'] { @apply border-sk-warning; }
-[data-sk='blockquote'][data-tone='info'] { @apply border-sk-info; }
-[data-sk='blockquote'][data-tone='danger'] { @apply border-sk-danger; }
+[data-sk='blockquote'][data-tone='secondary'] {
+  --sk-blockquote-border: var(--color-sk-secondary);
+  border-color: var(--sk-blockquote-border);
+}
+[data-sk='blockquote'][data-tone='tertiary'] {
+  --sk-blockquote-border: var(--color-sk-tertiary);
+  border-color: var(--sk-blockquote-border);
+}
+[data-sk='blockquote'][data-tone='accent'] {
+  --sk-blockquote-border: var(--color-sk-accent);
+  border-color: var(--sk-blockquote-border);
+}
+[data-sk='blockquote'][data-tone='success'] {
+  --sk-blockquote-border: var(--color-sk-success);
+  border-color: var(--sk-blockquote-border);
+}
+[data-sk='blockquote'][data-tone='warning'] {
+  --sk-blockquote-border: var(--color-sk-warning);
+  border-color: var(--sk-blockquote-border);
+}
+[data-sk='blockquote'][data-tone='info'] {
+  --sk-blockquote-border: var(--color-sk-info);
+  border-color: var(--sk-blockquote-border);
+}
+[data-sk='blockquote'][data-tone='danger'] {
+  --sk-blockquote-border: var(--color-sk-danger);
+  border-color: var(--sk-blockquote-border);
+}

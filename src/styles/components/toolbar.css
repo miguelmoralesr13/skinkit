@@ -1,12 +1,18 @@
 /* Toolbar — ver src/components/Toolbar/Toolbar.tsx. */
 [data-sk='toolbar'] {
-  @apply inline-flex items-center gap-2 p-1 rounded-sk-md bg-sk-surface-2;
+  --sk-toolbar-radius: var(--radius-sk-md);
+  --sk-toolbar-bg: var(--color-sk-surface-2);
+  border-radius: var(--sk-toolbar-radius);
+  background-color: var(--sk-toolbar-bg);
+  @apply inline-flex items-center gap-2 p-1;
 }
 [data-sk='toolbar'][data-orientation='vertical'] {
   @apply flex-col items-stretch;
 }
 [data-sk='toolbar'] [data-part='separator'] {
-  @apply w-px self-stretch bg-sk-border mx-1;
+  --sk-toolbar-separator-bg: var(--color-sk-border);
+  background-color: var(--sk-toolbar-separator-bg);
+  @apply w-px self-stretch mx-1;
 }
 [data-sk='toolbar'][data-orientation='vertical'] [data-part='separator'] {
   @apply w-auto h-px mx-0 my-1;

@@ -1,6 +1,8 @@
 /* ── ComparisonSlider ───────────────────────────────────────── */
 [data-sk='comparison'] {
-  @apply relative overflow-hidden rounded-sk-lg select-none;
+  --sk-comparison-radius: var(--radius-sk-lg);
+  border-radius: var(--sk-comparison-radius);
+  @apply relative overflow-hidden select-none;
   line-height: 0;
   touch-action: none;
 }
@@ -15,15 +17,23 @@
   @apply block w-full h-full object-cover;
 }
 [data-sk='comparison'] [data-part='handle'] {
-  @apply absolute top-0 bottom-0 w-0.5 -translate-x-1/2 cursor-ew-resize bg-sk-surface;
+  --sk-comparison-handle-bg: var(--color-sk-surface);
+  background-color: var(--sk-comparison-handle-bg);
+  @apply absolute top-0 bottom-0 w-0.5 -translate-x-1/2 cursor-ew-resize;
   left: calc(var(--sk-comparison-pos) * 1%);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 [data-sk='comparison'] [data-part='handle']::after {
   content: '';
-  @apply absolute top-1/2 left-1/2 w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-sk-pill bg-sk-surface;
+  --sk-comparison-handle-bg: var(--color-sk-surface);
+  --sk-comparison-handle-radius: var(--radius-sk-pill);
+  background-color: var(--sk-comparison-handle-bg);
+  border-radius: var(--sk-comparison-handle-radius);
+  @apply absolute top-1/2 left-1/2 w-8 h-8 -translate-x-1/2 -translate-y-1/2;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 [data-sk='comparison'] [data-part='handle']:focus-visible {
-  @apply outline outline-2 outline-sk-primary outline-offset-2;
+  --sk-comparison-handle-border: var(--color-sk-primary);
+  outline-color: var(--sk-comparison-handle-border);
+  @apply outline outline-2 outline-offset-2;
 }

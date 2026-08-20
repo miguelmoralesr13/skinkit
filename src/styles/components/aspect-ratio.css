@@ -1,6 +1,10 @@
 /* ── AspectRatio ────────────────────────────────────────────── */
 [data-sk='aspect-ratio'] {
-  @apply w-full overflow-hidden rounded-[14px] bg-sk-surface-2;
+  --sk-aspect-ratio-bg: var(--color-sk-surface-2);
+  --sk-aspect-ratio-radius: 14px;
+  background-color: var(--sk-aspect-ratio-bg);
+  border-radius: var(--sk-aspect-ratio-radius);
+  @apply w-full overflow-hidden;
 }
 [data-sk='aspect-ratio'] > * {
   @apply block w-full h-full object-cover;

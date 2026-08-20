@@ -6,23 +6,59 @@
   @apply flex justify-between items-baseline gap-3 text-sk-sm;
 }
 [data-sk='meter'] [data-part='label'] {
-  @apply text-sk-text-muted font-semibold;
+  --sk-meter-label-fg: var(--color-sk-text-muted);
+  color: var(--sk-meter-label-fg);
+  @apply font-semibold;
 }
 [data-sk='meter'] [data-part='value'] {
-  @apply text-sk-text tabular-nums;
+  --sk-meter-value-fg: var(--color-sk-text);
+  color: var(--sk-meter-value-fg);
+  @apply tabular-nums;
 }
 [data-sk='meter'] [data-part='track'] {
-  @apply h-2 rounded-sk-pill bg-sk-surface-2 overflow-hidden;
+  --sk-meter-track-radius: var(--radius-sk-pill);
+  --sk-meter-track-bg: var(--color-sk-surface-2);
+  border-radius: var(--sk-meter-track-radius);
+  background-color: var(--sk-meter-track-bg);
+  @apply h-2 overflow-hidden;
 }
 [data-sk='meter'] [data-part='indicator'] {
-  @apply h-full rounded-sk-pill bg-sk-primary transition-[width] duration-300 ease-in-out;
+  --sk-meter-indicator-radius: var(--radius-sk-pill);
+  --sk-meter-indicator-bg: var(--color-sk-primary);
+  border-radius: var(--sk-meter-indicator-radius);
+  background-color: var(--sk-meter-indicator-bg);
+  @apply h-full transition-[width] duration-300 ease-in-out;
   width: calc(var(--sk-meter, 0) * 100%);
 }
-[data-sk='meter'][data-tone='danger'] [data-part='indicator'] { @apply bg-sk-danger; }
-[data-sk='meter'][data-tone='neutral'] [data-part='indicator'] { @apply bg-sk-text-muted; }
-[data-sk='meter'][data-tone='secondary'] [data-part='indicator'] { @apply bg-sk-secondary; }
-[data-sk='meter'][data-tone='tertiary'] [data-part='indicator'] { @apply bg-sk-tertiary; }
-[data-sk='meter'][data-tone='accent'] [data-part='indicator'] { @apply bg-sk-accent; }
-[data-sk='meter'][data-tone='success'] [data-part='indicator'] { @apply bg-sk-success; }
-[data-sk='meter'][data-tone='warning'] [data-part='indicator'] { @apply bg-sk-warning; }
-[data-sk='meter'][data-tone='info'] [data-part='indicator'] { @apply bg-sk-info; }
+[data-sk='meter'][data-tone='danger'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-danger);
+  background-color: var(--sk-meter-indicator-bg);
+}
+[data-sk='meter'][data-tone='neutral'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-text-muted);
+  background-color: var(--sk-meter-indicator-bg);
+}
+[data-sk='meter'][data-tone='secondary'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-secondary);
+  background-color: var(--sk-meter-indicator-bg);
+}
+[data-sk='meter'][data-tone='tertiary'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-tertiary);
+  background-color: var(--sk-meter-indicator-bg);
+}
+[data-sk='meter'][data-tone='accent'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-accent);
+  background-color: var(--sk-meter-indicator-bg);
+}
+[data-sk='meter'][data-tone='success'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-success);
+  background-color: var(--sk-meter-indicator-bg);
+}
+[data-sk='meter'][data-tone='warning'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-warning);
+  background-color: var(--sk-meter-indicator-bg);
+}
+[data-sk='meter'][data-tone='info'] [data-part='indicator'] {
+  --sk-meter-indicator-bg: var(--color-sk-info);
+  background-color: var(--sk-meter-indicator-bg);
+}

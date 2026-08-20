@@ -11,15 +11,23 @@
 }
 
 [data-sk='dynamic-form'] [data-part='field-label'] {
-  @apply text-sk-sm font-semibold text-sk-text mb-1;
+  --sk-dynamic-form-field-label-fg: var(--color-sk-text);
+  color: var(--sk-dynamic-form-field-label-fg);
+  @apply text-sk-sm font-semibold mb-1;
 }
 
 [data-sk='dynamic-form'] [data-part='field-error'] {
-  @apply text-sk-sm text-sk-danger mt-1;
+  --sk-dynamic-form-field-error-fg: var(--color-sk-danger);
+  color: var(--sk-dynamic-form-field-error-fg);
+  @apply text-sk-sm mt-1;
 }
 
 [data-sk='dynamic-form'] [data-part='array-item'] {
-  @apply flex flex-col gap-2 p-3 bg-sk-surface-2 rounded-sk-md mb-2;
+  --sk-dynamic-form-array-item-bg: var(--color-sk-surface-2);
+  --sk-dynamic-form-array-item-radius: var(--radius-sk-md);
+  background-color: var(--sk-dynamic-form-array-item-bg);
+  border-radius: var(--sk-dynamic-form-array-item-radius);
+  @apply flex flex-col gap-2 p-3 mb-2;
 }
 
 [data-sk='dynamic-form'] [data-part='array-item-actions'] {

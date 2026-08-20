@@ -1,10 +1,16 @@
 /* ── Skeleton ───────────────────────────────────────────────── */
 [data-sk='skeleton'] {
-  @apply block bg-sk-surface-2 rounded-sk-sm;
+  --sk-skeleton-bg: var(--color-sk-surface-2);
+  --sk-skeleton-radius: var(--radius-sk-sm);
+  background-color: var(--sk-skeleton-bg);
+  border-radius: var(--sk-skeleton-radius);
+  @apply block;
   animation: sk-skeleton-pulse 1.4s ease-in-out infinite;
 }
 [data-sk='skeleton'][data-variant='text'] {
-  @apply h-[0.8em] rounded-[4px];
+  --sk-skeleton-radius: 4px;
+  border-radius: var(--sk-skeleton-radius);
+  @apply h-[0.8em];
 }
 [data-sk='skeleton'][data-variant='circle'] {
   @apply rounded-full;

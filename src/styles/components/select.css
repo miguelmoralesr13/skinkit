@@ -8,29 +8,44 @@
 }
 
 [data-sk='select'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-select-label-fg: var(--color-sk-text);
+  color: var(--sk-select-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='select'] [data-part='field'] {
+  --sk-select-field-border: var(--color-sk-border);
+  --sk-select-field-radius: var(--radius-sk-md);
+  --sk-select-field-bg: var(--color-sk-surface);
+  --sk-select-field-fg: var(--color-sk-text);
+  border-color: var(--sk-select-field-border);
+  border-radius: var(--sk-select-field-radius);
+  background-color: var(--sk-select-field-bg);
+  color: var(--sk-select-field-fg);
   font: inherit;
-  @apply px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text text-sk-md
-         cursor-pointer transition-[border-color,box-shadow] duration-150 ease-in-out;
+  @apply px-4 py-3 border text-sk-md cursor-pointer transition-[border-color,box-shadow] duration-150 ease-in-out;
 }
 
 [data-sk='select'] [data-part='field']:focus {
+  --sk-select-field-border: var(--color-sk-primary);
+  --sk-select-field-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply border-sk-primary;
+  box-shadow: var(--sk-select-field-shadow);
+  border-color: var(--sk-select-field-border);
 }
 
 [data-sk='select'][data-error] [data-part='field'] {
-  @apply border-sk-danger;
+  --sk-select-field-border: var(--color-sk-danger);
+  border-color: var(--sk-select-field-border);
 }
 
 [data-sk='select'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-select-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-select-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='select'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-select-helper-fg: var(--color-sk-danger);
+  color: var(--sk-select-helper-fg);
 }

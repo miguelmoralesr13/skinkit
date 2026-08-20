@@ -2,23 +2,45 @@
 [data-sk='split-button'] {
   @apply relative inline-flex;
 }
-[data-sk='split-button'] [data-part='main'],
-[data-sk='split-button'] [data-part='trigger'] {
+[data-sk='split-button'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-primary);
+  --sk-split-button-main-fg: var(--color-sk-on-primary);
+  --sk-split-button-main-radius: var(--radius-sk-pill);
   appearance: none;
   font: inherit;
-  @apply border border-transparent bg-sk-primary text-sk-on-primary cursor-pointer
-         text-sk-md font-semibold;
-}
-[data-sk='split-button'] [data-part='main'] {
-  @apply px-5 py-2 rounded-l-sk-pill;
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+  border-top-left-radius: var(--sk-split-button-main-radius);
+  border-bottom-left-radius: var(--sk-split-button-main-radius);
+  @apply border border-transparent cursor-pointer text-sk-md font-semibold px-5 py-2;
 }
 [data-sk='split-button'] [data-part='trigger'] {
-  @apply px-3 py-2 rounded-r-sk-pill;
-  border-left: 1px solid color-mix(in srgb, var(--color-sk-on-primary) 30%, transparent);
+  --sk-split-button-trigger-bg: var(--color-sk-primary);
+  --sk-split-button-trigger-fg: var(--color-sk-on-primary);
+  --sk-split-button-trigger-radius: var(--radius-sk-pill);
+  --sk-split-button-trigger-border: var(--color-sk-on-primary);
+  appearance: none;
+  font: inherit;
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
+  border-top-right-radius: var(--sk-split-button-trigger-radius);
+  border-bottom-right-radius: var(--sk-split-button-trigger-radius);
+  @apply border border-transparent cursor-pointer text-sk-md font-semibold px-3 py-2;
+  border-left: 1px solid color-mix(in srgb, var(--sk-split-button-trigger-border) 30%, transparent);
 }
-[data-sk='split-button'][data-variant='outlined'] [data-part='main'],
+[data-sk='split-button'][data-variant='outlined'] [data-part='main'] {
+  --sk-split-button-main-fg: var(--color-sk-text);
+  --sk-split-button-main-border: var(--color-sk-border);
+  color: var(--sk-split-button-main-fg);
+  border-color: var(--sk-split-button-main-border);
+  @apply bg-transparent;
+}
 [data-sk='split-button'][data-variant='outlined'] [data-part='trigger'] {
-  @apply bg-transparent text-sk-text border-sk-border;
+  --sk-split-button-trigger-fg: var(--color-sk-text);
+  --sk-split-button-trigger-border: var(--color-sk-border);
+  color: var(--sk-split-button-trigger-fg);
+  border-color: var(--sk-split-button-trigger-border);
+  @apply bg-transparent;
 }
 [data-sk='split-button'] [data-part='main']:hover,
 [data-sk='split-button'] [data-part='trigger']:hover {
@@ -29,46 +51,113 @@
   @apply opacity-50 cursor-not-allowed;
 }
 [data-sk='split-button'] [data-part='content'] {
-  @apply absolute z-50 left-0 min-w-48 p-1 bg-sk-surface border border-sk-border rounded-sk-md
-         shadow-sk-lg;
+  --sk-split-button-content-bg: var(--color-sk-surface);
+  --sk-split-button-content-border: var(--color-sk-border);
+  --sk-split-button-content-radius: var(--radius-sk-md);
+  --sk-split-button-content-shadow: var(--shadow-sk-lg);
+  background-color: var(--sk-split-button-content-bg);
+  border-color: var(--sk-split-button-content-border);
+  border-radius: var(--sk-split-button-content-radius);
+  box-shadow: var(--sk-split-button-content-shadow);
+  @apply absolute z-50 left-0 min-w-48 p-1 border;
   top: calc(100% + var(--spacing) * 2);
 }
 [data-sk='split-button'] [data-part='item'] {
+  --sk-split-button-item-radius: var(--radius-sk-sm);
+  --sk-split-button-item-fg: var(--color-sk-text);
   appearance: none;
   font: inherit;
-  @apply block w-full text-left border-none bg-transparent cursor-pointer px-3 py-2
-         rounded-sk-sm text-sk-text text-sk-md;
+  border-radius: var(--sk-split-button-item-radius);
+  color: var(--sk-split-button-item-fg);
+  @apply block w-full text-left border-none bg-transparent cursor-pointer px-3 py-2 text-sk-md;
 }
 [data-sk='split-button'] [data-part='item']:hover {
-  @apply bg-sk-surface-2;
+  --sk-split-button-item-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-split-button-item-bg);
 }
 
 /* Tones */
-[data-sk='split-button'][data-tone='secondary'] [data-part='main'],
+[data-sk='split-button'][data-tone='secondary'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-secondary);
+  --sk-split-button-main-fg: var(--color-sk-on-secondary);
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+}
 [data-sk='split-button'][data-tone='secondary'] [data-part='trigger'] {
-  @apply bg-sk-secondary text-sk-on-secondary;
+  --sk-split-button-trigger-bg: var(--color-sk-secondary);
+  --sk-split-button-trigger-fg: var(--color-sk-on-secondary);
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
 }
-[data-sk='split-button'][data-tone='tertiary'] [data-part='main'],
+[data-sk='split-button'][data-tone='tertiary'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-tertiary);
+  --sk-split-button-main-fg: var(--color-sk-on-tertiary);
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+}
 [data-sk='split-button'][data-tone='tertiary'] [data-part='trigger'] {
-  @apply bg-sk-tertiary text-sk-on-tertiary;
+  --sk-split-button-trigger-bg: var(--color-sk-tertiary);
+  --sk-split-button-trigger-fg: var(--color-sk-on-tertiary);
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
 }
-[data-sk='split-button'][data-tone='accent'] [data-part='main'],
+[data-sk='split-button'][data-tone='accent'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-accent);
+  --sk-split-button-main-fg: var(--color-sk-on-accent);
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+}
 [data-sk='split-button'][data-tone='accent'] [data-part='trigger'] {
-  @apply bg-sk-accent text-sk-on-accent;
+  --sk-split-button-trigger-bg: var(--color-sk-accent);
+  --sk-split-button-trigger-fg: var(--color-sk-on-accent);
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
 }
-[data-sk='split-button'][data-tone='success'] [data-part='main'],
+[data-sk='split-button'][data-tone='success'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-success);
+  --sk-split-button-main-fg: var(--color-sk-on-success);
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+}
 [data-sk='split-button'][data-tone='success'] [data-part='trigger'] {
-  @apply bg-sk-success text-sk-on-success;
+  --sk-split-button-trigger-bg: var(--color-sk-success);
+  --sk-split-button-trigger-fg: var(--color-sk-on-success);
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
 }
-[data-sk='split-button'][data-tone='warning'] [data-part='main'],
+[data-sk='split-button'][data-tone='warning'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-warning);
+  --sk-split-button-main-fg: var(--color-sk-on-warning);
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+}
 [data-sk='split-button'][data-tone='warning'] [data-part='trigger'] {
-  @apply bg-sk-warning text-sk-on-warning;
+  --sk-split-button-trigger-bg: var(--color-sk-warning);
+  --sk-split-button-trigger-fg: var(--color-sk-on-warning);
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
 }
-[data-sk='split-button'][data-tone='info'] [data-part='main'],
+[data-sk='split-button'][data-tone='info'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-info);
+  --sk-split-button-main-fg: var(--color-sk-on-info);
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+}
 [data-sk='split-button'][data-tone='info'] [data-part='trigger'] {
-  @apply bg-sk-info text-sk-on-info;
+  --sk-split-button-trigger-bg: var(--color-sk-info);
+  --sk-split-button-trigger-fg: var(--color-sk-on-info);
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
 }
-[data-sk='split-button'][data-tone='danger'] [data-part='main'],
+[data-sk='split-button'][data-tone='danger'] [data-part='main'] {
+  --sk-split-button-main-bg: var(--color-sk-danger);
+  --sk-split-button-main-fg: var(--color-sk-on-danger);
+  background-color: var(--sk-split-button-main-bg);
+  color: var(--sk-split-button-main-fg);
+}
 [data-sk='split-button'][data-tone='danger'] [data-part='trigger'] {
-  @apply bg-sk-danger text-sk-on-danger;
+  --sk-split-button-trigger-bg: var(--color-sk-danger);
+  --sk-split-button-trigger-fg: var(--color-sk-on-danger);
+  background-color: var(--sk-split-button-trigger-bg);
+  color: var(--sk-split-button-trigger-fg);
 }

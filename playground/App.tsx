@@ -1,7 +1,9 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { SkinkitProvider } from '../src'
 import { getComponentSpec, CATEGORY_ORDER } from '../src/catalog'
 import { STORY_GROUPS } from './stories'
+import { ComponentVarsPanel } from './ComponentVarsPanel'
+import { useComponentVars } from './lib/useComponentVars'
 
 // Todo lo de acá abajo son los tokens REALES de src/styles/tokens.css con su valor por defecto
 // REAL — el panel no inventa nada nuevo, solo expone lo que ya está definido para poder
@@ -126,11 +128,55 @@ export function App() {
   // sigue resolviendo al default de tokens.css.
   const [overrides, setOverrides] = useState<Record<string, string>>({})
 
+  // Panel de edición por componente: pisa las variables LOCALES --sk-{dataSk}-* de un solo
+  // componente (ver src/styles/components/<dataSk>.css), no los tokens globales de arriba. Clave
+  // por dataSk para que cambiar de componente y volver conserve lo editado en cada uno.
+  const [componentPanelOpen, setComponentPanelOpen] = useState(false)
+  const [componentOverrides, setComponentOverrides] = useState<Record<string, Record<string, string>>>({})
+  const storyRef = useRef<HTMLDivElement>(null)
+
   const group = STORY_GROUPS[comp]
   const story = group.stories[storyIdx]
   const spec = getComponentSpec(group.component)
+  const dataSk = spec?.dataSk ?? ''
+  const componentVars = useComponentVars(dataSk)
 
   const setToken = (key: string, value: string) => setOverrides((prev) => ({ ...prev, [key]: value }))
+  const setComponentVar = (name: string, value: string) =>
+    setComponentOverrides((prev) => ({ ...prev, [dataSk]: { ...(prev[dataSk] ?? {}), [name]: value } }))
+  const currentComponentOverrides = componentOverrides[dataSk] ?? {}
+  const hasComponentOverrides = Object.keys(currentComponentOverrides).length > 0
+  const resetComponentOverrides = () =>
+    setComponentOverrides((prev) => {
+      const next = { ...prev }
+      delete next[dataSk]
+      return next
+    })
+
+  // Por qué NO se aplica como `style` inline en un ancestro (como el panel global de arriba):
+  // cada [data-sk='<dataSk>'] YA declara su propia variable local (ver src/styles/components/),
+  // y esa declaración — al estar puesta directamente sobre el elemento — siempre le gana a
+  // cualquier valor heredado de un ancestro, sin importar qué tan cerca esté. La única forma real
+  // de pisarla es con una regla CSS que matchee el MISMO selector (o más específico), que es
+  // justo el patrón documentado para consumidores reales. Acá se genera esa regla al vuelo, con
+  // !important porque además hay que ganarle a :hover/[data-variant]/[data-tone] (más específicos)
+  // — aceptable en esta herramienta de desarrollo, no es el CSS que se publica en el paquete.
+  const componentOverrideCss = useMemo(() => {
+    if (!dataSk || !componentVars || !hasComponentOverrides) return ''
+    const bySelector = new Map<string, string[]>()
+    for (const v of componentVars) {
+      const value = currentComponentOverrides[v.name]
+      if (value === undefined) continue
+      const selector = v.part ? `[data-sk='${dataSk}'] [data-part='${v.part}']` : `[data-sk='${dataSk}']`
+      const decls = bySelector.get(selector) ?? []
+      decls.push(`${v.name}: ${value} !important;`)
+      bySelector.set(selector, decls)
+    }
+    return Array.from(bySelector.entries())
+      .map(([selector, decls]) => `${selector} { ${decls.join(' ')} }`)
+      .join('\n')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataSk, componentVars, currentComponentOverrides, hasComponentOverrides])
   const applyShadowPreset = (name: string) =>
     setOverrides((prev) => ({
       ...prev,
@@ -240,6 +286,18 @@ export function App() {
           </button>
           {hasOverrides && (
             <button type="button" className="sb-reset" onClick={resetAll}>
+              reset
+            </button>
+          )}
+          <button
+            type="button"
+            className={`sb-personalize-toggle${componentPanelOpen ? ' is-active' : ''}`}
+            onClick={() => setComponentPanelOpen((v) => !v)}
+          >
+            Editar {group.component} {hasComponentOverrides ? '●' : ''}
+          </button>
+          {hasComponentOverrides && (
+            <button type="button" className="sb-reset" onClick={resetComponentOverrides}>
               reset
             </button>
           )}
@@ -418,6 +476,19 @@ export function App() {
           </div>
         )}
 
+        {componentPanelOpen && (
+          <ComponentVarsPanel
+            dataSk={dataSk}
+            componentLabel={group.component}
+            vars={componentVars}
+            storyContainerRef={storyRef}
+            refreshKey={`${dataSk}:${storyIdx}`}
+            overrides={currentComponentOverrides}
+            onChange={setComponentVar}
+          />
+        )}
+        {componentOverrideCss && <style>{componentOverrideCss}</style>}
+
         <div className="sb-tabs" role="tablist">
           {group.stories.map((st, si) => (
             <button
@@ -434,7 +505,7 @@ export function App() {
 
         <div className="sb-canvas">
           <SkinkitProvider className="sb-stage">
-            <div className="sb-story" style={overrideStyle}>
+            <div className="sb-story" ref={storyRef} style={overrideStyle}>
               {story.render()}
             </div>
           </SkinkitProvider>

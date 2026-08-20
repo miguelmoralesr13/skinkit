@@ -1,7 +1,8 @@
 /* ── ScrollArea ─────────────────────────────────────────────── */
 [data-sk='scroll-area'] {
+  --sk-scroll-area-thumb-fg: var(--color-sk-border);
   scrollbar-width: thin;
-  scrollbar-color: var(--color-sk-border) transparent;
+  scrollbar-color: var(--sk-scroll-area-thumb-fg) transparent;
 }
 [data-sk='scroll-area'][data-orientation='vertical'] {
   @apply overflow-y-auto overflow-x-hidden;
@@ -16,10 +17,15 @@
   @apply w-2.5 h-2.5;
 }
 [data-sk='scroll-area']::-webkit-scrollbar-thumb {
-  @apply rounded-sk-pill border-[3px] border-transparent bg-sk-border;
+  --sk-scroll-area-thumb-radius: var(--radius-sk-pill);
+  --sk-scroll-area-thumb-bg: var(--color-sk-border);
+  border-radius: var(--sk-scroll-area-thumb-radius);
+  background-color: var(--sk-scroll-area-thumb-bg);
   background-clip: padding-box;
+  @apply border-[3px] border-transparent;
 }
 [data-sk='scroll-area']::-webkit-scrollbar-thumb:hover {
-  @apply bg-sk-text-muted;
+  --sk-scroll-area-thumb-bg: var(--color-sk-text-muted);
+  background-color: var(--sk-scroll-area-thumb-bg);
   background-clip: padding-box;
 }

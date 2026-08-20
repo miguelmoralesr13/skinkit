@@ -9,10 +9,15 @@
   background: rgba(0, 0, 0, 0.45);
 }
 [data-sk='dialog'] [data-part='panel'] {
-  @apply relative z-[1] flex flex-col w-full max-w-lg bg-sk-surface text-sk-text rounded-sk-lg
-         overflow-hidden;
+  --sk-dialog-panel-bg: var(--color-sk-surface);
+  --sk-dialog-panel-fg: var(--color-sk-text);
+  --sk-dialog-panel-radius: var(--radius-sk-lg);
+  background-color: var(--sk-dialog-panel-bg);
+  color: var(--sk-dialog-panel-fg);
+  border-radius: var(--sk-dialog-panel-radius);
   max-height: calc(100vh - var(--spacing) * 8);
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+  @apply relative z-[1] flex flex-col w-full max-w-lg overflow-hidden;
 }
 [data-sk='dialog'][data-size='sm'] [data-part='panel'] {
   @apply max-w-sm;
@@ -28,27 +33,41 @@
   max-height: none;
 }
 [data-sk='dialog'] [data-part='header'] {
-  @apply flex items-center justify-between gap-3 px-5 py-4 border-b border-sk-border;
+  --sk-dialog-header-border: var(--color-sk-border);
+  border-color: var(--sk-dialog-header-border);
+  @apply flex items-center justify-between gap-3 px-5 py-4 border-b;
 }
 [data-sk='dialog'] [data-part='title'] {
   @apply m-0 text-sk-lg font-bold;
 }
 [data-sk='dialog'] [data-part='body'] {
-  @apply p-5 overflow-y-auto text-sk-text-muted;
+  --sk-dialog-body-fg: var(--color-sk-text-muted);
+  color: var(--sk-dialog-body-fg);
   line-height: 1.6;
+  @apply p-5 overflow-y-auto;
 }
 [data-sk='dialog'] [data-part='footer'] {
-  @apply flex justify-end gap-2 px-5 py-4 border-t border-sk-border bg-sk-surface-2;
+  --sk-dialog-footer-border: var(--color-sk-border);
+  --sk-dialog-footer-bg: var(--color-sk-surface-2);
+  border-color: var(--sk-dialog-footer-border);
+  background-color: var(--sk-dialog-footer-bg);
+  @apply flex justify-end gap-2 px-5 py-4 border-t;
 }
 [data-sk='dialog'] [data-part='close'] {
+  --sk-dialog-close-radius: var(--radius-sk-sm);
+  --sk-dialog-close-fg: var(--color-sk-text-muted);
   appearance: none;
   border: none;
   font-size: 1.3rem;
-  @apply bg-transparent cursor-pointer flex-none w-7 h-7 rounded-sk-sm text-sk-text-muted
-         leading-none;
+  border-radius: var(--sk-dialog-close-radius);
+  color: var(--sk-dialog-close-fg);
+  @apply bg-transparent cursor-pointer flex-none w-7 h-7 leading-none;
 }
 [data-sk='dialog'] [data-part='close']:hover {
-  @apply bg-sk-surface-2 text-sk-text;
+  --sk-dialog-close-bg: var(--color-sk-surface-2);
+  --sk-dialog-close-fg: var(--color-sk-text);
+  background-color: var(--sk-dialog-close-bg);
+  color: var(--sk-dialog-close-fg);
 }
 
 /* ── Dialog drawers (placement ≠ center) ────────────────────── */

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
 import { cx } from '../../lib/cx'
 import type { ColumnDef, DataTableProps } from './types'
 import { useDataTable } from './useDataTable'
@@ -87,13 +87,20 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
     loading = false,
     emptyContent = 'Sin resultados',
     caption,
+    virtualized: _virtualized,
+    rowHeight,
+    height,
     className,
     ...rest
   } = props
 
   const {
     rootRef,
+    scrollRef,
     sentinelRef,
+    isVirtualized,
+    virtualRows,
+    virtualTotalHeight,
     effectiveView,
     toggleView,
     visibleColumns,
@@ -153,8 +160,47 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
     )
   }
 
+  const renderRow = (row: T, style?: CSSProperties) => {
+    const key = rowKey(row)
+    const sel = isSelected(key)
+    return (
+      <tr key={String(key)} data-part="tr" data-selected={sel || undefined} style={style}>
+        {hasSelection && (
+          <td data-part="td" data-cell="select">
+            <SelectionControl
+              mode={selectionMode === 'single' ? 'single' : 'multiple'}
+              checked={sel}
+              onToggle={() => toggleRow(row)}
+              label="Seleccionar fila"
+            />
+          </td>
+        )}
+        {visibleColumns.map((col) => (
+          <td key={col.key} data-part="td" data-align={col.align} style={{ width: col.width }}>
+            {renderCell(col, row)}
+          </td>
+        ))}
+        {rowActions && (
+          <td data-part="td" data-cell="actions" data-align="end">
+            {rowActions(row)}
+          </td>
+        )}
+      </tr>
+    )
+  }
+
+  const lastVirtualRow = virtualRows[virtualRows.length - 1]
+  const bottomSpacerHeight = lastVirtualRow
+    ? virtualTotalHeight - lastVirtualRow.start - (rowHeight ?? 0)
+    : virtualTotalHeight
+
   const tableView = (
-    <div data-part="scroll">
+    <div
+      ref={scrollRef}
+      data-part="scroll"
+      data-virtualized={isVirtualized || undefined}
+      style={isVirtualized ? { height, overflowY: 'auto' } : undefined}
+    >
       <table data-part="table">
         {caption && <caption data-part="caption">{caption}</caption>}
         <thead data-part="thead">
@@ -187,35 +233,22 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
                 <div data-part="empty">{emptyContent}</div>
               </td>
             </tr>
-          ) : (
-            rows.map((row) => {
-              const key = rowKey(row)
-              const sel = isSelected(key)
-              return (
-                <tr key={String(key)} data-part="tr" data-selected={sel || undefined}>
-                  {hasSelection && (
-                    <td data-part="td" data-cell="select">
-                      <SelectionControl
-                        mode={selectionMode === 'single' ? 'single' : 'multiple'}
-                        checked={sel}
-                        onToggle={() => toggleRow(row)}
-                        label="Seleccionar fila"
-                      />
-                    </td>
-                  )}
-                  {visibleColumns.map((col) => (
-                    <td key={col.key} data-part="td" data-align={col.align} style={{ width: col.width }}>
-                      {renderCell(col, row)}
-                    </td>
-                  ))}
-                  {rowActions && (
-                    <td data-part="td" data-cell="actions" data-align="end">
-                      {rowActions(row)}
-                    </td>
-                  )}
+          ) : isVirtualized ? (
+            <>
+              {virtualRows[0] && virtualRows[0].start > 0 && (
+                <tr aria-hidden="true">
+                  <td colSpan={colSpan} style={{ height: virtualRows[0].start, padding: 0, border: 0 }} />
                 </tr>
-              )
-            })
+              )}
+              {virtualRows.map(({ index }) => renderRow(rows[index], { height: rowHeight }))}
+              {bottomSpacerHeight > 0 && (
+                <tr aria-hidden="true">
+                  <td colSpan={colSpan} style={{ height: bottomSpacerHeight, padding: 0, border: 0 }} />
+                </tr>
+              )}
+            </>
+          ) : (
+            rows.map((row) => renderRow(row))
           )}
         </tbody>
       </table>

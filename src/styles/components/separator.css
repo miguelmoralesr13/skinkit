@@ -1,6 +1,7 @@
 /* ── Separator ──────────────────────────────────────────────── */
 [data-sk='separator'] {
-  @apply bg-sk-border;
+  --sk-separator-bg: var(--color-sk-border);
+  background-color: var(--sk-separator-bg);
 }
 [data-sk='separator'][data-orientation='horizontal'] {
   @apply h-px w-full my-3;

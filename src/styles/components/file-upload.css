@@ -10,27 +10,39 @@
 }
 
 [data-sk='file-upload'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-file-upload-label-fg: var(--color-sk-text);
+  color: var(--sk-file-upload-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='file-upload'] [data-part='dropzone'] {
-  border: 2px dashed var(--color-sk-border);
+  --sk-file-upload-dropzone-border: var(--color-sk-border);
+  --sk-file-upload-dropzone-radius: 14px;
+  --sk-file-upload-dropzone-bg: var(--color-sk-surface);
+  --sk-file-upload-dropzone-fg: var(--color-sk-text-muted);
+  border: 2px dashed var(--sk-file-upload-dropzone-border);
+  border-radius: var(--sk-file-upload-dropzone-radius);
+  background-color: var(--sk-file-upload-dropzone-bg);
+  color: var(--sk-file-upload-dropzone-fg);
   transition: border-color 0.15s ease, background 0.15s ease;
-  @apply flex items-center justify-center text-center p-6 rounded-[14px] bg-sk-surface
-         text-sk-text-muted cursor-pointer;
+  @apply flex items-center justify-center text-center p-6 cursor-pointer;
 }
 
 [data-sk='file-upload'] [data-part='dropzone']:hover {
-  @apply border-sk-primary;
+  --sk-file-upload-dropzone-border: var(--color-sk-primary);
+  border-color: var(--sk-file-upload-dropzone-border);
 }
 
 [data-sk='file-upload'] [data-part='dropzone'][data-dragging] {
-  border-color: var(--color-sk-primary);
-  background: color-mix(in srgb, var(--color-sk-primary) 8%, var(--color-sk-surface));
+  --sk-file-upload-dropzone-border: var(--color-sk-primary);
+  --sk-file-upload-dropzone-bg: color-mix(in srgb, var(--color-sk-primary) 8%, var(--color-sk-surface));
+  border-color: var(--sk-file-upload-dropzone-border);
+  background: var(--sk-file-upload-dropzone-bg);
 }
 
 [data-sk='file-upload'][data-error] [data-part='dropzone'] {
-  @apply border-sk-danger;
+  --sk-file-upload-dropzone-border: var(--color-sk-danger);
+  border-color: var(--sk-file-upload-dropzone-border);
 }
 
 /* ── ocultar el input nativo (sigue focuseable) ── */
@@ -47,22 +59,35 @@
 }
 
 [data-sk='file-upload'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-file-upload-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-file-upload-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='file-upload'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-file-upload-helper-fg: var(--color-sk-danger);
+  color: var(--sk-file-upload-helper-fg);
 }
 
 /* ── variant=button: disparador compacto ── */
 [data-sk='file-upload'][data-variant='button'] [data-part='dropzone'] {
+  --sk-file-upload-dropzone-border: var(--color-sk-border);
+  --sk-file-upload-dropzone-radius: var(--radius-sk-pill);
+  --sk-file-upload-dropzone-bg: var(--color-sk-surface);
+  --sk-file-upload-dropzone-fg: var(--color-sk-text);
+  border-color: var(--sk-file-upload-dropzone-border);
+  border-radius: var(--sk-file-upload-dropzone-radius);
+  background-color: var(--sk-file-upload-dropzone-bg);
+  color: var(--sk-file-upload-dropzone-fg);
   width: fit-content;
-  @apply inline-flex px-5 py-2 border border-sk-border rounded-sk-pill bg-sk-surface text-sk-text
-         font-semibold;
+  @apply inline-flex px-5 py-2 border font-semibold;
 }
 
 [data-sk='file-upload'][data-variant='button'] [data-part='dropzone']:hover {
-  @apply bg-sk-surface-2 border-sk-primary;
+  --sk-file-upload-dropzone-bg: var(--color-sk-surface-2);
+  --sk-file-upload-dropzone-border: var(--color-sk-primary);
+  background-color: var(--sk-file-upload-dropzone-bg);
+  border-color: var(--sk-file-upload-dropzone-border);
 }
 
 /* ── previews ── */
@@ -71,8 +96,13 @@
 }
 
 [data-sk='file-upload'] [data-part='preview'] {
-  @apply relative w-[72px] h-[72px] rounded-[10px] overflow-hidden border border-sk-border
-         bg-sk-surface-2 flex items-center justify-center;
+  --sk-file-upload-preview-radius: 10px;
+  --sk-file-upload-preview-border: var(--color-sk-border);
+  --sk-file-upload-preview-bg: var(--color-sk-surface-2);
+  border-radius: var(--sk-file-upload-preview-radius);
+  border-color: var(--sk-file-upload-preview-border);
+  background-color: var(--sk-file-upload-preview-bg);
+  @apply relative w-[72px] h-[72px] overflow-hidden border flex items-center justify-center;
 }
 
 [data-sk='file-upload'] [data-part='thumb'] {
@@ -80,7 +110,9 @@
 }
 
 [data-sk='file-upload'] [data-part='filename'] {
-  @apply text-sk-sm text-sk-text-muted p-1 text-center break-words overflow-hidden;
+  --sk-file-upload-filename-fg: var(--color-sk-text-muted);
+  color: var(--sk-file-upload-filename-fg);
+  @apply text-sk-sm p-1 text-center break-words overflow-hidden;
 }
 
 [data-sk='file-upload'] [data-part='remove'] {

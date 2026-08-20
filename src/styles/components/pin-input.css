@@ -8,7 +8,9 @@
 }
 
 [data-sk='pin-input'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-pin-input-label-fg: var(--color-sk-text);
+  color: var(--sk-pin-input-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='pin-input'] [data-part='group'] {
@@ -16,28 +18,41 @@
 }
 
 [data-sk='pin-input'] [data-part='field'] {
-  @apply w-11 h-12 text-center border border-sk-border rounded-sk-md bg-sk-surface text-sk-text
-         text-sk-lg font-semibold;
+  --sk-pin-input-field-border: var(--color-sk-border);
+  --sk-pin-input-field-radius: var(--radius-sk-md);
+  --sk-pin-input-field-bg: var(--color-sk-surface);
+  --sk-pin-input-field-fg: var(--color-sk-text);
+  border-color: var(--sk-pin-input-field-border);
+  border-radius: var(--sk-pin-input-field-radius);
+  background-color: var(--sk-pin-input-field-bg);
+  color: var(--sk-pin-input-field-fg);
+  @apply w-11 h-12 text-center border text-sk-lg font-semibold;
 }
 
 [data-sk='pin-input'] [data-part='field']:focus {
+  --sk-pin-input-field-border: var(--color-sk-primary);
+  border-color: var(--sk-pin-input-field-border);
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply border-sk-primary;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-pin-input-field-border) 25%, transparent);
 }
 
 [data-sk='pin-input'] [data-part='field'][data-filled] {
-  @apply border-sk-primary;
+  --sk-pin-input-field-border: var(--color-sk-primary);
+  border-color: var(--sk-pin-input-field-border);
 }
 
 [data-sk='pin-input'][data-error] [data-part='field'] {
-  @apply border-sk-danger;
+  --sk-pin-input-field-border: var(--color-sk-danger);
+  border-color: var(--sk-pin-input-field-border);
 }
 
 [data-sk='pin-input'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-pin-input-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-pin-input-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='pin-input'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-pin-input-helper-fg: var(--color-sk-danger);
+  color: var(--sk-pin-input-helper-fg);
 }

@@ -3,7 +3,13 @@
   @apply relative inline-flex;
 }
 [data-sk='tooltip'] [data-part='content'] {
-  @apply absolute z-10 py-1 px-3 rounded-sk-sm bg-sk-text text-sk-surface text-sk-sm
+  --sk-tooltip-content-bg: var(--color-sk-text);
+  --sk-tooltip-content-fg: var(--color-sk-surface);
+  --sk-tooltip-content-radius: var(--radius-sk-sm);
+  background-color: var(--sk-tooltip-content-bg);
+  color: var(--sk-tooltip-content-fg);
+  border-radius: var(--sk-tooltip-content-radius);
+  @apply absolute z-10 py-1 px-3 text-sk-sm
          whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-150 ease-out;
 }
 [data-sk='tooltip']:hover [data-part='content'],

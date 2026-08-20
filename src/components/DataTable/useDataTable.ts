@@ -7,6 +7,7 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react'
+import { useVirtualizer, type VirtualRow } from '../../lib/useVirtualizer'
 import type {
   ColumnDef,
   DataTableProps,
@@ -48,9 +49,15 @@ function defaultCompare(a: unknown, b: unknown): number {
 
 export interface DataTableModel<T> {
   rootRef: RefObject<HTMLDivElement | null>
+  scrollRef: RefObject<HTMLDivElement | null>
   sentinelRef: RefObject<HTMLDivElement | null>
   effectiveView: ViewMode
   toggleView: () => void
+
+  // virtualización (view='table' + virtualized únicamente)
+  isVirtualized: boolean
+  virtualRows: VirtualRow[]
+  virtualTotalHeight: number
 
   visibleColumns: ColumnDef<T>[]
   rows: T[]
@@ -114,12 +121,15 @@ export function useDataTable<T extends object>(props: DataTableProps<T>): DataTa
     onPageSizeChange,
     view = 'auto',
     cardBreakpoint = 640,
+    virtualized = false,
+    rowHeight = 0,
   } = props
 
   const selectionMode: SelectionMode =
     selection === true ? 'multiple' : selection === false ? 'none' : selection
 
   const rootRef = useRef<HTMLDivElement | null>(null)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
 
   const visibleColumns = useMemo(() => columns.filter((c) => !c.hidden), [columns])
@@ -290,6 +300,14 @@ export function useDataTable<T extends object>(props: DataTableProps<T>): DataTa
     [effectiveView],
   )
 
+  // ── virtualización ────────────────────────────────────────
+  const isVirtualized = virtualized && effectiveView === 'table' && rowHeight > 0
+  const { virtualRows, totalHeight: virtualTotalHeight } = useVirtualizer({
+    count: isVirtualized ? rows.length : 0,
+    rowHeight,
+    scrollRef,
+  })
+
   // ── scroll infinito ───────────────────────────────────────
   const { hasMore, loadingMore, onLoadMore } = props
   useEffect(() => {
@@ -305,9 +323,13 @@ export function useDataTable<T extends object>(props: DataTableProps<T>): DataTa
 
   return {
     rootRef,
+    scrollRef,
     sentinelRef,
     effectiveView,
     toggleView,
+    isVirtualized,
+    virtualRows,
+    virtualTotalHeight,
     visibleColumns,
     rows,
     getValue,

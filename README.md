@@ -5,7 +5,7 @@ emite estructura + un contrato de atributos estables (`data-sk`, `data-part`, `d
 todo lo visual vive en **un único sistema de tokens + CSS Tailwind-nativo**, totalmente
 personalizable pisando variables — sin forkear componentes ni elegir entre presets.
 
-- 94 componentes (Botones, formularios, overlays, navegación, feedback, layout...)
+- 99 componentes (Botones, formularios, overlays, navegación, feedback, layout...)
 - Un sistema de tokens (`--color-sk-*`, `--radius-sk-*`, `--shadow-sk-*`...) con valores por
   defecto listos para usar, y 100% overrideable
 - Un catálogo tipado (`skinkit/catalog`) con props/parts/ejemplos de cada componente — pensado para
@@ -21,9 +21,12 @@ bun add skinkit
 
 Peer deps: `react` y `react-dom` (>=18) son obligatorias. `react-hook-form`, `zod` y
 `@hookform/resolvers` son **opcionales** — sólo hacen falta si usás `skinkit/form`
-(ver [Formularios dinámicos](#formularios-dinámicos-dynamicform)); importar `skinkit` a secas no
-las arrastra. `tailwindcss` **no** es una dependencia obligatoria: el CSS que se importa desde
-`skinkit/styles/base` ya viene compilado, funciona sin que el consumidor tenga Tailwind instalado.
+(ver [Formularios dinámicos](#formularios-dinámicos-dynamicform)); los paquetes `@tiptap/*` también
+son **opcionales**, sólo hacen falta si usás `skinkit/editor`
+(ver [Editor de texto enriquecido](#editor-de-texto-enriquecido-richtexteditor)); importar `skinkit`
+a secas no arrastra ninguno de los dos. `tailwindcss` **no** es una dependencia obligatoria: el CSS
+que se importa desde `skinkit/styles/base` ya viene compilado, funciona sin que el consumidor tenga
+Tailwind instalado.
 
 ## Setup rápido
 
@@ -97,12 +100,13 @@ Los tokens disponibles — todos con default incluido — son:
 
 ## Componentes disponibles
 
-Los 94 componentes cubren acción (`Button`, `ButtonGroup`, `SplitButton`...), formulario (`Input`,
+Los 99 componentes cubren acción (`Button`, `ButtonGroup`, `SplitButton`...), formulario (`Input`,
 `Select`, `DatePicker`, `Combobox`, `MultiSelect`, `Slider`, `Rating`...), navegación (`Tabs`,
 `Breadcrumb`, `Menu`, `Sidebar`, `Stepper`...), overlays (`Dialog`, `Popover`, `Tooltip`,
-`HoverCard`, `CommandMenu`...), feedback (`Toast`, `Progress`, `Skeleton`, `EmptyState`...), display
-(`Card`, `Avatar`, `Badge`, `DataTable`, `Timeline`...) y layout (`Stack`, `Grid`, `Container`,
-`AppShell`, `Spacer`...). Todos se importan igual:
+`HoverCard`, `CommandMenu`, `FilePreviewer`, `Tour`...), feedback (`Toast`, `Progress`, `Skeleton`,
+`EmptyState`...), display (`Card`, `Avatar`, `Badge`, `DataTable`, `Timeline`, `VideoPlayer`,
+`AudioPlayer`, `QRCode`...) y layout (`Stack`, `Grid`, `Container`, `AppShell`, `Spacer`...). Todos
+se importan igual:
 
 ```tsx
 import { Tabs, Dialog, Select, DataTable } from 'skinkit'
@@ -181,6 +185,85 @@ const schema = {
 Detalles completos (subformularios `object`, listas `array`, condiciones `and`/`or`/`not`, campos
 externos vía `externalValues`) en `getComponentSpec('DynamicForm')` del catálogo.
 
+## Editor de texto enriquecido (`RichTextEditor`)
+
+Un editor WYSIWYG tipo Word — negrita/cursiva/subrayado/tachado, títulos, listas, cita, bloque de
+código, alineación, color de texto, links, imágenes y tablas —, envolviendo
+[Tiptap](https://tiptap.dev) (ProseMirror): selección, undo/redo, pegado y serialización los
+resuelve Tiptap; skinkit sólo aporta la estructura, el contrato `data-sk`/`data-part` y reusa sus
+propios primitivos (`Toggle`, `Button`, `Toolbar`, `SegmentedControl`, `Select`, `PromptDialog`,
+`Prose`) para cada botón. Igual que `DynamicForm`, vive en su **propio subpath**:
+
+```bash
+npm install @tiptap/core @tiptap/pm @tiptap/react @tiptap/starter-kit \
+  @tiptap/extension-image @tiptap/extension-text-align @tiptap/extension-text-style \
+  @tiptap/extension-table @tiptap/extension-placeholder
+```
+
+```tsx
+import { RichTextEditor } from 'skinkit/editor'
+import { useState } from 'react'
+
+function Notas() {
+  const [html, setHtml] = useState('<p>Escribí algo…</p>')
+  return (
+    <RichTextEditor content={html} onChange={setHtml} placeholder="Escribí algo…">
+      <RichTextEditor.Toolbar>
+        <RichTextEditor.BlockType />
+        <RichTextEditor.Separator />
+        <RichTextEditor.Bold />
+        <RichTextEditor.Italic />
+        <RichTextEditor.Underline />
+        <RichTextEditor.Strike />
+        <RichTextEditor.Separator />
+        <RichTextEditor.BulletList />
+        <RichTextEditor.OrderedList />
+        <RichTextEditor.Link />
+        <RichTextEditor.Image />
+        <RichTextEditor.Table />
+      </RichTextEditor.Toolbar>
+      <RichTextEditor.TableControls />
+      <RichTextEditor.Content />
+    </RichTextEditor>
+  )
+}
+```
+
+`DEFAULT_EXTENSIONS` (el default de la prop `extensions`) ya trae absolutamente todo — no hace
+falta armar la lista de extensiones a mano para que un botón funcione; `extensions` sólo sirve para
+recortar el set o sumar extensiones propias. Su CSS va incluido dentro del mismo
+`skinkit/styles/base` (no hay un import de estilos separado para el editor). Lista completa de
+botones/parts en
+`getComponentSpec('RichTextEditor')` del catálogo.
+
+## Vista previa de Word/Excel (`skinkit/file-preview-office`)
+
+`FilePreviewer` (core, cero deps) ya previsualiza imagen/video/audio/PDF/código de fábrica; para
+Word y Excel muestra un panel de fallback (ícono + nombre + descargar) porque renderizarlos de
+verdad requiere parsear formatos binarios (docx/xlsx son zip+XML) — no algo para reinventar a
+mano. Ese preview real vive en su **propio subpath opt-in**, mismo patrón que `skinkit/editor`:
+
+```bash
+npm install docx-preview xlsx
+```
+
+```tsx
+import { FilePreviewer } from 'skinkit'
+import { officeRenderers } from 'skinkit/file-preview-office'
+
+<FilePreviewer
+  open={open}
+  onClose={() => setOpen(false)}
+  files={archivos}
+  renderers={officeRenderers}
+/>
+```
+
+`officeRenderers` trae `word` (vía `docx-preview`, render fiel a HTML) y `excel` (vía `xlsx`/
+SheetJS Community Edition — solo la primera hoja, sin fórmulas/gráficos/formato, una tabla
+"básica"). Sin instalar los peers e importar esto, esos dos tipos siguen mostrando el fallback
+genérico — nunca rompen, solo no tienen preview real.
+
 ## Layout responsive
 
 Los componentes de layout (`Grid`, `Stack`, `AppShell`...) aceptan props "responsive": un valor
@@ -224,6 +307,6 @@ Muestra el catálogo completo agrupado por categoría, con un panel de override 
 
 ## Estado
 
-94 componentes, un solo sistema de tokens Tailwind-nativo. El catálogo (`skinkit/catalog`) es la
+99 componentes, un solo sistema de tokens Tailwind-nativo. El catálogo (`skinkit/catalog`) es la
 fuente de la verdad para generación de UI asistida por IA: si un componente o prop no está ahí,
 para la IA no existe.

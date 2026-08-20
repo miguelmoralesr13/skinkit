@@ -1,48 +1,88 @@
 /* ── DataTable ──────────────────────────────────────────────── */
 [data-sk='datatable'] {
-  @apply flex flex-col gap-3 text-sk-text text-sk-md;
+  --sk-datatable-fg: var(--color-sk-text);
+  color: var(--sk-datatable-fg);
+  @apply flex flex-col gap-3 text-sk-md;
 }
 [data-sk='datatable'] [data-part='toolbar'] {
   @apply flex items-center justify-between gap-3 flex-wrap;
 }
 [data-sk='datatable'] [data-part='search'] {
-  @apply font-[inherit] text-sk-text bg-sk-surface border border-sk-border rounded-[10px]
-         py-2 px-3 min-w-48;
+  --sk-datatable-search-fg: var(--color-sk-text);
+  --sk-datatable-search-bg: var(--color-sk-surface);
+  --sk-datatable-search-border: var(--color-sk-border);
+  --sk-datatable-search-radius: 10px;
+  color: var(--sk-datatable-search-fg);
+  background-color: var(--sk-datatable-search-bg);
+  border-color: var(--sk-datatable-search-border);
+  border-radius: var(--sk-datatable-search-radius);
+  @apply font-[inherit] border py-2 px-3 min-w-48;
 }
 [data-sk='datatable'] [data-part='search']:focus-visible {
-  @apply outline outline-2 outline-sk-primary outline-offset-1;
+  --sk-datatable-search-border: var(--color-sk-primary);
+  outline-color: var(--sk-datatable-search-border);
+  @apply outline outline-2 outline-offset-1;
 }
 [data-sk='datatable'] [data-part='toolbar-actions'],
 [data-sk='datatable'] [data-part='bulk-actions'] {
   @apply flex items-center gap-2;
 }
 [data-sk='datatable'] [data-part='bulk-count'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-datatable-bulk-count-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-bulk-count-fg);
+  @apply text-sk-sm;
 }
 [data-sk='datatable'] [data-part='view-toggle'] {
-  @apply font-[inherit] text-sk-sm text-sk-text bg-sk-surface-2 border border-sk-border
-         rounded-sk-sm py-1 px-3 cursor-pointer;
+  --sk-datatable-view-toggle-fg: var(--color-sk-text);
+  --sk-datatable-view-toggle-bg: var(--color-sk-surface-2);
+  --sk-datatable-view-toggle-border: var(--color-sk-border);
+  --sk-datatable-view-toggle-radius: var(--radius-sk-sm);
+  color: var(--sk-datatable-view-toggle-fg);
+  background-color: var(--sk-datatable-view-toggle-bg);
+  border-color: var(--sk-datatable-view-toggle-border);
+  border-radius: var(--sk-datatable-view-toggle-radius);
+  @apply font-[inherit] text-sk-sm border py-1 px-3 cursor-pointer;
 }
 [data-sk='datatable'] [data-part='loading'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-datatable-loading-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-loading-fg);
+  @apply text-sk-sm;
 }
 
 /* tabla */
 [data-sk='datatable'] [data-part='scroll'] {
-  @apply overflow-x-auto border border-sk-border rounded-[14px];
+  --sk-datatable-scroll-border: var(--color-sk-border);
+  --sk-datatable-scroll-radius: 14px;
+  border-color: var(--sk-datatable-scroll-border);
+  border-radius: var(--sk-datatable-scroll-radius);
+  @apply overflow-x-auto border;
+}
+/* Virtualizada: el alto lo pone DataTable.tsx por inline style (es un número calculado en
+ * runtime, no una clase) — acá solo el overflow-y que habilita el scroll vertical. */
+[data-sk='datatable'] [data-part='scroll'][data-virtualized] {
+  @apply overflow-y-auto;
 }
 [data-sk='datatable'] [data-part='table'] {
   @apply w-full border-collapse tabular-nums;
 }
 [data-sk='datatable'] [data-part='caption'] {
-  @apply py-2 px-3 text-left text-sk-text-muted text-sk-sm;
+  --sk-datatable-caption-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-caption-fg);
+  @apply py-2 px-3 text-left text-sk-sm;
 }
 [data-sk='datatable'] [data-part='th'] {
-  @apply text-left text-sk-sm font-semibold text-sk-text-muted bg-sk-surface-2 py-2 px-3
-         border-b border-sk-border whitespace-nowrap;
+  --sk-datatable-th-fg: var(--color-sk-text-muted);
+  --sk-datatable-th-bg: var(--color-sk-surface-2);
+  --sk-datatable-th-border: var(--color-sk-border);
+  color: var(--sk-datatable-th-fg);
+  background-color: var(--sk-datatable-th-bg);
+  border-color: var(--sk-datatable-th-border);
+  @apply text-left text-sk-sm font-semibold py-2 px-3 border-b whitespace-nowrap;
 }
 [data-sk='datatable'] [data-part='td'] {
-  @apply p-3 border-b border-sk-border;
+  --sk-datatable-td-border: var(--color-sk-border);
+  border-color: var(--sk-datatable-td-border);
+  @apply p-3 border-b;
 }
 [data-sk='datatable'] [data-part='tr']:last-child [data-part='td'] {
   @apply border-b-0;
@@ -59,10 +99,12 @@
   @apply w-[1%] whitespace-nowrap;
 }
 [data-sk='datatable'] [data-part='tr']:hover [data-part='td'] {
-  @apply bg-sk-surface-2;
+  --sk-datatable-td-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-datatable-td-bg);
 }
 [data-sk='datatable'] [data-part='tr'][data-selected] [data-part='td'] {
-  background: color-mix(in srgb, var(--color-sk-primary) 12%, var(--color-sk-surface));
+  --sk-datatable-td-bg: var(--color-sk-primary);
+  background: color-mix(in srgb, var(--sk-datatable-td-bg) 12%, var(--color-sk-surface));
 }
 [data-sk='datatable'] [data-part='th-button'] {
   @apply inline-flex items-center gap-1 font-[inherit] font-semibold text-inherit bg-transparent
@@ -95,11 +137,18 @@
   @apply gap-3;
 }
 [data-sk='datatable'] [data-part='card'] {
-  @apply flex flex-col gap-2 p-3 bg-sk-surface border border-sk-border rounded-[14px];
+  --sk-datatable-card-bg: var(--color-sk-surface);
+  --sk-datatable-card-border: var(--color-sk-border);
+  --sk-datatable-card-radius: 14px;
+  background-color: var(--sk-datatable-card-bg);
+  border-color: var(--sk-datatable-card-border);
+  border-radius: var(--sk-datatable-card-radius);
+  @apply flex flex-col gap-2 p-3 border;
 }
 [data-sk='datatable'] [data-part='card'][data-selected] {
-  border-color: var(--color-sk-primary);
-  box-shadow: 0 0 0 1px var(--color-sk-primary);
+  --sk-datatable-card-border: var(--color-sk-primary);
+  border-color: var(--sk-datatable-card-border);
+  box-shadow: 0 0 0 1px var(--sk-datatable-card-border);
 }
 [data-sk='datatable'] [data-part='card-header'] {
   @apply flex items-start gap-2;
@@ -111,7 +160,9 @@
   @apply font-bold;
 }
 [data-sk='datatable'] [data-part='card-subtitle'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-datatable-card-subtitle-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-card-subtitle-fg);
+  @apply text-sk-sm;
 }
 [data-sk='datatable'] [data-part='card-body'] {
   @apply flex flex-col gap-1;
@@ -120,7 +171,8 @@
   @apply flex justify-between gap-3 text-sk-sm;
 }
 [data-sk='datatable'] [data-part='card-label'] {
-  @apply text-sk-text-muted;
+  --sk-datatable-card-label-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-card-label-fg);
 }
 [data-sk='datatable'] [data-part='card-value'] {
   @apply text-right;
@@ -128,32 +180,54 @@
 
 /* footer / paginado */
 [data-sk='datatable'] [data-part='footer'] {
-  @apply flex items-center justify-between gap-3 flex-wrap text-sk-sm text-sk-text-muted;
+  --sk-datatable-footer-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-footer-fg);
+  @apply flex items-center justify-between gap-3 flex-wrap text-sk-sm;
 }
 [data-sk='datatable'] [data-part='page-size'] {
   @apply flex items-center gap-2;
 }
 [data-sk='datatable'] [data-part='page-size-select'] {
-  @apply font-[inherit] text-sk-text bg-sk-surface border border-sk-border rounded-sk-sm py-1 px-2;
+  --sk-datatable-page-size-select-fg: var(--color-sk-text);
+  --sk-datatable-page-size-select-bg: var(--color-sk-surface);
+  --sk-datatable-page-size-select-border: var(--color-sk-border);
+  --sk-datatable-page-size-select-radius: var(--radius-sk-sm);
+  color: var(--sk-datatable-page-size-select-fg);
+  background-color: var(--sk-datatable-page-size-select-bg);
+  border-color: var(--sk-datatable-page-size-select-border);
+  border-radius: var(--sk-datatable-page-size-select-radius);
+  @apply font-[inherit] border py-1 px-2;
 }
 [data-sk='datatable'] [data-part='pager'] {
   @apply flex items-center gap-2;
 }
 [data-sk='datatable'] [data-part='page-btn'] {
-  @apply inline-flex items-center justify-center w-8 h-8 text-[1.1rem] text-sk-text bg-sk-surface
-         border border-sk-border rounded-sk-sm cursor-pointer;
+  --sk-datatable-page-btn-fg: var(--color-sk-text);
+  --sk-datatable-page-btn-bg: var(--color-sk-surface);
+  --sk-datatable-page-btn-border: var(--color-sk-border);
+  --sk-datatable-page-btn-radius: var(--radius-sk-sm);
+  color: var(--sk-datatable-page-btn-fg);
+  background-color: var(--sk-datatable-page-btn-bg);
+  border-color: var(--sk-datatable-page-btn-border);
+  border-radius: var(--sk-datatable-page-btn-radius);
+  @apply inline-flex items-center justify-center w-8 h-8 text-[1.1rem] border cursor-pointer;
 }
 [data-sk='datatable'] [data-part='page-btn']:disabled {
   @apply opacity-45 cursor-not-allowed;
 }
 [data-sk='datatable'] [data-part='page-current'] {
-  @apply text-sk-text;
+  --sk-datatable-page-current-fg: var(--color-sk-text);
+  color: var(--sk-datatable-page-current-fg);
 }
 
 /* sentinel / empty */
 [data-sk='datatable'] [data-part='sentinel'] {
-  @apply min-h-[2.5rem] grid place-items-center text-sk-sm text-sk-text-muted;
+  --sk-datatable-sentinel-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-sentinel-fg);
+  @apply min-h-[2.5rem] grid place-items-center text-sk-sm;
 }
 [data-sk='datatable'] [data-part='empty'] {
-  @apply p-6 text-center text-sk-text-muted;
+  --sk-datatable-empty-fg: var(--color-sk-text-muted);
+  color: var(--sk-datatable-empty-fg);
+  @apply p-6 text-center;
 }

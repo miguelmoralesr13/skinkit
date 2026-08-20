@@ -3,23 +3,32 @@
   @apply flex items-start gap-3;
 }
 [data-sk='stat'] [data-part='icon'] {
-  @apply flex-none text-sk-primary mt-1;
+  --sk-stat-icon-fg: var(--color-sk-primary);
+  color: var(--sk-stat-icon-fg);
+  @apply flex-none mt-1;
 }
 [data-sk='stat'] [data-part='label'] {
-  @apply text-sk-sm font-medium text-sk-text-muted;
+  --sk-stat-label-fg: var(--color-sk-text-muted);
+  color: var(--sk-stat-label-fg);
+  @apply text-sk-sm font-medium;
 }
 [data-sk='stat'] [data-part='value'] {
-  @apply text-[1.6rem] font-bold leading-[1.1] text-sk-text;
+  --sk-stat-value-fg: var(--color-sk-text);
+  color: var(--sk-stat-value-fg);
+  @apply text-[1.6rem] font-bold leading-[1.1];
 }
 [data-sk='stat'] [data-part='delta'] {
   @apply mt-[3px] text-sk-sm font-semibold;
 }
 [data-sk='stat'] [data-part='delta'][data-trend='up'] {
-  @apply text-sk-primary;
+  --sk-stat-delta-fg: var(--color-sk-primary);
+  color: var(--sk-stat-delta-fg);
 }
 [data-sk='stat'] [data-part='delta'][data-trend='down'] {
-  @apply text-sk-danger;
+  --sk-stat-delta-fg: var(--color-sk-danger);
+  color: var(--sk-stat-delta-fg);
 }
 [data-sk='stat'] [data-part='delta'][data-trend='neutral'] {
-  @apply text-sk-text-muted;
+  --sk-stat-delta-fg: var(--color-sk-text-muted);
+  color: var(--sk-stat-delta-fg);
 }

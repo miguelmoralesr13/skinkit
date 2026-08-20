@@ -3,8 +3,14 @@
   @apply relative inline-block;
 }
 [data-sk='popover'] [data-part='content'] {
-  @apply absolute z-50 min-w-48 p-4 bg-sk-surface border border-sk-border rounded-sk-md;
+  --sk-popover-content-bg: var(--color-sk-surface);
+  --sk-popover-content-border: var(--color-sk-border);
+  --sk-popover-content-radius: var(--radius-sk-md);
+  background-color: var(--sk-popover-content-bg);
+  border-color: var(--sk-popover-content-border);
+  border-radius: var(--sk-popover-content-radius);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  @apply absolute z-50 min-w-48 p-4 border;
 }
 [data-sk='popover'][data-side='bottom'] [data-part='content'] {
   @apply top-full left-0 mt-2;
@@ -19,11 +25,19 @@
   @apply right-full top-0 mr-2;
 }
 [data-sk='popover'] [data-part='trigger'] {
+  --sk-popover-trigger-border: var(--color-sk-border);
+  --sk-popover-trigger-radius: var(--radius-sk-pill);
+  --sk-popover-trigger-bg: var(--color-sk-surface);
+  --sk-popover-trigger-fg: var(--color-sk-text);
+  border-color: var(--sk-popover-trigger-border);
+  border-radius: var(--sk-popover-trigger-radius);
+  background-color: var(--sk-popover-trigger-bg);
+  color: var(--sk-popover-trigger-fg);
   appearance: none;
   font: inherit;
-  @apply cursor-pointer px-4 py-2 border border-sk-border rounded-sk-pill bg-sk-surface
-         text-sk-text text-sk-md font-semibold;
+  @apply cursor-pointer px-4 py-2 border text-sk-md font-semibold;
 }
 [data-sk='popover'] [data-part='trigger']:hover {
-  @apply bg-sk-surface-2;
+  --sk-popover-trigger-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-popover-trigger-bg);
 }

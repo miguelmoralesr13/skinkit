@@ -8,28 +8,43 @@
 }
 
 [data-sk='input'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-input-label-fg: var(--color-sk-text);
+  color: var(--sk-input-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='input'] [data-part='field'] {
-  @apply px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text text-sk-md
+  --sk-input-field-border: var(--color-sk-border);
+  --sk-input-field-radius: var(--radius-sk-md);
+  --sk-input-field-bg: var(--color-sk-surface);
+  --sk-input-field-fg: var(--color-sk-text);
+  border-color: var(--sk-input-field-border);
+  border-radius: var(--sk-input-field-radius);
+  background-color: var(--sk-input-field-bg);
+  color: var(--sk-input-field-fg);
+  @apply px-4 py-3 border text-sk-md
          transition-[border-color,box-shadow] duration-150 ease-in-out;
 }
 
 [data-sk='input'] [data-part='field']:focus {
+  --sk-input-field-border: var(--color-sk-primary);
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply border-sk-primary;
+  border-color: var(--sk-input-field-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-input-field-border) 25%, transparent);
 }
 
 [data-sk='input'][data-error] [data-part='field'] {
-  @apply border-sk-danger;
+  --sk-input-field-border: var(--color-sk-danger);
+  border-color: var(--sk-input-field-border);
 }
 
 [data-sk='input'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-input-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-input-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='input'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-input-helper-fg: var(--color-sk-danger);
+  color: var(--sk-input-helper-fg);
 }

@@ -1,18 +1,59 @@
 /* ── Badge ──────────────────────────────────────────────────── */
 [data-sk='badge'] {
-  @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-sk-pill text-sk-sm font-semibold
-         leading-[1.4] bg-sk-surface-2 text-sk-text;
+  --sk-badge-bg: var(--color-sk-surface-2);
+  --sk-badge-fg: var(--color-sk-text);
+  --sk-badge-radius: var(--radius-sk-pill);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
+  border-radius: var(--sk-badge-radius);
+  @apply inline-flex items-center gap-1 px-2 py-0.5 text-sk-sm font-semibold leading-[1.4];
 }
 [data-sk='badge'][data-variant='primary'] {
-  @apply bg-sk-primary text-sk-on-primary;
+  --sk-badge-bg: var(--color-sk-primary);
+  --sk-badge-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
 }
 /* Nota: el skin original usa on-primary (no on-danger) para el texto de danger — se preserva tal cual. */
 [data-sk='badge'][data-variant='danger'] {
-  @apply bg-sk-danger text-sk-on-primary;
+  --sk-badge-bg: var(--color-sk-danger);
+  --sk-badge-fg: var(--color-sk-on-primary);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
 }
-[data-sk='badge'][data-variant='secondary'] { @apply bg-sk-secondary text-sk-on-secondary; }
-[data-sk='badge'][data-variant='tertiary'] { @apply bg-sk-tertiary text-sk-on-tertiary; }
-[data-sk='badge'][data-variant='accent'] { @apply bg-sk-accent text-sk-on-accent; }
-[data-sk='badge'][data-variant='success'] { @apply bg-sk-success text-sk-on-success; }
-[data-sk='badge'][data-variant='warning'] { @apply bg-sk-warning text-sk-on-warning; }
-[data-sk='badge'][data-variant='info'] { @apply bg-sk-info text-sk-on-info; }
+[data-sk='badge'][data-variant='secondary'] {
+  --sk-badge-bg: var(--color-sk-secondary);
+  --sk-badge-fg: var(--color-sk-on-secondary);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
+}
+[data-sk='badge'][data-variant='tertiary'] {
+  --sk-badge-bg: var(--color-sk-tertiary);
+  --sk-badge-fg: var(--color-sk-on-tertiary);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
+}
+[data-sk='badge'][data-variant='accent'] {
+  --sk-badge-bg: var(--color-sk-accent);
+  --sk-badge-fg: var(--color-sk-on-accent);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
+}
+[data-sk='badge'][data-variant='success'] {
+  --sk-badge-bg: var(--color-sk-success);
+  --sk-badge-fg: var(--color-sk-on-success);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
+}
+[data-sk='badge'][data-variant='warning'] {
+  --sk-badge-bg: var(--color-sk-warning);
+  --sk-badge-fg: var(--color-sk-on-warning);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
+}
+[data-sk='badge'][data-variant='info'] {
+  --sk-badge-bg: var(--color-sk-info);
+  --sk-badge-fg: var(--color-sk-on-info);
+  background-color: var(--sk-badge-bg);
+  color: var(--sk-badge-fg);
+}

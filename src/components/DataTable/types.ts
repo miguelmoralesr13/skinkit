@@ -127,4 +127,13 @@ export interface DataTableProps<T extends object = Row>
   loading?: boolean
   emptyContent?: ReactNode
   caption?: ReactNode
+
+  // ── virtualización (solo view='table', fila de alto fijo) ──
+  /** Renderiza solo las filas visibles (+ overscan) en vez de `rows` completo. Requiere
+   * `rowHeight` y `height`. No aplica en vista 'cards' (contenido de alto variable). */
+  virtualized?: boolean
+  /** Alto en px de cada fila — uniforme, requerido cuando `virtualized`. */
+  rowHeight?: number
+  /** Alto en px del viewport con scroll — requerido cuando `virtualized`. */
+  height?: number
 }

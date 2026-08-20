@@ -8,28 +8,43 @@
 }
 
 [data-sk='time-picker'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-time-picker-label-fg: var(--color-sk-text);
+  color: var(--sk-time-picker-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='time-picker'] [data-part='field'] {
+  --sk-time-picker-field-bg: var(--color-sk-surface);
+  --sk-time-picker-field-border: var(--color-sk-border);
+  --sk-time-picker-field-radius: var(--radius-sk-md);
+  --sk-time-picker-field-fg: var(--color-sk-text);
+  background-color: var(--sk-time-picker-field-bg);
+  border-color: var(--sk-time-picker-field-border);
+  border-radius: var(--sk-time-picker-field-radius);
+  color: var(--sk-time-picker-field-fg);
   font: inherit;
-  @apply px-4 py-3 border border-sk-border rounded-sk-md bg-sk-surface text-sk-text text-sk-md;
+  @apply px-4 py-3 border text-sk-md;
 }
 
 [data-sk='time-picker'] [data-part='field']:focus {
+  --sk-time-picker-field-border: var(--color-sk-primary);
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply border-sk-primary;
+  border-color: var(--sk-time-picker-field-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-time-picker-field-border) 25%, transparent);
 }
 
 [data-sk='time-picker'][data-error] [data-part='field'] {
-  @apply border-sk-danger;
+  --sk-time-picker-field-border: var(--color-sk-danger);
+  border-color: var(--sk-time-picker-field-border);
 }
 
 [data-sk='time-picker'] [data-part='helper'] {
-  @apply text-sk-sm text-sk-text-muted;
+  --sk-time-picker-helper-fg: var(--color-sk-text-muted);
+  color: var(--sk-time-picker-helper-fg);
+  @apply text-sk-sm;
 }
 
 [data-sk='time-picker'][data-error] [data-part='helper'] {
-  @apply text-sk-danger;
+  --sk-time-picker-helper-fg: var(--color-sk-danger);
+  color: var(--sk-time-picker-helper-fg);
 }

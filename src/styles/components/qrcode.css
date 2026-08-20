@@ -1,0 +1,13 @@
+/**
+ * qrcode.css — estilo de <QRCode> (data-sk="qrcode"). Ver QRCode.tsx / .catalog.ts.
+ */
+
+[data-sk='qrcode'] {
+  --sk-qrcode-bg: var(--color-sk-surface);
+  background-color: var(--sk-qrcode-bg);
+}
+
+[data-sk='qrcode'] [data-part='module'] {
+  --sk-qrcode-module-fg: var(--color-sk-text);
+  fill: var(--sk-qrcode-module-fg);
+}

@@ -1,45 +1,101 @@
 /* ── Sparkline ──────────────────────────────────────────────── */
 [data-sk='sparkline'] [data-part='line'] {
-  stroke: var(--color-sk-primary);
+  --sk-sparkline-line-fg: var(--color-sk-primary);
+  stroke: var(--sk-sparkline-line-fg);
   stroke-width: 2;
   stroke-linejoin: round;
   stroke-linecap: round;
 }
 [data-sk='sparkline'] [data-part='area'] {
-  fill: color-mix(in srgb, var(--color-sk-primary) 18%, transparent);
+  --sk-sparkline-area-fg: var(--color-sk-primary);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
   stroke: none;
 }
 [data-sk='sparkline'] [data-part='dot'] {
-  fill: var(--color-sk-primary);
+  --sk-sparkline-dot-fg: var(--color-sk-primary);
+  fill: var(--sk-sparkline-dot-fg);
 }
 [data-sk='sparkline'][data-tone='danger'] [data-part='line'],
 [data-sk='sparkline'][data-tone='danger'] [data-part='dot'] {
-  stroke: var(--color-sk-danger);
-  fill: var(--color-sk-danger);
+  --sk-sparkline-line-fg: var(--color-sk-danger);
+  --sk-sparkline-dot-fg: var(--color-sk-danger);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
 }
 [data-sk='sparkline'][data-tone='danger'] [data-part='area'] {
-  fill: color-mix(in srgb, var(--color-sk-danger) 18%, transparent);
+  --sk-sparkline-area-fg: var(--color-sk-danger);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
 }
 [data-sk='sparkline'][data-tone='neutral'] [data-part='line'],
 [data-sk='sparkline'][data-tone='neutral'] [data-part='dot'] {
-  stroke: var(--color-sk-text-muted);
-  fill: var(--color-sk-text-muted);
+  --sk-sparkline-line-fg: var(--color-sk-text-muted);
+  --sk-sparkline-dot-fg: var(--color-sk-text-muted);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
 }
 [data-sk='sparkline'][data-tone='secondary'] [data-part='line'],
-[data-sk='sparkline'][data-tone='secondary'] [data-part='dot'] { stroke: var(--color-sk-secondary); fill: var(--color-sk-secondary); }
-[data-sk='sparkline'][data-tone='secondary'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-secondary) 18%, transparent); }
+[data-sk='sparkline'][data-tone='secondary'] [data-part='dot'] {
+  --sk-sparkline-line-fg: var(--color-sk-secondary);
+  --sk-sparkline-dot-fg: var(--color-sk-secondary);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
+}
+[data-sk='sparkline'][data-tone='secondary'] [data-part='area'] {
+  --sk-sparkline-area-fg: var(--color-sk-secondary);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
+}
 [data-sk='sparkline'][data-tone='tertiary'] [data-part='line'],
-[data-sk='sparkline'][data-tone='tertiary'] [data-part='dot'] { stroke: var(--color-sk-tertiary); fill: var(--color-sk-tertiary); }
-[data-sk='sparkline'][data-tone='tertiary'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-tertiary) 18%, transparent); }
+[data-sk='sparkline'][data-tone='tertiary'] [data-part='dot'] {
+  --sk-sparkline-line-fg: var(--color-sk-tertiary);
+  --sk-sparkline-dot-fg: var(--color-sk-tertiary);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
+}
+[data-sk='sparkline'][data-tone='tertiary'] [data-part='area'] {
+  --sk-sparkline-area-fg: var(--color-sk-tertiary);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
+}
 [data-sk='sparkline'][data-tone='accent'] [data-part='line'],
-[data-sk='sparkline'][data-tone='accent'] [data-part='dot'] { stroke: var(--color-sk-accent); fill: var(--color-sk-accent); }
-[data-sk='sparkline'][data-tone='accent'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-accent) 18%, transparent); }
+[data-sk='sparkline'][data-tone='accent'] [data-part='dot'] {
+  --sk-sparkline-line-fg: var(--color-sk-accent);
+  --sk-sparkline-dot-fg: var(--color-sk-accent);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
+}
+[data-sk='sparkline'][data-tone='accent'] [data-part='area'] {
+  --sk-sparkline-area-fg: var(--color-sk-accent);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
+}
 [data-sk='sparkline'][data-tone='success'] [data-part='line'],
-[data-sk='sparkline'][data-tone='success'] [data-part='dot'] { stroke: var(--color-sk-success); fill: var(--color-sk-success); }
-[data-sk='sparkline'][data-tone='success'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-success) 18%, transparent); }
+[data-sk='sparkline'][data-tone='success'] [data-part='dot'] {
+  --sk-sparkline-line-fg: var(--color-sk-success);
+  --sk-sparkline-dot-fg: var(--color-sk-success);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
+}
+[data-sk='sparkline'][data-tone='success'] [data-part='area'] {
+  --sk-sparkline-area-fg: var(--color-sk-success);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
+}
 [data-sk='sparkline'][data-tone='warning'] [data-part='line'],
-[data-sk='sparkline'][data-tone='warning'] [data-part='dot'] { stroke: var(--color-sk-warning); fill: var(--color-sk-warning); }
-[data-sk='sparkline'][data-tone='warning'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-warning) 18%, transparent); }
+[data-sk='sparkline'][data-tone='warning'] [data-part='dot'] {
+  --sk-sparkline-line-fg: var(--color-sk-warning);
+  --sk-sparkline-dot-fg: var(--color-sk-warning);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
+}
+[data-sk='sparkline'][data-tone='warning'] [data-part='area'] {
+  --sk-sparkline-area-fg: var(--color-sk-warning);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
+}
 [data-sk='sparkline'][data-tone='info'] [data-part='line'],
-[data-sk='sparkline'][data-tone='info'] [data-part='dot'] { stroke: var(--color-sk-info); fill: var(--color-sk-info); }
-[data-sk='sparkline'][data-tone='info'] [data-part='area'] { fill: color-mix(in srgb, var(--color-sk-info) 18%, transparent); }
+[data-sk='sparkline'][data-tone='info'] [data-part='dot'] {
+  --sk-sparkline-line-fg: var(--color-sk-info);
+  --sk-sparkline-dot-fg: var(--color-sk-info);
+  stroke: var(--sk-sparkline-line-fg);
+  fill: var(--sk-sparkline-dot-fg);
+}
+[data-sk='sparkline'][data-tone='info'] [data-part='area'] {
+  --sk-sparkline-area-fg: var(--color-sk-info);
+  fill: color-mix(in srgb, var(--sk-sparkline-area-fg) 18%, transparent);
+}

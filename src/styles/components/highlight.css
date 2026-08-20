@@ -1,13 +1,16 @@
 /* ── Highlight ──────────────────────────────────────────────── */
 [data-sk='highlight'] [data-part='match'] {
-  @apply rounded-[3px] px-px;
-  background: color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
+  --sk-highlight-match-radius: 3px;
+  --sk-highlight-match-bg: var(--color-sk-primary);
+  border-radius: var(--sk-highlight-match-radius);
+  background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent);
   color: inherit;
+  @apply px-px;
 }
-[data-sk='highlight'][data-tone='secondary'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-secondary) 25%, transparent); }
-[data-sk='highlight'][data-tone='tertiary'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-tertiary) 25%, transparent); }
-[data-sk='highlight'][data-tone='accent'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-accent) 25%, transparent); }
-[data-sk='highlight'][data-tone='success'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-success) 25%, transparent); }
-[data-sk='highlight'][data-tone='warning'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-warning) 25%, transparent); }
-[data-sk='highlight'][data-tone='info'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-info) 25%, transparent); }
-[data-sk='highlight'][data-tone='danger'] [data-part='match'] { background: color-mix(in srgb, var(--color-sk-danger) 25%, transparent); }
+[data-sk='highlight'][data-tone='secondary'] [data-part='match'] { --sk-highlight-match-bg: var(--color-sk-secondary); background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent); }
+[data-sk='highlight'][data-tone='tertiary'] [data-part='match'] { --sk-highlight-match-bg: var(--color-sk-tertiary); background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent); }
+[data-sk='highlight'][data-tone='accent'] [data-part='match'] { --sk-highlight-match-bg: var(--color-sk-accent); background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent); }
+[data-sk='highlight'][data-tone='success'] [data-part='match'] { --sk-highlight-match-bg: var(--color-sk-success); background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent); }
+[data-sk='highlight'][data-tone='warning'] [data-part='match'] { --sk-highlight-match-bg: var(--color-sk-warning); background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent); }
+[data-sk='highlight'][data-tone='info'] [data-part='match'] { --sk-highlight-match-bg: var(--color-sk-info); background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent); }
+[data-sk='highlight'][data-tone='danger'] [data-part='match'] { --sk-highlight-match-bg: var(--color-sk-danger); background: color-mix(in srgb, var(--sk-highlight-match-bg) 25%, transparent); }

@@ -8,25 +8,41 @@
 }
 
 [data-sk='editable'] [data-part='label'] {
-  @apply text-sk-sm font-semibold text-sk-text;
+  --sk-editable-label-fg: var(--color-sk-text);
+  color: var(--sk-editable-label-fg);
+  @apply text-sk-sm font-semibold;
 }
 
 [data-sk='editable'] [data-part='preview'] {
-  @apply px-3 py-2 rounded-sk-sm border border-transparent cursor-text text-sk-text text-sk-md;
+  --sk-editable-preview-radius: var(--radius-sk-sm);
+  --sk-editable-preview-fg: var(--color-sk-text);
+  border-radius: var(--sk-editable-preview-radius);
+  color: var(--sk-editable-preview-fg);
+  @apply px-3 py-2 border border-transparent cursor-text text-sk-md;
 }
 
 [data-sk='editable'] [data-part='preview']:hover {
-  @apply bg-sk-surface-2;
+  --sk-editable-preview-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-editable-preview-bg);
 }
 
 [data-sk='editable'][data-empty] [data-part='preview'] {
-  @apply text-sk-text-muted;
+  --sk-editable-preview-fg: var(--color-sk-text-muted);
+  color: var(--sk-editable-preview-fg);
 }
 
 [data-sk='editable'] [data-part='field'] {
+  --sk-editable-field-border: var(--color-sk-primary);
+  --sk-editable-field-bg: var(--color-sk-surface);
+  --sk-editable-field-fg: var(--color-sk-text);
+  --sk-editable-field-radius: var(--radius-sk-sm);
   font: inherit;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 25%, transparent);
-  @apply px-3 py-2 border border-sk-primary rounded-sk-sm bg-sk-surface text-sk-text text-sk-md;
+  border-color: var(--sk-editable-field-border);
+  background-color: var(--sk-editable-field-bg);
+  color: var(--sk-editable-field-fg);
+  border-radius: var(--sk-editable-field-radius);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-editable-field-border) 25%, transparent);
+  @apply px-3 py-2 border text-sk-md;
 }
 
 [data-sk='editable'] textarea[data-part='field'] {

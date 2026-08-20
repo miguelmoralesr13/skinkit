@@ -17,24 +17,34 @@
 }
 
 [data-sk='switch'] {
-  @apply inline-flex items-center gap-2 cursor-pointer text-sk-md text-sk-text;
+  --sk-switch-fg: var(--color-sk-text);
+  color: var(--sk-switch-fg);
+  @apply inline-flex items-center gap-2 cursor-pointer text-sk-md;
 }
 
 [data-sk='switch'] [data-part='track'] {
-  @apply inline-flex items-center w-10 h-[22px] flex-none p-0.5 rounded-sk-pill bg-sk-border
+  --sk-switch-track-radius: var(--radius-sk-pill);
+  --sk-switch-track-bg: var(--color-sk-border);
+  border-radius: var(--sk-switch-track-radius);
+  background-color: var(--sk-switch-track-bg);
+  @apply inline-flex items-center w-10 h-[22px] flex-none p-0.5
          transition-[background] duration-150 ease-in-out;
 }
 
 [data-sk='switch'] [data-part='thumb'] {
+  --sk-switch-thumb-bg: var(--color-sk-surface);
+  --sk-switch-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   width: 18px;
   height: 18px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background-color: var(--sk-switch-thumb-bg);
+  box-shadow: var(--sk-switch-thumb-shadow);
   transition: transform 0.15s ease;
-  @apply rounded-full bg-sk-surface;
+  @apply rounded-full;
 }
 
 [data-sk='switch'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-primary;
+  --sk-switch-track-bg: var(--color-sk-primary);
+  background-color: var(--sk-switch-track-bg);
 }
 
 [data-sk='switch'] [data-part='control']:checked ~ [data-part='track'] [data-part='thumb'] {
@@ -42,7 +52,9 @@
 }
 
 [data-sk='switch'] [data-part='control']:focus-visible ~ [data-part='track'] {
-  @apply outline outline-2 outline-sk-primary outline-offset-2;
+  --sk-switch-track-border: var(--color-sk-primary);
+  outline-color: var(--sk-switch-track-border);
+  @apply outline outline-2 outline-offset-2;
 }
 
 [data-sk='switch'] [data-part='control']:disabled ~ [data-part='track'] {
@@ -51,23 +63,30 @@
 
 /* ── tones ── */
 [data-sk='switch'][data-tone='secondary'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-secondary;
+  --sk-switch-track-bg: var(--color-sk-secondary);
+  background-color: var(--sk-switch-track-bg);
 }
 [data-sk='switch'][data-tone='tertiary'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-tertiary;
+  --sk-switch-track-bg: var(--color-sk-tertiary);
+  background-color: var(--sk-switch-track-bg);
 }
 [data-sk='switch'][data-tone='accent'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-accent;
+  --sk-switch-track-bg: var(--color-sk-accent);
+  background-color: var(--sk-switch-track-bg);
 }
 [data-sk='switch'][data-tone='success'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-success;
+  --sk-switch-track-bg: var(--color-sk-success);
+  background-color: var(--sk-switch-track-bg);
 }
 [data-sk='switch'][data-tone='warning'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-warning;
+  --sk-switch-track-bg: var(--color-sk-warning);
+  background-color: var(--sk-switch-track-bg);
 }
 [data-sk='switch'][data-tone='info'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-info;
+  --sk-switch-track-bg: var(--color-sk-info);
+  background-color: var(--sk-switch-track-bg);
 }
 [data-sk='switch'][data-tone='danger'] [data-part='control']:checked ~ [data-part='track'] {
-  @apply bg-sk-danger;
+  --sk-switch-track-bg: var(--color-sk-danger);
+  background-color: var(--sk-switch-track-bg);
 }
