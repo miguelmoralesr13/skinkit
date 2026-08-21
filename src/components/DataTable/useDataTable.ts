@@ -7,6 +7,8 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react'
+import { useControllable } from '../../lib/useControllable'
+import { useInfiniteScroll } from '../../lib/useInfiniteScroll'
 import { useVirtualizer, type VirtualRow } from '../../lib/useVirtualizer'
 import type {
   ColumnDef,
@@ -18,25 +20,6 @@ import type {
   SortState,
   ViewMode,
 } from './types'
-
-/** Estado controlable: si `controlled` está definido, manda; si no, estado interno. */
-function useControllable<V>(
-  controlled: V | undefined,
-  defaultValue: V,
-  onChange?: (v: V) => void,
-): [V, (v: V) => void] {
-  const [internal, setInternal] = useState(defaultValue)
-  const isControlled = controlled !== undefined
-  const value = isControlled ? (controlled as V) : internal
-  const set = useCallback(
-    (v: V) => {
-      if (!isControlled) setInternal(v)
-      onChange?.(v)
-    },
-    [isControlled, onChange],
-  )
-  return [value, set]
-}
 
 function defaultCompare(a: unknown, b: unknown): number {
   if (a == null && b == null) return 0
@@ -310,16 +293,7 @@ export function useDataTable<T extends object>(props: DataTableProps<T>): DataTa
 
   // ── scroll infinito ───────────────────────────────────────
   const { hasMore, loadingMore, onLoadMore } = props
-  useEffect(() => {
-    if (pagination !== 'infinite' || !onLoadMore) return
-    const el = sentinelRef.current
-    if (!el || typeof IntersectionObserver === 'undefined') return
-    const io = new IntersectionObserver((entries) => {
-      if (entries[0]?.isIntersecting && hasMore && !loadingMore) onLoadMore()
-    })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [pagination, onLoadMore, hasMore, loadingMore])
+  useInfiniteScroll({ enabled: pagination === 'infinite', hasMore, loadingMore, onLoadMore, sentinelRef })
 
   return {
     rootRef,

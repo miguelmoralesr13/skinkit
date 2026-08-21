@@ -75,6 +75,7 @@ import { paginationSpec } from '../components/Pagination/Pagination.catalog'
 import { disclosureSpec } from '../components/Disclosure/Disclosure.catalog'
 import { treeSpec } from '../components/Tree/Tree.catalog'
 import { listSpec } from '../components/List/List.catalog'
+import { flowSpec } from '../components/Flow/Flow.catalog'
 import { stepperSpec } from '../components/Stepper/Stepper.catalog'
 import { menuSpec } from '../components/Menu/Menu.catalog'
 import { popoverSpec } from '../components/Popover/Popover.catalog'
@@ -180,6 +181,7 @@ export const COMPONENT_CATALOG: ComponentSpec[] = [
   disclosureSpec,
   treeSpec,
   listSpec,
+  flowSpec,
   stepperSpec,
   menuSpec,
   popoverSpec,

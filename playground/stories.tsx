@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
-import { Bell, Check, Compass, Folder, Home, Mail, Search, SearchX, Settings, User } from 'lucide-react'
+import { Bell, Check, Compass, Folder, Home, Mail, Pencil, Search, SearchX, Settings, Trash2, User } from 'lucide-react'
 import {
   Button,
   ButtonGroup,
@@ -106,6 +106,7 @@ import {
   FilePreviewer,
   TourProvider,
   useTour,
+  Flow,
 } from '../src'
 import type { ColumnDef, SortState, TourConfig } from '../src'
 import { useForm } from 'react-hook-form'
@@ -463,6 +464,155 @@ function ListDemo() {
         <List.Item title="Notificaciones" description="Emails y push" meta="3" active={active === 'notif'} onSelect={() => setActive('notif')} />
         <List.Item title="Facturación" description="Plan y pagos" active={active === 'pago'} onSelect={() => setActive('pago')} />
       </List>
+    </div>
+  )
+}
+
+interface FakeUser {
+  id: number
+  name: string
+  email: string
+}
+const ALL_FAKE_USERS: FakeUser[] = Array.from({ length: 500 }, (_, i) => ({
+  id: i,
+  name: `Usuario ${i}`,
+  email: `usuario${i}@demo.io`,
+}))
+
+function ListDataDemo() {
+  const [query, setQuery] = useState('')
+  const [visibleCount, setVisibleCount] = useState(30)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [lastAction, setLastAction] = useState('')
+
+  const q = query.trim().toLowerCase()
+  const filtered = q
+    ? ALL_FAKE_USERS.filter((u) => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q))
+    : ALL_FAKE_USERS
+  const visible = filtered.slice(0, visibleCount)
+  const hasMore = visibleCount < filtered.length
+
+  const loadMore = () => {
+    setLoadingMore(true)
+    setTimeout(() => {
+      setVisibleCount((c) => c + 30)
+      setLoadingMore(false)
+    }, 400)
+  }
+
+  return (
+    <div style={{ width: '100%', maxWidth: 420 }}>
+      <List
+        items={visible}
+        rowKey={(u: FakeUser) => u.id}
+        filterable
+        filterValue={query}
+        onFilterChange={(v) => {
+          setQuery(v)
+          setVisibleCount(30)
+        }}
+        infinite
+        hasMore={hasMore}
+        loadingMore={loadingMore}
+        onLoadMore={loadMore}
+        virtualized
+        rowHeight={64}
+        height={420}
+        renderItem={(u: FakeUser) => (
+          <List.Item
+            icon={<User size={18} />}
+            title={u.name}
+            description={u.email}
+            actions={
+              <>
+                <button type="button" aria-label="Editar" onClick={() => setLastAction(`Editar ${u.name}`)}>
+                  <Pencil size={16} />
+                </button>
+                <button type="button" aria-label="Borrar" onClick={() => setLastAction(`Borrar ${u.name}`)}>
+                  <Trash2 size={16} />
+                </button>
+              </>
+            }
+          />
+        )}
+      />
+      {lastAction && (
+        <p style={{ marginTop: '0.75rem', fontSize: '0.85em', color: 'var(--color-sk-text-muted)' }}>
+          Última acción: {lastAction}
+        </p>
+      )}
+    </div>
+  )
+}
+
+function FlowTaskNode({ data }: { id: string; data?: { label: string }; selected: boolean }) {
+  return (
+    <>
+      <Flow.Handle kind="target" position="left" />
+      {data?.label}
+      <Flow.Handle kind="source" position="right" />
+    </>
+  )
+}
+const FLOW_NODE_TYPES = { task: FlowTaskNode }
+
+function FlowTaskDemo() {
+  const [nodes, setNodes] = useState([
+    { id: '1', type: 'task', position: { x: 20, y: 40 }, data: { label: 'Recibir pedido' } },
+    { id: '2', type: 'task', position: { x: 280, y: 160 }, data: { label: 'Preparar' } },
+    { id: '3', type: 'task', position: { x: 540, y: 40 }, data: { label: 'Entregar' } },
+  ])
+  const [edges, setEdges] = useState([
+    { id: 'e1', source: '1', target: '2' },
+    { id: 'e2', source: '2', target: '3' },
+  ] as { id: string; source: string; target: string; selected?: boolean }[])
+
+  const selectedEdge = edges.find((e) => e.selected)
+
+  return (
+    <div style={{ width: '100%', maxWidth: 720 }}>
+      <p style={{ marginBottom: '0.5rem', fontSize: '0.85em', color: 'var(--color-sk-text-muted)' }}>
+        Edges: {edges.length} — arrastrá de un handle (círculo) a otro para crear una nueva conexión.
+        Click en un edge para seleccionarlo.
+        {selectedEdge && (
+          <button
+            type="button"
+            style={{ marginLeft: '0.5rem' }}
+            onClick={() => setEdges((eds) => eds.filter((e) => e.id !== selectedEdge.id))}
+          >
+            Borrar edge seleccionado
+          </button>
+        )}
+      </p>
+      <Flow
+        nodes={nodes}
+        nodeTypes={FLOW_NODE_TYPES}
+        onNodesChange={(changes) => {
+          setNodes((nds) => {
+            let next = nds
+            for (const c of changes) {
+              if (c.type === 'position') next = next.map((n) => (n.id === c.id ? { ...n, position: c.position } : n))
+              else if (c.type === 'select') next = next.map((n) => (n.id === c.id ? { ...n, selected: c.selected } : n))
+            }
+            return next
+          })
+        }}
+        edges={edges}
+        onEdgesChange={(changes) => {
+          setEdges((eds) => {
+            let next = eds
+            for (const c of changes) {
+              if (c.type === 'select') next = next.map((e) => (e.id === c.id ? { ...e, selected: c.selected } : e))
+            }
+            return next
+          })
+        }}
+        onConnect={(conn) =>
+          setEdges((eds) => [...eds, { id: `${conn.source}-${conn.target}-${eds.length}`, source: conn.source, target: conn.target }])
+        }
+      >
+        <Flow.Controls />
+      </Flow>
     </div>
   )
 }
@@ -3174,6 +3324,19 @@ function App() {
       {
         name: 'Filas seleccionables',
         render: () => <ListDemo />,
+      },
+      {
+        name: 'Data-driven: búsqueda + scroll infinito + virtualizada',
+        render: () => <ListDataDemo />,
+      },
+    ],
+  },
+  {
+    component: 'Flow',
+    stories: [
+      {
+        name: 'Flujo de tareas (nodeTypes + conexiones)',
+        render: () => <FlowTaskDemo />,
       },
     ],
   },

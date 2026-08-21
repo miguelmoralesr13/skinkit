@@ -1,6 +1,52 @@
 /* ── List ───────────────────────────────────────────────────── */
 [data-sk='list'] {
+  --sk-list-fg: var(--color-sk-text);
+  color: var(--sk-list-fg);
   @apply list-none m-0 p-0 flex flex-col;
+}
+/* Modo data-driven (ver List.tsx): [data-sk='list'] pasa a ser un <div> — [data-part='items']
+   es el <ul> real. Márgenes en vez de gap en la raíz: gap ahí también separaría los <li> en modo
+   estático (children directos de [data-sk='list']), que no debe cambiar. */
+[data-sk='list'] [data-part='toolbar'] {
+  @apply flex items-center gap-3 mb-3;
+}
+[data-sk='list'] [data-part='search'] {
+  --sk-list-search-fg: var(--color-sk-text);
+  --sk-list-search-bg: var(--color-sk-surface);
+  --sk-list-search-border: var(--color-sk-border);
+  --sk-list-search-radius: 10px;
+  color: var(--sk-list-search-fg);
+  background-color: var(--sk-list-search-bg);
+  border-color: var(--sk-list-search-border);
+  border-radius: var(--sk-list-search-radius);
+  @apply font-[inherit] border py-2 px-3 min-w-48;
+}
+[data-sk='list'] [data-part='search']:focus-visible {
+  --sk-list-search-border: var(--color-sk-primary);
+  outline-color: var(--sk-list-search-border);
+  @apply outline outline-2 outline-offset-1;
+}
+[data-sk='list'] [data-part='loading'] {
+  --sk-list-loading-fg: var(--color-sk-text-muted);
+  color: var(--sk-list-loading-fg);
+  @apply text-sk-sm mb-3;
+}
+[data-sk='list'] [data-part='items'] {
+  /* Bloque, NO flex: un <ul> apila <li> en flujo normal sin ayuda, y con virtualized los <li>
+     espaciadores necesitan que su `height` inline se respete tal cual — un flex-column con altura
+     fija ENCOGE (flex-shrink) a los hijos para que quepan en vez de desbordar/scrollear, lo que
+     rompe por completo la técnica de ventaneo (el spacer "pierde" su alto real). */
+  @apply list-none m-0 p-0;
+}
+[data-sk='list'] [data-part='sentinel'] {
+  --sk-list-sentinel-fg: var(--color-sk-text-muted);
+  color: var(--sk-list-sentinel-fg);
+  @apply min-h-[2.5rem] grid place-items-center text-sk-sm mt-3;
+}
+[data-sk='list'] [data-part='empty'] {
+  --sk-list-empty-fg: var(--color-sk-text-muted);
+  color: var(--sk-list-empty-fg);
+  @apply p-6 text-center;
 }
 [data-sk='list'] [data-part='item'] {
   --sk-list-item-fg: var(--color-sk-text);
@@ -51,6 +97,9 @@
   --sk-list-meta-fg: var(--color-sk-text-muted);
   color: var(--sk-list-meta-fg);
   @apply flex-none text-sk-sm;
+}
+[data-sk='list'] [data-part='actions'] {
+  @apply flex-none flex items-center gap-1;
 }
 
 /* Tonos (ítem activo) */

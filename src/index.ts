@@ -218,6 +218,26 @@ export type { TreeProps, TreeItemProps } from './components/Tree'
 export { List } from './components/List'
 export type { ListProps, ListItemProps } from './components/List'
 
+export { Flow, useFlow } from './components/Flow'
+export type {
+  Connection,
+  EdgeChange,
+  FlowClassNames,
+  FlowControlsProps,
+  FlowEdge,
+  FlowHandleProps,
+  FlowNode,
+  FlowNodeComponentProps,
+  FlowPosition,
+  FlowProps,
+  FlowViewport,
+  HandleKind,
+  HandlePosition,
+  NodeChange,
+  NodeTypes,
+  UseFlowResult,
+} from './components/Flow'
+
 export { Menu } from './components/Menu'
 export type { MenuProps, MenuItemProps, MenuSide } from './components/Menu'
 
