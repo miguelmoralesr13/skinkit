@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom'
 import { useElementVisible } from '../../lib/useElementVisible'
+import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
 import { computeSpotlightFrame, computeTooltipPosition, getTargetRect, type Rect } from './positioning'
 import type { UseTourEngineResult } from './useTourEngine'
 
@@ -21,6 +22,7 @@ export function TourOverlay({ engine }: { engine: UseTourEngineResult }) {
   const [targetRect, setTargetRect] = useState<Rect | null>(null)
   const [tooltipSize, setTooltipSize] = useState({ width: 280, height: 140 })
   const tooltipRef = useRef<HTMLDivElement>(null)
+  const colorScheme = useSkinkitColorScheme()
 
   const stepKey = activeStep ? `${activeStep.flowId}:${activeStep.step.id}` : null
   const targetSelector = activeStep?.step.target ?? null
@@ -93,7 +95,7 @@ export function TourOverlay({ engine }: { engine: UseTourEngineResult }) {
   )
 
   return createPortal(
-    <div data-skinkit-root="" className="skinkit-root">
+    <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
       <div data-sk="tour-overlay">
         <div data-part="backdrop" style={rectToStyle(frame.top)} onClick={skip} aria-hidden="true" />
         <div data-part="backdrop" style={rectToStyle(frame.bottom)} onClick={skip} aria-hidden="true" />

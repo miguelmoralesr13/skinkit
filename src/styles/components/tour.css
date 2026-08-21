@@ -24,7 +24,7 @@
   --sk-tour-bg: var(--color-sk-surface);
   --sk-tour-fg: var(--color-sk-text);
   --sk-tour-radius: var(--radius-sk-lg);
-  --sk-tour-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  --sk-tour-shadow: light-dark(0 12px 40px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.6));
   background-color: var(--sk-tour-bg);
   color: var(--sk-tour-fg);
   border-radius: var(--sk-tour-radius);

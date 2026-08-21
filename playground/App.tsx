@@ -122,6 +122,8 @@ export function App() {
   const [comp, setComp] = useState(0)
   const [storyIdx, setStoryIdx] = useState(0)
   const [panelOpen, setPanelOpen] = useState(false)
+  // Sistema = sin forzar nada, sigue prefers-color-scheme (ver color-scheme en tokens.css).
+  const [colorScheme, setColorScheme] = useState<'system' | 'light' | 'dark'>('system')
   // Panel de personalización: demuestra el mecanismo real de override (pisar variables
   // --color-sk-*/--radius-sk-*/--shadow-sk-*/--text-sk-*/--font-sk-* en un wrapper), no un
   // selector de "looks" prearmados. `overrides` solo guarda lo que el usuario tocó — lo demás
@@ -277,6 +279,18 @@ export function App() {
         <div className="sb-toolbar">
           <strong>{group.component}</strong>
           <div className="sb-spacer" />
+          <div className="sb-scheme-toggle" role="group">
+            {(['system', 'light', 'dark'] as const).map((s) => (
+              <button
+                key={s}
+                type="button"
+                className={`sb-scheme-btn${colorScheme === s ? ' is-active' : ''}`}
+                onClick={() => setColorScheme(s)}
+              >
+                {s === 'system' ? 'Sistema' : s === 'light' ? 'Claro' : 'Oscuro'}
+              </button>
+            ))}
+          </div>
           <button
             type="button"
             className={`sb-personalize-toggle${panelOpen ? ' is-active' : ''}`}
@@ -504,7 +518,10 @@ export function App() {
         </div>
 
         <div className="sb-canvas">
-          <SkinkitProvider className="sb-stage">
+          <SkinkitProvider
+            className="sb-stage"
+            colorScheme={colorScheme === 'system' ? undefined : colorScheme}
+          >
             <div className="sb-story" ref={storyRef} style={overrideStyle}>
               {story.render()}
             </div>

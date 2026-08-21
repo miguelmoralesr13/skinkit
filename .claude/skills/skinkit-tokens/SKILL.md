@@ -20,13 +20,17 @@ allowed-tools: Read, Write, Edit, Bash
   `src/styles/tokens.css`.
 - Changing (or adding) a specific component's CSS → edit
   `src/styles/components/<dataSk>.css`.
+- Adding/adjusting dark mode values, or wiring a new hardcoded literal color for dark-mode
+  correctness → see **Dark mode** below.
 - NOT for creating a new component's `.tsx`/catalog — that's `skinkit-component`.
 
 ## The model
 
 skinkit ships **one look**, Tailwind-native, fully overridable via CSS custom properties — not a
 menu of presets to pick from. There is no `theme`/`skin` prop or `[data-theme]`/`[data-skin]`
-attribute anymore; `SkinkitProvider` only sets `[data-skinkit-root]`.
+attribute anymore; `SkinkitProvider` sets `[data-skinkit-root]` and, optionally, `data-color-scheme`
+when a `colorScheme` prop is passed (see **Dark mode** below) — that's the one axis it still knows
+about, everything else is CSS custom properties.
 
 - **Color and shape live in `src/styles/tokens.css`**, inside one `@theme` block:
   `--color-sk-*` (surface/text/primary/secondary/.../danger, + `-on-*` pairs), `--radius-sk-sm/md/lg/pill`,
@@ -59,6 +63,62 @@ running their own Tailwind v4 build can also `@import "skinkit/tailwind-preset";
 `tokens.css` source, exported unbuilt) to get `bg-sk-primary`-style utilities in their own app code
 and override tokens before skinkit renders.
 
+## Dark mode
+
+Activated with the native CSS `light-dark()` function, not a second `@theme`/theme axis — a token
+that needs a dark value just becomes `--color-sk-x: light-dark(#lightHex, #darkHex);` instead of a
+plain literal. `light-dark()` resolves off the `color-scheme` **computed on the element where the
+variable is used** (inherited property), which is why one declaration on `[data-skinkit-root]` is
+enough for the whole subtree — no need to touch component files:
+
+```css
+/* tokens.css */
+[data-skinkit-root] { color-scheme: light dark; }                       /* follows the OS */
+[data-skinkit-root][data-color-scheme='light'] { color-scheme: light; } /* forced */
+[data-skinkit-root][data-color-scheme='dark'] { color-scheme: dark; }   /* forced */
+```
+
+`SkinkitProvider` exposes this as `colorScheme?: 'light' | 'dark'` (`undefined` = follow the OS).
+Persisting the user's choice (localStorage, etc.) is the CONSUMER's job, not skinkit's.
+
+**Not every color token needs a dark value.** Before adding `light-dark(...)` to a token, check
+whether it actually depends on the page background:
+- **Neutrals** (`--color-sk-surface`, `-surface-2`, `-text`, `-text-muted`, `-border`) — yes,
+  always, they ARE the background/foreground.
+- **Code syntax colors** (`--color-sk-code-*`) — yes, same reason any code editor ships separate
+  light/dark syntax themes: they're text directly on a surface.
+- **Shadows** (`--shadow-sk-*`) — yes: a black `rgba()` shadow nearly disappears on an already-dark
+  surface, needs more opacity in the dark branch.
+- **Brand/tone colors** (`primary`, the 7 tones, all `-on-*` pairs, `danger`) — **no, leave as a
+  plain literal.** They're solid fills (buttons, badges) with their own contrast already resolved
+  against their paired `-on-*` text color, independent of whatever the page background is doing.
+  Forcing a second value here is a cosmetic-only change with no real accessibility payoff — check
+  actual contrast (WCAG, ~4.5:1 for normal text) before deciding a tone needs one.
+
+**New hardcoded literal color in a component file** (the handful of `color-mix()`/`rgba()` spots
+`@apply` can't express, per the recipe below) — wrap it the same way, keeping the light value
+identical to what's already there so light mode never regresses:
+```css
+/* hover-darken that should LIGHTEN on a dark surface instead */
+background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
+/* elevation shadow that needs more opacity on dark */
+box-shadow: light-dark(0 12px 48px rgba(0, 0, 0, 0.25), 0 12px 48px rgba(0, 0, 0, 0.55));
+```
+Backdrop/scrim overlays (`rgba(0,0,0,α)` dimming whatever's *behind* a modal/dropdown, not the
+component's own surface) are scheme-neutral — don't wrap those.
+
+**Portal gotcha (easy to miss):** components that `createPortal` to `document.body` — currently
+`Dialog`, `CommandMenu`, `Toast`, `TourOverlay` (`grep -rl createPortal src/components/`) — each
+build their own fresh `[data-skinkit-root]` div at the body level, since a portal escapes the DOM
+tree it's called from. That fresh div does **not** inherit `data-color-scheme` from the original
+`SkinkitProvider` above it in the React tree (React tree ≠ DOM tree once portaled). Any new
+portaling component MUST call `useSkinkitColorScheme()` (exported from `SkinkitProvider.tsx` and
+`src/index.ts`) and put the result on its own portal root: `<div data-skinkit-root=""
+data-color-scheme={colorScheme} className="skinkit-root">`. Forgetting this means a forced
+`colorScheme` silently does nothing for that component — it'll keep following the OS. Verified by
+actually forcing "Claro" in the playground with the OS in dark mode and opening the affected
+component, not by reading the CSS and assuming it cascades.
+
 ## Customizing (or adding) a component's CSS
 
 Edit `src/styles/components/<dataSk>.css` directly. Reference conversions already in the repo:
@@ -87,7 +147,10 @@ look right." After a token or component CSS change:
 ```bash
 bun run typecheck    # tsc --noEmit — cheap, catches nothing style-specific but run it first
 bun run dev           # playground, :3200 — walk the affected component(s), exercise the
-                       # token-override panel (top toolbar) to confirm var() overrides cascade
+                       # token-override panel (top toolbar) to confirm var() overrides cascade.
+                       # For dark mode specifically: use the Sistema/Claro/Oscuro toggle next to
+                       # it — check light stays pixel-identical, and force each mode explicitly
+                       # (don't rely only on "Sistema" matching your OS by coincidence).
 bun run shots [Name]  # scripts/capture-components.mjs — one screenshot per component into
                        # component-shots/, for before/after regression review. No pass/fail
                        # judgment built in on purpose (a prior automated "looks the same" check
@@ -96,9 +159,13 @@ bun run shots [Name]  # scripts/capture-components.mjs — one screenshot per co
 
 ## Resources
 
-- **Token contract**: `src/styles/tokens.css`
-- **Reference component CSS**: `src/styles/components/button.css` (simple),
-  `src/styles/components/accordion.css` (compound/stateful)
+- **Token contract**: `src/styles/tokens.css` (also has the `color-scheme` dark-mode activation
+  block at the bottom)
+- **Reference component CSS**: `src/styles/components/button.css` (simple, also has a
+  `light-dark()` color-mix example), `src/styles/components/accordion.css` (compound/stateful)
+- **Portal + colorScheme reference**: `src/components/Dialog/Dialog.tsx` (`useSkinkitColorScheme`
+  usage) — copy this pattern for any new portaling component
+- **`src/provider/SkinkitProvider.tsx`**: `colorScheme` prop + `useSkinkitColorScheme` context
 - **Part contract source**: `skinkit/catalog` (`COMPONENT_CATALOG`, each spec's `parts`)
 - **Build**: `src/styles/index.css` is the entry (`@import "tailwindcss"` + tokens + components +
   layout); `npm run build:css` (`@tailwindcss/cli`) compiles it to `dist/styles/skinkit.css`,

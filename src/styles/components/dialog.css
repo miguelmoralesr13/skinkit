@@ -16,7 +16,7 @@
   color: var(--sk-dialog-panel-fg);
   border-radius: var(--sk-dialog-panel-radius);
   max-height: calc(100vh - var(--spacing) * 8);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+  box-shadow: light-dark(0 12px 48px rgba(0, 0, 0, 0.25), 0 12px 48px rgba(0, 0, 0, 0.55));
   @apply relative z-[1] flex flex-col w-full max-w-lg overflow-hidden;
 }
 [data-sk='dialog'][data-size='sm'] [data-part='panel'] {

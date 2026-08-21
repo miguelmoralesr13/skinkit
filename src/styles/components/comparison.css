@@ -21,7 +21,7 @@
   background-color: var(--sk-comparison-handle-bg);
   @apply absolute top-0 bottom-0 w-0.5 -translate-x-1/2 cursor-ew-resize;
   left: calc(var(--sk-comparison-pos) * 1%);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  box-shadow: light-dark(0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.4));
 }
 [data-sk='comparison'] [data-part='handle']::after {
   content: '';
@@ -30,7 +30,7 @@
   background-color: var(--sk-comparison-handle-bg);
   border-radius: var(--sk-comparison-handle-radius);
   @apply absolute top-1/2 left-1/2 w-8 h-8 -translate-x-1/2 -translate-y-1/2;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: light-dark(0 2px 8px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.55));
 }
 [data-sk='comparison'] [data-part='handle']:focus-visible {
   --sk-comparison-handle-border: var(--color-sk-primary);

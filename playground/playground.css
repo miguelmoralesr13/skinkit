@@ -180,6 +180,31 @@ body {
   gap: 1.25rem;
 }
 
+/* ── Toggle de color-scheme (Sistema/Claro/Oscuro) ─────────────────────────── */
+.sb-scheme-toggle {
+  display: inline-flex;
+  border: 1px solid #34363d;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 0.75rem;
+}
+.sb-scheme-btn {
+  background: #24262c;
+  color: #9aa0ab;
+  border: none;
+  padding: 0.35rem 0.65rem;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.sb-scheme-btn + .sb-scheme-btn {
+  border-left: 1px solid #34363d;
+}
+.sb-scheme-btn.is-active {
+  background: #2f6df6;
+  color: #fff;
+}
+
 /* ── Panel de personalización (todos los tokens de tokens.css) ──────────────── */
 .sb-personalize-toggle {
   background: #24262c;

@@ -61,7 +61,7 @@
 }
 [data-sk='button'][data-tone='secondary']:hover:not(:disabled) {
   --sk-button-bg: var(--color-sk-secondary);
-  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }
 [data-sk='button'][data-tone='tertiary'] {
   --sk-button-bg: var(--color-sk-tertiary);
@@ -71,7 +71,7 @@
 }
 [data-sk='button'][data-tone='tertiary']:hover:not(:disabled) {
   --sk-button-bg: var(--color-sk-tertiary);
-  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }
 [data-sk='button'][data-tone='accent'] {
   --sk-button-bg: var(--color-sk-accent);
@@ -81,7 +81,7 @@
 }
 [data-sk='button'][data-tone='accent']:hover:not(:disabled) {
   --sk-button-bg: var(--color-sk-accent);
-  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }
 [data-sk='button'][data-tone='success'] {
   --sk-button-bg: var(--color-sk-success);
@@ -91,7 +91,7 @@
 }
 [data-sk='button'][data-tone='success']:hover:not(:disabled) {
   --sk-button-bg: var(--color-sk-success);
-  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }
 [data-sk='button'][data-tone='warning'] {
   --sk-button-bg: var(--color-sk-warning);
@@ -101,7 +101,7 @@
 }
 [data-sk='button'][data-tone='warning']:hover:not(:disabled) {
   --sk-button-bg: var(--color-sk-warning);
-  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }
 [data-sk='button'][data-tone='info'] {
   --sk-button-bg: var(--color-sk-info);
@@ -111,7 +111,7 @@
 }
 [data-sk='button'][data-tone='info']:hover:not(:disabled) {
   --sk-button-bg: var(--color-sk-info);
-  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }
 [data-sk='button'][data-tone='danger'] {
   --sk-button-bg: var(--color-sk-danger);
@@ -121,5 +121,5 @@
 }
 [data-sk='button'][data-tone='danger']:hover:not(:disabled) {
   --sk-button-bg: var(--color-sk-danger);
-  background: color-mix(in srgb, var(--sk-button-bg) 85%, #000);
+  background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }

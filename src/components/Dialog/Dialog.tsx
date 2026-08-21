@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
+import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full'
 export type DialogPlacement = 'center' | 'left' | 'right' | 'top' | 'bottom'
@@ -75,6 +76,7 @@ export function Dialog({
   const panelRef = useRef<HTMLDivElement>(null)
   const titleId = useId()
   const descId = useId()
+  const colorScheme = useSkinkitColorScheme()
 
   useEffect(() => {
     if (!open) return
@@ -120,7 +122,7 @@ export function Dialog({
   const labelledBy = rest['aria-label'] ? undefined : titleId
 
   return createPortal(
-    <div data-skinkit-root="" className="skinkit-root">
+    <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
       <div
         data-sk="dialog"
         data-size={size}

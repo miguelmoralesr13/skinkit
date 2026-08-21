@@ -34,7 +34,7 @@
   --sk-toast-fg: var(--color-sk-text);
   --sk-toast-border: var(--color-sk-border);
   --sk-toast-accent-border: var(--color-sk-border);
-  --sk-toast-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  --sk-toast-shadow: light-dark(0 8px 28px rgba(0, 0, 0, 0.18), 0 8px 28px rgba(0, 0, 0, 0.5));
   border-radius: var(--sk-toast-radius);
   background-color: var(--sk-toast-bg);
   color: var(--sk-toast-fg);

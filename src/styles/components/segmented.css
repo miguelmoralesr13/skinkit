@@ -31,7 +31,7 @@
 }
 
 [data-sk='segmented'] [data-part='item'][data-state='active'] {
-  --sk-segmented-item-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  --sk-segmented-item-shadow: light-dark(0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.4));
   --sk-segmented-item-bg: var(--color-sk-surface);
   --sk-segmented-item-fg: var(--color-sk-text);
   box-shadow: var(--sk-segmented-item-shadow);

@@ -1,5 +1,5 @@
 // skinkit — componentes headless con un único sistema de tokens (color + forma) Tailwind-nativo.
-export { SkinkitProvider } from './provider/SkinkitProvider'
+export { SkinkitProvider, useSkinkitColorScheme } from './provider/SkinkitProvider'
 export type { SkinkitProviderProps } from './provider/SkinkitProvider'
 
 export { Button } from './components/Button'

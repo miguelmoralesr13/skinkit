@@ -33,7 +33,7 @@
 
 [data-sk='switch'] [data-part='thumb'] {
   --sk-switch-thumb-bg: var(--color-sk-surface);
-  --sk-switch-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --sk-switch-thumb-shadow: light-dark(0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.55));
   width: 18px;
   height: 18px;
   background-color: var(--sk-switch-thumb-bg);

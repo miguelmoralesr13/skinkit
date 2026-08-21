@@ -21,7 +21,7 @@
 [data-sk='tabs'] [data-part='tab'][data-state='active'] {
   --sk-tabs-tab-bg: var(--color-sk-surface);
   --sk-tabs-tab-fg: var(--color-sk-text);
-  --sk-tabs-tab-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --sk-tabs-tab-shadow: light-dark(0 2px 8px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.35));
   background-color: var(--sk-tabs-tab-bg);
   color: var(--sk-tabs-tab-fg);
   box-shadow: var(--sk-tabs-tab-shadow);

@@ -23,9 +23,11 @@
   --radius-sk-lg: 1rem;
   --radius-sk-pill: 999px;
 
-  --shadow-sk-sm: 0 2px 8px rgba(0, 0, 0, 0.12);
-  --shadow-sk-md: 0 4px 14px rgba(0, 0, 0, 0.16);
-  --shadow-sk-lg: 0 4px 20px rgba(0, 0, 0, 0.06);
+  /* light-dark(): una sombra de negro semitransparente casi desaparece sobre superficie oscura,
+     necesita más opacidad ahí — ver color-scheme en index.css para cómo se activa el modo. */
+  --shadow-sk-sm: light-dark(0 2px 8px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.5));
+  --shadow-sk-md: light-dark(0 4px 14px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(0, 0, 0, 0.55));
+  --shadow-sk-lg: light-dark(0 4px 20px rgba(0, 0, 0, 0.06), 0 6px 24px rgba(0, 0, 0, 0.6));
 
   /* Escala tipográfica — distinta de text-sm/base/lg de Tailwind a propósito, preserva los
      valores viejos de fs-sm/md/lg (13/15/17px) en vez de saltar a los de Tailwind (14/16/18px) */
@@ -36,11 +38,16 @@
   --font-sk-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-sk-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 
-  /* Contrato de color — CON default real (paleta "paper" de antes) */
-  --color-sk-surface: #ffffff;
-  --color-sk-surface-2: #f4f4f2;
-  --color-sk-text: #1a1a1a;
-  --color-sk-text-muted: #6b6b6b;
+  /* Contrato de color — CON default real (paleta "paper" de antes).
+     Los neutros (surface/text/border) SÍ dependen del fondo de página → light-dark() con
+     contraparte oscura real. Primary/tonos/on-* quedan iguales en los dos modos a propósito: son
+     rellenos sólidos con su propio contraste ya resuelto (ej. blanco sobre primary da ~4.6:1,
+     pasa AA) — no dependen de si la página está en modo claro u oscuro, forzarles un segundo
+     valor sería un cambio cosmético sin motivo real. */
+  --color-sk-surface: light-dark(#ffffff, #121316);
+  --color-sk-surface-2: light-dark(#f4f4f2, #1c1d22);
+  --color-sk-text: light-dark(#1a1a1a, #eaeaec);
+  --color-sk-text-muted: light-dark(#6b6b6b, #9a9ba5);
   --color-sk-primary: #2f6df6;
   --color-sk-primary-hover: #1f57d0;
   --color-sk-on-primary: #ffffff;
@@ -56,14 +63,32 @@
   --color-sk-on-warning: #ffffff;
   --color-sk-info: #0284c7;
   --color-sk-on-info: #ffffff;
-  --color-sk-border: #e2e2df;
+  --color-sk-border: light-dark(#e2e2df, #2c2d33);
   --color-sk-danger: #d64545;
   --color-sk-on-danger: #ffffff;
 
-  /* Sintaxis de código (componente Code) */
-  --color-sk-code-comment: #8a8f98;
-  --color-sk-code-string: #0a7d43;
-  --color-sk-code-number: #b5540b;
-  --color-sk-code-keyword: #a3238e;
-  --color-sk-code-function: #2f6df6;
+  /* Sintaxis de código (componente Code) — a diferencia de los tonos de arriba, un color de
+     sintaxis SÍ es texto directamente sobre la superficie de fondo, así que necesita paleta
+     propia por modo (como cualquier editor con theme claro/oscuro). */
+  --color-sk-code-comment: light-dark(#8a8f98, #7d8590);
+  --color-sk-code-string: light-dark(#0a7d43, #4ac783);
+  --color-sk-code-number: light-dark(#b5540b, #e8934a);
+  --color-sk-code-keyword: light-dark(#a3238e, #e07ad0);
+  --color-sk-code-function: light-dark(#2f6df6, #6690ff);
+}
+
+/* Activación: color-scheme heredable en el root scope de skinkit — light-dark() en cualquier
+   variable de arriba resuelve según el color-scheme COMPUTADO en el elemento donde se usa esa
+   variable, así que declararlo acá alcanza para todo el subárbol (incluidas las variables locales
+   --sk-<componente>-* de src/styles/components/, que solo reenvían el token global). Sin
+   [data-color-scheme], sigue al SO. SkinkitProvider setea el atributo cuando se le pasa
+   `colorScheme` explícito — ver src/provider/SkinkitProvider.tsx. */
+[data-skinkit-root] {
+  color-scheme: light dark;
+}
+[data-skinkit-root][data-color-scheme='light'] {
+  color-scheme: light;
+}
+[data-skinkit-root][data-color-scheme='dark'] {
+  color-scheme: dark;
 }

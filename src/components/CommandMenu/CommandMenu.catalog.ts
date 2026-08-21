@@ -6,7 +6,7 @@ export const commandMenuSpec: ComponentSpec = {
   dataSk: 'command-menu',
   category: 'Overlay',
   description:
-    'Paleta de comandos (⌘K): overlay con buscador y lista filtrada/agrupada de acciones. Teclado ↑↓ navegan, Enter ejecuta, Esc cierra. Portaliza a <body>; los tokens viven en :root, así que el look se mantiene igual dentro del portal sin nada especial.',
+    'Paleta de comandos (⌘K): overlay con buscador y lista filtrada/agrupada de acciones. Teclado ↑↓ navegan, Enter ejecuta, Esc cierra. Portaliza a <body>; los tokens viven en :root, así que el look se mantiene igual dentro del portal. El colorScheme forzado en SkinkitProvider (ver light-dark() en tokens.css) sí se replica automáticamente vía contexto, para que el portal no quede colgado del modo del sistema.',
   extends: '—',
   props: [
     { name: 'open', type: 'boolean', required: true, description: 'Si está abierta (controlado — abrila vos con ⌘K/Ctrl+K).' },

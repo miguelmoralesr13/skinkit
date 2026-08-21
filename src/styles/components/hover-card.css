@@ -11,7 +11,7 @@
   border-color: var(--sk-hover-card-content-border);
   border-radius: var(--sk-hover-card-content-radius);
   color: var(--sk-hover-card-content-fg);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  box-shadow: light-dark(0 12px 40px rgba(0, 0, 0, 0.18), 0 12px 40px rgba(0, 0, 0, 0.45));
   @apply absolute z-[60] min-w-56 max-w-80 p-4 border text-sk-md;
 }
 [data-sk='hover-card'][data-side='bottom'] [data-part='content'] {

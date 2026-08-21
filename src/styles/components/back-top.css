@@ -3,7 +3,7 @@
   --sk-back-top-fg: var(--color-sk-on-primary);
   --sk-back-top-bg: var(--color-sk-primary);
   --sk-back-top-radius: var(--radius-sk-pill);
-  --sk-back-top-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  --sk-back-top-shadow: light-dark(0 6px 18px rgba(0, 0, 0, 0.2), 0 6px 18px rgba(0, 0, 0, 0.55));
   color: var(--sk-back-top-fg);
   background-color: var(--sk-back-top-bg);
   border-radius: var(--sk-back-top-radius);

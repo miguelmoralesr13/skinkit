@@ -55,7 +55,7 @@
   border-color: var(--sk-multi-select-listbox-border);
   border-radius: var(--sk-multi-select-listbox-radius);
   top: calc(100% + 0.25rem);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: light-dark(0 10px 30px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.45));
   @apply absolute z-40 left-0 right-0 m-0 p-1 list-none max-h-60 overflow-y-auto border;
 }
 

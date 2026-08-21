@@ -9,7 +9,7 @@
   background-color: var(--sk-menu-content-bg);
   border-color: var(--sk-menu-content-border);
   border-radius: var(--sk-menu-content-radius);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: light-dark(0 10px 30px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.45));
   @apply absolute z-50 min-w-48 p-1 border;
 }
 [data-sk='menu'][data-side='bottom'] [data-part='content'] {
