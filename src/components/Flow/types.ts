@@ -1,14 +1,26 @@
 import type { ComponentType, HTMLAttributes, ReactNode } from 'react'
+import type { ResizeHandlePosition } from '../../lib/resizeBox'
+
+export type { ResizeHandlePosition }
 
 export interface FlowPosition {
   x: number
   y: number
 }
 
+export interface FlowSize {
+  width: number
+  height: number
+}
+
 export interface FlowNode<T = unknown> {
   id: string
   position: FlowPosition
-  /** Key en `nodeTypes` — sin esto, se usa el renderer por defecto. */
+  /** Tamaño explícito — opcional. Sin esto, el nodo se autoajusta a su contenido (igual que
+   * siempre) y NO es redimensionable (no hay una caja de la que partir). Al redimensionarlo una
+   * vez (con los handles), el nodo pasa a tener un tamaño explícito de ahí en más. */
+  size?: FlowSize
+  /** Key en `nodeTypes`; sin esto, se usa el renderer por defecto. */
   type?: string
   data?: T
   selected?: boolean
@@ -16,6 +28,11 @@ export interface FlowNode<T = unknown> {
   draggable?: boolean
   /** Default: true. */
   selectable?: boolean
+  /** Default: true. Sin `size`, el primer resize parte del tamaño YA renderizado (medido por
+   * ResizeObserver) — no hace falta fijar un tamaño inicial a mano para poder redimensionar. */
+  resizable?: boolean
+  /** Default: { width: 120, height: 40 }. */
+  minSize?: FlowSize
 }
 
 export interface FlowEdge<T = unknown> {
@@ -45,10 +62,11 @@ export interface Connection {
   targetHandle?: string
 }
 
-/** `dragging: false` en el último change de un gesto (equivalente al "commit" final). */
+/** `dragging`/`resizing: false` en el último change de un gesto (equivalente al "commit" final). */
 export type NodeChange =
   | { type: 'position'; id: string; position: FlowPosition; dragging: boolean }
   | { type: 'select'; id: string; selected: boolean }
+  | { type: 'size'; id: string; position: FlowPosition; size: FlowSize; resizing: boolean }
 
 export type EdgeChange = { type: 'select'; id: string; selected: boolean }
 

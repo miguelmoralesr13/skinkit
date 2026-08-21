@@ -90,6 +90,10 @@ function applyNodeChangesToArray(nodes: FlowNode[], changes: NodeChange[]): Flow
       next = next.map((n) => (n.id === change.id ? { ...n, position: change.position } : n))
     } else if (change.type === 'select') {
       next = next.map((n) => (n.id === change.id ? { ...n, selected: change.selected } : n))
+    } else if (change.type === 'size') {
+      next = next.map((n) =>
+        n.id === change.id ? { ...n, position: change.position, size: change.size } : n,
+      )
     }
   }
   return next

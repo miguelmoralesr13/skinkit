@@ -238,6 +238,22 @@ export type {
   UseFlowResult,
 } from './components/Flow'
 
+export { ZoneCanvas, applyZoneChanges, applyItemChanges } from './components/ZoneCanvas'
+export type {
+  CanvasPosition,
+  CanvasSize,
+  Item,
+  ItemChange,
+  ItemComponentProps,
+  ItemTypes,
+  ResizeHandlePosition,
+  Zone,
+  ZoneCanvasProps,
+  ZoneChange,
+  ZoneComponentProps,
+  ZoneTypes,
+} from './components/ZoneCanvas'
+
 export { Menu } from './components/Menu'
 export type { MenuProps, MenuItemProps, MenuSide } from './components/Menu'
 

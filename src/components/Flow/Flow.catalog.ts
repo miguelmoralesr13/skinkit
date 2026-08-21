@@ -12,7 +12,11 @@ export const flowSpec: ComponentSpec = {
       name: 'nodes',
       type: 'FlowNode[]',
       required: false,
-      description: 'Controlado. Array de nodos (id, position, type, data, selected, draggable, selectable).',
+      description:
+        'Controlado. Array de nodos (id, position, size?, type, data, selected, draggable, ' +
+        'selectable, resizable, minSize?). `size` es opcional — sin esto, el nodo se autoajusta ' +
+        'a su contenido y el primer resize (si `resizable`, default true) parte del tamaño YA ' +
+        'medido, sin necesitar fijar uno a mano.',
     },
     { name: 'defaultNodes', type: 'FlowNode[]', required: false, description: 'No controlado.' },
     {
@@ -20,8 +24,8 @@ export const flowSpec: ComponentSpec = {
       type: '(changes: NodeChange[]) => void',
       required: false,
       description:
-        'Avisa cambios de posición/selección en batch (ej. al arrastrar un nodo). En modo ' +
-        'controlado, el consumidor aplica el change a su propio array de nodes.',
+        'Avisa cambios de posición/selección/tamaño en batch (ej. al arrastrar o redimensionar ' +
+        'un nodo). En modo controlado, el consumidor aplica el change a su propio array de nodes.',
     },
     { name: 'edges', type: 'FlowEdge[]', required: false, description: 'Controlado. Array de edges (id, source, target, sourceHandle?, targetHandle?, data, selected).' },
     { name: 'defaultEdges', type: 'FlowEdge[]', required: false, description: 'No controlado.' },
@@ -76,9 +80,20 @@ export const flowSpec: ComponentSpec = {
     {
       name: 'node',
       description:
-        'Un nodo. data-node-id, data-selected, data-dragging. Arrastrable (a menos que ' +
-        'draggable={false}), seleccionable con click (a menos que selectable={false}), y ' +
-        'movible con las flechas del teclado cuando tiene foco.',
+        'Un nodo. data-node-id, data-node-type (= node.type, para estilar por tipo — ver ' +
+        'usage), data-selected, data-dragging, data-resizing. Arrastrable (a menos que ' +
+        'draggable={false}), redimensionable con 8 handles (a menos que resizable={false}), ' +
+        'seleccionable con click (a menos que selectable={false}), y movible con las flechas del ' +
+        'teclado cuando tiene foco. El contenido puede ser HTML interactivo real (input/textarea/' +
+        'select/button/a/label/[contenteditable], o incluso una <img> como todo el contenido del ' +
+        'nodo) — clickear o escribir ahí NUNCA arranca un drag del nodo (marcá cualquier otro ' +
+        'elemento custom con `data-flow-no-drag` si tampoco debe arrastrar).',
+    },
+    {
+      name: 'resize-handle',
+      description:
+        'Uno de los 8 handles de redimensionar un nodo (mismo mecanismo que ZoneCanvas). ' +
+        'data-handle-position="top|right|bottom|left|top-left|top-right|bottom-left|bottom-right".',
     },
     {
       name: 'handle',
@@ -147,10 +162,26 @@ function FlowDemo() {
     },
   ],
   usage: [
-    'Los nodos son HTML real vía `nodeTypes` — nunca se dibujan en un canvas.',
-    'El arrastre de un nodo es "localmente optimista": la posición visual se mueve local al ' +
-      'nodo mientras arrastrás; `onNodesChange` te avisa el cambio para que lo apliques a tu ' +
-      'propio array — el drag nunca depende de qué tan rápido re-renderice tu app.',
+    'Los nodos son HTML real vía `nodeTypes` — nunca se dibujan en un canvas. Podés poner ' +
+      'inputs/selects/botones/links/checkboxes reales adentro (incluso otros componentes de ' +
+      'skinkit, o directamente una <img> ocupando todo el nodo) — clickear o escribir ahí ' +
+      'funciona normal, no arrastra el nodo.',
+    'Color, forma, tamaño y sombra de un nodo son 100% CSS — pisá `--sk-flow-node-bg/-border/' +
+      '-radius` (o directamente el selector `[data-part="node"]`) para cambiar el look, igual que ' +
+      'cualquier otro componente de skinkit. `size` en el nodo es sólo posición/dimensión — nunca ' +
+      'estilo.',
+    'Para que DISTINTOS tipos de nodo tengan formas distintas en el mismo Flow (círculo, ' +
+      'rombo, hexágono...), usá el selector `[data-node-type="tu-tipo"]` en tu propio CSS — ej. ' +
+      '`[data-node-type="inicio"] { border-radius: 50%; }` o `clip-path` para un rombo. `data-' +
+      'node-type` refleja `node.type` (el mismo string que usás como key de `nodeTypes`), así que ' +
+      'no hace falta ningún prop nuevo para esto.',
+    'El arrastre y el resize de un nodo son "localmente optimistas": la posición/tamaño visual ' +
+      'se mueven local al nodo mientras arrastrás; `onNodesChange` te avisa el cambio para que lo ' +
+      'apliques a tu propio array — ninguno de los dos depende de qué tan rápido re-renderice tu app.',
+    'Redimensionar un nodo NO requiere fijarle un `size` inicial — el primer resize parte del ' +
+      'tamaño con el que el nodo ya se autoajustó a su contenido (medido por ResizeObserver). ' +
+      'Un nodo sin `size` y sin redimensionar nunca sigue siendo puramente content-sized, como ' +
+      'siempre.',
     '`Flow.Handle` va DENTRO del componente que pusiste en `nodeTypes` — Flow nunca decide ' +
       'cuántos handles tiene un nodo ni dónde van.',
     'Sin `isValidConnection`, cualquier conexión es válida. Flow nunca decide reglas de negocio ' +
@@ -164,6 +195,7 @@ function FlowDemo() {
     'Un nodo seleccionable/arrastrable tiene tabIndex — foco + flechas del teclado lo mueven ' +
       '(4px por pulsación), sin necesitar el mouse.',
     'Crear una conexión SÍ requiere mouse/touch (arrastrar de handle a handle) — no hay todavía ' +
-      'un flujo por teclado para conectar dos nodos.',
+      'un flujo por teclado para conectar dos nodos. Redimensionar un nodo (los 8 handles) ' +
+      'tampoco tiene todavía un flujo por teclado — sólo mover lo tiene.',
   ],
 }

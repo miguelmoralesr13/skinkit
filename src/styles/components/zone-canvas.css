@@ -1,0 +1,149 @@
+/* ── ZoneCanvas ─────────────────────────────────────────────── */
+/* Nota: se extiende en el mismo cambio que cada pieza (zones ahora, items en el siguiente batch)
+   según la regla del proyecto. Esta primera pasada cubre root/zone/resize-handle. */
+[data-sk='zone-canvas'] {
+  --sk-zone-canvas-bg: var(--color-sk-surface-2);
+  position: relative;
+  overflow: auto;
+  width: 100%;
+  height: 500px;
+  background-color: var(--sk-zone-canvas-bg);
+  border-radius: var(--radius-sk-lg);
+  border: 1px solid var(--color-sk-border);
+}
+[data-sk='zone-canvas'] [data-part='zone'] {
+  --sk-zone-canvas-zone-bg: var(--color-sk-surface);
+  --sk-zone-canvas-zone-border: var(--color-sk-border);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(var(--sk-zone-canvas-zone-x), var(--sk-zone-canvas-zone-y));
+  width: var(--sk-zone-canvas-zone-width);
+  height: var(--sk-zone-canvas-zone-height);
+  background-color: var(--sk-zone-canvas-zone-bg);
+  border: 1px dashed var(--sk-zone-canvas-zone-border);
+  border-radius: var(--radius-sk-md);
+  cursor: grab;
+  user-select: none;
+}
+[data-sk='zone-canvas'] [data-part='zone'][data-dragging] {
+  cursor: grabbing;
+  box-shadow: var(--shadow-sk-md);
+  z-index: 10;
+}
+[data-sk='zone-canvas'] [data-part='zone'][data-resizing] {
+  box-shadow: var(--shadow-sk-md);
+  z-index: 10;
+}
+[data-sk='zone-canvas'] [data-part='zone']:focus-visible {
+  outline: 2px solid var(--color-sk-primary);
+  outline-offset: 2px;
+}
+[data-sk='zone-canvas'] [data-part='zone'][data-drop-target] {
+  --sk-zone-canvas-zone-border: var(--color-sk-primary);
+  background-color: color-mix(in srgb, var(--color-sk-primary) 8%, var(--sk-zone-canvas-zone-bg));
+}
+[data-sk='zone-canvas'] [data-part='zone-body'] {
+  position: relative;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+  @apply p-2;
+}
+[data-sk='zone-canvas'] [data-part='item'] {
+  --sk-zone-canvas-item-bg: var(--color-sk-surface);
+  --sk-zone-canvas-item-border: var(--color-sk-border);
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Sin --sk-zone-canvas-item-width/-height (item sin `size`, nunca redimensionado), `auto` deja
+     que el contenido decida el tamaño — mismo criterio que el nodo de Flow. */
+  width: var(--sk-zone-canvas-item-width, auto);
+  height: var(--sk-zone-canvas-item-height, auto);
+  transform: translate(var(--sk-zone-canvas-item-x), var(--sk-zone-canvas-item-y));
+  background-color: var(--sk-zone-canvas-item-bg);
+  border: 1px solid var(--sk-zone-canvas-item-border);
+  border-radius: var(--radius-sk-sm);
+  box-shadow: var(--shadow-sk-sm);
+  cursor: grab;
+  user-select: none;
+  /* NO overflow:hidden acá — los 8 resize-handle son hijos posicionados con offset negativo
+     (fuera de esta caja); un overflow:hidden en la MISMA caja los recorta y los vuelve
+     parcialmente no-clickeables. */
+  @apply px-2 py-1;
+}
+[data-sk='zone-canvas'] [data-part='item'][data-dragging] {
+  cursor: grabbing;
+  box-shadow: var(--shadow-sk-md);
+  /* Deja que elementFromPoint vea la zona DEBAJO del item mientras se arrastra (ver
+     resolveZoneUnderPoint / ZoneCanvasItem.onEnd) — el truco estándar de drag-and-drop. */
+  pointer-events: none;
+  /* Los items son hijos DOM de su zona de origen — sin esto, arrastrar uno sobre una zona que
+     viene DESPUÉS en el orden del DOM lo pintaría por detrás de esa zona. */
+  z-index: 20;
+}
+[data-sk='zone-canvas'] [data-part='item'][data-resizing] {
+  cursor: default;
+  box-shadow: var(--shadow-sk-md);
+  z-index: 20;
+}
+[data-sk='zone-canvas'] [data-part='item']:focus-visible {
+  outline: 2px solid var(--color-sk-primary);
+  outline-offset: 2px;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'] {
+  position: absolute;
+  z-index: 5;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='top'],
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='bottom'] {
+  left: 8px;
+  right: 8px;
+  height: 8px;
+  cursor: ns-resize;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='left'],
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='right'] {
+  top: 8px;
+  bottom: 8px;
+  width: 8px;
+  cursor: ew-resize;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='top'] {
+  top: -4px;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='bottom'] {
+  bottom: -4px;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='left'] {
+  left: -4px;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='right'] {
+  right: -4px;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position$='-left'] {
+  left: -4px;
+  width: 8px;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position$='-right'] {
+  right: -4px;
+  width: 8px;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position^='top-'] {
+  top: -4px;
+  height: 8px;
+  cursor: nwse-resize;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position^='bottom-'] {
+  bottom: -4px;
+  height: 8px;
+  cursor: nesw-resize;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='top-right'],
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='bottom-left'] {
+  cursor: nesw-resize;
+}
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='top-left'],
+[data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='bottom-right'] {
+  cursor: nwse-resize;
+}

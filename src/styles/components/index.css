@@ -96,6 +96,7 @@
 @import './highlight.css' layer(components);
 @import './prose.css' layer(components);
 @import './flow.css' layer(components);
+@import './zone-canvas.css' layer(components);
 @import './code.css' layer(components);
 @import './kbd.css' layer(components);
 @import './image.css' layer(components);

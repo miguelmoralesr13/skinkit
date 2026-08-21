@@ -107,8 +107,11 @@ import {
   TourProvider,
   useTour,
   Flow,
+  ZoneCanvas,
+  applyZoneChanges,
+  applyItemChanges,
 } from '../src'
-import type { ColumnDef, SortState, TourConfig } from '../src'
+import type { ColumnDef, Item, SortState, TourConfig, Zone } from '../src'
 import { useForm } from 'react-hook-form'
 import { DynamicForm } from '../src/components/DynamicForm'
 import type { FormConfig, FormValues } from '../src/components/DynamicForm'
@@ -613,6 +616,390 @@ function FlowTaskDemo() {
       >
         <Flow.Controls />
       </Flow>
+    </div>
+  )
+}
+
+// Demuestra que los nodos son HTML real: inputs/selects/checkboxes/botones funcionan normal
+// adentro (clickear o escribir NUNCA arrastra el nodo, ver NO_DRAG_SELECTOR en FlowNode.tsx).
+interface TaskFields {
+  label: string
+  assignee: string
+  status: 'pendiente' | 'en-progreso' | 'hecho'
+  urgent: boolean
+}
+interface TaskNodeData extends TaskFields {
+  onChange: (patch: Partial<TaskFields>) => void
+  onDelete: () => void
+}
+const TASK_ASSIGNEES = ['Ana', 'Bruno', 'Carla']
+const TASK_STATUS_LABEL: Record<TaskFields['status'], string> = {
+  pendiente: 'Pendiente',
+  'en-progreso': 'En progreso',
+  hecho: 'Hecho',
+}
+const TASK_NEXT_STATUS: Record<TaskFields['status'], TaskFields['status']> = {
+  pendiente: 'en-progreso',
+  'en-progreso': 'hecho',
+  hecho: 'pendiente',
+}
+
+function FlowInteractiveTaskNode({ data }: { id: string; data?: TaskNodeData; selected: boolean }) {
+  if (!data) return null
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: 240 }}>
+      <Flow.Handle kind="target" position="left" />
+      <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+        <Input
+          value={data.label}
+          onChange={(e) => data.onChange({ label: e.target.value })}
+          aria-label="Título de la tarea"
+          style={{ flex: 1 }}
+        />
+        <button type="button" aria-label="Eliminar tarea" onClick={data.onDelete}>
+          <Trash2 size={14} />
+        </button>
+      </div>
+      <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <Select
+          value={data.assignee}
+          onChange={(e) => data.onChange({ assignee: e.target.value })}
+          aria-label="Responsable"
+        >
+          {TASK_ASSIGNEES.map((a) => (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          ))}
+        </Select>
+        <Badge variant={data.status === 'en-progreso' ? 'primary' : 'neutral'}>
+          {TASK_STATUS_LABEL[data.status]}
+        </Badge>
+        {data.urgent && <Badge variant="danger">Urgente</Badge>}
+      </div>
+      <Checkbox
+        label="Urgente"
+        checked={data.urgent}
+        onChange={(e) => data.onChange({ urgent: e.target.checked })}
+      />
+      <Button size="sm" onClick={() => data.onChange({ status: TASK_NEXT_STATUS[data.status] })}>
+        {data.status === 'hecho' ? 'Reabrir' : 'Avanzar'}
+      </Button>
+      <Flow.Handle kind="source" position="right" />
+    </div>
+  )
+}
+const FLOW_INTERACTIVE_NODE_TYPES = { task: FlowInteractiveTaskNode }
+
+function FlowInteractiveDemo() {
+  const [tasks, setTasks] = useState([
+    {
+      id: 't1',
+      position: { x: 20, y: 20 },
+      type: 'task',
+      fields: { label: 'Diseñar onboarding', assignee: 'Ana', status: 'en-progreso', urgent: true } as TaskFields,
+    },
+    {
+      id: 't2',
+      position: { x: 340, y: 60 },
+      type: 'task',
+      fields: { label: 'Escribir copy', assignee: 'Bruno', status: 'pendiente', urgent: false } as TaskFields,
+    },
+    {
+      id: 't3',
+      position: { x: 660, y: 20 },
+      type: 'task',
+      fields: { label: 'Revisar y publicar', assignee: 'Carla', status: 'pendiente', urgent: false } as TaskFields,
+    },
+  ])
+  const [edges, setEdges] = useState([
+    { id: 'e1', source: 't1', target: 't2' },
+    { id: 'e2', source: 't2', target: 't3' },
+  ] as { id: string; source: string; target: string; selected?: boolean }[])
+
+  const updateTask = (id: string, patch: Partial<TaskFields>) =>
+    setTasks((ts) => ts.map((t) => (t.id === id ? { ...t, fields: { ...t.fields, ...patch } } : t)))
+  const deleteTask = (id: string) => {
+    setTasks((ts) => ts.filter((t) => t.id !== id))
+    setEdges((eds) => eds.filter((e) => e.source !== id && e.target !== id))
+  }
+
+  const nodes = tasks.map((t) => ({
+    id: t.id,
+    position: t.position,
+    type: t.type,
+    data: {
+      ...t.fields,
+      onChange: (patch: Partial<TaskFields>) => updateTask(t.id, patch),
+      onDelete: () => deleteTask(t.id),
+    },
+  }))
+
+  return (
+    <div style={{ width: '100%', maxWidth: 960 }}>
+      <p style={{ marginBottom: '0.5rem', fontSize: '0.85em', color: 'var(--color-sk-text-muted)' }}>
+        Cada nodo es HTML real (Input/Select/Checkbox/Button de skinkit) — clickear o escribir ahí
+        funciona normal, no arrastra el nodo.
+      </p>
+      <Flow
+        nodes={nodes}
+        nodeTypes={FLOW_INTERACTIVE_NODE_TYPES}
+        onNodesChange={(changes) => {
+          setTasks((ts) => {
+            let next = ts
+            for (const c of changes) {
+              if (c.type === 'position') next = next.map((t) => (t.id === c.id ? { ...t, position: c.position } : t))
+            }
+            return next
+          })
+        }}
+        edges={edges}
+        onEdgesChange={(changes) => {
+          setEdges((eds) => {
+            let next = eds
+            for (const c of changes) {
+              if (c.type === 'select') next = next.map((e) => (e.id === c.id ? { ...e, selected: c.selected } : e))
+            }
+            return next
+          })
+        }}
+        onConnect={(conn) =>
+          setEdges((eds) => [...eds, { id: `${conn.source}-${conn.target}-${eds.length}`, source: conn.source, target: conn.target }])
+        }
+      >
+        <Flow.Controls />
+      </Flow>
+    </div>
+  )
+}
+
+// Genérico a propósito — "zone"/"item", nada de nombres de dominio. Usa los reducers puros
+// exportados (applyZoneChanges/applyItemChanges) en vez de reinventar el switch.
+function ZoneCanvasItemCard({ data }: { id: string; data?: { label: string } }) {
+  return <>{data?.label}</>
+}
+function ZoneCanvasItemDot({ data }: { id: string; data?: { label: string } }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'var(--color-sk-accent)',
+        color: '#111',
+        fontWeight: 600,
+        fontSize: '0.8em',
+      }}
+    >
+      {data?.label}
+    </div>
+  )
+}
+const ZONE_CANVAS_ITEM_TYPES = { card: ZoneCanvasItemCard, dot: ZoneCanvasItemDot }
+
+function ZoneCanvasDemo() {
+  const [zones, setZones] = useState<Zone[]>([
+    { id: 'a', position: { x: 20, y: 20 }, size: { width: 240, height: 200 } },
+    { id: 'b', position: { x: 300, y: 20 }, size: { width: 240, height: 200 } },
+  ])
+  const [items, setItems] = useState<Item[]>([
+    { id: '1', zoneId: 'a', type: 'card', position: { x: 16, y: 16 }, data: { label: 'Item 1' } },
+    {
+      id: '2',
+      zoneId: 'a',
+      type: 'dot',
+      position: { x: 16, y: 70 },
+      size: { width: 64, height: 64 },
+      data: { label: 'Item 2' },
+    },
+    { id: '3', zoneId: 'b', type: 'card', position: { x: 16, y: 16 }, data: { label: 'Item 3' } },
+  ])
+  return (
+    <div style={{ width: '100%', maxWidth: 620 }}>
+      {/* [data-item-type] refleja item.type — muestra que la FORMA (no sólo el color) de un item
+          se personaliza por tipo con CSS de verdad, sin ningún prop nuevo. */}
+      <style>{`[data-item-type="dot"] { border-radius: 50% !important; }`}</style>
+      <p style={{ marginBottom: '0.5rem', fontSize: '0.85em', color: 'var(--color-sk-text-muted)' }}>
+        Arrastrá cualquier borde/esquina de un item para redimensionarlo, o un item entero a la
+        otra zona para reparentarlo. Encoger una zona no mueve sus items.
+      </p>
+      <ZoneCanvas
+        zones={zones}
+        onZonesChange={(changes) => setZones((zs) => applyZoneChanges(zs, changes))}
+        items={items}
+        itemTypes={ZONE_CANVAS_ITEM_TYPES}
+        onItemsChange={(changes) => setItems((its) => applyItemChanges(its, changes))}
+      />
+    </div>
+  )
+}
+
+// Ilustrativo únicamente — un plano de restaurante es sólo UN caso de uso posible del componente
+// genérico de arriba (secciones/mesas en vez de zones/items "a secas"), no el modelo de la API.
+function ZoneCanvasTableCard({ data }: { id: string; data?: { label: string; seats: number } }) {
+  return (
+    <>
+      {data?.label}
+      <Badge variant="neutral">{data?.seats} pers.</Badge>
+    </>
+  )
+}
+const ZONE_CANVAS_FLOORPLAN_ITEM_TYPES = { table: ZoneCanvasTableCard }
+
+function ZoneCanvasSectionHeader({ data }: { id: string; data?: { label: string } }) {
+  return <div style={{ fontWeight: 600, marginBottom: '0.5rem' }}>{data?.label}</div>
+}
+const ZONE_CANVAS_FLOORPLAN_ZONE_TYPES = { section: ZoneCanvasSectionHeader }
+
+function ZoneCanvasFloorPlanDemo() {
+  const [zones, setZones] = useState<Zone[]>([
+    { id: 'terraza', type: 'section', position: { x: 20, y: 20 }, size: { width: 260, height: 220 }, data: { label: 'Terraza' } },
+    { id: 'interior', type: 'section', position: { x: 320, y: 20 }, size: { width: 300, height: 220 }, data: { label: 'Interior' } },
+  ])
+  const [tables, setTables] = useState<Item[]>([
+    { id: 't1', zoneId: 'terraza', type: 'table', position: { x: 16, y: 44 }, data: { label: 'Mesa 1', seats: 2 } },
+    { id: 't2', zoneId: 'terraza', type: 'table', position: { x: 16, y: 100 }, data: { label: 'Mesa 2', seats: 4 } },
+    { id: 't3', zoneId: 'interior', type: 'table', position: { x: 16, y: 44 }, data: { label: 'Mesa 3', seats: 6 } },
+  ])
+  return (
+    <div style={{ width: '100%', maxWidth: 680 }}>
+      <p style={{ marginBottom: '0.5rem', fontSize: '0.85em', color: 'var(--color-sk-text-muted)' }}>
+        Ejemplo ilustrativo (plano de un restaurante) — el componente en sí no sabe nada de mesas ni
+        de restaurantes, sólo de zones/items genéricos.
+      </p>
+      <ZoneCanvas
+        zones={zones}
+        zoneTypes={ZONE_CANVAS_FLOORPLAN_ZONE_TYPES}
+        onZonesChange={(changes) => setZones((zs) => applyZoneChanges(zs, changes))}
+        items={tables}
+        itemTypes={ZONE_CANVAS_FLOORPLAN_ITEM_TYPES}
+        onItemsChange={(changes) => setTables((its) => applyItemChanges(its, changes))}
+      />
+    </div>
+  )
+}
+
+// Demuestra que un nodo es 100% personalizable: color/forma vía el contenido (data.color acá,
+// nada nuevo en la API de Flow) y tamaño real vía los 8 handles de resize — incluso una <img>
+// real puede ser todo el contenido de un nodo.
+function FlowNoteNode({ data }: { id: string; data?: { label: string; color: string }; selected: boolean }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0.5rem',
+        textAlign: 'center',
+        backgroundColor: data?.color,
+        borderRadius: 'inherit',
+        color: '#111',
+        fontWeight: 600,
+      }}
+    >
+      {data?.label}
+    </div>
+  )
+}
+
+function FlowPhotoNode({ data }: { id: string; data?: { src: string; alt: string }; selected: boolean }) {
+  return (
+    // draggable={false} — si no, el navegador arranca SU propio drag nativo de imagen en vez
+    // del drag del nodo (el pointer-based de FlowNode).
+    <img
+      src={data?.src}
+      alt={data?.alt}
+      draggable={false}
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+  )
+}
+
+function FlowDecisionNode({ data }: { id: string; data?: { label: string }; selected: boolean }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '0.5rem 1.25rem',
+        backgroundColor: 'var(--color-sk-warning)',
+        color: '#111',
+        fontWeight: 600,
+      }}
+    >
+      {data?.label}
+    </div>
+  )
+}
+
+const FLOW_RESIZE_NODE_TYPES = { note: FlowNoteNode, photo: FlowPhotoNode, decision: FlowDecisionNode }
+
+function FlowResizeDemo() {
+  const [nodes, setNodes] = useState([
+    {
+      id: 'n1',
+      type: 'note',
+      position: { x: 20, y: 20 },
+      size: { width: 180, height: 100 },
+      data: { label: 'Nota rosa', color: '#fbcfe8' },
+    },
+    {
+      id: 'n2',
+      type: 'note',
+      position: { x: 240, y: 160 },
+      size: { width: 160, height: 120 },
+      data: { label: 'Nota celeste', color: '#bfdbfe' },
+    },
+    {
+      id: 'n3',
+      type: 'photo',
+      position: { x: 460, y: 20 },
+      size: { width: 220, height: 160 },
+      data: { src: 'https://picsum.photos/seed/skflow1/440/320', alt: 'Foto de ejemplo' },
+    },
+    {
+      id: 'n4',
+      type: 'decision',
+      position: { x: 280, y: 360 },
+      size: { width: 160, height: 160 },
+      data: { label: '¿Aprobado?' },
+    },
+  ])
+  return (
+    <div style={{ width: '100%', maxWidth: 760 }}>
+      {/* [data-node-type] refleja node.type — un consumidor real haría esto en su propio CSS, no
+          inline en un <style> de demo; acá alcanza para mostrar que la FORMA del nodo (no sólo su
+          contenido) se puede personalizar por tipo, sin ningún prop nuevo en la API. */}
+      <style>{`[data-node-type="decision"] { border-radius: 0 !important; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }`}</style>
+      <p style={{ marginBottom: '0.5rem', fontSize: '0.85em', color: 'var(--color-sk-text-muted)' }}>
+        Arrastrá cualquier borde/esquina para redimensionar. Color y forma son del contenido y de
+        `[data-node-type]` — acá una nota de color, una imagen real y un rombo (misma API, sin
+        props nuevos).
+      </p>
+      <Flow
+        nodes={nodes}
+        nodeTypes={FLOW_RESIZE_NODE_TYPES}
+        onNodesChange={(changes) => {
+          setNodes((nds) => {
+            let next = nds
+            for (const c of changes) {
+              if (c.type === 'position') next = next.map((n) => (n.id === c.id ? { ...n, position: c.position } : n))
+              else if (c.type === 'size')
+                next = next.map((n) => (n.id === c.id ? { ...n, position: c.position, size: c.size } : n))
+              else if (c.type === 'select') next = next.map((n) => (n.id === c.id ? { ...n, selected: c.selected } : n))
+            }
+            return next
+          })
+        }}
+      />
     </div>
   )
 }
@@ -3337,6 +3724,27 @@ function App() {
       {
         name: 'Flujo de tareas (nodeTypes + conexiones)',
         render: () => <FlowTaskDemo />,
+      },
+      {
+        name: 'Nodos interactivos (inputs, selects, checkboxes, botones)',
+        render: () => <FlowInteractiveDemo />,
+      },
+      {
+        name: 'Nodos redimensionables (color, forma, imagen como contenedor)',
+        render: () => <FlowResizeDemo />,
+      },
+    ],
+  },
+  {
+    component: 'ZoneCanvas',
+    stories: [
+      {
+        name: 'Zonas + items (reparent entre zonas)',
+        render: () => <ZoneCanvasDemo />,
+      },
+      {
+        name: 'Ilustrativo: plano de restaurante',
+        render: () => <ZoneCanvasFloorPlanDemo />,
       },
     ],
   },
