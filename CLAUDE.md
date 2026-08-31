@@ -176,6 +176,16 @@ deps into a consumer's bundle.
   valid input for another Tailwind v4 build; a consumer imports this into their own build to
   extend/override skinkit's tokens as real utilities in their own app code)
 
+**Per-component catalog files** (`scripts/generate-catalog-files.mjs`, last step of `build`, runs
+after `dist/catalog/index.js` exists — needs it as input): splits the one bundled catalog into
+`dist/catalog/components/<Name>.json` (one per spec) + `dist/catalog/components/_index.json`
+(name/dataSk/category only, for the ~106). No `exports` entry — deliberately plain files, not a
+subpath, so an agent working in a consumer app can `Read` `node_modules/skinkit/dist/catalog/
+components/Sidebar.json` directly, no JS execution, no need for the `lib-skinkit` source repo
+nearby. This is for AGENTS doing lookup, not app runtime code (which still uses
+`getComponentSpec()` from `skinkit/catalog` if it needs a spec programmatically). See
+`skinkit-usage` skill (Critical Pattern 3) and `skinkit-screen-pipeline` (Fase 2b).
+
 **One new runtime dependency**: `tailwind-merge`, used by `src/lib/cx.ts` (`extendTailwindMerge`
 with skinkit's custom `sk-*` color/radius groups registered) so a consumer's conflicting override
 class deterministically wins instead of both classes landing in the DOM. This is the one place the

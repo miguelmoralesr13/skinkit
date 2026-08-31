@@ -40,7 +40,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsup && tsc -p tsconfig.build.json && npm run build:css",
+    "build": "tsup && tsc -p tsconfig.build.json && npm run build:css && node scripts/generate-catalog-files.mjs",
     "build:css": "tailwindcss -i ./src/styles/index.css -o ./dist/styles/skinkit.css --minify",
     "typecheck": "tsc --noEmit",
     "preview": "vite build && vite preview",
