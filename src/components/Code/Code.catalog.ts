@@ -12,6 +12,7 @@ export const codeSpec: ComponentSpec = {
     { name: 'block', type: 'boolean', required: false, description: 'Bloque multilínea (<pre>) en vez de inline (<code>).' },
     { name: 'copyable', type: 'boolean', required: false, description: 'En bloque: muestra un botón de copiar.' },
     { name: 'lang', type: 'string', required: false, description: 'Resalta sintaxis (JS/TS por defecto; "bash"/"py"/"yaml" para comentarios #). Solo en bloque con children string. Los colores salen del theme (var(--sk-code-*)).' },
+    { name: 'classNames', type: '{ content?: string; copy?: string }', required: false, description: 'Clases extra por sub-parte (content, copy).' },
   ],
   parts: [
     { name: 'root', description: 'El <code> (inline) o <pre> (bloque) [data-sk=code]. Lleva [data-block] en bloque.' },

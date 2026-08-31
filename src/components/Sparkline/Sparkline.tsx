@@ -12,6 +12,12 @@ export type SparklineTone =
   | 'danger'
   | 'neutral'
 
+export interface SparklineClassNames {
+  area?: string
+  line?: string
+  dot?: string
+}
+
 export interface SparklineProps extends HTMLAttributes<HTMLSpanElement> {
   data: number[]
   width?: number
@@ -21,6 +27,8 @@ export interface SparklineProps extends HTMLAttributes<HTMLSpanElement> {
   area?: boolean
   /** Punto en el último valor. */
   dot?: boolean
+  /** Clases adicionales por sub-parte (area/line/dot). */
+  classNames?: SparklineClassNames
 }
 
 /**
@@ -34,7 +42,7 @@ export interface SparklineProps extends HTMLAttributes<HTMLSpanElement> {
  *   [data-part="dot"]       punto del último valor (si dot)
  */
 export const Sparkline = forwardRef<HTMLSpanElement, SparklineProps>(function Sparkline(
-  { data, width = 100, height = 28, tone = 'primary', area, dot, className, ...rest },
+  { data, width = 100, height = 28, tone = 'primary', area, dot, className, classNames, ...rest },
   ref,
 ) {
   const n = data.length
@@ -60,12 +68,24 @@ export const Sparkline = forwardRef<HTMLSpanElement, SparklineProps>(function Sp
         {area && n > 1 ? (
           <polygon
             data-part="area"
+            className={cx('sk-sparkline__area', classNames?.area)}
             points={`${pad},${height - pad} ${points.join(' ')} ${width - pad},${height - pad}`}
           />
         ) : null}
-        <polyline data-part="line" fill="none" points={points.join(' ')} />
+        <polyline
+          data-part="line"
+          className={cx('sk-sparkline__line', classNames?.line)}
+          fill="none"
+          points={points.join(' ')}
+        />
         {dot && n > 0 ? (
-          <circle data-part="dot" cx={pad + (n - 1) * stepX} cy={y(last)} r={2.5} />
+          <circle
+            data-part="dot"
+            className={cx('sk-sparkline__dot', classNames?.dot)}
+            cx={pad + (n - 1) * stepX}
+            cy={y(last)}
+            r={2.5}
+          />
         ) : null}
       </svg>
     </span>

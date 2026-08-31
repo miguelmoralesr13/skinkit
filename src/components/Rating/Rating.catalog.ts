@@ -15,6 +15,7 @@ export const ratingSpec: ComponentSpec = {
     { name: 'onChange', type: '(value: number) => void', required: false, description: 'Se invoca con el valor elegido.' },
     { name: 'readOnly', type: 'boolean', required: false, description: 'Solo muestra el valor; no se puede cambiar.' },
     { name: 'label', type: 'string', required: false, default: "'Puntuación'", description: 'aria-label del grupo.' },
+    { name: 'classNames', type: '{ star?: string }', required: false, description: 'Clases adicionales por sub-parte (star). Aditivo: nunca reemplaza la clase base. La misma clase aplica a todas las estrellas.' },
   ],
   parts: [
     { name: 'root', description: 'role=radiogroup. Lleva [data-readonly] si aplica.' },

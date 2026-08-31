@@ -17,6 +17,19 @@ interface UploadItem {
   url?: string
 }
 
+export interface FileUploadClassNames {
+  label?: string
+  dropzone?: string
+  input?: string
+  prompt?: string
+  previews?: string
+  preview?: string
+  thumb?: string
+  filename?: string
+  remove?: string
+  helper?: string
+}
+
 export interface FileUploadProps {
   /** Se invoca con la lista COMPLETA de archivos actuales tras cada cambio (agregar/quitar). */
   onFiles?: (files: File[]) => void
@@ -33,6 +46,8 @@ export interface FileUploadProps {
   preview?: boolean
   className?: string
   id?: string
+  /** Clases adicionales por sub-parte (aditivas, nunca reemplazan la clase base). */
+  classNames?: FileUploadClassNames
 }
 
 /**
@@ -67,6 +82,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
     preview,
     className,
     id,
+    classNames,
   },
   ref,
 ) {
@@ -135,7 +151,11 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
       className={cx('sk-file-upload', className)}
     >
       {label ? (
-        <label data-part="label" htmlFor={fieldId}>
+        <label
+          data-part="label"
+          htmlFor={fieldId}
+          className={cx('sk-file-upload__label', classNames?.label)}
+        >
           {label}
         </label>
       ) : null}
@@ -146,6 +166,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
         onDrop={onDrop}
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
+        className={cx('sk-file-upload__dropzone', classNames?.dropzone)}
       >
         <input
           ref={ref}
@@ -157,8 +178,9 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
           disabled={disabled}
           aria-describedby={helperId}
           onChange={(e) => emit(e.target.files)}
+          className={cx('sk-file-upload__input', classNames?.input)}
         />
-        <span data-part="prompt">
+        <span data-part="prompt" className={cx('sk-file-upload__prompt', classNames?.prompt)}>
           {prompt ??
             (variant === 'button'
               ? 'Elegir archivos'
@@ -167,19 +189,35 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
       </label>
 
       {preview && items.length > 0 ? (
-        <div data-part="previews">
+        <div data-part="previews" className={cx('sk-file-upload__previews', classNames?.previews)}>
           {items.map((it) => (
-            <div key={it.id} data-part="preview" data-image={it.url ? '' : undefined}>
+            <div
+              key={it.id}
+              data-part="preview"
+              data-image={it.url ? '' : undefined}
+              className={cx('sk-file-upload__preview', classNames?.preview)}
+            >
               {it.url ? (
-                <img data-part="thumb" src={it.url} alt={it.file.name} />
+                <img
+                  data-part="thumb"
+                  src={it.url}
+                  alt={it.file.name}
+                  className={cx('sk-file-upload__thumb', classNames?.thumb)}
+                />
               ) : (
-                <span data-part="filename">{it.file.name}</span>
+                <span
+                  data-part="filename"
+                  className={cx('sk-file-upload__filename', classNames?.filename)}
+                >
+                  {it.file.name}
+                </span>
               )}
               <button
                 type="button"
                 data-part="remove"
                 aria-label={`Quitar ${it.file.name}`}
                 onClick={() => remove(it.id)}
+                className={cx('sk-file-upload__remove', classNames?.remove)}
               >
                 ×
               </button>
@@ -189,7 +227,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
       ) : null}
 
       {helper ? (
-        <span data-part="helper" id={helperId}>
+        <span data-part="helper" id={helperId} className={cx('sk-file-upload__helper', classNames?.helper)}>
           {helper}
         </span>
       ) : null}

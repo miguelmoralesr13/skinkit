@@ -14,6 +14,13 @@ export const carouselSpec: ComponentSpec = {
     { name: 'onIndexChange', type: '(index: number) => void', required: false, description: 'Se invoca al cambiar de slide.' },
     { name: 'loop', type: 'boolean', required: false, description: 'Vuelve al principio/fin en los extremos.' },
     { name: 'label', type: 'string', required: false, default: "'Carrusel'", description: 'aria-label de la región.' },
+    {
+      name: 'classNames',
+      type: '{ viewport?: string; track?: string; slide?: string; prev?: string; next?: string; dots?: string; dot?: string }',
+      required: false,
+      description:
+        'Clases adicionales por parte interna (viewport/track/slide/prev/next/dots/dot). Se agregan, nunca reemplazan la clase base. slide y dot son partes repetidas (una por slide): la misma clase se aplica a todas las instancias.',
+    },
   ],
   parts: [
     { name: 'root', description: 'role=region. Expone --sk-carousel-index (índice actual).' },

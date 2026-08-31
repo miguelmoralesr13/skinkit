@@ -16,6 +16,7 @@ export const splitButtonSpec: ComponentSpec = {
     { name: 'size', type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: 'Tamaño.' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita ambos botones.' },
     { name: 'triggerLabel', type: 'string', required: false, default: "'Más acciones'", description: 'aria-label del disparador del menú.' },
+    { name: 'classNames', type: '{ main?: string; trigger?: string; content?: string; item?: string }', required: false, description: 'Clases adicionales por parte interna (main/trigger/content/item). Aditivo, no reemplaza la clase base. `item` aplica a todas las instancias de <SplitButton.Item> (no hay callback por-item).' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=split-button]. Lleva [data-variant] y [data-size].' },

@@ -1,9 +1,17 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 
+export interface CardClassNames {
+  header?: string
+  body?: string
+  footer?: string
+}
+
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   header?: ReactNode
   footer?: ReactNode
+  /** Clases adicionales por parte interna (header/body/footer). No reemplaza la clase base. */
+  classNames?: CardClassNames
 }
 
 /**
@@ -16,14 +24,24 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
  *   [data-part="footer"]    pie (opcional)
  */
 export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
-  { header, footer, className, children, ...rest },
+  { header, footer, className, children, classNames, ...rest },
   ref,
 ) {
   return (
     <div ref={ref} data-sk="card" className={cx('sk-card', className)} {...rest}>
-      {header ? <div data-part="header">{header}</div> : null}
-      <div data-part="body">{children}</div>
-      {footer ? <div data-part="footer">{footer}</div> : null}
+      {header ? (
+        <div data-part="header" className={cx('sk-card__header', classNames?.header)}>
+          {header}
+        </div>
+      ) : null}
+      <div data-part="body" className={cx('sk-card__body', classNames?.body)}>
+        {children}
+      </div>
+      {footer ? (
+        <div data-part="footer" className={cx('sk-card__footer', classNames?.footer)}>
+          {footer}
+        </div>
+      ) : null}
     </div>
   )
 })

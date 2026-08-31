@@ -1,6 +1,14 @@
 import { forwardRef, useEffect, useRef, useState, type HTMLAttributes } from 'react'
 import { cx } from '../../lib/cx'
 
+/** Clases opcionales por sub-parte de <Countdown>. Aditivas: nunca reemplazan la clase base. */
+export interface CountdownClassNames {
+  /** Se aplica a TODOS los bloques (uno por unidad: días/horas/min/seg). */
+  segment?: string
+  value?: string
+  label?: string
+}
+
 export interface CountdownProps extends HTMLAttributes<HTMLDivElement> {
   /** Objetivo: ISO string o timestamp (ms). */
   to: string | number
@@ -9,6 +17,8 @@ export interface CountdownProps extends HTMLAttributes<HTMLDivElement> {
   /** Ocultar los días si son 0. */
   hideDaysWhenZero?: boolean
   labels?: { days?: string; hours?: string; minutes?: string; seconds?: string }
+  /** Clases opcionales por sub-parte (segment/value/label). Aditivas. */
+  classNames?: CountdownClassNames
 }
 
 function toMs(to: string | number): number {
@@ -33,6 +43,7 @@ export const Countdown = forwardRef<HTMLDivElement, CountdownProps>(function Cou
     hideDaysWhenZero,
     labels,
     className,
+    classNames,
     ...rest
   },
   ref,
@@ -80,9 +91,18 @@ export const Countdown = forwardRef<HTMLDivElement, CountdownProps>(function Cou
       {...rest}
     >
       {segs.map((s) => (
-        <div key={s.unit} data-part="segment" data-unit={s.unit}>
-          <span data-part="value">{s.unit === 'days' ? s.value : pad2(s.value)}</span>
-          <span data-part="label">{s.label}</span>
+        <div
+          key={s.unit}
+          data-part="segment"
+          data-unit={s.unit}
+          className={cx('sk-countdown__segment', classNames?.segment)}
+        >
+          <span data-part="value" className={cx('sk-countdown__value', classNames?.value)}>
+            {s.unit === 'days' ? s.value : pad2(s.value)}
+          </span>
+          <span data-part="label" className={cx('sk-countdown__label', classNames?.label)}>
+            {s.label}
+          </span>
         </div>
       ))}
     </div>

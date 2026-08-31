@@ -9,6 +9,12 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 
+export interface ComparisonSliderClassNames {
+  after?: string
+  before?: string
+  handle?: string
+}
+
 export interface ComparisonSliderProps extends HTMLAttributes<HTMLDivElement> {
   /** Contenido/imagen de fondo (después). */
   after: ReactNode
@@ -17,6 +23,8 @@ export interface ComparisonSliderProps extends HTMLAttributes<HTMLDivElement> {
   /** Posición inicial del divisor (0–100). */
   defaultPosition?: number
   label?: string
+  /** Clases adicionales por sub-parte. */
+  classNames?: ComparisonSliderClassNames
 }
 
 /**
@@ -37,6 +45,7 @@ export function ComparisonSlider({
   label = 'Comparar',
   className,
   style,
+  classNames,
   ...rest
 }: ComparisonSliderProps) {
   const [pos, setPos] = useState(defaultPosition)
@@ -90,8 +99,14 @@ export function ComparisonSlider({
       onPointerUp={onPointerUp}
       {...rest}
     >
-      <div data-part="after">{after}</div>
-      <div data-part="before" aria-hidden="true">
+      <div data-part="after" className={cx('sk-comparison__after', classNames?.after)}>
+        {after}
+      </div>
+      <div
+        data-part="before"
+        aria-hidden="true"
+        className={cx('sk-comparison__before', classNames?.before)}
+      >
         {before}
       </div>
       <div
@@ -103,6 +118,7 @@ export function ComparisonSlider({
         aria-valuemax={100}
         tabIndex={0}
         onKeyDown={onKeyDown}
+        className={cx('sk-comparison__handle', classNames?.handle)}
       />
     </div>
   )

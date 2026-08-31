@@ -19,6 +19,7 @@ export const fileUploadSpec: ComponentSpec = {
     { name: 'prompt', type: 'ReactNode', required: false, description: 'Texto/ícono dentro de la zona.' },
     { name: 'helper', type: 'ReactNode', required: false, description: 'Ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido ([data-error]).' },
+    { name: 'classNames', type: 'FileUploadClassNames', required: false, description: 'Clases adicionales por sub-parte (label, dropzone, input, prompt, previews, preview, thumb, filename, remove, helper). Aditivas: nunca reemplazan la clase base.' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=file-upload]. Lleva [data-variant] y [data-error].' },

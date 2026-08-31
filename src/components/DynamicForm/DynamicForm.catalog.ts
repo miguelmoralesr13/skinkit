@@ -9,13 +9,14 @@ export const dynamicFormSpec: ComponentSpec = {
     'Formulario generado desde un JSON, sobre react-hook-form + Zod. Autónomo (crea el useForm y el schema Zod por dentro) o con un form externo. Validación DINÁMICA con Zod (reglas condicionales con `when`, campos ocultos no se validan), mostrar/ocultar y habilitar/deshabilitar por condición (valores internos o externos), subformularios (object), listas (array) y grilla configurable. Se importa desde el subpath `skinkit/form` (arrastra react-hook-form/zod, que son peerDependencies opcionales); el core `skinkit` sigue cero-deps.',
   extends: "Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'onChange'>",
   props: [
-    { name: 'schema', type: 'FormConfig', required: true, description: 'Config del form: { fields, cols?, gap? }. Cada field: name, type, label, options, colSpan, validation, visibleWhen, disabled, fields (object), itemFields (array).' },
+    { name: 'schema', type: 'FormConfig', required: true, description: 'Config del form: { fields, cols?, gap? }. Cada field: name, type, label, options, colSpan, validation, visibleWhen, disabled, fields (object), itemFields (array), className (clase adicional para ESE campo, aditiva — se aplica al componente/Fieldset que renderiza el campo).' },
     { name: 'onSubmit', type: '(values) => void | Promise', required: false, description: 'Se llama con los valores validados al enviar.' },
     { name: 'defaultValues', type: 'Record<string, unknown>', required: false, description: 'Valores iniciales (además de los defaultValue de cada campo).' },
     { name: 'externalValues', type: 'Record<string, unknown>', required: false, description: 'Contexto externo para condiciones (`{ external: "plan" }`): plan, rol, feature flags, etc.' },
     { name: 'form', type: 'UseFormReturn', required: false, description: 'Instancia externa de react-hook-form. Si se omite, el DynamicForm crea la suya.' },
     { name: 'submitLabel', type: 'ReactNode', required: false, default: "'Enviar'", description: 'Texto del botón de envío. null oculta la barra de acciones.' },
     { name: 'actions', type: 'ReactNode', required: false, description: 'Contenido extra en la barra de acciones (ej. un botón Cancelar).' },
+    { name: 'classNames', type: '{ fields?: string; actions?: string }', required: false, description: 'Clases adicionales (aditivas) por sub-parte del formulario: `fields` (el Grid que envuelve todos los campos, [data-part=fields]) y `actions` (la barra de acciones, [data-part=actions]). Para personalizar UN campo puntual (no todos), usá `className` en su FieldConfig dentro de `schema` en vez de esto.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=dynamic-form] (un <form>).' },

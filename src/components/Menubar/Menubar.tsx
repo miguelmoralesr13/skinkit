@@ -94,13 +94,20 @@ export function Menubar({ className, children, onKeyDown, ...rest }: MenubarProp
   )
 }
 
+export interface MenubarMenuClassNames {
+  trigger?: string
+  content?: string
+}
+
 export interface MenubarMenuProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Etiqueta del menú de nivel superior. */
   label: ReactNode
   children: ReactNode
+  /** Clases para las sub-partes internas (trigger, content). */
+  classNames?: MenubarMenuClassNames
 }
 
-function MenubarMenu({ label, className, children, ...rest }: MenubarMenuProps) {
+function MenubarMenu({ label, className, children, classNames, ...rest }: MenubarMenuProps) {
   const { openId, setOpen } = useMenubar('Menu')
   const id = useId()
   const open = openId === id
@@ -111,6 +118,7 @@ function MenubarMenu({ label, className, children, ...rest }: MenubarMenuProps) 
         type="button"
         data-part="trigger"
         data-state={open ? 'open' : 'closed'}
+        className={cx('sk-menubar-menu__trigger', classNames?.trigger)}
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen(open ? null : id)}
@@ -122,7 +130,7 @@ function MenubarMenu({ label, className, children, ...rest }: MenubarMenuProps) 
         {label}
       </button>
       {open && (
-        <div data-part="content" role="menu">
+        <div data-part="content" role="menu" className={cx('sk-menubar-menu__content', classNames?.content)}>
           {children}
         </div>
       )}

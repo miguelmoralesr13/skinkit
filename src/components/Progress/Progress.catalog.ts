@@ -13,6 +13,7 @@ export const progressSpec: ComponentSpec = {
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger' | 'neutral'", required: false, default: "'primary'", description: 'Color del indicador (del theme).' },
     { name: 'max', type: 'number', required: false, default: '100', description: 'Valor máximo.' },
     { name: 'indeterminate', type: 'boolean', required: false, description: 'Progreso sin valor conocido; el CSS lo anima.' },
+    { name: 'classNames', type: '{ track?: string; indicator?: string }', required: false, description: 'Clases adicionales para las sub-partes internas (track, indicator).' },
   ],
   parts: [
     { name: 'root', description: 'role=progressbar. Lleva [data-indeterminate] si aplica; expone --sk-progress (0–1).' },

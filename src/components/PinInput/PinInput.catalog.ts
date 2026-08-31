@@ -20,6 +20,13 @@ export const pinInputSpec: ComponentSpec = {
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta.' },
     { name: 'helper', type: 'ReactNode', required: false, description: 'Ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido.' },
+    {
+      name: 'classNames',
+      type: '{ label?: string; group?: string; field?: string; helper?: string }',
+      required: false,
+      description:
+        'Clases opcionales por sub-parte (label/group/field/helper). Aditivas: nunca reemplazan la clase base. field se aplica a todas las casillas.',
+    },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=pin-input]. Lleva [data-error].' },

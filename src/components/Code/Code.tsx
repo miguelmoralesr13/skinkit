@@ -3,6 +3,11 @@ import { useRef, useState, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { highlight } from './highlight'
 
+export interface CodeClassNames {
+  content?: string
+  copy?: string
+}
+
 export interface CodeProps extends HTMLAttributes<HTMLElement> {
   /** Bloque multilínea (<pre>) en vez de inline (<code>). */
   block?: boolean
@@ -13,6 +18,8 @@ export interface CodeProps extends HTMLAttributes<HTMLElement> {
    * Solo aplica en bloque y con children de tipo string. Los colores salen del theme.
    */
   lang?: string
+  /** Clases extra por sub-parte. */
+  classNames?: CodeClassNames
 }
 
 /**
@@ -24,7 +31,7 @@ export interface CodeProps extends HTMLAttributes<HTMLElement> {
  *   [data-part="content"]             el <code> dentro del <pre> (solo en bloque)
  *   [data-part="copy"]  [data-copied] botón de copiar (si copyable)
  */
-export function Code({ block, copyable, lang, className, children, ...rest }: CodeProps) {
+export function Code({ block, copyable, lang, className, children, classNames, ...rest }: CodeProps) {
   const contentRef = useRef<HTMLElement>(null)
   const [copied, setCopied] = useState(false)
 
@@ -50,7 +57,7 @@ export function Code({ block, copyable, lang, className, children, ...rest }: Co
 
   return (
     <pre data-sk="code" data-block="" className={cx('sk-code', className)} {...rest}>
-      <code data-part="content" ref={contentRef}>
+      <code data-part="content" className={cx('sk-code__content', classNames?.content)} ref={contentRef}>
         {body}
       </code>
       {copyable ? (
@@ -59,6 +66,7 @@ export function Code({ block, copyable, lang, className, children, ...rest }: Co
           data-part="copy"
           data-copied={copied ? '' : undefined}
           aria-label={copied ? 'Copiado' : 'Copiar'}
+          className={cx('sk-code__copy', classNames?.copy)}
           onClick={copy}
         >
           {copied ? <Check size={14} /> : <Copy size={14} />}

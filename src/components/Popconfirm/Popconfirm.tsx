@@ -1,6 +1,15 @@
 import { useState, type ReactNode } from 'react'
+import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Popover, type PopoverSide } from '../Popover'
+
+/** Clases adicionales por sub-parte (title/description/actions/confirm). Aditivo: nunca reemplaza la clase base. */
+export interface PopconfirmClassNames {
+  title?: string
+  description?: string
+  actions?: string
+  confirm?: string
+}
 
 export interface PopconfirmProps {
   /** Pregunta/título de la confirmación. */
@@ -16,6 +25,10 @@ export interface PopconfirmProps {
   side?: PopoverSide
   /** El disparador (texto/ícono). Se renderiza dentro del botón del Popover. */
   children: ReactNode
+  /** Clase adicional para la raíz ([data-sk="popconfirm"]). No reemplaza la clase base. */
+  className?: string
+  /** Clases adicionales por sub-parte. No reemplazan las clases base. */
+  classNames?: PopconfirmClassNames
 }
 
 /**
@@ -37,6 +50,8 @@ export function Popconfirm({
   danger,
   side = 'top',
   children,
+  className,
+  classNames,
 }: PopconfirmProps) {
   const [open, setOpen] = useState(false)
 
@@ -44,10 +59,20 @@ export function Popconfirm({
     <Popover open={open} onOpenChange={setOpen} side={side}>
       <Popover.Trigger>{children}</Popover.Trigger>
       <Popover.Content>
-        <div data-sk="popconfirm" data-tone={danger ? 'danger' : undefined}>
-          <div data-part="title">{title}</div>
-          {description != null && <div data-part="description">{description}</div>}
-          <div data-part="actions">
+        <div
+          data-sk="popconfirm"
+          data-tone={danger ? 'danger' : undefined}
+          className={cx('sk-popconfirm', className)}
+        >
+          <div data-part="title" className={cx('sk-popconfirm__title', classNames?.title)}>
+            {title}
+          </div>
+          {description != null && (
+            <div data-part="description" className={cx('sk-popconfirm__description', classNames?.description)}>
+              {description}
+            </div>
+          )}
+          <div data-part="actions" className={cx('sk-popconfirm__actions', classNames?.actions)}>
             <Button
               size="sm"
               variant="ghost"
@@ -61,6 +86,7 @@ export function Popconfirm({
             <Button
               size="sm"
               data-part="confirm"
+              className={cx('sk-popconfirm__confirm', classNames?.confirm)}
               onClick={() => {
                 onConfirm?.()
                 setOpen(false)

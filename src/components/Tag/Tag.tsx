@@ -12,10 +12,17 @@ export type TagVariant =
   | 'info'
   | 'danger'
 
+export interface TagClassNames {
+  label?: string
+  remove?: string
+}
+
 export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: TagVariant
   /** Si se pasa, aparece un botón × que lo invoca (chip removible). */
   onRemove?: () => void
+  /** Clases para las sub-partes internas (label, remove). */
+  classNames?: TagClassNames
 }
 
 /**
@@ -29,7 +36,7 @@ export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
  *   [data-part="remove"]    botón × (si hay onRemove)
  */
 export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
-  { variant = 'neutral', onRemove, className, children, ...rest },
+  { variant = 'neutral', onRemove, className, children, classNames, ...rest },
   ref,
 ) {
   return (
@@ -40,9 +47,17 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
       className={cx('sk-tag', className)}
       {...rest}
     >
-      <span data-part="label">{children as ReactNode}</span>
+      <span data-part="label" className={cx('sk-tag__label', classNames?.label)}>
+        {children as ReactNode}
+      </span>
       {onRemove ? (
-        <button type="button" data-part="remove" aria-label="Quitar" onClick={onRemove}>
+        <button
+          type="button"
+          data-part="remove"
+          aria-label="Quitar"
+          onClick={onRemove}
+          className={cx('sk-tag__remove', classNames?.remove)}
+        >
           ×
         </button>
       ) : null}

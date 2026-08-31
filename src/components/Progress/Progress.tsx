@@ -12,6 +12,11 @@ export type ProgressTone =
   | 'danger'
   | 'neutral'
 
+export interface ProgressClassNames {
+  track?: string
+  indicator?: string
+}
+
 export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
   /** Valor actual. Omitir (o indeterminate) para progreso indeterminado. */
   value?: number
@@ -20,6 +25,8 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
   indeterminate?: boolean
   /** Color del indicador (del theme). 'primary' (default) no emite data-tone. */
   tone?: ProgressTone
+  /** Clases adicionales para las sub-partes internas (track, indicator). */
+  classNames?: ProgressClassNames
 }
 
 /**
@@ -33,7 +40,7 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
  *   [data-part="indicator"]  relleno (width por --sk-progress; animado si indeterminate)
  */
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progress(
-  { value, max = 100, indeterminate, tone = 'primary', className, style, ...rest },
+  { value, max = 100, indeterminate, tone = 'primary', className, style, classNames, ...rest },
   ref,
 ) {
   const isIndeterminate = indeterminate || value == null
@@ -54,8 +61,8 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
       style={{ ['--sk-progress' as string]: String(ratio), ...style }}
       {...rest}
     >
-      <div data-part="track">
-        <div data-part="indicator" />
+      <div data-part="track" className={cx('sk-progress__track', classNames?.track)}>
+        <div data-part="indicator" className={cx('sk-progress__indicator', classNames?.indicator)} />
       </div>
     </div>
   )

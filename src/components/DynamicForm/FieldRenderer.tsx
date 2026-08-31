@@ -1,4 +1,5 @@
 import { Controller, type Control, type FieldPath } from 'react-hook-form'
+import { cx } from '../../lib/cx'
 import { Input } from '../Input'
 import { Textarea } from '../Textarea'
 import { Select } from '../Select'
@@ -38,7 +39,7 @@ export function FieldRenderer({ field, name, control, disabled }: FieldRendererP
         const helper = errorMsg ?? field.helper
         const hasError = !!errorMsg
         const opts = field.options ?? []
-        const common = { label: field.label, disabled, id: name }
+        const common = { label: field.label, disabled, id: name, className: field.className }
 
         switch (field.type) {
           case 'textarea':
@@ -163,6 +164,7 @@ export function FieldRenderer({ field, name, control, disabled }: FieldRendererP
               <PinInput
                 label={field.label}
                 disabled={disabled}
+                className={field.className}
                 helper={helper}
                 error={hasError}
                 length={field.max}
@@ -185,7 +187,7 @@ export function FieldRenderer({ field, name, control, disabled }: FieldRendererP
 
           case 'checkbox':
             return (
-              <div data-part="field">
+              <div data-part="field" className={cx('sk-dynamic-form__field', field.className)}>
                 <Checkbox
                   label={field.label}
                   disabled={disabled}
@@ -199,7 +201,7 @@ export function FieldRenderer({ field, name, control, disabled }: FieldRendererP
 
           case 'switch':
             return (
-              <div data-part="field">
+              <div data-part="field" className={cx('sk-dynamic-form__field', field.className)}>
                 <Switch
                   label={field.label}
                   disabled={disabled}
@@ -213,7 +215,7 @@ export function FieldRenderer({ field, name, control, disabled }: FieldRendererP
 
           case 'radio':
             return (
-              <div data-part="field">
+              <div data-part="field" className={cx('sk-dynamic-form__field', field.className)}>
                 {field.label && <div data-part="field-label">{field.label}</div>}
                 <RadioGroup
                   value={(f.value as string) ?? ''}
@@ -230,7 +232,7 @@ export function FieldRenderer({ field, name, control, disabled }: FieldRendererP
 
           case 'radio-card':
             return (
-              <div data-part="field">
+              <div data-part="field" className={cx('sk-dynamic-form__field', field.className)}>
                 {field.label && <div data-part="field-label">{field.label}</div>}
                 <RadioCardGroup
                   value={(f.value as string) ?? ''}

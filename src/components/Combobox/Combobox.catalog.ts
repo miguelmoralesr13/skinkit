@@ -18,6 +18,13 @@ export const comboboxSpec: ComponentSpec = {
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido.' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita.' },
     { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados'", description: 'Mensaje cuando no filtra nada.' },
+    {
+      name: 'classNames',
+      type: '{ label?: string; control?: string; field?: string; listbox?: string; option?: string; empty?: string; helper?: string }',
+      required: false,
+      description:
+        'Clases adicionales por parte interna (label/control/field/listbox/option/empty/helper). Se agregan, nunca reemplazan la clase base. "option" aplica a todas las opciones renderizadas.',
+    },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=combobox]. Lleva [data-error].' },

@@ -98,6 +98,8 @@ export interface FieldConfig {
   max?: number
   step?: number
   rows?: number
+  /** Clase adicional para ESTE campo (aditiva, no reemplaza la clase base del componente renderizado). */
+  className?: string
 
   // ── anidados ──
   /** type 'object': campos del subformulario. */
@@ -118,6 +120,14 @@ export interface FormConfig {
   gap?: number
 }
 
+/** Clases adicionales por sub-parte de DynamicForm (aditivas, no reemplazan las clases base). */
+export interface DynamicFormClassNames {
+  /** El contenedor Grid que envuelve todos los campos (`[data-part="fields"]`). */
+  fields?: string
+  /** La barra de acciones al pie (`[data-part="actions"]`). */
+  actions?: string
+}
+
 export interface DynamicFormProps
   extends Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'onChange'> {
   /** Configuración del formulario (JSON). */
@@ -134,4 +144,6 @@ export interface DynamicFormProps
   submitLabel?: ReactNode
   /** Contenido extra en la barra de acciones (ej. un botón "Cancelar"). */
   actions?: ReactNode
+  /** Clases adicionales por sub-parte (fields/actions). Cada campo tiene además su propio `className` en el schema. */
+  classNames?: DynamicFormClassNames
 }

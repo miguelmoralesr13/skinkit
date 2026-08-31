@@ -13,6 +13,7 @@ export const marqueeSpec: ComponentSpec = {
     { name: 'speed', type: 'number', required: false, default: '20', description: 'Segundos por vuelta (menos = más rápido).' },
     { name: 'pauseOnHover', type: 'boolean', required: false, description: 'Pausa al pasar el mouse.' },
     { name: 'children', type: 'ReactNode', required: true, description: 'El contenido (se duplica internamente).' },
+    { name: 'classNames', type: '{ track?: string; group?: string }', required: false, description: 'Clases extra por sub-parte (track, group) para personalización puntual.' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=marquee]. Lleva [data-direction] y [data-pause-hover]; expone --sk-marquee-duration.' },

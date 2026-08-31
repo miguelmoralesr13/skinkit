@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom'
+import { cx } from '../../lib/cx'
 import { useElementVisible } from '../../lib/useElementVisible'
 import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
 import { computeSpotlightFrame, computeTooltipPosition, getTargetRect, type Rect } from './positioning'
@@ -12,12 +13,30 @@ function rectToStyle(r: Rect): CSSProperties {
   return { position: 'fixed', top: r.top, left: r.left, width: r.width, height: r.height }
 }
 
+/** Clases adicionales por `data-part` del overlay/tooltip del tour. No reemplaza la clase base. */
+export interface TourClassNames {
+  backdrop?: string
+  spotlight?: string
+  header?: string
+  title?: string
+  close?: string
+  body?: string
+  footer?: string
+  prev?: string
+  next?: string
+}
+
+interface TourOverlayProps {
+  engine: UseTourEngineResult
+  classNames?: TourClassNames
+}
+
 /**
  * Presentacional — renderiza el spotlight (4 divs, ver positioning.ts) + el tooltip del paso
  * activo, portalizados. Separado de Tour.tsx (TourProvider) porque el árbol acá es bastante más
  * grande que el de Dialog (backdrop en 4 partes + tooltip con header/body/footer).
  */
-export function TourOverlay({ engine }: { engine: UseTourEngineResult }) {
+export function TourOverlay({ engine, classNames }: TourOverlayProps) {
   const { activeStep, canGoPrev, next, prev, skip } = engine
   const [targetRect, setTargetRect] = useState<Rect | null>(null)
   const [tooltipSize, setTooltipSize] = useState({ width: 280, height: 140 })
@@ -97,11 +116,40 @@ export function TourOverlay({ engine }: { engine: UseTourEngineResult }) {
   return createPortal(
     <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
       <div data-sk="tour-overlay">
-        <div data-part="backdrop" style={rectToStyle(frame.top)} onClick={skip} aria-hidden="true" />
-        <div data-part="backdrop" style={rectToStyle(frame.bottom)} onClick={skip} aria-hidden="true" />
-        <div data-part="backdrop" style={rectToStyle(frame.left)} onClick={skip} aria-hidden="true" />
-        <div data-part="backdrop" style={rectToStyle(frame.right)} onClick={skip} aria-hidden="true" />
-        <div data-part="spotlight" style={rectToStyle(frame.hole)} aria-hidden="true" />
+        <div
+          data-part="backdrop"
+          className={cx('sk-tour__backdrop', classNames?.backdrop)}
+          style={rectToStyle(frame.top)}
+          onClick={skip}
+          aria-hidden="true"
+        />
+        <div
+          data-part="backdrop"
+          className={cx('sk-tour__backdrop', classNames?.backdrop)}
+          style={rectToStyle(frame.bottom)}
+          onClick={skip}
+          aria-hidden="true"
+        />
+        <div
+          data-part="backdrop"
+          className={cx('sk-tour__backdrop', classNames?.backdrop)}
+          style={rectToStyle(frame.left)}
+          onClick={skip}
+          aria-hidden="true"
+        />
+        <div
+          data-part="backdrop"
+          className={cx('sk-tour__backdrop', classNames?.backdrop)}
+          style={rectToStyle(frame.right)}
+          onClick={skip}
+          aria-hidden="true"
+        />
+        <div
+          data-part="spotlight"
+          className={cx('sk-tour__spotlight', classNames?.spotlight)}
+          style={rectToStyle(frame.hole)}
+          aria-hidden="true"
+        />
         <div
           ref={tooltipRef}
           data-sk="tour"
@@ -111,22 +159,38 @@ export function TourOverlay({ engine }: { engine: UseTourEngineResult }) {
           aria-labelledby={activeStep.step.title ? `sk-tour-title-${stepKey}` : undefined}
           style={{ position: 'fixed', top: tooltipPos.top, left: tooltipPos.left }}
         >
-          <div data-part="header">
+          <div data-part="header" className={cx('sk-tour__header', classNames?.header)}>
             {activeStep.step.title ? (
-              <h2 data-part="title" id={`sk-tour-title-${stepKey}`}>
+              <h2 data-part="title" className={cx('sk-tour__title', classNames?.title)} id={`sk-tour-title-${stepKey}`}>
                 {activeStep.step.title}
               </h2>
             ) : null}
-            <button type="button" data-part="close" aria-label="Cerrar" onClick={skip}>
+            <button
+              type="button"
+              data-part="close"
+              className={cx('sk-tour__close', classNames?.close)}
+              aria-label="Cerrar"
+              onClick={skip}
+            >
               ×
             </button>
           </div>
-          {activeStep.step.body ? <div data-part="body">{activeStep.step.body}</div> : null}
-          <div data-part="footer">
-            <button type="button" data-part="prev" disabled={!canGoPrev} onClick={prev}>
+          {activeStep.step.body ? (
+            <div data-part="body" className={cx('sk-tour__body', classNames?.body)}>
+              {activeStep.step.body}
+            </div>
+          ) : null}
+          <div data-part="footer" className={cx('sk-tour__footer', classNames?.footer)}>
+            <button
+              type="button"
+              data-part="prev"
+              className={cx('sk-tour__prev', classNames?.prev)}
+              disabled={!canGoPrev}
+              onClick={prev}
+            >
               ‹ Atrás
             </button>
-            <button type="button" data-part="next" onClick={next}>
+            <button type="button" data-part="next" className={cx('sk-tour__next', classNames?.next)} onClick={next}>
               Siguiente ›
             </button>
           </div>

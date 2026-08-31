@@ -10,6 +10,13 @@ export const menubarSpec: ComponentSpec = {
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'children', type: 'ReactNode', required: true, description: 'Los <Menubar.Menu>.' },
+    {
+      name: 'classNames',
+      type: '{ trigger?: string; content?: string }',
+      required: false,
+      description:
+        'Solo en <Menubar.Menu>: clases para sus sub-partes internas — trigger (el botón de nivel superior) y content (el dropdown). La raíz del menú ya usa su propio className.',
+    },
   ],
   parts: [
     { name: 'root', description: '[data-sk=menubar]. role=menubar, contenedor en fila.' },

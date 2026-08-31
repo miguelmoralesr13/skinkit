@@ -13,6 +13,12 @@ export const emptyStateSpec: ComponentSpec = {
     { name: 'description', type: 'ReactNode', required: false, description: 'Texto de apoyo que explica o sugiere una acción.' },
     { name: 'icon', type: 'ReactNode', required: false, description: 'Ícono o ilustración arriba del título.' },
     { name: 'children', type: 'ReactNode', required: false, description: 'Acciones (ej. un Button) al pie.' },
+    {
+      name: 'classNames',
+      type: '{ icon?: string; title?: string; description?: string; actions?: string }',
+      required: false,
+      description: 'Clases adicionales por sub-parte (icon/title/description/actions).',
+    },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=empty].' },

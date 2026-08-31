@@ -12,6 +12,7 @@ export const blockquoteSpec: ComponentSpec = {
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de acento (del theme).' },    { name: 'author', type: 'ReactNode', required: false, description: 'Autor o fuente de la cita.' },
     { name: 'cite', type: 'string', required: false, description: 'URL de la fuente (atributo cite del <blockquote>).' },
     { name: 'children', type: 'ReactNode', required: false, description: 'El texto de la cita.' },
+    { name: 'classNames', type: '{ quote?: string; author?: string }', required: false, description: 'Clases adicionales por sub-parte (quote, author).' },
   ],
   parts: [
     { name: 'root', description: 'El <figure> [data-sk=blockquote].' },

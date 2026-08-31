@@ -6,6 +6,17 @@ export interface DateRange {
   end: string | null
 }
 
+export interface RangeCalendarClassNames {
+  header?: string
+  prev?: string
+  next?: string
+  title?: string
+  weekdays?: string
+  weekday?: string
+  grid?: string
+  day?: string
+}
+
 export interface RangeCalendarProps {
   value?: DateRange
   onChange?: (range: DateRange) => void
@@ -14,6 +25,8 @@ export interface RangeCalendarProps {
   weekStartsOn?: 0 | 1
   locale?: string
   className?: string
+  /** Clases adicionales por sub-parte (aditivas, nunca reemplazan la clase base). */
+  classNames?: RangeCalendarClassNames
 }
 
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -53,6 +66,7 @@ export function RangeCalendar({
   weekStartsOn = 0,
   locale = 'es',
   className,
+  classNames,
 }: RangeCalendarProps) {
   const today = new Date()
   const start = value?.start ?? null
@@ -128,23 +142,47 @@ export function RangeCalendar({
 
   return (
     <div data-sk="calendar" data-range="" className={cx('sk-calendar', 'sk-range-calendar', className)}>
-      <div data-part="header">
-        <button type="button" data-part="prev" aria-label="Mes anterior" onClick={() => setView(addMonths(view, -1))}>
+      <div data-part="header" className={cx('sk-calendar__header', classNames?.header)}>
+        <button
+          type="button"
+          data-part="prev"
+          aria-label="Mes anterior"
+          className={cx('sk-calendar__prev', classNames?.prev)}
+          onClick={() => setView(addMonths(view, -1))}
+        >
           ‹
         </button>
-        <span data-part="title">{monthTitle}</span>
-        <button type="button" data-part="next" aria-label="Mes siguiente" onClick={() => setView(addMonths(view, 1))}>
+        <span data-part="title" className={cx('sk-calendar__title', classNames?.title)}>
+          {monthTitle}
+        </span>
+        <button
+          type="button"
+          data-part="next"
+          aria-label="Mes siguiente"
+          className={cx('sk-calendar__next', classNames?.next)}
+          onClick={() => setView(addMonths(view, 1))}
+        >
           ›
         </button>
       </div>
-      <div data-part="weekdays" aria-hidden="true">
+      <div
+        data-part="weekdays"
+        aria-hidden="true"
+        className={cx('sk-calendar__weekdays', classNames?.weekdays)}
+      >
         {weekdays.map((w, i) => (
-          <span key={i} data-part="weekday">
+          <span key={i} data-part="weekday" className={cx('sk-calendar__weekday', classNames?.weekday)}>
             {w}
           </span>
         ))}
       </div>
-      <div ref={gridRef} data-part="grid" role="grid" onKeyDown={onKeyDown}>
+      <div
+        ref={gridRef}
+        data-part="grid"
+        role="grid"
+        className={cx('sk-calendar__grid', classNames?.grid)}
+        onKeyDown={onKeyDown}
+      >
         {days.map((d) => {
           const outside = d.getMonth() !== view.getMonth()
           const isStart = sameISO(d, start)
@@ -167,6 +205,7 @@ export function RangeCalendar({
               aria-label={new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(d)}
               tabIndex={sameISO(d, toISO(focused)) ? 0 : -1}
               disabled={disabled(d)}
+              className={cx('sk-calendar__day', classNames?.day)}
               onClick={() => select(d)}
             >
               {d.getDate()}

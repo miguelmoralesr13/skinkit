@@ -14,6 +14,7 @@ export const statSpec: ComponentSpec = {
     { name: 'delta', type: 'ReactNode', required: false, description: 'Variación (ej. "+12%"). Se colorea según trend.' },
     { name: 'trend', type: "'up' | 'down' | 'neutral'", required: false, default: "'neutral'", description: 'Tendencia del delta. up/down/neutral → color del CSS.' },
     { name: 'icon', type: 'ReactNode', required: false, description: 'Ícono opcional a la izquierda.' },
+    { name: 'classNames', type: '{ icon?: string; content?: string; label?: string; value?: string; delta?: string }', required: false, description: 'Clases para personalizar cada sub-parte (icon/content/label/value/delta).' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=stat].' },

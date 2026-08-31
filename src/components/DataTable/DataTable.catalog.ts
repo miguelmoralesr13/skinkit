@@ -46,6 +46,7 @@ export const dataTableSpec: ComponentSpec = {
     { name: 'virtualized', type: 'boolean', required: false, default: 'false', description: 'Renderiza solo las filas visibles (+ overscan) en vez de todas. Requiere rowHeight y height. Solo aplica con view="table" (no en cards); con miles de filas, es la alternativa a pagination="server"/"infinite" cuando querés mostrarlas todas sin cortar.' },
     { name: 'rowHeight', type: 'number', required: false, description: 'Alto en px de cada fila — uniforme, obligatorio cuando virtualized=true (la virtualización no soporta alto variable por fila).' },
     { name: 'height', type: 'number', required: false, description: 'Alto en px del viewport con scroll — obligatorio cuando virtualized=true.' },
+    { name: 'classNames', type: 'DataTableClassNames', required: false, description: 'Clases por sub-parte (40 keys en camelCase, una por cada data-part — ver types.ts). Partes repetidas (tr, td, th, th-label, select, card, page-btn, etc.) comparten una sola clase para todas sus instancias, no hay callback por-fila.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=datatable]. Lleva [data-view=table|cards], [data-density], [data-loading], [data-sticky-header].' },

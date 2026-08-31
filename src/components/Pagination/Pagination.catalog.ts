@@ -15,6 +15,7 @@ export const paginationSpec: ComponentSpec = {
     { name: 'onPageChange', type: '(page: number) => void', required: true, description: 'Se invoca con la nueva página.' },
     { name: 'siblingCount', type: 'number', required: false, default: '1', description: 'Páginas visibles a cada lado de la actual.' },
     { name: 'label', type: 'string', required: false, default: "'Paginación'", description: 'aria-label del <nav>.' },
+    { name: 'classNames', type: '{ prev?: string; next?: string; page?: string; ellipsis?: string }', required: false, description: 'Clases adicionales por sub-parte (prev, next, page, ellipsis).' },
   ],
   parts: [
     { name: 'root', description: '<nav aria-label>.' },

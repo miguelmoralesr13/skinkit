@@ -43,6 +43,13 @@ export const buttonSpec: ComponentSpec = {
       required: false,
       description: 'Ícono a la derecha del texto.',
     },
+    {
+      name: 'classNames',
+      type: '{ icon?: string; label?: string }',
+      required: false,
+      description:
+        'Clases adicionales por sub-parte (icon/label). Aditivo: se agrega a la clase base, nunca la reemplaza.',
+    },
   ],
   parts: [
     { name: 'root', description: 'El <button>. Lleva [data-variant], [data-size] y [data-tone].' },

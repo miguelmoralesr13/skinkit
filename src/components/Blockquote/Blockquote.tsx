@@ -11,6 +11,11 @@ export type BlockquoteTone =
   | 'info'
   | 'danger'
 
+export interface BlockquoteClassNames {
+  quote?: string
+  author?: string
+}
+
 export interface BlockquoteProps extends HTMLAttributes<HTMLElement> {
   /** Autor / fuente de la cita. */
   author?: ReactNode
@@ -18,6 +23,8 @@ export interface BlockquoteProps extends HTMLAttributes<HTMLElement> {
   cite?: string
   /** Color de la barra de acento (del theme). 'primary' (default) no emite data-tone. */
   tone?: BlockquoteTone
+  /** Clases adicionales por sub-parte. */
+  classNames?: BlockquoteClassNames
 }
 
 /**
@@ -30,7 +37,7 @@ export interface BlockquoteProps extends HTMLAttributes<HTMLElement> {
  *   [data-part="author"]     autor/fuente (<figcaption>, opcional)
  */
 export const Blockquote = forwardRef<HTMLElement, BlockquoteProps>(function Blockquote(
-  { author, cite, tone = 'primary', className, children, ...rest },
+  { author, cite, tone = 'primary', className, children, classNames, ...rest },
   ref,
 ) {
   return (
@@ -41,11 +48,13 @@ export const Blockquote = forwardRef<HTMLElement, BlockquoteProps>(function Bloc
       className={cx('sk-blockquote', className)}
       {...rest}
     >
-      <blockquote data-part="quote" cite={cite}>
+      <blockquote data-part="quote" cite={cite} className={cx('sk-blockquote__quote', classNames?.quote)}>
         {children}
       </blockquote>
       {author != null ? (
-        <figcaption data-part="author">{author}</figcaption>
+        <figcaption data-part="author" className={cx('sk-blockquote__author', classNames?.author)}>
+          {author}
+        </figcaption>
       ) : null}
     </figure>
   )

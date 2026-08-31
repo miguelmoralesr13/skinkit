@@ -9,6 +9,15 @@ import { cx } from '../../lib/cx'
 
 export type PinInputType = 'numeric' | 'text'
 
+/** Clases opcionales por sub-parte de <PinInput>. Aditivas: nunca reemplazan la clase base. */
+export interface PinInputClassNames {
+  label?: string
+  group?: string
+  /** Se aplica a TODAS las casillas (una por dígito). */
+  field?: string
+  helper?: string
+}
+
 export interface PinInputProps {
   value?: string
   defaultValue?: string
@@ -24,6 +33,8 @@ export interface PinInputProps {
   helper?: ReactNode
   error?: boolean
   className?: string
+  /** Clases opcionales por sub-parte (label/group/field/helper). Aditivas. */
+  classNames?: PinInputClassNames
 }
 
 /**
@@ -51,6 +62,7 @@ export function PinInput({
   helper,
   error,
   className,
+  classNames,
 }: PinInputProps) {
   const isControlled = value !== undefined
   const [internal, setInternal] = useState(defaultValue)
@@ -119,8 +131,12 @@ export function PinInput({
       data-error={error ? '' : undefined}
       className={cx('sk-pin-input', className)}
     >
-      {label ? <span data-part="label">{label}</span> : null}
-      <div data-part="group">
+      {label ? (
+        <span data-part="label" className={cx('sk-pin-input__label', classNames?.label)}>
+          {label}
+        </span>
+      ) : null}
+      <div data-part="group" className={cx('sk-pin-input__group', classNames?.group)}>
         {chars.map((ch, i) => (
           <input
             key={i}
@@ -129,6 +145,7 @@ export function PinInput({
             }}
             data-part="field"
             data-filled={ch ? '' : undefined}
+            className={cx('sk-pin-input__field', classNames?.field)}
             type={mask ? 'password' : 'text'}
             inputMode={type === 'numeric' ? 'numeric' : 'text'}
             autoComplete={i === 0 ? 'one-time-code' : 'off'}
@@ -143,7 +160,11 @@ export function PinInput({
           />
         ))}
       </div>
-      {helper ? <span data-part="helper">{helper}</span> : null}
+      {helper ? (
+        <span data-part="helper" className={cx('sk-pin-input__helper', classNames?.helper)}>
+          {helper}
+        </span>
+      ) : null}
     </div>
   )
 }

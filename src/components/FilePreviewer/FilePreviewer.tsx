@@ -19,6 +19,29 @@ import { IconFileGeneric, IconFilePdf, IconFileWord, IconFileExcel, IconFileCode
 
 export type PreviewRenderer = (file: PreviewFile) => ReactNode
 
+export interface FilePreviewerClassNames {
+  /** Panel de fallback (ícono + nombre + tamaño + descargar) para tipos sin preview real. */
+  fallback?: string
+  /** Ícono SVG dentro del panel de fallback. */
+  fallbackIcon?: string
+  /** Nombre del archivo dentro del panel de fallback. */
+  fallbackName?: string
+  /** Texto "Cargando…" (o de error) del renderer de código — misma clase para el de
+   * `skinkit/file-preview-office` (Word/Excel), que reusa el mismo `data-part="loading"` pero
+   * vive en un módulo aparte sin acceso a esta prop; ver nota en FilePreviewer.catalog.ts. */
+  loading?: string
+  /** `<iframe>` del renderer default de PDF. */
+  pdfFrame?: string
+  /** Botón "anterior" de la navegación de galería. */
+  prev?: string
+  /** Botón "siguiente" de la navegación de galería. */
+  next?: string
+  /** `<a download>` del archivo activo. */
+  download?: string
+  /** Tamaño formateado del archivo activo (aparece tanto en el fallback como en el footer). */
+  size?: string
+}
+
 export interface FilePreviewerProps {
   files: PreviewFile[]
   open: boolean
@@ -32,6 +55,8 @@ export interface FilePreviewerProps {
   size?: DialogSize
   downloadText?: string
   className?: string
+  /** Clases adicionales por parte interna. Se agregan, nunca reemplazan la clase base. */
+  classNames?: FilePreviewerClassNames
 }
 
 const FALLBACK_ICONS: Partial<Record<FileKind, (props: object) => ReactNode>> = {
@@ -41,23 +66,42 @@ const FALLBACK_ICONS: Partial<Record<FileKind, (props: object) => ReactNode>> = 
   code: IconFileCode,
 }
 
-function FallbackPane({ file, kind }: { file: PreviewFile; kind: FileKind }) {
+function FallbackPane({
+  file,
+  kind,
+  classNames,
+}: {
+  file: PreviewFile
+  kind: FileKind
+  classNames?: FilePreviewerClassNames
+}) {
   const Icon = FALLBACK_ICONS[kind] ?? IconFileGeneric
   return (
-    <div data-part="fallback">
-      <div data-part="fallback-icon">
+    <div data-part="fallback" className={cx('sk-file-previewer__fallback', classNames?.fallback)}>
+      <div data-part="fallback-icon" className={cx('sk-file-previewer__fallback-icon', classNames?.fallbackIcon)}>
         <Icon />
       </div>
-      <p data-part="fallback-name">{file.name}</p>
-      {file.size != null ? <p data-part="size">{formatBytes(file.size)}</p> : null}
+      <p data-part="fallback-name" className={cx('sk-file-previewer__fallback-name', classNames?.fallbackName)}>
+        {file.name}
+      </p>
+      {file.size != null ? (
+        <p data-part="size" className={cx('sk-file-previewer__size', classNames?.size)}>
+          {formatBytes(file.size)}
+        </p>
+      ) : null}
     </div>
   )
 }
 
-function CodePreview({ file }: { file: PreviewFile }) {
+function CodePreview({ file, classNames }: { file: PreviewFile; classNames?: FilePreviewerClassNames }) {
   const { status, text } = useTextContent(file.url)
-  if (status === 'loading') return <p data-part="loading">Cargando…</p>
-  if (status === 'error') return <FallbackPane file={file} kind="code" />
+  if (status === 'loading')
+    return (
+      <p data-part="loading" className={cx('sk-file-previewer__loading', classNames?.loading)}>
+        Cargando…
+      </p>
+    )
+  if (status === 'error') return <FallbackPane file={file} kind="code" classNames={classNames} />
   return (
     <Code block lang={detectCodeLang(file.name)} copyable>
       {text}
@@ -65,10 +109,17 @@ function CodePreview({ file }: { file: PreviewFile }) {
   )
 }
 
-function defaultRenderers(): Partial<Record<FileKind, PreviewRenderer>> {
+function defaultRenderers(classNames?: FilePreviewerClassNames): Partial<Record<FileKind, PreviewRenderer>> {
   return {
     image: (file) => <Image src={file.url} alt={file.name} fit="contain" />,
-    pdf: (file) => <iframe src={file.url} title={file.name} data-part="pdf-frame" />,
+    pdf: (file) => (
+      <iframe
+        src={file.url}
+        title={file.name}
+        data-part="pdf-frame"
+        className={cx('sk-file-previewer__pdf-frame', classNames?.pdfFrame)}
+      />
+    ),
     video: (file) => (
       <VideoPlayer src={file.url}>
         <VideoPlayer.Controls>
@@ -99,7 +150,7 @@ function defaultRenderers(): Partial<Record<FileKind, PreviewRenderer>> {
         </AudioPlayer.Controls>
       </AudioPlayer>
     ),
-    code: (file) => <CodePreview file={file} />,
+    code: (file) => <CodePreview file={file} classNames={classNames} />,
   }
 }
 
@@ -125,6 +176,7 @@ export function FilePreviewer({
   size = 'lg',
   downloadText = 'Descargar',
   className,
+  classNames,
 }: FilePreviewerProps) {
   const isControlled = index !== undefined
   const [internal, setInternal] = useState(defaultIndex)
@@ -140,7 +192,7 @@ export function FilePreviewer({
   if (!file) return null
 
   const kind = detectFileKind(file)
-  const render = { ...defaultRenderers(), ...renderers }[kind]
+  const render = { ...defaultRenderers(classNames), ...renderers }[kind]
 
   return (
     <Dialog
@@ -154,15 +206,35 @@ export function FilePreviewer({
         <Dialog.Title>{file.name}</Dialog.Title>
         <Dialog.Close />
       </Dialog.Header>
-      <Dialog.Body>{render ? render(file) : <FallbackPane file={file} kind={kind} />}</Dialog.Body>
+      <Dialog.Body>
+        {render ? render(file) : <FallbackPane file={file} kind={kind} classNames={classNames} />}
+      </Dialog.Body>
       <Dialog.Footer>
         {files.length > 1 ? (
-          <button type="button" data-part="prev" aria-label="Anterior" disabled={current <= 0} onClick={() => go(current - 1)}>
+          <button
+            type="button"
+            data-part="prev"
+            aria-label="Anterior"
+            disabled={current <= 0}
+            onClick={() => go(current - 1)}
+            className={cx('sk-file-previewer__prev', classNames?.prev)}
+          >
             ‹
           </button>
         ) : null}
-        {file.size != null ? <span data-part="size">{formatBytes(file.size)}</span> : null}
-        <a data-part="download" href={file.url} download target="_blank" rel="noopener">
+        {file.size != null ? (
+          <span data-part="size" className={cx('sk-file-previewer__size', classNames?.size)}>
+            {formatBytes(file.size)}
+          </span>
+        ) : null}
+        <a
+          data-part="download"
+          href={file.url}
+          download
+          target="_blank"
+          rel="noopener"
+          className={cx('sk-file-previewer__download', classNames?.download)}
+        >
           <IconDownload />
           {downloadText}
         </a>
@@ -173,6 +245,7 @@ export function FilePreviewer({
             aria-label="Siguiente"
             disabled={current >= files.length - 1}
             onClick={() => go(current + 1)}
+            className={cx('sk-file-previewer__next', classNames?.next)}
           >
             ›
           </button>

@@ -15,6 +15,8 @@ export const toastSpec: ComponentSpec = {
     { name: 'toast().description', type: 'ReactNode', required: false, description: 'Texto secundario.' },
     { name: 'toast().variant', type: "'neutral' | 'primary' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'neutral'", description: 'Intención: neutral/primary/success/warning/info/danger. El color lo pone el theme.' },
     { name: 'toast().duration', type: 'number', required: false, description: 'ms hasta cerrarse. 0 = no se cierra solo.' },
+    { name: 'toast().className', type: 'string', required: false, description: 'Clase adicional para la raíz de ESE toast individual ([data-sk="toast"]). No reemplaza la clase base.' },
+    { name: 'toast().classNames', type: '{ content?: string; title?: string; description?: string; close?: string }', required: false, description: 'Clases adicionales por parte interna de ESE toast (content/title/description/close). No reemplazan las clases base.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=toast-viewport] contenedor apilado (portal). Lleva [data-position].' },
@@ -28,6 +30,7 @@ export const toastSpec: ComponentSpec = {
     { title: 'Envolver la app', code: '<ToastProvider position="bottom-right"><App /></ToastProvider>' },
     { title: 'Disparar un toast', code: 'const { toast } = useToast()\ntoast({ title: "Guardado", variant: "primary" })' },
     { title: 'Error persistente', code: 'toast({ title: "Falló la carga", variant: "danger", duration: 0 })' },
+    { title: 'Personalizar sub-partes', code: 'toast({ title: "Guardado", className: "mi-toast", classNames: { title: "mi-toast__title" } })' },
   ],
   usage: [
     'Envolvé la app (o la parte que los dispara) en <ToastProvider> UNA vez; useToast() lee de él.',

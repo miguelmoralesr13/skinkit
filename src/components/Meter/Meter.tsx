@@ -12,6 +12,14 @@ export type MeterTone =
   | 'info'
   | 'danger'
 
+export interface MeterClassNames {
+  header?: string
+  label?: string
+  value?: string
+  track?: string
+  indicator?: string
+}
+
 export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
   value: number
   min?: number
@@ -23,6 +31,8 @@ export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
   label?: ReactNode
   /** Muestra el valor a la derecha del label. */
   showValue?: boolean
+  /** Clases adicionales por sub-parte (header/label/value/track/indicator). */
+  classNames?: MeterClassNames
 }
 
 /**
@@ -39,7 +49,7 @@ export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
  *   [data-part="indicator"] relleno (ancho por --sk-meter)
  */
 export const Meter = forwardRef<HTMLDivElement, MeterProps>(function Meter(
-  { value, min = 0, max = 100, low, tone, label, showValue, className, style, ...rest },
+  { value, min = 0, max = 100, low, tone, label, showValue, className, style, classNames, ...rest },
   ref,
 ) {
   const clamped = Math.min(Math.max(value, min), max)
@@ -60,13 +70,21 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(function Meter(
       {...rest}
     >
       {label != null || showValue ? (
-        <div data-part="header">
-          {label != null ? <span data-part="label">{label}</span> : null}
-          {showValue ? <span data-part="value">{clamped}</span> : null}
+        <div data-part="header" className={cx('sk-meter__header', classNames?.header)}>
+          {label != null ? (
+            <span data-part="label" className={cx('sk-meter__label', classNames?.label)}>
+              {label}
+            </span>
+          ) : null}
+          {showValue ? (
+            <span data-part="value" className={cx('sk-meter__value', classNames?.value)}>
+              {clamped}
+            </span>
+          ) : null}
         </div>
       ) : null}
-      <div data-part="track">
-        <div data-part="indicator" />
+      <div data-part="track" className={cx('sk-meter__track', classNames?.track)}>
+        <div data-part="indicator" className={cx('sk-meter__indicator', classNames?.indicator)} />
       </div>
     </div>
   )

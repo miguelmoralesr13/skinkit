@@ -19,6 +19,13 @@ export const multiSelectSpec: ComponentSpec = {
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido.' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita.' },
     { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados'", description: 'Mensaje sin coincidencias.' },
+    {
+      name: 'classNames',
+      type: 'MultiSelectClassNames',
+      required: false,
+      description:
+        'Clases por sub-parte, siempre aditivas a la clase base (nunca la reemplazan). Claves: label (etiqueta del campo), control, tag (cada chip — misma clase en todas las instancias), tagLabel (texto dentro del chip — distinto de label del campo, evita colisión de nombres ya que [data-part=label] aparece dos veces en el markup), tagRemove (botón × del chip), field (input de búsqueda), listbox, option (cada opción — misma clase en todas las instancias), check (indicador dentro de la opción), empty (mensaje sin resultados), helper.',
+    },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=multi-select]. Lleva [data-error].' },

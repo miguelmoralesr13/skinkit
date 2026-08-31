@@ -7,6 +7,16 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 
+export interface CarouselClassNames {
+  viewport?: string
+  track?: string
+  slide?: string
+  prev?: string
+  next?: string
+  dots?: string
+  dot?: string
+}
+
 export interface CarouselProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   index?: number
   defaultIndex?: number
@@ -14,6 +24,7 @@ export interface CarouselProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onC
   /** Vuelve al principio/fin en los extremos. */
   loop?: boolean
   label?: string
+  classNames?: CarouselClassNames
 }
 
 /**
@@ -40,6 +51,7 @@ export function Carousel({
   className,
   children,
   style,
+  classNames,
   ...rest
 }: CarouselProps) {
   const slides = Children.toArray(children)
@@ -66,8 +78,8 @@ export function Carousel({
       style={{ ['--sk-carousel-index' as string]: String(current), ...(style as CSSProperties) }}
       {...rest}
     >
-      <div data-part="viewport">
-        <div data-part="track">
+      <div data-part="viewport" className={cx(classNames?.viewport)}>
+        <div data-part="track" className={cx(classNames?.track)}>
           {slides.map((slide, i) => (
             <div
               data-part="slide"
@@ -76,6 +88,7 @@ export function Carousel({
               aria-roledescription="slide"
               aria-label={`${i + 1} de ${count}`}
               aria-hidden={i !== current}
+              className={cx(classNames?.slide)}
             >
               {slide}
             </div>
@@ -89,6 +102,7 @@ export function Carousel({
         aria-label="Anterior"
         disabled={!loop && current <= 0}
         onClick={() => go(current - 1)}
+        className={cx(classNames?.prev)}
       >
         ‹
       </button>
@@ -98,12 +112,13 @@ export function Carousel({
         aria-label="Siguiente"
         disabled={!loop && current >= count - 1}
         onClick={() => go(current + 1)}
+        className={cx(classNames?.next)}
       >
         ›
       </button>
 
       {count > 1 ? (
-        <div data-part="dots" role="tablist" aria-label="Slides">
+        <div data-part="dots" role="tablist" aria-label="Slides" className={cx(classNames?.dots)}>
           {slides.map((_, i) => (
             <button
               key={i}
@@ -114,6 +129,7 @@ export function Carousel({
               aria-selected={i === current}
               aria-label={`Ir al slide ${i + 1}`}
               onClick={() => go(i)}
+              className={cx(classNames?.dot)}
             />
           ))}
         </div>
@@ -122,7 +138,7 @@ export function Carousel({
   )
 }
 
-export interface CarouselSlideProps extends HTMLAttributes<HTMLDivElement> {
+export interface CarouselSlideProps {
   children: ReactNode
 }
 

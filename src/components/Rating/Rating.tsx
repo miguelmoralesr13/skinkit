@@ -12,6 +12,10 @@ export type RatingTone =
   | 'info'
   | 'danger'
 
+export interface RatingClassNames {
+  star?: string
+}
+
 export interface RatingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** Valor actual (0..max). */
   value?: number
@@ -23,6 +27,8 @@ export interface RatingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onCha
   label?: string
   /** Color de las estrellas llenas (del theme). 'primary' (default) no emite data-tone. */
   tone?: RatingTone
+  /** Clases adicionales por sub-parte (star). Aditivo: nunca reemplaza la clase base. Misma clase aplica a todas las estrellas. */
+  classNames?: RatingClassNames
 }
 
 /**
@@ -34,7 +40,17 @@ export interface RatingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onCha
  *   [data-part="star"]      [data-filled]     cada estrella (botón). filled si i <= value
  */
 export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
-  { value = 0, max = 5, onChange, readOnly, label = 'Puntuación', tone = 'primary', className, ...rest },
+  {
+    value = 0,
+    max = 5,
+    onChange,
+    readOnly,
+    label = 'Puntuación',
+    tone = 'primary',
+    className,
+    classNames,
+    ...rest
+  },
   ref,
 ) {
   const stars = Array.from({ length: max }, (_, i) => i + 1)
@@ -62,6 +78,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
           disabled={readOnly}
           tabIndex={readOnly ? -1 : 0}
           onClick={() => onChange?.(n)}
+          className={cx('sk-rating__star', classNames?.star)}
         >
           <Star size={20} fill={n <= value ? 'currentColor' : 'none'} />
         </button>

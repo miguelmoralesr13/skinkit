@@ -13,6 +13,7 @@ export const qrCodeSpec: ComponentSpec = {
     { name: 'size', type: 'number', required: false, default: '128', description: 'Tamaño en px (cuadrado).' },
     { name: 'errorCorrectionLevel', type: "'L' | 'M' | 'Q' | 'H'", required: false, default: "'M'", description: 'Redundancia de corrección de errores. Más alto = QR más denso mismo contenido, pero tolera más daño/oclusión (útil si vas a poner un logo encima, aunque QRCode no trae esa feature en esta versión).' },
     { name: 'margin', type: 'number', required: false, default: '4', description: 'Zona de silencio (quiet zone) alrededor del código, en módulos. 4 es el mínimo recomendado por la spec — bajarlo puede afectar el escaneo.' },
+    { name: 'classNames', type: '{ module?: string }', required: false, description: 'Clases extra para la sub-parte `module` (aplica a los cientos de <rect> por igual, la misma clase para todos los módulos oscuros).' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=qrcode]: <span> que envuelve el <svg>.' },

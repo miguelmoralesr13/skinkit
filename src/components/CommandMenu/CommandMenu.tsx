@@ -23,6 +23,31 @@ export interface CommandItem {
   onSelect?: () => void
 }
 
+export interface CommandMenuClassNames {
+  /** Fondo (cierra al click). */
+  overlay?: string
+  /** La caja (role=dialog). */
+  panel?: string
+  /** Buscador (role=combobox). */
+  input?: string
+  /** `<ul>` de resultados (role=listbox). */
+  list?: string
+  /** Mensaje sin resultados. */
+  empty?: string
+  /** Cada sección — la misma clase aplica a TODAS las instancias. */
+  group?: string
+  /** `data-part="group-label"` dentro de cada sección con nombre. */
+  groupLabel?: string
+  /** Cada comando (role=option) — la misma clase aplica a TODAS las instancias. */
+  item?: string
+  /** Ícono del item (`data-part="icon"` anidado en cada item). */
+  icon?: string
+  /** Texto del item (`data-part="label"` anidado en cada item). */
+  label?: string
+  /** Atajo a la derecha (`data-part="shortcut"` anidado en cada item). */
+  shortcut?: string
+}
+
 export interface CommandMenuProps {
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -31,6 +56,7 @@ export interface CommandMenuProps {
   emptyText?: string
   label?: string
   className?: string
+  classNames?: CommandMenuClassNames
 }
 
 /**
@@ -50,6 +76,9 @@ export interface CommandMenuProps {
  *   [data-part="item"]         [data-active]  cada comando (role=option)
  *   [data-part="shortcut"]     atajo a la derecha
  *   [data-part="empty"]        mensaje sin resultados
+ *
+ * `classNames` permite personalizar cada parte (overlay, panel, input, list, empty, group,
+ * groupLabel, item, icon, label, shortcut) sin perder el `sk-command-menu__*` de base.
  */
 export function CommandMenu({
   open,
@@ -59,6 +88,7 @@ export function CommandMenu({
   emptyText = 'Sin resultados',
   label = 'Comandos',
   className,
+  classNames,
 }: CommandMenuProps) {
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
@@ -119,8 +149,19 @@ export function CommandMenu({
   return createPortal(
     <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
       <div data-sk="command-menu" className={cx('sk-command-menu', className)}>
-        <div data-part="overlay" aria-hidden="true" onClick={() => onOpenChange(false)} />
-        <div data-part="panel" role="dialog" aria-modal="true" aria-label={label}>
+        <div
+          data-part="overlay"
+          aria-hidden="true"
+          onClick={() => onOpenChange(false)}
+          className={cx('sk-command-menu__overlay', classNames?.overlay)}
+        />
+        <div
+          data-part="panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label={label}
+          className={cx('sk-command-menu__panel', classNames?.panel)}
+        >
           <input
             ref={inputRef}
             data-part="input"
@@ -136,14 +177,33 @@ export function CommandMenu({
               setActive(0)
             }}
             onKeyDown={onKeyDown}
+            className={cx('sk-command-menu__input', classNames?.input)}
           />
-          <ul data-part="list" id="sk-cmd-list" role="listbox">
+          <ul
+            data-part="list"
+            id="sk-cmd-list"
+            role="listbox"
+            className={cx('sk-command-menu__list', classNames?.list)}
+          >
             {flat.length === 0 ? (
-              <li data-part="empty">{emptyText}</li>
+              <li data-part="empty" className={cx('sk-command-menu__empty', classNames?.empty)}>
+                {emptyText}
+              </li>
             ) : (
               [...sections.entries()].map(([group, its]) => (
-                <li key={group || '_'} data-part="group">
-                  {group ? <div data-part="group-label">{group}</div> : null}
+                <li
+                  key={group || '_'}
+                  data-part="group"
+                  className={cx('sk-command-menu__group', classNames?.group)}
+                >
+                  {group ? (
+                    <div
+                      data-part="group-label"
+                      className={cx('sk-command-menu__group-label', classNames?.groupLabel)}
+                    >
+                      {group}
+                    </div>
+                  ) : null}
                   <ul>
                     {its.map((it) => {
                       idx += 1
@@ -161,15 +221,30 @@ export function CommandMenu({
                             e.preventDefault()
                             run(it)
                           }}
+                          className={cx('sk-command-menu__item', classNames?.item)}
                         >
                           {it.icon != null ? (
-                            <span data-part="icon" aria-hidden="true">
+                            <span
+                              data-part="icon"
+                              aria-hidden="true"
+                              className={cx('sk-command-menu__icon', classNames?.icon)}
+                            >
                               {it.icon}
                             </span>
                           ) : null}
-                          <span data-part="label">{it.label}</span>
+                          <span
+                            data-part="label"
+                            className={cx('sk-command-menu__label', classNames?.label)}
+                          >
+                            {it.label}
+                          </span>
                           {it.shortcut != null ? (
-                            <span data-part="shortcut">{it.shortcut}</span>
+                            <span
+                              data-part="shortcut"
+                              className={cx('sk-command-menu__shortcut', classNames?.shortcut)}
+                            >
+                              {it.shortcut}
+                            </span>
                           ) : null}
                         </li>
                       )

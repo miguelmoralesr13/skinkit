@@ -15,6 +15,7 @@ export const rangeCalendarSpec: ComponentSpec = {
     { name: 'max', type: 'string', required: false, description: 'Fecha máxima (ISO).' },
     { name: 'weekStartsOn', type: '0 | 1', required: false, default: '0', description: '0 = domingo, 1 = lunes.' },
     { name: 'locale', type: 'string', required: false, default: "'es'", description: 'Locale (Intl).' },
+    { name: 'classNames', type: '{ header?: string; prev?: string; next?: string; title?: string; weekdays?: string; weekday?: string; grid?: string; day?: string }', required: false, description: 'Clases adicionales por sub-parte (aditivas, nunca reemplazan la clase base). La misma clase de "weekday"/"day" aplica a todas sus instancias repetidas.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=calendar][data-range]. Hereda las parts del Calendar.' },

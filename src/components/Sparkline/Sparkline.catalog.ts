@@ -15,6 +15,7 @@ export const sparklineSpec: ComponentSpec = {
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger' | 'neutral'", required: false, default: "'primary'", description: 'Color de la línea/área (del theme).' },
     { name: 'area', type: 'boolean', required: false, description: 'Rellena el área bajo la línea.' },
     { name: 'dot', type: 'boolean', required: false, description: 'Punto en el último valor.' },
+    { name: 'classNames', type: '{ area?: string; line?: string; dot?: string }', required: false, description: 'Clases adicionales por sub-parte (area/line/dot).' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=sparkline]. Lleva [data-tone].' },

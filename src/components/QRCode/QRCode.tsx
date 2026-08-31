@@ -4,6 +4,10 @@ import { generateQRMatrix, type ErrorCorrectionLevel } from '../../lib/qrEncode'
 
 export type { ErrorCorrectionLevel }
 
+export interface QRCodeClassNames {
+  module?: string
+}
+
 export interface QRCodeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
   /** Contenido a codificar. */
   value: string
@@ -13,6 +17,8 @@ export interface QRCodeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'chil
   errorCorrectionLevel?: ErrorCorrectionLevel
   /** Zona de silencio alrededor del código, en módulos. Default 4 (mínimo recomendado por la spec). */
   margin?: number
+  /** Clases extra por sub-parte. */
+  classNames?: QRCodeClassNames
 }
 
 /**
@@ -29,7 +35,7 @@ export interface QRCodeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'chil
  * color: dejá buen contraste entre módulos y fondo o el código puede no escanear.
  */
 export const QRCode = forwardRef<HTMLSpanElement, QRCodeProps>(function QRCode(
-  { value, size = 128, errorCorrectionLevel = 'M', margin = 4, className, ...rest },
+  { value, size = 128, errorCorrectionLevel = 'M', margin = 4, className, classNames, ...rest },
   ref,
 ) {
   const matrix = useMemo(
@@ -57,7 +63,17 @@ export const QRCode = forwardRef<HTMLSpanElement, QRCodeProps>(function QRCode(
       >
         {matrix.map((row, r) =>
           row.map((dark, c) =>
-            dark ? <rect key={`${r}-${c}`} data-part="module" x={c + margin} y={r + margin} width={1} height={1} /> : null,
+            dark ? (
+              <rect
+                key={`${r}-${c}`}
+                data-part="module"
+                className={cx('sk-qrcode__module', classNames?.module)}
+                x={c + margin}
+                y={r + margin}
+                width={1}
+                height={1}
+              />
+            ) : null,
           ),
         )}
       </svg>

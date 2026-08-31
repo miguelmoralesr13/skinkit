@@ -65,11 +65,12 @@ function ResizablePanel({
   )
 }
 
-function ResizableHandle({ l, r }: { l: number; r: number }) {
+function ResizableHandle({ l, r, className }: { l: number; r: number; className?: string }) {
   const ctx = useContext(ResizableContext)!
   return (
     <div
       data-part="handle"
+      className={cx('sk-resizable__handle', className)}
       role="separator"
       aria-orientation={ctx.direction === 'horizontal' ? 'vertical' : 'horizontal'}
       tabIndex={0}
@@ -81,8 +82,14 @@ function ResizableHandle({ l, r }: { l: number; r: number }) {
   )
 }
 
+/** Sub-partes personalizables de <Resizable>. Solo `handle`: los paneles ya se personalizan con el `className` propio de cada <Resizable.Panel>. */
+export interface ResizableClassNames {
+  handle?: string
+}
+
 export interface ResizableProps extends HTMLAttributes<HTMLDivElement> {
   direction?: ResizableDirection
+  classNames?: ResizableClassNames
 }
 
 /**
@@ -95,7 +102,7 @@ export interface ResizableProps extends HTMLAttributes<HTMLDivElement> {
  *   [data-part="panel"]     cada panel (flex-grow = --sk-panel-size)
  *   [data-part="handle"]    divisor (role=separator, arrastrable/foco) entre paneles
  */
-export function Resizable({ direction = 'horizontal', className, children, ...rest }: ResizableProps) {
+export function Resizable({ direction = 'horizontal', className, children, classNames, ...rest }: ResizableProps) {
   const panels = Children.toArray(children).filter(
     (c): c is ReactElement<ResizablePanelProps> => isValidElement(c) && c.type === ResizablePanel,
   )
@@ -170,7 +177,9 @@ export function Resizable({ direction = 'horizontal', className, children, ...re
         {panels.map((panel, i) => (
           <Fragment key={i}>
             {cloneElement(panel, { _size: sizes[i] })}
-            {i < panels.length - 1 ? <ResizableHandle l={i} r={i + 1} /> : null}
+            {i < panels.length - 1 ? (
+              <ResizableHandle l={i} r={i + 1} className={classNames?.handle} />
+            ) : null}
           </Fragment>
         ))}
       </ResizableContext.Provider>

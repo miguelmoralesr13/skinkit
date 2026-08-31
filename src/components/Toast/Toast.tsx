@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
+import { cx } from '../../lib/cx'
 import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
 
 export type ToastVariant = 'neutral' | 'primary' | 'success' | 'warning' | 'info' | 'danger'
@@ -19,12 +20,24 @@ export type ToastPosition =
   | 'top-center'
   | 'bottom-center'
 
+/** Clases adicionales por parte interna de un toast individual. No reemplaza la clase base. */
+export interface ToastOptionClassNames {
+  content?: string
+  title?: string
+  description?: string
+  close?: string
+}
+
 export interface ToastOptions {
   title?: ReactNode
   description?: ReactNode
   variant?: ToastVariant
   /** ms hasta auto-cerrar. 0 = no se cierra solo. */
   duration?: number
+  /** Clase adicional para la raíz de ESTE toast ([data-sk="toast"]). No reemplaza la clase base. */
+  className?: string
+  /** Clases adicionales por parte interna (content/title/description/close) de ESTE toast. */
+  classNames?: ToastOptionClassNames
 }
 
 interface ToastItem extends ToastOptions {
@@ -120,16 +133,28 @@ export function ToastProvider({
                 data-sk="toast"
                 data-variant={t.variant}
                 role="status"
-                className="sk-toast"
+                className={cx('sk-toast', t.className)}
               >
-                <div data-part="content">
-                  {t.title ? <div data-part="title">{t.title}</div> : null}
-                  {t.description ? <div data-part="description">{t.description}</div> : null}
+                <div data-part="content" className={cx('sk-toast__content', t.classNames?.content)}>
+                  {t.title ? (
+                    <div data-part="title" className={cx('sk-toast__title', t.classNames?.title)}>
+                      {t.title}
+                    </div>
+                  ) : null}
+                  {t.description ? (
+                    <div
+                      data-part="description"
+                      className={cx('sk-toast__description', t.classNames?.description)}
+                    >
+                      {t.description}
+                    </div>
+                  ) : null}
                 </div>
                 <button
                   type="button"
                   data-part="close"
                   aria-label="Cerrar"
+                  className={cx('sk-toast__close', t.classNames?.close)}
                   onClick={() => dismiss(t.id)}
                 >
                   ×

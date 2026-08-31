@@ -12,6 +12,7 @@ import type { ButtonVariant, ButtonSize } from '../Button'
 
 interface SplitCtx {
   close: () => void
+  itemClassName?: string
 }
 const SplitContext = createContext<SplitCtx | null>(null)
 
@@ -31,6 +32,13 @@ export type SplitButtonTone =
   | 'info'
   | 'danger'
 
+export interface SplitButtonClassNames {
+  main?: string
+  trigger?: string
+  content?: string
+  item?: string
+}
+
 export interface SplitButtonProps {
   /** Acción principal (botón grande). */
   onClick?: () => void
@@ -44,6 +52,8 @@ export interface SplitButtonProps {
   menu?: ReactNode
   triggerLabel?: string
   className?: string
+  /** Clases adicionales por parte interna (main/trigger/content/item). No reemplaza la clase base. */
+  classNames?: SplitButtonClassNames
 }
 
 /**
@@ -68,6 +78,7 @@ export function SplitButton({
   menu,
   triggerLabel = 'Más acciones',
   className,
+  classNames,
 }: SplitButtonProps) {
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
@@ -83,7 +94,13 @@ export function SplitButton({
       data-tone={tone === 'primary' ? undefined : tone}
       className={cx('sk-split-button', className)}
     >
-      <button type="button" data-part="main" disabled={disabled} onClick={onClick}>
+      <button
+        type="button"
+        data-part="main"
+        disabled={disabled}
+        onClick={onClick}
+        className={cx('sk-split-button__main', classNames?.main)}
+      >
         {children}
       </button>
       <button
@@ -95,12 +112,13 @@ export function SplitButton({
         aria-label={triggerLabel}
         disabled={disabled}
         onClick={() => setOpen((o) => !o)}
+        className={cx('sk-split-button__trigger', classNames?.trigger)}
       >
         ▾
       </button>
       {open ? (
-        <div data-part="content" role="menu">
-          <SplitContext.Provider value={{ close }}>{menu}</SplitContext.Provider>
+        <div data-part="content" role="menu" className={cx('sk-split-button__content', classNames?.content)}>
+          <SplitContext.Provider value={{ close, itemClassName: classNames?.item }}>{menu}</SplitContext.Provider>
         </div>
       ) : null}
     </div>
@@ -118,7 +136,7 @@ function SplitButtonItem({ className, children, onSelect, onClick, ...rest }: Sp
       type="button"
       data-part="item"
       role="menuitem"
-      className={cx('sk-split-button__item', className)}
+      className={cx('sk-split-button__item', ctx.itemClassName, className)}
       onClick={(e) => {
         onClick?.(e)
         onSelect?.()

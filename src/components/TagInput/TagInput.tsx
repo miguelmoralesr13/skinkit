@@ -6,6 +6,23 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 
+export interface TagInputClassNames {
+  /** Etiqueta del campo (data-part="label" del root, NO el label de cada chip). */
+  label?: string
+  /** Caja que contiene los chips + el input. */
+  control?: string
+  /** Cada chip (data-part="tag" · data-sk="tag"). La misma clase aplica a todos los chips. */
+  tag?: string
+  /** Texto dentro de cada chip (data-part="label" anidado en el chip). */
+  tagLabel?: string
+  /** Botón × de cada chip (data-part="remove" anidado en el chip). */
+  tagRemove?: string
+  /** El <input> de texto. */
+  field?: string
+  /** Ayuda / error. */
+  helper?: string
+}
+
 export interface TagInputProps {
   value?: string[]
   defaultValue?: string[]
@@ -19,6 +36,8 @@ export interface TagInputProps {
   max?: number
   id?: string
   className?: string
+  /** Clases adicionales por parte interna. No reemplaza la clase base. */
+  classNames?: TagInputClassNames
 }
 
 /**
@@ -46,6 +65,7 @@ export function TagInput({
   max,
   id,
   className,
+  classNames,
 }: TagInputProps) {
   const isControlled = value !== undefined
   const [internal, setInternal] = useState<string[]>(defaultValue)
@@ -87,20 +107,38 @@ export function TagInput({
       className={cx('sk-tag-input', className)}
     >
       {label ? (
-        <label data-part="label" htmlFor={fieldId} onClick={() => inputRef.current?.focus()}>
+        <label
+          data-part="label"
+          htmlFor={fieldId}
+          onClick={() => inputRef.current?.focus()}
+          className={cx('sk-tag-input__label', classNames?.label)}
+        >
           {label}
         </label>
       ) : null}
-      <div data-part="control" onClick={() => inputRef.current?.focus()}>
+      <div
+        data-part="control"
+        onClick={() => inputRef.current?.focus()}
+        className={cx('sk-tag-input__control', classNames?.control)}
+      >
         {tags.map((tag, i) => (
-          <span key={`${tag}-${i}`} data-part="tag" data-sk="tag" data-variant="neutral">
-            <span data-part="label">{tag}</span>
+          <span
+            key={`${tag}-${i}`}
+            data-part="tag"
+            data-sk="tag"
+            data-variant="neutral"
+            className={cx('sk-tag-input__tag', classNames?.tag)}
+          >
+            <span data-part="label" className={cx('sk-tag-input__tag-label', classNames?.tagLabel)}>
+              {tag}
+            </span>
             {!disabled ? (
               <button
                 type="button"
                 data-part="remove"
                 aria-label={`Quitar ${tag}`}
                 onClick={() => removeAt(i)}
+                className={cx('sk-tag-input__tag-remove', classNames?.tagRemove)}
               >
                 ×
               </button>
@@ -124,10 +162,11 @@ export function TagInput({
               setDraft('')
             }
           }}
+          className={cx('sk-tag-input__field', classNames?.field)}
         />
       </div>
       {helper ? (
-        <span data-part="helper" id={helperId}>
+        <span data-part="helper" id={helperId} className={cx('sk-tag-input__helper', classNames?.helper)}>
           {helper}
         </span>
       ) : null}

@@ -11,6 +11,13 @@ export type PaginationTone =
   | 'info'
   | 'danger'
 
+export interface PaginationClassNames {
+  prev?: string
+  next?: string
+  page?: string
+  ellipsis?: string
+}
+
 export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
   /** Página actual (1-based). */
   page: number
@@ -23,6 +30,8 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, 'onCh
   /** Páginas visibles a cada lado de la actual (default 1). */
   siblingCount?: number
   label?: string
+  /** Clases adicionales por sub-parte (prev, next, page, ellipsis). */
+  classNames?: PaginationClassNames
 }
 
 function range(start: number, end: number): number[] {
@@ -57,7 +66,17 @@ function paginationRange(current: number, total: number, siblings: number): (num
  *   [data-part="ellipsis"]    marcador … (no interactivo)
  */
 export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagination(
-  { page, count, onPageChange, siblingCount = 1, label = 'Paginación', tone = 'primary', className, ...rest },
+  {
+    page,
+    count,
+    onPageChange,
+    siblingCount = 1,
+    label = 'Paginación',
+    tone = 'primary',
+    className,
+    classNames,
+    ...rest
+  },
   ref,
 ) {
   const pages = paginationRange(page, count, siblingCount)
@@ -77,6 +96,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
       <button
         type="button"
         data-part="prev"
+        className={cx('sk-pagination__prev', classNames?.prev)}
         aria-label="Página anterior"
         disabled={page <= 1}
         onClick={() => go(page - 1)}
@@ -85,7 +105,12 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
       </button>
       {pages.map((p, i) =>
         p === 'dots' ? (
-          <span key={`dots-${i}`} data-part="ellipsis" aria-hidden="true">
+          <span
+            key={`dots-${i}`}
+            data-part="ellipsis"
+            className={cx('sk-pagination__ellipsis', classNames?.ellipsis)}
+            aria-hidden="true"
+          >
             …
           </span>
         ) : (
@@ -93,6 +118,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
             key={p}
             type="button"
             data-part="page"
+            className={cx('sk-pagination__page', classNames?.page)}
             data-current={p === page ? '' : undefined}
             aria-current={p === page ? 'page' : undefined}
             aria-label={`Página ${p}`}
@@ -105,6 +131,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
       <button
         type="button"
         data-part="next"
+        className={cx('sk-pagination__next', classNames?.next)}
         aria-label="Página siguiente"
         disabled={page >= count}
         onClick={() => go(page + 1)}

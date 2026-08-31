@@ -14,6 +14,16 @@ export interface ComboboxOption {
   label: string
 }
 
+export interface ComboboxClassNames {
+  label?: string
+  control?: string
+  field?: string
+  listbox?: string
+  option?: string
+  empty?: string
+  helper?: string
+}
+
 export interface ComboboxProps {
   options: ComboboxOption[]
   value?: string
@@ -26,6 +36,7 @@ export interface ComboboxProps {
   emptyText?: string
   id?: string
   className?: string
+  classNames?: ComboboxClassNames
 }
 
 /**
@@ -54,6 +65,7 @@ export function Combobox({
   emptyText = 'Sin resultados',
   id,
   className,
+  classNames,
 }: ComboboxProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
@@ -111,14 +123,19 @@ export function Combobox({
       className={cx('sk-combobox', className)}
     >
       {label ? (
-        <label data-part="label" htmlFor={fieldId}>
+        <label
+          data-part="label"
+          htmlFor={fieldId}
+          className={cx('sk-combobox__label', classNames?.label)}
+        >
           {label}
         </label>
       ) : null}
-      <div data-part="control">
+      <div data-part="control" className={cx('sk-combobox__control', classNames?.control)}>
         <input
           id={fieldId}
           data-part="field"
+          className={cx('sk-combobox__field', classNames?.field)}
           type="text"
           role="combobox"
           aria-expanded={open}
@@ -139,7 +156,12 @@ export function Combobox({
           onKeyDown={onKeyDown}
         />
         {open ? (
-          <ul data-part="listbox" role="listbox" id={listId}>
+          <ul
+            data-part="listbox"
+            role="listbox"
+            id={listId}
+            className={cx('sk-combobox__listbox', classNames?.listbox)}
+          >
             {filtered.length > 0 ? (
               filtered.map((o, i) => (
                 <li
@@ -149,6 +171,7 @@ export function Combobox({
                   aria-selected={o.value === value}
                   data-highlighted={i === active ? '' : undefined}
                   data-selected={o.value === value ? '' : undefined}
+                  className={cx('sk-combobox__option', classNames?.option)}
                   onMouseEnter={() => setActive(i)}
                   onMouseDown={(e) => {
                     e.preventDefault()
@@ -159,13 +182,19 @@ export function Combobox({
                 </li>
               ))
             ) : (
-              <li data-part="empty">{emptyText}</li>
+              <li data-part="empty" className={cx('sk-combobox__empty', classNames?.empty)}>
+                {emptyText}
+              </li>
             )}
           </ul>
         ) : null}
       </div>
       {helper ? (
-        <span data-part="helper" id={helperId}>
+        <span
+          data-part="helper"
+          id={helperId}
+          className={cx('sk-combobox__helper', classNames?.helper)}
+        >
           {helper}
         </span>
       ) : null}

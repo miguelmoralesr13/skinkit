@@ -64,7 +64,7 @@ function ArrayField({
 
   return (
     <Grid.Item colSpan={field.colSpan ?? 12}>
-      <Fieldset legend={field.label} disabled={disabled} data-part="array">
+      <Fieldset legend={field.label} disabled={disabled} data-part="array" className={field.className}>
         {fields.map((item, i) => (
           <div data-part="array-item" key={item.id}>
             <Grid cols={cols} gap={gap} alignItems="start">
@@ -111,6 +111,7 @@ export function DynamicForm({
   submitLabel,
   actions,
   className,
+  classNames,
   ...rest
 }: DynamicFormProps) {
   // refs para que el resolver sea estable pero siempre lea la config/externos actuales
@@ -152,7 +153,7 @@ export function DynamicForm({
     if (field.type === 'object') {
       return (
         <Grid.Item key={name} colSpan={field.colSpan ?? 12}>
-          <Fieldset legend={field.label} disabled={disabled}>
+          <Fieldset legend={field.label} disabled={disabled} className={field.className}>
             <Grid cols={schema.cols} gap={schema.gap} alignItems="start">
               {(field.fields ?? []).map((sub) => renderField(sub, name))}
             </Grid>
@@ -195,12 +196,18 @@ export function DynamicForm({
       noValidate
       {...rest}
     >
-      <Grid cols={schema.cols} gap={schema.gap} alignItems="start" data-part="fields">
+      <Grid
+        cols={schema.cols}
+        gap={schema.gap}
+        alignItems="start"
+        data-part="fields"
+        className={cx('sk-dynamic-form__fields', classNames?.fields)}
+      >
         {schema.fields.map((f) => renderField(f, ''))}
       </Grid>
 
       {submitLabel !== null && (
-        <div data-part="actions">
+        <div data-part="actions" className={cx('sk-dynamic-form__actions', classNames?.actions)}>
           {actions}
           <Button type="submit">{submitLabel ?? 'Enviar'}</Button>
         </div>

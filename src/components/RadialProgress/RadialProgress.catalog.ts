@@ -16,6 +16,7 @@ export const radialProgressSpec: ComponentSpec = {
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger' | 'neutral'", required: false, default: "'primary'", description: 'Color del arco (del theme).' },
     { name: 'showValue', type: 'boolean', required: false, description: 'Muestra el porcentaje en el centro.' },
     { name: 'children', type: 'ReactNode', required: false, description: 'Contenido central custom (reemplaza al %).' },
+    { name: 'classNames', type: '{ track?: string; indicator?: string; label?: string }', required: false, description: 'Clases adicionales por sub-parte (track, indicator, label).' },
   ],
   parts: [
     { name: 'root', description: 'role=progressbar [data-sk=radial-progress]. Lleva [data-tone].' },

@@ -1,6 +1,15 @@
 import { type ReactNode } from 'react'
+import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Dialog, type DialogSize } from './Dialog'
+
+export interface AlertDialogClassNames {
+  header?: string
+  title?: string
+  body?: string
+  footer?: string
+  actionButton?: string
+}
 
 export interface AlertDialogProps {
   open: boolean
@@ -12,6 +21,10 @@ export interface AlertDialogProps {
   /** danger = pinta el botón en rojo (para avisos de error). */
   tone?: 'primary' | 'danger'
   size?: DialogSize
+  /** Clase adicional para la raíz (se pasa al <Dialog> interno). No reemplaza la clase base. */
+  className?: string
+  /** Clases adicionales por sub-parte (header/title/body/footer/actionButton). Aditivo. */
+  classNames?: AlertDialogClassNames
 }
 
 /**
@@ -27,16 +40,25 @@ export function AlertDialog({
   actionText = 'Entendido',
   tone = 'primary',
   size = 'sm',
+  className,
+  classNames,
 }: AlertDialogProps) {
   return (
-    <Dialog open={open} onClose={onClose} size={size}>
-      <Dialog.Header>
-        <Dialog.Title>{title}</Dialog.Title>
+    <Dialog open={open} onClose={onClose} size={size} className={className}>
+      <Dialog.Header className={cx('sk-alert-dialog__header', classNames?.header)}>
+        <Dialog.Title className={cx('sk-alert-dialog__title', classNames?.title)}>{title}</Dialog.Title>
         <Dialog.Close />
       </Dialog.Header>
-      {description ? <Dialog.Body>{description}</Dialog.Body> : null}
-      <Dialog.Footer>
-        <Button variant="filled" data-tone={tone} onClick={onClose}>
+      {description ? (
+        <Dialog.Body className={cx('sk-alert-dialog__body', classNames?.body)}>{description}</Dialog.Body>
+      ) : null}
+      <Dialog.Footer className={cx('sk-alert-dialog__footer', classNames?.footer)}>
+        <Button
+          variant="filled"
+          data-tone={tone}
+          onClick={onClose}
+          className={cx('sk-alert-dialog__action-button', classNames?.actionButton)}
+        >
           {actionText}
         </Button>
       </Dialog.Footer>

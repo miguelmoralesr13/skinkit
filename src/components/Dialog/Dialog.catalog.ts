@@ -27,6 +27,13 @@ export const dialogSpec: ComponentSpec = {
     },
     { name: 'closeOnOverlay', type: 'boolean', required: false, default: 'true', description: 'Cerrar al hacer click en el fondo.' },
     { name: 'closeOnEsc', type: 'boolean', required: false, default: 'true', description: 'Cerrar con la tecla Escape.' },
+    {
+      name: 'classNames',
+      type: '{ overlay?: string; panel?: string }',
+      required: false,
+      description:
+        'Clases adicionales por parte interna (overlay/panel). Se agregan, nunca reemplazan la clase base. Para header/title/body/footer/close, pasá className directamente a <Dialog.Header>/<Dialog.Title>/etc.',
+    },
   ],
   parts: [
     { name: 'root', description: 'Contenedor portalizado [data-sk=dialog]. Lleva [data-size].' },
@@ -78,6 +85,14 @@ export const confirmDialogSpec: ComponentSpec = {
     { name: 'cancelText', type: 'string', required: false, default: "'Cancelar'", description: 'Texto del botón de cancelar.' },
     { name: 'tone', type: "'primary' | 'danger'", required: false, default: "'primary'", description: 'danger = acción destructiva; el confirmar se pinta en rojo.' },
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'full'", required: false, default: "'sm'", description: 'Tamaño del panel.' },
+    { name: 'className', type: 'string', required: false, description: 'Clase adicional para la raíz. Se pasa al <Dialog> interno. No reemplaza la clase base.' },
+    {
+      name: 'classNames',
+      type: '{ header?: string; title?: string; body?: string; footer?: string; cancelButton?: string; confirmButton?: string }',
+      required: false,
+      description:
+        'Clases adicionales por sub-parte (header/title/body/footer/cancelButton/confirmButton). Aditivo: nunca reemplaza la clase base.',
+    },
   ],
   parts: [{ name: 'root', description: 'Reusa el contrato de parts de Dialog (overlay/panel/header/title/body/footer/close).' }],
   examples: [
@@ -109,6 +124,14 @@ export const alertDialogSpec: ComponentSpec = {
     { name: 'actionText', type: 'string', required: false, default: "'Entendido'", description: 'Texto del único botón.' },
     { name: 'tone', type: "'primary' | 'danger'", required: false, default: "'primary'", description: 'danger = botón en rojo (avisos de error).' },
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'full'", required: false, default: "'sm'", description: 'Tamaño del panel.' },
+    { name: 'className', type: 'string', required: false, description: 'Clase adicional para la raíz. Se pasa al <Dialog> interno. No reemplaza la clase base.' },
+    {
+      name: 'classNames',
+      type: '{ header?: string; title?: string; body?: string; footer?: string; actionButton?: string }',
+      required: false,
+      description:
+        'Clases adicionales por sub-parte (header/title/body/footer/actionButton). Aditivo: nunca reemplaza la clase base.',
+    },
   ],
   parts: [{ name: 'root', description: 'Reusa el contrato de parts de Dialog.' }],
   examples: [
@@ -140,6 +163,14 @@ export const promptDialogSpec: ComponentSpec = {
     { name: 'confirmText', type: 'string', required: false, default: "'Aceptar'", description: 'Texto del botón de confirmar.' },
     { name: 'cancelText', type: 'string', required: false, default: "'Cancelar'", description: 'Texto del botón de cancelar.' },
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'full'", required: false, default: "'sm'", description: 'Tamaño del panel.' },
+    { name: 'className', type: 'string', required: false, description: 'Clase adicional para la raíz. Se pasa al <Dialog> interno. No reemplaza la clase base.' },
+    {
+      name: 'classNames',
+      type: '{ header?: string; title?: string; body?: string; description?: string; footer?: string; cancelButton?: string; confirmButton?: string }',
+      required: false,
+      description:
+        'Clases adicionales por sub-parte (header/title/body/description/footer/cancelButton/confirmButton). "description" es el <p> de ayuda dentro del body; "body" es el contenedor completo (form + Input). Aditivo: nunca reemplaza la clase base.',
+    },
   ],
   parts: [{ name: 'root', description: 'Reusa el contrato de parts de Dialog; el cuerpo contiene un Input.' }],
   examples: [

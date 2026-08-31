@@ -18,6 +18,13 @@ export const tagInputSpec: ComponentSpec = {
     { name: 'max', type: 'number', required: false, description: 'Máximo de tags.' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita el campo.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido ([data-error]).' },
+    {
+      name: 'classNames',
+      type: '{ label?: string; control?: string; tag?: string; tagLabel?: string; tagRemove?: string; field?: string; helper?: string }',
+      required: false,
+      description:
+        'Clases adicionales por parte interna. Se agregan, nunca reemplazan la clase base. `label` es la etiqueta del campo (data-part="label" del root) — distinta de `tagLabel`, el texto dentro de cada chip (data-part="label" anidado en el chip); ambas comparten el mismo data-part="label" pero son partes conceptualmente distintas, de ahí los nombres separados. `tag` aplica la misma clase a todos los chips. `tagRemove` es el botón × de cada chip.',
+    },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=tag-input]. Lleva [data-error].' },

@@ -56,6 +56,94 @@ export type SelectionMode = 'none' | 'single' | 'multiple'
 
 export type RowKey = string | number
 
+/**
+ * Clases por sub-parte (todas opcionales). Las keys son los `data-part` reales de DataTable.tsx
+ * en camelCase. Partes repetidas (fila, celda, header de columna, checkbox de selección, botón de
+ * paginación, etc.) comparten una sola clase para todas sus instancias — no hay callback por-fila.
+ */
+export interface DataTableClassNames {
+  /** [data-part="toolbar"]. */
+  toolbar?: string
+  /** [data-part="search"]: input de búsqueda del toolbar. */
+  search?: string
+  /** [data-part="toolbar-actions"]. */
+  toolbarActions?: string
+  /** [data-part="bulk-actions"]. */
+  bulkActions?: string
+  /** [data-part="bulk-count"]. */
+  bulkCount?: string
+  /** [data-part="view-toggle"]. */
+  viewToggle?: string
+  /** [data-part="loading"]. */
+  loading?: string
+  /** [data-part="scroll"]: contenedor con overflow-x (y overflow-y si virtualized). */
+  scroll?: string
+  /** [data-part="table"]. */
+  table?: string
+  /** [data-part="caption"]. */
+  caption?: string
+  /** [data-part="thead"]. */
+  thead?: string
+  /** [data-part="th"]: cada celda de encabezado — misma clase para todas. */
+  th?: string
+  /** [data-part="th-button"]: botón interno del th ordenable. */
+  thButton?: string
+  /** [data-part="th-label"]: texto del th (con o sin botón de orden). */
+  thLabel?: string
+  /** [data-part="sort-icon"]. */
+  sortIcon?: string
+  /** [data-part="tbody"]. */
+  tbody?: string
+  /** [data-part="tr"]: cada fila de la tabla — misma clase para todas. */
+  tr?: string
+  /** [data-part="td"]: cada celda de datos — misma clase para todas. */
+  td?: string
+  /** [data-part="empty"]: estado vacío (tabla o cards). */
+  empty?: string
+  /** [data-part="select"]: el input checkbox/radio de selección (header y/o filas/cards). */
+  select?: string
+  /** [data-part="cards"]: contenedor de la vista de tarjetas. */
+  cards?: string
+  /** [data-part="card"]: cada tarjeta — misma clase para todas. */
+  card?: string
+  /** [data-part="card-header"]. */
+  cardHeader?: string
+  /** [data-part="card-heading"]. */
+  cardHeading?: string
+  /** [data-part="card-title"]. */
+  cardTitle?: string
+  /** [data-part="card-subtitle"]. */
+  cardSubtitle?: string
+  /** [data-part="card-actions"]. */
+  cardActions?: string
+  /** [data-part="card-body"]. */
+  cardBody?: string
+  /** [data-part="card-field"]: cada par label/valor — misma clase para todas. */
+  cardField?: string
+  /** [data-part="card-label"]. */
+  cardLabel?: string
+  /** [data-part="card-value"]. */
+  cardValue?: string
+  /** [data-part="sentinel"]: disparador del scroll infinito. */
+  sentinel?: string
+  /** [data-part="footer"]. */
+  footer?: string
+  /** [data-part="page-info"]. */
+  pageInfo?: string
+  /** [data-part="page-size"]. */
+  pageSize?: string
+  /** [data-part="page-size-label"]. */
+  pageSizeLabel?: string
+  /** [data-part="page-size-select"]. */
+  pageSizeSelect?: string
+  /** [data-part="pager"]. */
+  pager?: string
+  /** [data-part="page-btn"]: botones anterior/siguiente — misma clase para ambos. */
+  pageBtn?: string
+  /** [data-part="page-current"]. */
+  pageCurrent?: string
+}
+
 export interface DataTableProps<T extends object = Row>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Filas. En modo server, es la página actual ya resuelta por el backend. */
@@ -136,4 +224,8 @@ export interface DataTableProps<T extends object = Row>
   rowHeight?: number
   /** Alto en px del viewport con scroll — requerido cuando `virtualized`. */
   height?: number
+
+  // ── personalización ──────────────────────────────────────────
+  /** Clases por sub-parte (ver `DataTableClassNames`). */
+  classNames?: DataTableClassNames
 }

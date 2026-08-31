@@ -10,6 +10,7 @@ export const resizableSpec: ComponentSpec = {
   extends: 'HTMLAttributes<HTMLDivElement>',
   props: [
     { name: 'direction', type: "'horizontal' | 'vertical'", required: false, default: "'horizontal'", description: 'Orientación de los paneles y los divisores.' },
+    { name: 'classNames', type: '{ handle?: string }', required: false, description: 'Clases extra por sub-parte. Solo `handle` (los divisores, auto-insertados por el componente); cada panel ya se personaliza con el `className` propio de su <Resizable.Panel>.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=resizable]. Lleva [data-direction].' },

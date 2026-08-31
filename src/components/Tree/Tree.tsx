@@ -108,14 +108,24 @@ export function Tree({ defaultExpanded = [], label, className, children, ...rest
   )
 }
 
+export interface TreeItemClassNames {
+  row?: string
+  indicator?: string
+  icon?: string
+  label?: string
+  group?: string
+}
+
 export interface TreeItemProps extends Omit<HTMLAttributes<HTMLLIElement>, 'onToggle'> {
   value: string
   label: ReactNode
   /** Ícono/adorno antes del label. */
   icon?: ReactNode
+  /** Clases para las sub-partes internas (row, indicator, icon, label, group). Misma clase para todas las instancias (sin callback por-item). */
+  classNames?: TreeItemClassNames
 }
 
-function TreeItem({ value, label, icon, className, children, ...rest }: TreeItemProps) {
+function TreeItem({ value, label, icon, className, children, classNames, ...rest }: TreeItemProps) {
   const ctx = useTreeCtx('Item')
   const hasChildren = Children.count(children) > 0
   const open = ctx.isOpen(value)
@@ -133,18 +143,23 @@ function TreeItem({ value, label, icon, className, children, ...rest }: TreeItem
         data-part="row"
         data-value={value}
         tabIndex={0}
+        className={cx('sk-tree__row', classNames?.row)}
         onClick={() => hasChildren && ctx.toggle(value)}
       >
-        {hasChildren ? <span data-part="indicator" aria-hidden="true" /> : <span data-part="indicator" data-leaf="" aria-hidden="true" />}
+        {hasChildren ? (
+          <span data-part="indicator" aria-hidden="true" className={cx('sk-tree__indicator', classNames?.indicator)} />
+        ) : (
+          <span data-part="indicator" data-leaf="" aria-hidden="true" className={cx('sk-tree__indicator', classNames?.indicator)} />
+        )}
         {icon != null ? (
-          <span data-part="icon" aria-hidden="true">
+          <span data-part="icon" aria-hidden="true" className={cx('sk-tree__icon', classNames?.icon)}>
             {icon}
           </span>
         ) : null}
-        <span data-part="label">{label}</span>
+        <span data-part="label" className={cx('sk-tree__label', classNames?.label)}>{label}</span>
       </div>
       {hasChildren && open ? (
-        <ul data-part="group" role="group">
+        <ul data-part="group" role="group" className={cx('sk-tree__group', classNames?.group)}>
           {children}
         </ul>
       ) : null}

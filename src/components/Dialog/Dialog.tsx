@@ -14,6 +14,11 @@ import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full'
 export type DialogPlacement = 'center' | 'left' | 'right' | 'top' | 'bottom'
 
+export interface DialogClassNames {
+  overlay?: string
+  panel?: string
+}
+
 const FOCUSABLE =
   'a[href],area[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'
 
@@ -42,6 +47,8 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
   closeOnOverlay?: boolean
   /** Cerrar con la tecla Escape (default true). */
   closeOnEsc?: boolean
+  /** Clases adicionales por parte interna (overlay/panel). Se agregan, nunca reemplazan la clase base. */
+  classNames?: DialogClassNames
 }
 
 /**
@@ -71,6 +78,7 @@ export function Dialog({
   closeOnEsc = true,
   className,
   children,
+  classNames,
   ...rest
 }: DialogProps) {
   const panelRef = useRef<HTMLDivElement>(null)
@@ -131,6 +139,7 @@ export function Dialog({
       >
         <div
           data-part="overlay"
+          className={cx('sk-dialog__overlay', classNames?.overlay)}
           onClick={closeOnOverlay ? onClose : undefined}
           aria-hidden="true"
         />
@@ -142,6 +151,7 @@ export function Dialog({
           aria-labelledby={labelledBy}
           aria-describedby={descId}
           tabIndex={-1}
+          className={cx('sk-dialog__panel', classNames?.panel)}
           {...rest}
         >
           <DialogContext.Provider value={{ titleId, descId, onClose }}>

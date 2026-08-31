@@ -1,8 +1,18 @@
 import { type ReactNode } from 'react'
+import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Dialog, type DialogSize } from './Dialog'
 
 export type ConfirmTone = 'primary' | 'danger'
+
+export interface ConfirmDialogClassNames {
+  header?: string
+  title?: string
+  body?: string
+  footer?: string
+  cancelButton?: string
+  confirmButton?: string
+}
 
 export interface ConfirmDialogProps {
   open: boolean
@@ -17,6 +27,10 @@ export interface ConfirmDialogProps {
   /** danger = acción destructiva (botón de confirmar en rojo). */
   tone?: ConfirmTone
   size?: DialogSize
+  /** Clase adicional para la raíz (se pasa al <Dialog> interno). No reemplaza la clase base. */
+  className?: string
+  /** Clases adicionales por sub-parte (header/title/body/footer/cancelButton/confirmButton). Aditivo. */
+  classNames?: ConfirmDialogClassNames
 }
 
 /**
@@ -36,19 +50,32 @@ export function ConfirmDialog({
   cancelText = 'Cancelar',
   tone = 'primary',
   size = 'sm',
+  className,
+  classNames,
 }: ConfirmDialogProps) {
   return (
-    <Dialog open={open} onClose={onClose} size={size}>
-      <Dialog.Header>
-        <Dialog.Title>{title}</Dialog.Title>
+    <Dialog open={open} onClose={onClose} size={size} className={className}>
+      <Dialog.Header className={cx('sk-confirm-dialog__header', classNames?.header)}>
+        <Dialog.Title className={cx('sk-confirm-dialog__title', classNames?.title)}>{title}</Dialog.Title>
         <Dialog.Close />
       </Dialog.Header>
-      {description ? <Dialog.Body>{description}</Dialog.Body> : null}
-      <Dialog.Footer>
-        <Button variant="outlined" onClick={onClose}>
+      {description ? (
+        <Dialog.Body className={cx('sk-confirm-dialog__body', classNames?.body)}>{description}</Dialog.Body>
+      ) : null}
+      <Dialog.Footer className={cx('sk-confirm-dialog__footer', classNames?.footer)}>
+        <Button
+          variant="outlined"
+          onClick={onClose}
+          className={cx('sk-confirm-dialog__cancel-button', classNames?.cancelButton)}
+        >
           {cancelText}
         </Button>
-        <Button variant="filled" data-tone={tone} onClick={onConfirm}>
+        <Button
+          variant="filled"
+          data-tone={tone}
+          onClick={onConfirm}
+          className={cx('sk-confirm-dialog__confirm-button', classNames?.confirmButton)}
+        >
           {confirmText}
         </Button>
       </Dialog.Footer>

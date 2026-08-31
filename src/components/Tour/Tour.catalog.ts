@@ -11,6 +11,7 @@ export const tourSpec: ComponentSpec = {
   extends: '—',
   props: [
     { name: 'TourProvider.config', type: 'TourConfig', required: true, description: 'La definición completa: { flows: TourFlowDef[] }. Se valida al montar (ids duplicados, subFlow colgante, ciclos) — lanza con un mensaje "skinkit: <TourProvider> — ..." si el JSON está mal formado.' },
+    { name: 'TourProvider.classNames', type: 'TourClassNames', required: false, description: 'Clases adicionales por data-part del overlay/tooltip: backdrop, spotlight, header, title, close, body, footer, prev, next. No reemplaza la clase base (sk-tour__<parte>).' },
     { name: 'TourFlowDef.id', type: 'string', required: true, description: 'Id único del flujo — con esto se llama a start(id) o se referencia desde un subFlow.' },
     { name: 'TourFlowDef.entries', type: 'TourFlowEntry[]', required: true, description: 'Lista ordenada de pasos. Cada entrada es un TourStepDef o { subFlow: "otroFlowId" } — al llegar a un subFlow, el motor entra en ese flujo y vuelve al terminar, como una llamada a función.' },
     { name: 'TourFlowDef.trigger', type: "{ type: 'elementVisible'; target: string } | { type: 'manual' }", required: false, default: "{ type: 'manual' }", description: 'elementVisible arranca el flujo solo, la primera vez que `target` aparece y es visible en pantalla (útil para onboarding de una sección que se monta después, ej. tras cargar datos). manual = solo por start(id).' },

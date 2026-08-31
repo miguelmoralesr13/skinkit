@@ -1,7 +1,18 @@
 import { useEffect, useState, type ReactNode } from 'react'
+import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Input } from '../Input'
 import { Dialog, type DialogSize } from './Dialog'
+
+export interface PromptDialogClassNames {
+  header?: string
+  title?: string
+  body?: string
+  description?: string
+  footer?: string
+  cancelButton?: string
+  confirmButton?: string
+}
 
 export interface PromptDialogProps {
   open: boolean
@@ -18,6 +29,10 @@ export interface PromptDialogProps {
   confirmText?: string
   cancelText?: string
   size?: DialogSize
+  /** Clase adicional para la raíz (se pasa al <Dialog> interno). No reemplaza la clase base. */
+  className?: string
+  /** Clases adicionales por sub-parte (header/title/body/description/footer/cancelButton/confirmButton). Aditivo. */
+  classNames?: PromptDialogClassNames
 }
 
 /**
@@ -36,6 +51,8 @@ export function PromptDialog({
   confirmText = 'Aceptar',
   cancelText = 'Cancelar',
   size = 'sm',
+  className,
+  classNames,
 }: PromptDialogProps) {
   const [value, setValue] = useState(defaultValue)
 
@@ -47,19 +64,23 @@ export function PromptDialog({
   const submit = () => onConfirm(value)
 
   return (
-    <Dialog open={open} onClose={onClose} size={size}>
-      <Dialog.Header>
-        <Dialog.Title>{title}</Dialog.Title>
+    <Dialog open={open} onClose={onClose} size={size} className={className}>
+      <Dialog.Header className={cx('sk-prompt-dialog__header', classNames?.header)}>
+        <Dialog.Title className={cx('sk-prompt-dialog__title', classNames?.title)}>{title}</Dialog.Title>
         <Dialog.Close />
       </Dialog.Header>
-      <Dialog.Body>
+      <Dialog.Body className={cx('sk-prompt-dialog__body', classNames?.body)}>
         <form
           onSubmit={(e) => {
             e.preventDefault()
             submit()
           }}
         >
-          {description ? <p style={{ marginTop: 0 }}>{description}</p> : null}
+          {description ? (
+            <p style={{ marginTop: 0 }} className={cx('sk-prompt-dialog__description', classNames?.description)}>
+              {description}
+            </p>
+          ) : null}
           <Input
             label={label}
             placeholder={placeholder}
@@ -69,11 +90,17 @@ export function PromptDialog({
           />
         </form>
       </Dialog.Body>
-      <Dialog.Footer>
-        <Button variant="outlined" onClick={onClose}>
+      <Dialog.Footer className={cx('sk-prompt-dialog__footer', classNames?.footer)}>
+        <Button
+          variant="outlined"
+          onClick={onClose}
+          className={cx('sk-prompt-dialog__cancel-button', classNames?.cancelButton)}
+        >
           {cancelText}
         </Button>
-        <Button onClick={submit}>{confirmText}</Button>
+        <Button onClick={submit} className={cx('sk-prompt-dialog__confirm-button', classNames?.confirmButton)}>
+          {confirmText}
+        </Button>
       </Dialog.Footer>
     </Dialog>
   )

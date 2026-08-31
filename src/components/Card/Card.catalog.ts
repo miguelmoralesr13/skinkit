@@ -27,6 +27,13 @@ export const cardSpec: ComponentSpec = {
       required: false,
       description: 'Cuerpo de la card (parte body).',
     },
+    {
+      name: 'classNames',
+      type: '{ header?: string; body?: string; footer?: string }',
+      required: false,
+      description:
+        'Clases adicionales por parte interna (header/body/footer). Se agregan, nunca reemplazan la clase base.',
+    },
   ],
   parts: [
     { name: 'root', description: 'El contenedor.' },

@@ -18,6 +18,8 @@ export const popconfirmSpec: ComponentSpec = {
     { name: 'danger', type: 'boolean', required: false, description: 'Acción peligrosa: el CSS pinta el confirmar con --sk-danger.' },
     { name: 'side', type: "'top' | 'bottom' | 'left' | 'right'", required: false, default: "'top'", description: 'Lado donde se despliega respecto del disparador.' },
     { name: 'children', type: 'ReactNode', required: true, description: 'El disparador (texto/ícono); se renderiza dentro del botón del Popover.' },
+    { name: 'className', type: 'string', required: false, description: 'Clase adicional para la raíz ([data-sk=popconfirm]). Aditivo: nunca reemplaza la clase base.' },
+    { name: 'classNames', type: 'PopconfirmClassNames', required: false, description: 'Clases adicionales por sub-parte (title/description/actions/confirm). Aditivo: nunca reemplazan las clases base.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=popconfirm] (dentro del Popover.Content). Lleva [data-tone=danger].' },

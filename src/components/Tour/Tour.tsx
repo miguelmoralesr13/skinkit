@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react'
 import { useElementVisible } from '../../lib/useElementVisible'
-import { TourOverlay } from './TourOverlay'
+import { TourOverlay, type TourClassNames } from './TourOverlay'
 import type { TourConfig } from './types'
 import { useTourEngine, type UseTourEngineResult } from './useTourEngine'
 
@@ -32,6 +32,8 @@ export interface TourProviderProps {
   children: ReactNode
   /** Definición JSON de flujos/pasos/sub-flujos — se valida (ciclos, refs colgantes) al montar. */
   config: TourConfig
+  /** Clases adicionales por `data-part` del overlay/tooltip (backdrop/spotlight/header/title/close/body/footer/prev/next). No reemplaza la clase base. */
+  classNames?: TourClassNames
 }
 
 /**
@@ -39,7 +41,7 @@ export interface TourProviderProps {
  * (Context + estado en useState/useMemo + portal a un `[data-skinkit-root]` propio en
  * document.body), no el de un compound component ensamblado en JSX como VideoPlayer.
  */
-export function TourProvider({ children, config }: TourProviderProps) {
+export function TourProvider({ children, config, classNames }: TourProviderProps) {
   const engine = useTourEngine(config)
 
   const autoTriggerFlows = useMemo(
@@ -57,7 +59,7 @@ export function TourProvider({ children, config }: TourProviderProps) {
       {autoTriggerFlows.map((flow) => (
         <TourTriggerWatcher key={flow.id} target={flow.trigger.target} onVisible={() => engine.start(flow.id)} />
       ))}
-      <TourOverlay engine={engine} />
+      <TourOverlay engine={engine} classNames={classNames} />
     </TourContext.Provider>
   )
 }

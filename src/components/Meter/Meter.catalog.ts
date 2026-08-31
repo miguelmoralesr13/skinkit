@@ -16,6 +16,7 @@ export const meterSpec: ComponentSpec = {
     { name: 'tone', type: "'neutral' | 'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, description: 'Color del indicador (del theme). Si se omite, se deriva de low (danger).' },
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta arriba.' },
     { name: 'showValue', type: 'boolean', required: false, description: 'Muestra el valor junto al label.' },
+    { name: 'classNames', type: '{ header?: string; label?: string; value?: string; track?: string; indicator?: string }', required: false, description: 'Clases adicionales por sub-parte (header/label/value/track/indicator).' },
   ],
   parts: [
     { name: 'root', description: 'role=meter [data-sk=meter]. Lleva [data-tone]; expone --sk-meter (0–1).' },

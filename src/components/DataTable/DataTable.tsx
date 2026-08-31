@@ -10,12 +10,14 @@ function SelectionControl({
   indeterminate,
   onToggle,
   label,
+  className,
 }: {
   mode: 'single' | 'multiple'
   checked: boolean
   indeterminate?: boolean
   onToggle: () => void
   label: string
+  className?: string
 }) {
   const ref = useRef<HTMLInputElement>(null)
   useEffect(() => {
@@ -26,6 +28,7 @@ function SelectionControl({
       ref={ref}
       type={mode === 'single' ? 'radio' : 'checkbox'}
       data-part="select"
+      className={className}
       checked={checked}
       onChange={onToggle}
       onClick={(e) => e.stopPropagation()}
@@ -91,6 +94,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
     rowHeight,
     height,
     className,
+    classNames,
     ...rest
   } = props
 
@@ -147,14 +151,24 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
         data-align={col.align}
         style={{ width: col.width }}
         aria-sort={sorted ? (sorted === 'asc' ? 'ascending' : 'descending') : undefined}
+        className={cx('sk-datatable__th', classNames?.th)}
       >
         {col.sortable ? (
-          <button type="button" data-part="th-button" onClick={() => toggleSort(col.key)}>
-            <span data-part="th-label">{col.header}</span>
-            <span data-part="sort-icon" aria-hidden="true" />
+          <button
+            type="button"
+            data-part="th-button"
+            onClick={() => toggleSort(col.key)}
+            className={cx('sk-datatable__th-button', classNames?.thButton)}
+          >
+            <span data-part="th-label" className={cx('sk-datatable__th-label', classNames?.thLabel)}>
+              {col.header}
+            </span>
+            <span data-part="sort-icon" aria-hidden="true" className={cx('sk-datatable__sort-icon', classNames?.sortIcon)} />
           </button>
         ) : (
-          <span data-part="th-label">{col.header}</span>
+          <span data-part="th-label" className={cx('sk-datatable__th-label', classNames?.thLabel)}>
+            {col.header}
+          </span>
         )}
       </th>
     )
@@ -164,24 +178,42 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
     const key = rowKey(row)
     const sel = isSelected(key)
     return (
-      <tr key={String(key)} data-part="tr" data-selected={sel || undefined} style={style}>
+      <tr
+        key={String(key)}
+        data-part="tr"
+        data-selected={sel || undefined}
+        style={style}
+        className={cx('sk-datatable__tr', classNames?.tr)}
+      >
         {hasSelection && (
-          <td data-part="td" data-cell="select">
+          <td data-part="td" data-cell="select" className={cx('sk-datatable__td', classNames?.td)}>
             <SelectionControl
               mode={selectionMode === 'single' ? 'single' : 'multiple'}
               checked={sel}
               onToggle={() => toggleRow(row)}
               label="Seleccionar fila"
+              className={cx('sk-datatable__select', classNames?.select)}
             />
           </td>
         )}
         {visibleColumns.map((col) => (
-          <td key={col.key} data-part="td" data-align={col.align} style={{ width: col.width }}>
+          <td
+            key={col.key}
+            data-part="td"
+            data-align={col.align}
+            style={{ width: col.width }}
+            className={cx('sk-datatable__td', classNames?.td)}
+          >
             {renderCell(col, row)}
           </td>
         ))}
         {rowActions && (
-          <td data-part="td" data-cell="actions" data-align="end">
+          <td
+            data-part="td"
+            data-cell="actions"
+            data-align="end"
+            className={cx('sk-datatable__td', classNames?.td)}
+          >
             {rowActions(row)}
           </td>
         )}
@@ -200,13 +232,18 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
       data-part="scroll"
       data-virtualized={isVirtualized || undefined}
       style={isVirtualized ? { height, overflowY: 'auto' } : undefined}
+      className={cx('sk-datatable__scroll', classNames?.scroll)}
     >
-      <table data-part="table">
-        {caption && <caption data-part="caption">{caption}</caption>}
-        <thead data-part="thead">
+      <table data-part="table" className={cx('sk-datatable__table', classNames?.table)}>
+        {caption && (
+          <caption data-part="caption" className={cx('sk-datatable__caption', classNames?.caption)}>
+            {caption}
+          </caption>
+        )}
+        <thead data-part="thead" className={cx('sk-datatable__thead', classNames?.thead)}>
           <tr>
             {hasSelection && (
-              <th data-part="th" data-cell="select">
+              <th data-part="th" data-cell="select" className={cx('sk-datatable__th', classNames?.th)}>
                 {selectionMode === 'multiple' && (
                   <SelectionControl
                     mode="multiple"
@@ -214,23 +251,33 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
                     indeterminate={someSelected}
                     onToggle={toggleAll}
                     label="Seleccionar todo"
+                    className={cx('sk-datatable__select', classNames?.select)}
                   />
                 )}
               </th>
             )}
             {visibleColumns.map(renderTh)}
             {rowActions && (
-              <th data-part="th" data-cell="actions" data-align="end">
-                <span data-part="th-label">Acciones</span>
+              <th
+                data-part="th"
+                data-cell="actions"
+                data-align="end"
+                className={cx('sk-datatable__th', classNames?.th)}
+              >
+                <span data-part="th-label" className={cx('sk-datatable__th-label', classNames?.thLabel)}>
+                  Acciones
+                </span>
               </th>
             )}
           </tr>
         </thead>
-        <tbody data-part="tbody">
+        <tbody data-part="tbody" className={cx('sk-datatable__tbody', classNames?.tbody)}>
           {rows.length === 0 && !loading ? (
             <tr>
-              <td data-part="td" colSpan={colSpan}>
-                <div data-part="empty">{emptyContent}</div>
+              <td data-part="td" colSpan={colSpan} className={cx('sk-datatable__td', classNames?.td)}>
+                <div data-part="empty" className={cx('sk-datatable__empty', classNames?.empty)}>
+                  {emptyContent}
+                </div>
               </td>
             </tr>
           ) : isVirtualized ? (
@@ -265,38 +312,63 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
   )
 
   const cardsView = (
-    <div data-part="cards">
+    <div data-part="cards" className={cx('sk-datatable__cards', classNames?.cards)}>
       {rows.length === 0 && !loading ? (
-        <div data-part="empty">{emptyContent}</div>
+        <div data-part="empty" className={cx('sk-datatable__empty', classNames?.empty)}>
+          {emptyContent}
+        </div>
       ) : (
         rows.map((row) => {
           const key = rowKey(row)
           const sel = isSelected(key)
           return (
-            <div key={String(key)} data-part="card" data-selected={sel || undefined}>
-              <div data-part="card-header">
+            <div
+              key={String(key)}
+              data-part="card"
+              data-selected={sel || undefined}
+              className={cx('sk-datatable__card', classNames?.card)}
+            >
+              <div data-part="card-header" className={cx('sk-datatable__card-header', classNames?.cardHeader)}>
                 {hasSelection && (
                   <SelectionControl
                     mode={selectionMode === 'single' ? 'single' : 'multiple'}
                     checked={sel}
                     onToggle={() => toggleRow(row)}
                     label="Seleccionar tarjeta"
+                    className={cx('sk-datatable__select', classNames?.select)}
                   />
                 )}
-                <div data-part="card-heading">
-                  {titleCol && <div data-part="card-title">{renderCell(titleCol, row)}</div>}
+                <div data-part="card-heading" className={cx('sk-datatable__card-heading', classNames?.cardHeading)}>
+                  {titleCol && (
+                    <div data-part="card-title" className={cx('sk-datatable__card-title', classNames?.cardTitle)}>
+                      {renderCell(titleCol, row)}
+                    </div>
+                  )}
                   {subtitleCol && (
-                    <div data-part="card-subtitle">{renderCell(subtitleCol, row)}</div>
+                    <div
+                      data-part="card-subtitle"
+                      className={cx('sk-datatable__card-subtitle', classNames?.cardSubtitle)}
+                    >
+                      {renderCell(subtitleCol, row)}
+                    </div>
                   )}
                 </div>
-                {rowActions && <div data-part="card-actions">{rowActions(row)}</div>}
+                {rowActions && (
+                  <div data-part="card-actions" className={cx('sk-datatable__card-actions', classNames?.cardActions)}>
+                    {rowActions(row)}
+                  </div>
+                )}
               </div>
               {fieldCols.length > 0 && (
-                <div data-part="card-body">
+                <div data-part="card-body" className={cx('sk-datatable__card-body', classNames?.cardBody)}>
                   {fieldCols.map((col) => (
-                    <div key={col.key} data-part="card-field">
-                      <span data-part="card-label">{col.header}</span>
-                      <span data-part="card-value">{renderCell(col, row)}</span>
+                    <div key={col.key} data-part="card-field" className={cx('sk-datatable__card-field', classNames?.cardField)}>
+                      <span data-part="card-label" className={cx('sk-datatable__card-label', classNames?.cardLabel)}>
+                        {col.header}
+                      </span>
+                      <span data-part="card-value" className={cx('sk-datatable__card-value', classNames?.cardValue)}>
+                        {renderCell(col, row)}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -320,7 +392,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
       {...rest}
     >
       {showToolbar && (
-        <div data-part="toolbar">
+        <div data-part="toolbar" className={cx('sk-datatable__toolbar', classNames?.toolbar)}>
           {filterable && (
             <input
               data-part="search"
@@ -329,12 +401,15 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               onChange={(e) => setFilter(e.target.value)}
               placeholder={filterPlaceholder}
               aria-label="Buscar en la tabla"
+              className={cx('sk-datatable__search', classNames?.search)}
             />
           )}
-          <div data-part="toolbar-actions">
+          <div data-part="toolbar-actions" className={cx('sk-datatable__toolbar-actions', classNames?.toolbarActions)}>
             {bulkActions && selectedRows.length > 0 && (
-              <div data-part="bulk-actions">
-                <span data-part="bulk-count">{selectedRows.length} sel.</span>
+              <div data-part="bulk-actions" className={cx('sk-datatable__bulk-actions', classNames?.bulkActions)}>
+                <span data-part="bulk-count" className={cx('sk-datatable__bulk-count', classNames?.bulkCount)}>
+                  {selectedRows.length} sel.
+                </span>
                 {bulkActions(selectedRows, selectedKeys)}
               </div>
             )}
@@ -344,6 +419,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
                 data-part="view-toggle"
                 onClick={toggleView}
                 aria-label={effectiveView === 'table' ? 'Ver como tarjetas' : 'Ver como tabla'}
+                className={cx('sk-datatable__view-toggle', classNames?.viewToggle)}
               >
                 {effectiveView === 'table' ? 'Tarjetas' : 'Tabla'}
               </button>
@@ -352,28 +428,39 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
         </div>
       )}
 
-      {loading && <div data-part="loading" role="status">Cargando…</div>}
+      {loading && (
+        <div data-part="loading" role="status" className={cx('sk-datatable__loading', classNames?.loading)}>
+          Cargando…
+        </div>
+      )}
 
       {effectiveView === 'table' ? tableView : cardsView}
 
       {paginationMode === 'infinite' && (
-        <div ref={sentinelRef} data-part="sentinel">
+        <div
+          ref={sentinelRef}
+          data-part="sentinel"
+          className={cx('sk-datatable__sentinel', classNames?.sentinel)}
+        >
           {loadingMore ? 'Cargando más…' : null}
         </div>
       )}
 
       {showFooter && (
-        <div data-part="footer">
-          <div data-part="page-info">
+        <div data-part="footer" className={cx('sk-datatable__footer', classNames?.footer)}>
+          <div data-part="page-info" className={cx('sk-datatable__page-info', classNames?.pageInfo)}>
             {rangeStart}–{rangeEnd} de {totalRows}
           </div>
-          <div data-part="page-size">
-            <label data-part="page-size-label">Filas</label>
+          <div data-part="page-size" className={cx('sk-datatable__page-size', classNames?.pageSize)}>
+            <label data-part="page-size-label" className={cx('sk-datatable__page-size-label', classNames?.pageSizeLabel)}>
+              Filas
+            </label>
             <select
               data-part="page-size-select"
               value={pageSize}
               onChange={(e) => setPageSize(Number(e.target.value))}
               aria-label="Filas por página"
+              className={cx('sk-datatable__page-size-select', classNames?.pageSizeSelect)}
             >
               {pageSizeOptions.map((n) => (
                 <option key={n} value={n}>
@@ -382,17 +469,18 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               ))}
             </select>
           </div>
-          <div data-part="pager">
+          <div data-part="pager" className={cx('sk-datatable__pager', classNames?.pager)}>
             <button
               type="button"
               data-part="page-btn"
               onClick={() => setPage(page - 1)}
               disabled={page <= 1}
               aria-label="Página anterior"
+              className={cx('sk-datatable__page-btn', classNames?.pageBtn)}
             >
               ‹
             </button>
-            <span data-part="page-current">
+            <span data-part="page-current" className={cx('sk-datatable__page-current', classNames?.pageCurrent)}>
               {page} / {pageCount}
             </span>
             <button
@@ -401,6 +489,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               onClick={() => setPage(page + 1)}
               disabled={page >= pageCount}
               aria-label="Página siguiente"
+              className={cx('sk-datatable__page-btn', classNames?.pageBtn)}
             >
               ›
             </button>

@@ -3,6 +3,11 @@ import { cx } from '../../lib/cx'
 
 export type MarqueeDirection = 'left' | 'right'
 
+export interface MarqueeClassNames {
+  track?: string
+  group?: string
+}
+
 export interface MarqueeProps extends HTMLAttributes<HTMLDivElement> {
   direction?: MarqueeDirection
   /** Segundos que tarda una vuelta (menos = más rápido). */
@@ -10,6 +15,7 @@ export interface MarqueeProps extends HTMLAttributes<HTMLDivElement> {
   /** Pausa la animación al pasar el mouse. */
   pauseOnHover?: boolean
   children: ReactNode
+  classNames?: MarqueeClassNames
 }
 
 /**
@@ -22,7 +28,7 @@ export interface MarqueeProps extends HTMLAttributes<HTMLDivElement> {
  *   [data-part="group"]   cada copia del contenido
  */
 export const Marquee = forwardRef<HTMLDivElement, MarqueeProps>(function Marquee(
-  { direction = 'left', speed = 20, pauseOnHover, className, style, children, ...rest },
+  { direction = 'left', speed = 20, pauseOnHover, className, style, children, classNames, ...rest },
   ref,
 ) {
   return (
@@ -35,9 +41,15 @@ export const Marquee = forwardRef<HTMLDivElement, MarqueeProps>(function Marquee
       style={{ ['--sk-marquee-duration' as string]: `${speed}s`, ...(style as CSSProperties) }}
       {...rest}
     >
-      <div data-part="track">
-        <div data-part="group">{children}</div>
-        <div data-part="group" aria-hidden="true">
+      <div data-part="track" className={cx('sk-marquee__track', classNames?.track)}>
+        <div data-part="group" className={cx('sk-marquee__group', classNames?.group)}>
+          {children}
+        </div>
+        <div
+          data-part="group"
+          aria-hidden="true"
+          className={cx('sk-marquee__group', classNames?.group)}
+        >
           {children}
         </div>
       </div>

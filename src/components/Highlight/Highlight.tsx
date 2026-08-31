@@ -11,6 +11,10 @@ export type HighlightTone =
   | 'info'
   | 'danger'
 
+export interface HighlightClassNames {
+  match?: string
+}
+
 export interface HighlightProps extends HTMLAttributes<HTMLSpanElement> {
   /** Texto completo. */
   text: string
@@ -18,6 +22,8 @@ export interface HighlightProps extends HTMLAttributes<HTMLSpanElement> {
   query: string | string[]
   /** Color del resaltador (del theme). 'primary' (default) no emite data-tone. */
   tone?: HighlightTone
+  /** Clases extra por sub-parte. */
+  classNames?: HighlightClassNames
 }
 
 function escapeRegExp(s: string) {
@@ -34,7 +40,7 @@ function escapeRegExp(s: string) {
  *   [data-part="match"]     cada coincidencia (<mark>)
  */
 export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(function Highlight(
-  { text, query, tone = 'primary', className, ...rest },
+  { text, query, tone = 'primary', className, classNames, ...rest },
   ref,
 ) {
   const terms = (Array.isArray(query) ? query : [query]).map((t) => t.trim()).filter(Boolean)
@@ -46,7 +52,7 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(function Hi
     const re = new RegExp(`(${terms.map(escapeRegExp).join('|')})`, 'gi')
     parts = text.split(re).map((chunk, i) =>
       i % 2 === 1 ? (
-        <mark data-part="match" key={i}>
+        <mark data-part="match" className={cx('sk-highlight__match', classNames?.match)} key={i}>
           {chunk}
         </mark>
       ) : (

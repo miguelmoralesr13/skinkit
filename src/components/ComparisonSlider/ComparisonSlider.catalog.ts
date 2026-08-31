@@ -13,6 +13,7 @@ export const comparisonSliderSpec: ComponentSpec = {
     { name: 'before', type: 'ReactNode', required: true, description: 'Capa que se revela (antes), recortada por el divisor.' },
     { name: 'defaultPosition', type: 'number', required: false, default: '50', description: 'Posición inicial del divisor (0–100).' },
     { name: 'label', type: 'string', required: false, default: "'Comparar'", description: 'aria-label del divisor.' },
+    { name: 'classNames', type: '{ after?: string; before?: string; handle?: string }', required: false, description: 'Clases adicionales por sub-parte (after/before/handle). No reemplaza la clase base.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=comparison]. Expone --sk-comparison-pos (0–100).' },

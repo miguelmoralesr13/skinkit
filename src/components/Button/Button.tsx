@@ -13,6 +13,11 @@ export type ButtonTone =
   | 'info'
   | 'danger'
 
+export interface ButtonClassNames {
+  icon?: string
+  label?: string
+}
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: ButtonSize
@@ -20,6 +25,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tone?: ButtonTone
   iconLeft?: ReactNode
   iconRight?: ReactNode
+  /** Clases adicionales por sub-parte (icon/label). Aditivo: nunca reemplaza la clase base. */
+  classNames?: ButtonClassNames
 }
 
 /**
@@ -37,7 +44,18 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  *   :disabled               estado nativo (el CSS lo estila con :disabled)
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = 'filled', size = 'md', tone = 'primary', iconLeft, iconRight, className, children, type, ...rest },
+  {
+    variant = 'filled',
+    size = 'md',
+    tone = 'primary',
+    iconLeft,
+    iconRight,
+    className,
+    children,
+    type,
+    classNames,
+    ...rest
+  },
   ref,
 ) {
   return (
@@ -51,9 +69,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={cx('sk-button', className)}
       {...rest}
     >
-      {iconLeft ? <span data-part="icon">{iconLeft}</span> : null}
-      {children ? <span data-part="label">{children}</span> : null}
-      {iconRight ? <span data-part="icon">{iconRight}</span> : null}
+      {iconLeft ? (
+        <span data-part="icon" className={cx('sk-button__icon', classNames?.icon)}>
+          {iconLeft}
+        </span>
+      ) : null}
+      {children ? (
+        <span data-part="label" className={cx('sk-button__label', classNames?.label)}>
+          {children}
+        </span>
+      ) : null}
+      {iconRight ? (
+        <span data-part="icon" className={cx('sk-button__icon', classNames?.icon)}>
+          {iconRight}
+        </span>
+      ) : null}
     </button>
   )
 })

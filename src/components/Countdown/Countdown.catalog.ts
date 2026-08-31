@@ -13,6 +13,7 @@ export const countdownSpec: ComponentSpec = {
     { name: 'onComplete', type: '() => void', required: false, description: 'Se invoca al llegar a cero (una vez).' },
     { name: 'hideDaysWhenZero', type: 'boolean', required: false, description: 'Oculta el bloque de días si son 0.' },
     { name: 'labels', type: '{ days?, hours?, minutes?, seconds? }', required: false, description: 'Etiquetas custom de cada unidad.' },
+    { name: 'classNames', type: '{ segment?, value?, label? }', required: false, description: 'Clases opcionales por sub-parte (aditivas, nunca reemplazan la clase base). `segment` aplica a todos los bloques (uno por unidad).' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=countdown] (role=timer). Lleva [data-done] al terminar.' },

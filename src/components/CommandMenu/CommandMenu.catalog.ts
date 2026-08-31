@@ -15,6 +15,13 @@ export const commandMenuSpec: ComponentSpec = {
     { name: 'placeholder', type: 'string', required: false, default: "'Buscar comando…'", description: 'Placeholder del buscador.' },
     { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados'", description: 'Mensaje sin coincidencias.' },
     { name: 'label', type: 'string', required: false, default: "'Comandos'", description: 'aria-label del diálogo.' },
+    {
+      name: 'classNames',
+      type: '{ overlay?: string; panel?: string; input?: string; list?: string; empty?: string; group?: string; groupLabel?: string; item?: string; icon?: string; label?: string; shortcut?: string }',
+      required: false,
+      description:
+        'Clases adicionales por parte interna. Se agregan, nunca reemplazan la clase base. `group` aplica la misma clase a todas las secciones; `groupLabel` es el `data-part="group-label"` dentro de cada sección con nombre. `item` aplica la misma clase a todos los comandos; `icon`/`label`/`shortcut` son partes anidadas dentro de cada item (el `label` acá es el texto del comando, distinto del prop `label` del diálogo).',
+    },
   ],
   parts: [
     { name: 'root', description: 'Contenedor portalizado [data-sk=command-menu].' },

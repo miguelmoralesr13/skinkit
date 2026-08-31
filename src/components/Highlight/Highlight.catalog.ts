@@ -11,6 +11,7 @@ export const highlightSpec: ComponentSpec = {
   props: [
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de acento (del theme).' },    { name: 'text', type: 'string', required: true, description: 'El texto completo.' },
     { name: 'query', type: 'string | string[]', required: true, description: 'Subcadena(s) a resaltar.' },
+    { name: 'classNames', type: '{ match?: string }', required: false, description: 'Clases extra por sub-parte (match).' },
   ],
   parts: [
     { name: 'root', description: 'El <span> [data-sk=highlight].' },

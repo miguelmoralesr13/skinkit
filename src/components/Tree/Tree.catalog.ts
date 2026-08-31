@@ -11,6 +11,13 @@ export const treeSpec: ComponentSpec = {
   props: [
     { name: 'defaultExpanded', type: 'string[]', required: false, default: '[]', description: 'values de los nodos abiertos al inicio.' },
     { name: 'label', type: 'string', required: false, description: 'aria-label del árbol.' },
+    {
+      name: 'classNames',
+      type: '{ row?: string; indicator?: string; icon?: string; label?: string; group?: string }',
+      required: false,
+      description:
+        'Solo en <Tree.Item>: clases para sus sub-partes internas (row, indicator, icon, label, group). Misma clase para todas las instancias — sin callback por-item. La raíz del nodo ([data-part=item]) ya usa su propio className.',
+    },
   ],
   parts: [
     { name: 'root', description: 'role=tree [data-sk=tree].' },

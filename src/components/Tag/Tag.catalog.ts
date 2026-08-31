@@ -22,6 +22,12 @@ export const tagSpec: ComponentSpec = {
       required: false,
       description: 'Si se pasa, aparece un botón × que lo invoca (chip removible). Vos lo sacás del estado.',
     },
+    {
+      name: 'classNames',
+      type: '{ label?: string; remove?: string }',
+      required: false,
+      description: 'Clases CSS para las sub-partes internas (label, remove).',
+    },
   ],
   parts: [
     { name: 'root', description: 'El <span>. Lleva [data-variant].' },

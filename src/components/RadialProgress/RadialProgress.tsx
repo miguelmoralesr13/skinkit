@@ -12,6 +12,12 @@ export type RadialTone =
   | 'danger'
   | 'neutral'
 
+export interface RadialProgressClassNames {
+  track?: string
+  indicator?: string
+  label?: string
+}
+
 export interface RadialProgressProps extends HTMLAttributes<HTMLDivElement> {
   value?: number
   max?: number
@@ -23,6 +29,8 @@ export interface RadialProgressProps extends HTMLAttributes<HTMLDivElement> {
   /** Muestra el porcentaje en el centro (o pasá children). */
   showValue?: boolean
   children?: ReactNode
+  /** Clases adicionales por sub-parte (track, indicator, label). */
+  classNames?: RadialProgressClassNames
 }
 
 /**
@@ -37,7 +45,18 @@ export interface RadialProgressProps extends HTMLAttributes<HTMLDivElement> {
  */
 export const RadialProgress = forwardRef<HTMLDivElement, RadialProgressProps>(
   function RadialProgress(
-    { value = 0, max = 100, size = 64, thickness = 8, tone = 'primary', showValue, className, children, ...rest },
+    {
+      value = 0,
+      max = 100,
+      size = 64,
+      thickness = 8,
+      tone = 'primary',
+      showValue,
+      className,
+      children,
+      classNames,
+      ...rest
+    },
     ref,
   ) {
     const clamped = Math.min(Math.max(value, 0), max)
@@ -62,6 +81,7 @@ export const RadialProgress = forwardRef<HTMLDivElement, RadialProgressProps>(
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           <circle
             data-part="track"
+            className={cx('sk-radial-progress__track', classNames?.track)}
             cx={size / 2}
             cy={size / 2}
             r={r}
@@ -70,6 +90,7 @@ export const RadialProgress = forwardRef<HTMLDivElement, RadialProgressProps>(
           />
           <circle
             data-part="indicator"
+            className={cx('sk-radial-progress__indicator', classNames?.indicator)}
             cx={size / 2}
             cy={size / 2}
             r={r}
@@ -82,7 +103,9 @@ export const RadialProgress = forwardRef<HTMLDivElement, RadialProgressProps>(
           />
         </svg>
         {children != null || showValue ? (
-          <span data-part="label">{children ?? `${pct}%`}</span>
+          <span data-part="label" className={cx('sk-radial-progress__label', classNames?.label)}>
+            {children ?? `${pct}%`}
+          </span>
         ) : null}
       </div>
     )
