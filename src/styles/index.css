@@ -26,16 +26,22 @@
   font-family: var(--font-sk-sans);
 }
 
-/* Los botones no heredan `font`/`color` de forma nativa: se los damos por defecto. OJO con la
- * especificidad: el selector de elemento `button` haría que este reset (0,2,1) le GANE a la regla
- * de cada componente `[data-sk='button']` (0,1,0) y pise su `color` (rompía el texto de los
- * filled: quedaba heredado oscuro en vez de --color-sk-on-primary). Por eso el `color` va envuelto
- * en `:where()` (especificidad 0): sigue aplicando, pero el CSS del componente siempre le gana. */
-[data-skinkit-root] button[data-sk] {
-  font: inherit;
-}
-[data-skinkit-root] :where(button[data-sk]) {
-  color: inherit;
+/* Los botones no heredan `font`/`color` de forma nativa: se los damos por defecto. Va en @layer
+ * base (definida por Tailwind ANTES que `components`, ver @import 'tailwindcss' arriba) — sin esto
+ * el reset queda sin capa, y una regla sin capa le gana a CUALQUIER regla en capa (`components`)
+ * sin importar especificidad ni el :where() de abajo. Con esto, `color: inherit` acá SIEMPRE pierde
+ * contra el `color: var(--sk-button-fg)` de cada `[data-sk='button']` en components/index.css —
+ * el :where() (especificidad 0) queda solo como respaldo por si algún día el reset se saca de la
+ * capa, no es lo que hace el trabajo real. Bug real que causó esto: un <Button> dentro de un
+ * <Card> (u otro componente que fija `color` en su body, ej. --color-sk-text-muted) heredaba ESE
+ * color en vez de --color-sk-on-primary — texto de botón ilegible sobre el fondo primary. */
+@layer base {
+  [data-skinkit-root] button[data-sk] {
+    font: inherit;
+  }
+  [data-skinkit-root] :where(button[data-sk]) {
+    color: inherit;
+  }
 }
 
 /* VisuallyHidden — utilidad de a11y: se oculta SIEMPRE (no depende del look). */
