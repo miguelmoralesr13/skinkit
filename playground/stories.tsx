@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
-import { Bell, Check, Compass, Folder, Home, Mail, Pencil, Search, SearchX, Settings, Trash2, User } from 'lucide-react'
+import { Bell, Check, Compass, Folder, Home, Mail, PanelLeft, Pencil, Search, SearchX, Settings, Trash2, User } from 'lucide-react'
 import {
   Button,
   ButtonGroup,
@@ -1811,44 +1811,81 @@ function SidebarCollapsibleDemo() {
   )
 }
 
-// Sidebar "enterprise": Header fijo + Section estática + Group colapsable (con items anidados) +
-// Footer fijo, todo dentro de un contenedor de altura fija para que se note el scroll interno.
+// Sidebar "enterprise": Header con Toggle (colapso controlado) + Section con items que traen
+// ACCIONES al hover + Group colapsable (que al colapsar se vuelve FLYOUT) + Footer fijo. Todo con
+// altura fija para que se note el scroll interno. Cambiá `size` para ver la densidad.
 function SidebarGroupDemo() {
   const [active, setActive] = useState('perfil')
+  const [collapsed, setCollapsed] = useState(false)
+  const [size, setSize] = useState<'sm' | 'md' | 'lg'>('md')
   const go = (id: string) => (e: MouseEvent) => {
     e.preventDefault()
     setActive(id)
   }
   return (
-    <div style={{ height: 520, display: 'flex' }}>
-      <Sidebar style={{ minHeight: 0 }}>
-        <Sidebar.Header>
-          <strong>Acme Inc.</strong>
-        </Sidebar.Header>
-        <Sidebar.Section label="Principal">
-          {SHELL_NAV.map(([id, ic, label]) => (
-            <Sidebar.Item key={id} href="#" icon={ic} active={active === id} onClick={go(id)}>
-              {label}
+    <div style={{ width: '100%' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem', alignItems: 'center' }}>
+        {(['sm', 'md', 'lg'] as const).map((s) => (
+          <Button key={s} size="sm" variant={size === s ? 'filled' : 'outlined'} onClick={() => setSize(s)}>
+            {s}
+          </Button>
+        ))}
+      </div>
+      <div style={{ height: 520, display: 'flex' }}>
+        <Sidebar collapsed={collapsed} size={size} style={{ minHeight: 0 }}>
+          <Sidebar.Header>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+              {!collapsed && <strong>Acme Inc.</strong>}
+              <Sidebar.Toggle
+                aria-label={collapsed ? 'Expandir' : 'Colapsar'}
+                onClick={() => setCollapsed((c) => !c)}
+              >
+                <PanelLeft />
+              </Sidebar.Toggle>
+            </div>
+          </Sidebar.Header>
+          <Sidebar.Section label="Principal">
+            {SHELL_NAV.map(([id, ic, label]) => (
+              <Sidebar.Item
+                key={id}
+                href="#"
+                icon={ic}
+                active={active === id}
+                badge={id === 'mensajes' ? '3' : undefined}
+                onClick={go(id)}
+                actions={
+                  <>
+                    <Sidebar.Action aria-label="Renombrar" onClick={() => {}}>
+                      <Pencil />
+                    </Sidebar.Action>
+                    <Sidebar.Action aria-label="Borrar" onClick={() => {}}>
+                      <Trash2 />
+                    </Sidebar.Action>
+                  </>
+                }
+              >
+                {label}
+              </Sidebar.Item>
+            ))}
+          </Sidebar.Section>
+          <Sidebar.Group icon={<Settings size={18} />} label="Configuración" badge="3" defaultOpen>
+            <Sidebar.Item href="#" active={active === 'perfil'} onClick={go('perfil')}>
+              Perfil
             </Sidebar.Item>
-          ))}
-        </Sidebar.Section>
-        <Sidebar.Group icon={<Settings size={18} />} label="Configuración" badge="3" defaultOpen>
-          <Sidebar.Item href="#" active={active === 'perfil'} onClick={go('perfil')}>
-            Perfil
-          </Sidebar.Item>
-          <Sidebar.Item href="#" active={active === 'facturacion'} onClick={go('facturacion')}>
-            Facturación
-          </Sidebar.Item>
-          <Sidebar.Item href="#" active={active === 'equipo'} onClick={go('equipo')}>
-            Equipo
-          </Sidebar.Item>
-        </Sidebar.Group>
-        <Sidebar.Footer>
-          <Sidebar.Item href="#" icon={<User size={18} />}>
-            Jane Doe
-          </Sidebar.Item>
-        </Sidebar.Footer>
-      </Sidebar>
+            <Sidebar.Item href="#" active={active === 'facturacion'} onClick={go('facturacion')}>
+              Facturación
+            </Sidebar.Item>
+            <Sidebar.Item href="#" active={active === 'equipo'} onClick={go('equipo')}>
+              Equipo
+            </Sidebar.Item>
+          </Sidebar.Group>
+          <Sidebar.Footer>
+            <Sidebar.Item href="#" icon={<User size={18} />}>
+              Jane Doe
+            </Sidebar.Item>
+          </Sidebar.Footer>
+        </Sidebar>
+      </div>
     </div>
   )
 }
@@ -4558,7 +4595,7 @@ function App() {
         ),
       },
       { name: 'Colapsable (botón externo)', render: () => <SidebarCollapsibleDemo /> },
-      { name: 'Header + Group colapsable + Footer', render: () => <SidebarGroupDemo /> },
+      { name: 'Enterprise: Toggle + acciones + Group/flyout + size', render: () => <SidebarGroupDemo /> },
       {
         name: 'Colapsado (rail)',
         render: () => (

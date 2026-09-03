@@ -344,7 +344,11 @@ export type {
   SidebarProps,
   SidebarSectionProps,
   SidebarItemProps,
+  SidebarActionProps,
+  SidebarToggleProps,
   SidebarGroupProps,
+  SidebarSize,
+  NavTone,
 } from './components/Sidebar'
 
 export { BottomNav } from './components/BottomNav'

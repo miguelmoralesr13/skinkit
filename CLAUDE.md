@@ -4,7 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`skinkit` — a headless React component library (npm name `skinkit`, `v0.1.0`, 99 components).
+`skinkit` — a headless React component library (npm name `skinkit`, `v0.5.0`, 106 catalog specs
+across 102 component directories — a few dirs export more than one spec, e.g. Calendar/RangeCalendar).
 Components emit **zero style**: only structure plus a stable `data-sk`/`data-part` attribute
 contract. All visuals live in **one Tailwind v4-native design-token + CSS system**: a single
 `@theme` (color + shape tokens) plus one CSS file per component, both fully overridable via CSS
@@ -119,7 +120,7 @@ height/collapse animation. CSS that wants an animated panel must drive open/clos
 
 1. `tokens.css` — the single `@theme` block described above (color + shape + type). Every
    component CSS file references these, never a literal hex/px value that already has a token.
-2. `components/<dataSk>.css` — one file per component (88 files today; a handful of catalog
+2. `components/<dataSk>.css` — one file per component (97 files today; a handful of catalog
    entries share a `dataSk`, e.g. `Calendar`/`RangeCalendar` both use `calendar`, so file count
    ≠ component count exactly), aggregated via `@import './<dataSk>.css' layer(components);` in
    `components/index.css`. The `layer(components)` on each import means a consumer's own
