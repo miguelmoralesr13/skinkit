@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`skinkit` — a headless React component library (npm name `skinkit`, `v0.5.1`, 106 catalog specs
+`skinkit` — a headless React component library (npm name `skinkit`, `v0.5.2`, 106 catalog specs
 across 102 component directories — a few dirs export more than one spec, e.g. Calendar/RangeCalendar).
 Components emit **zero style**: only structure plus a stable `data-sk`/`data-part` attribute
 contract. All visuals live in **one Tailwind v4-native design-token + CSS system**: a single
