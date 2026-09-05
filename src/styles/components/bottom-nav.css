@@ -1,51 +1,141 @@
 /* ── BottomNav ──────────────────────────────────────────────── */
+/* Skinnable por TOKENS: lib-skinkit no tiene prop `skin`, se arma cada look (brutal, sketch,
+   glass, elevado…) pisando estas variables en la app. Ejemplos:
+
+     .skin-brutal [data-sk='bottom-nav'] {
+       --sk-bottom-nav-radius: 0; --sk-bottom-nav-border-width: 3px;
+       --sk-bottom-nav-border: #000; --sk-bottom-nav-shadow: 0 -4px 0 #000;
+       --sk-bottom-nav-item-bg-active: #ffde00; --sk-bottom-nav-item-fg-active: #000;
+     }
+     .skin-elevated [data-sk='bottom-nav'] {
+       --sk-bottom-nav-radius: 1.25rem; --sk-bottom-nav-shadow: var(--shadow-sk-lg);
+       --sk-bottom-nav-border-width: 0; --sk-bottom-nav-item-bg-active: color-mix(in srgb, var(--color-sk-primary) 14%, transparent);
+       --sk-bottom-nav-indicator-color: var(--color-sk-primary);
+     }
+*/
 [data-sk='bottom-nav'] {
   --sk-bottom-nav-bg: var(--color-sk-surface);
   --sk-bottom-nav-border: var(--color-sk-border);
+  --sk-bottom-nav-border-width: 1px;
+  --sk-bottom-nav-shadow: none;
+  --sk-bottom-nav-radius: 0;
+  --sk-bottom-nav-pad: 0;
+  --sk-bottom-nav-gap: 0;
+  /* item */
+  --sk-bottom-nav-item-fg: var(--color-sk-text-muted);
+  --sk-bottom-nav-item-fg-hover: var(--color-sk-text);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-primary);
+  --sk-bottom-nav-item-bg: transparent;
+  --sk-bottom-nav-item-bg-hover: transparent;
+  --sk-bottom-nav-item-bg-active: transparent;
+  --sk-bottom-nav-item-radius: 0;
+  --sk-bottom-nav-item-gap: 0.125rem;
+  --sk-bottom-nav-item-pad: 0.5rem;
+  --sk-bottom-nav-item-font: var(--text-sk-sm);
+  --sk-bottom-nav-icon-size: 1.2rem;
+  /* indicador de activo (barra superior) — off por defecto (transparent); una skin lo enciende */
+  --sk-bottom-nav-indicator-color: transparent;
+  --sk-bottom-nav-indicator-size: 2px;
+  --sk-bottom-nav-indicator-width: 55%;
   background-color: var(--sk-bottom-nav-bg);
-  border-color: var(--sk-bottom-nav-border);
-  @apply flex items-stretch border-t;
+  border-top: var(--sk-bottom-nav-border-width) solid var(--sk-bottom-nav-border);
+  border-radius: var(--sk-bottom-nav-radius);
+  box-shadow: var(--sk-bottom-nav-shadow);
+  padding: var(--sk-bottom-nav-pad);
+  gap: var(--sk-bottom-nav-gap);
+  @apply flex items-stretch;
 }
 [data-sk='bottom-nav'] [data-part='item'] {
-  --sk-bottom-nav-item-fg: var(--color-sk-text-muted);
+  position: relative;
   color: var(--sk-bottom-nav-item-fg);
-  @apply flex-1 flex flex-col items-center justify-center gap-0.5 p-2
-         no-underline cursor-pointer text-sk-sm;
+  background-color: var(--sk-bottom-nav-item-bg);
+  border-radius: var(--sk-bottom-nav-item-radius);
+  gap: var(--sk-bottom-nav-item-gap);
+  padding: var(--sk-bottom-nav-item-pad);
+  font: inherit;
+  font-size: var(--sk-bottom-nav-item-font);
+  @apply flex-1 flex flex-col items-center justify-center no-underline cursor-pointer border-0;
 }
-[data-sk='bottom-nav'] [data-part='item-icon'] {
-  @apply text-[1.2rem] leading-none;
+[data-sk='bottom-nav'] [data-part='item']:hover {
+  color: var(--sk-bottom-nav-item-fg-hover);
+  background-color: var(--sk-bottom-nav-item-bg-hover);
 }
 [data-sk='bottom-nav'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-primary);
-  color: var(--sk-bottom-nav-item-fg);
+  color: var(--sk-bottom-nav-item-fg-active);
+  background-color: var(--sk-bottom-nav-item-bg-active);
+}
+/* Indicador del item activo — sólo se ve si la skin define --sk-bottom-nav-indicator-color. */
+[data-sk='bottom-nav'] [data-part='item'][data-active]::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  inline-size: var(--sk-bottom-nav-indicator-width);
+  block-size: var(--sk-bottom-nav-indicator-size);
+  background-color: var(--sk-bottom-nav-indicator-color);
+  border-radius: var(--radius-sk-pill);
+}
+[data-sk='bottom-nav'] [data-part='item-icon'] {
+  font-size: var(--sk-bottom-nav-icon-size);
+  @apply inline-flex leading-none;
+}
+[data-sk='bottom-nav'] [data-part='item-icon'] svg {
+  inline-size: var(--sk-bottom-nav-icon-size);
+  block-size: var(--sk-bottom-nav-icon-size);
 }
 
-/* Tonos (ítem activo) */
+/* Bottom sheet del submenú — reusa <Dialog placement="bottom">; acá sólo el layout de los items.
+   Estos selectores NO van scopeados bajo [data-sk='bottom-nav'] porque el sheet se portaliza
+   fuera del <nav> (a document.body vía Dialog). */
+.sk-bottom-nav__sheet-items {
+  gap: var(--sk-bottom-nav-sheet-gap, 0.25rem);
+  @apply flex flex-col;
+}
+[data-part='sheet-item'] {
+  --sk-bottom-nav-sheet-item-fg: var(--color-sk-text);
+  --sk-bottom-nav-sheet-item-fg-active: var(--color-sk-primary);
+  --sk-bottom-nav-sheet-item-bg-hover: var(--color-sk-surface-2);
+  --sk-bottom-nav-sheet-item-radius: var(--radius-sk-md);
+  color: var(--sk-bottom-nav-sheet-item-fg);
+  border-radius: var(--sk-bottom-nav-sheet-item-radius);
+  @apply flex items-center gap-3 p-3 no-underline cursor-pointer text-sk-md;
+}
+[data-part='sheet-item']:hover {
+  background-color: var(--sk-bottom-nav-sheet-item-bg-hover);
+}
+[data-part='sheet-item'][data-active] {
+  color: var(--sk-bottom-nav-sheet-item-fg-active);
+}
+[data-part='sheet-item-icon'] {
+  @apply inline-flex flex-none;
+}
+[data-part='sheet-item-icon'] svg {
+  @apply w-5 h-5;
+}
+[data-part='sheet-item-label'] {
+  @apply flex-1;
+}
+
+/* Tonos (color del item activo) — la skin puede pisar --sk-bottom-nav-item-fg-active igual. */
 [data-sk='bottom-nav'][data-tone='secondary'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-secondary);
-  color: var(--sk-bottom-nav-item-fg);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-secondary);
 }
 [data-sk='bottom-nav'][data-tone='tertiary'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-tertiary);
-  color: var(--sk-bottom-nav-item-fg);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-tertiary);
 }
 [data-sk='bottom-nav'][data-tone='accent'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-accent);
-  color: var(--sk-bottom-nav-item-fg);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-accent);
 }
 [data-sk='bottom-nav'][data-tone='success'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-success);
-  color: var(--sk-bottom-nav-item-fg);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-success);
 }
 [data-sk='bottom-nav'][data-tone='warning'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-warning);
-  color: var(--sk-bottom-nav-item-fg);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-warning);
 }
 [data-sk='bottom-nav'][data-tone='info'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-info);
-  color: var(--sk-bottom-nav-item-fg);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-info);
 }
 [data-sk='bottom-nav'][data-tone='danger'] [data-part='item'][data-active] {
-  --sk-bottom-nav-item-fg: var(--color-sk-danger);
-  color: var(--sk-bottom-nav-item-fg);
+  --sk-bottom-nav-item-fg-active: var(--color-sk-danger);
 }

@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
-import { Bell, Check, Compass, Folder, Home, Mail, PanelLeft, Pencil, Search, SearchX, Settings, Trash2, User } from 'lucide-react'
+import { Bell, Camera, Check, Compass, FileText, Folder, Home, Mail, PanelLeft, Pencil, Plus, Search, SearchX, Settings, Trash2, User, Video } from 'lucide-react'
 import {
   Button,
   ButtonGroup,
@@ -1984,6 +1984,93 @@ function BottomNavDemo() {
           </BottomNav.Item>
         ))}
       </BottomNav>
+    </div>
+  )
+}
+
+// BottomNav con submenú (bottom sheet) + skins por overrides de tokens (default/brutal/elevado).
+const BOTTOM_NAV_SKINS: Record<string, string> = {
+  default: '',
+  brutal: `
+    .demo-skin-brutal [data-sk="bottom-nav"]{
+      --sk-bottom-nav-radius:0;--sk-bottom-nav-border-width:3px;--sk-bottom-nav-border:#000;
+      --sk-bottom-nav-shadow:0 -4px 0 #000;--sk-bottom-nav-item-radius:0;
+      --sk-bottom-nav-item-bg-active:#ffde00;--sk-bottom-nav-item-fg-active:#000;
+    }`,
+  elevado: `
+    .demo-skin-elevado [data-sk="bottom-nav"]{
+      --sk-bottom-nav-radius:1.25rem;--sk-bottom-nav-border-width:0;
+      --sk-bottom-nav-shadow:var(--shadow-sk-lg);--sk-bottom-nav-item-radius:0.75rem;
+      --sk-bottom-nav-item-bg-active:color-mix(in srgb, var(--color-sk-primary) 14%, transparent);
+      --sk-bottom-nav-indicator-color:var(--color-sk-primary);
+    }`,
+}
+function BottomNavSubmenuDemo() {
+  const [active, setActive] = useState('inicio')
+  const [skin, setSkin] = useState<'default' | 'brutal' | 'elevado'>('default')
+  const nav: [string, ReactNode, string][] = [
+    ['inicio', <Home size={18} />, 'Inicio'],
+    ['buscar', <Search size={18} />, 'Buscar'],
+    ['perfil', <User size={18} />, 'Perfil'],
+  ]
+  return (
+    <div style={{ width: '100%', maxWidth: 420 }}>
+      <style>{BOTTOM_NAV_SKINS[skin]}</style>
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
+        {(['default', 'brutal', 'elevado'] as const).map((s) => (
+          <Button key={s} size="sm" variant={skin === s ? 'filled' : 'outlined'} onClick={() => setSkin(s)}>
+            {s}
+          </Button>
+        ))}
+      </div>
+      <div className={skin === 'default' ? undefined : `demo-skin-${skin}`}>
+        <BottomNav>
+          {nav.slice(0, 2).map(([id, ic, label]) => (
+            <BottomNav.Item
+              key={id}
+              href="#"
+              icon={ic}
+              active={active === id}
+              onClick={(e) => {
+                e.preventDefault()
+                setActive(id)
+              }}
+            >
+              {label}
+            </BottomNav.Item>
+          ))}
+          <BottomNav.Item
+            icon={<Plus size={18} />}
+            submenuTitle="Crear nuevo"
+            submenu={
+              <>
+                <BottomNav.SheetItem href="#" icon={<FileText size={18} />} onClick={(e) => e.preventDefault()}>
+                  Documento
+                </BottomNav.SheetItem>
+                <BottomNav.SheetItem href="#" icon={<Camera size={18} />} onClick={(e) => e.preventDefault()}>
+                  Foto
+                </BottomNav.SheetItem>
+                <BottomNav.SheetItem href="#" icon={<Video size={18} />} onClick={(e) => e.preventDefault()}>
+                  Video
+                </BottomNav.SheetItem>
+              </>
+            }
+          >
+            Crear
+          </BottomNav.Item>
+          <BottomNav.Item
+            href="#"
+            icon={<User size={18} />}
+            active={active === 'perfil'}
+            onClick={(e) => {
+              e.preventDefault()
+              setActive('perfil')
+            }}
+          >
+            Perfil
+          </BottomNav.Item>
+        </BottomNav>
+      </div>
     </div>
   )
 }
@@ -4637,6 +4724,7 @@ function App() {
         ),
       },
       { name: 'Interactivo', render: () => <BottomNavDemo /> },
+      { name: 'Submenú (bottom sheet) + skins', render: () => <BottomNavSubmenuDemo /> },
       {
         name: 'Tres items',
         render: () => (

@@ -352,7 +352,13 @@ export type {
 } from './components/Sidebar'
 
 export { BottomNav } from './components/BottomNav'
-export type { BottomNavProps, BottomNavItemProps } from './components/BottomNav'
+export type {
+  BottomNavProps,
+  BottomNavItemProps,
+  BottomNavSheetProps,
+  BottomNavSheetItemProps,
+  BottomNavTone,
+} from './components/BottomNav'
 
 export { AppShell } from './components/AppShell'
 export type { AppShellProps } from './components/AppShell'
