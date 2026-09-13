@@ -25,6 +25,7 @@ import { passwordInputSpec } from '../components/PasswordInput/PasswordInput.cat
 import { pinInputSpec } from '../components/PinInput/PinInput.catalog'
 import { timePickerSpec } from '../components/TimePicker/TimePicker.catalog'
 import { radioCardGroupSpec } from '../components/RadioCardGroup/RadioCardGroup.catalog'
+import { checkboxCardGroupSpec } from '../components/CheckboxCardGroup/CheckboxCardGroup.catalog'
 import { fieldsetSpec } from '../components/Fieldset/Fieldset.catalog'
 import { tagInputSpec } from '../components/TagInput/TagInput.catalog'
 import { comboboxSpec } from '../components/Combobox/Combobox.catalog'
@@ -135,6 +136,7 @@ export const COMPONENT_CATALOG: ComponentSpec[] = [
   pinInputSpec,
   timePickerSpec,
   radioCardGroupSpec,
+  checkboxCardGroupSpec,
   fieldsetSpec,
   tagInputSpec,
   comboboxSpec,

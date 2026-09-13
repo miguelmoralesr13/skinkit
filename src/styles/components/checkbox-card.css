@@ -1,0 +1,94 @@
+/**
+ * checkbox-card.css — estilo de <CheckboxCard> (data-sk="checkbox-card"), la tarjeta individual
+ * dentro de <CheckboxCardGroup>. Gemelo de radio-card.css pero con indicador tipo checkbox
+ * (cuadrado con check) y selección múltiple. Documentado por CheckboxCardGroup.catalog.ts.
+ */
+
+/* ── ocultar el input nativo (sigue focuseable) ── */
+[data-sk='checkbox-card'] [data-part='control'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[data-sk='checkbox-card'] {
+  --sk-checkbox-card-border: var(--color-sk-border);
+  --sk-checkbox-card-radius: 14px;
+  --sk-checkbox-card-bg: var(--color-sk-surface);
+  --sk-checkbox-card-check: var(--color-sk-on-primary);
+  border-color: var(--sk-checkbox-card-border);
+  border-radius: var(--sk-checkbox-card-radius);
+  background-color: var(--sk-checkbox-card-bg);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  @apply relative flex items-start gap-3 p-4 border cursor-pointer;
+}
+
+[data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-primary) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-primary);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+
+[data-sk='checkbox-card'] [data-part='control']:focus-visible ~ [data-part='indicator'] {
+  --sk-checkbox-card-indicator-border: var(--color-sk-primary);
+  outline-color: var(--sk-checkbox-card-indicator-border);
+  @apply outline outline-2 outline-offset-2;
+}
+
+[data-sk='checkbox-card'] [data-part='icon'] {
+  --sk-checkbox-card-icon-fg: var(--color-sk-primary);
+  color: var(--sk-checkbox-card-icon-fg);
+  @apply flex-none;
+}
+
+[data-sk='checkbox-card'] [data-part='body'] {
+  @apply flex-1 flex flex-col gap-0.5;
+}
+
+[data-sk='checkbox-card'] [data-part='title'] {
+  --sk-checkbox-card-title-fg: var(--color-sk-text);
+  color: var(--sk-checkbox-card-title-fg);
+  @apply font-semibold;
+}
+
+[data-sk='checkbox-card'] [data-part='description'] {
+  --sk-checkbox-card-description-fg: var(--color-sk-text-muted);
+  color: var(--sk-checkbox-card-description-fg);
+  @apply text-sk-sm;
+}
+
+/* ── indicador tipo checkbox (cuadrado + check) ── */
+[data-sk='checkbox-card'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-border: var(--color-sk-border);
+  margin-top: 2px;
+  border-color: var(--sk-checkbox-card-indicator-border);
+  border-radius: var(--radius-sk-sm);
+  @apply relative flex-none w-[18px] h-[18px] border-2;
+}
+
+[data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-primary);
+  --sk-checkbox-card-indicator-border: var(--color-sk-primary);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}
+
+/* checkmark dibujado con un borde rotado */
+[data-sk='checkbox-card'][data-state='checked'] [data-part='indicator']::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--sk-checkbox-card-check);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

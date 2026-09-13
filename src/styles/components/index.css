@@ -31,6 +31,8 @@
 @import './radio.css' layer(components);
 @import './radio-card-group.css' layer(components);
 @import './radio-card.css' layer(components);
+@import './checkbox-card-group.css' layer(components);
+@import './checkbox-card.css' layer(components);
 @import './switch.css' layer(components);
 @import './select.css' layer(components);
 @import './combobox.css' layer(components);

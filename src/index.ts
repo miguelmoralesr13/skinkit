@@ -55,6 +55,12 @@ export type { TimePickerProps } from './components/TimePicker'
 
 export { RadioCardGroup, RadioCard } from './components/RadioCardGroup'
 export type { RadioCardGroupProps, RadioCardProps } from './components/RadioCardGroup'
+export { CheckboxCardGroup, CheckboxCard } from './components/CheckboxCardGroup'
+export type {
+  CheckboxCardGroupProps,
+  CheckboxCardProps,
+  CheckboxCardTone,
+} from './components/CheckboxCardGroup'
 
 export { Fieldset } from './components/Fieldset'
 export type { FieldsetProps } from './components/Fieldset'

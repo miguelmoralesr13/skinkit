@@ -1,0 +1,103 @@
+/**
+ * checkbox-card-group.css — estilo del componente CheckboxCardGroup (data-sk="checkbox-card-group").
+ * Las tarjetas anidadas ([data-sk="checkbox-card"]) tienen su propio archivo (checkbox-card.css);
+ * acá el layout del grid (con columnas configurables) y la cascada de tone hacia las tarjetas.
+ */
+
+[data-sk='checkbox-card-group'] {
+  grid-template-columns: repeat(var(--sk-checkbox-card-group-cols, 1), minmax(0, 1fr));
+  @apply grid gap-3;
+}
+
+/* ── cascada de tone del grupo hacia las tarjetas anidadas ── */
+[data-sk='checkbox-card-group'][data-tone='secondary'] [data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-secondary) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-secondary);
+  --sk-checkbox-card-check: var(--color-sk-on-secondary);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+[data-sk='checkbox-card-group'][data-tone='secondary'] [data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-secondary);
+  --sk-checkbox-card-indicator-border: var(--color-sk-secondary);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}
+[data-sk='checkbox-card-group'][data-tone='tertiary'] [data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-tertiary) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-tertiary);
+  --sk-checkbox-card-check: var(--color-sk-on-tertiary);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+[data-sk='checkbox-card-group'][data-tone='tertiary'] [data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-tertiary);
+  --sk-checkbox-card-indicator-border: var(--color-sk-tertiary);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}
+[data-sk='checkbox-card-group'][data-tone='accent'] [data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-accent) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-accent);
+  --sk-checkbox-card-check: var(--color-sk-on-accent);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+[data-sk='checkbox-card-group'][data-tone='accent'] [data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-accent);
+  --sk-checkbox-card-indicator-border: var(--color-sk-accent);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}
+[data-sk='checkbox-card-group'][data-tone='success'] [data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-success) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-success);
+  --sk-checkbox-card-check: var(--color-sk-on-success);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+[data-sk='checkbox-card-group'][data-tone='success'] [data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-success);
+  --sk-checkbox-card-indicator-border: var(--color-sk-success);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}
+[data-sk='checkbox-card-group'][data-tone='warning'] [data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-warning) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-warning);
+  --sk-checkbox-card-check: var(--color-sk-on-warning);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+[data-sk='checkbox-card-group'][data-tone='warning'] [data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-warning);
+  --sk-checkbox-card-indicator-border: var(--color-sk-warning);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}
+[data-sk='checkbox-card-group'][data-tone='info'] [data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-info) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-info);
+  --sk-checkbox-card-check: var(--color-sk-on-info);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+[data-sk='checkbox-card-group'][data-tone='info'] [data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-info);
+  --sk-checkbox-card-indicator-border: var(--color-sk-info);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}
+[data-sk='checkbox-card-group'][data-tone='danger'] [data-sk='checkbox-card'][data-state='checked'] {
+  --sk-checkbox-card-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sk-danger) 22%, transparent);
+  --sk-checkbox-card-border: var(--color-sk-danger);
+  --sk-checkbox-card-check: var(--color-sk-on-danger);
+  box-shadow: var(--sk-checkbox-card-shadow);
+  border-color: var(--sk-checkbox-card-border);
+}
+[data-sk='checkbox-card-group'][data-tone='danger'] [data-sk='checkbox-card'][data-state='checked'] [data-part='indicator'] {
+  --sk-checkbox-card-indicator-bg: var(--color-sk-danger);
+  --sk-checkbox-card-indicator-border: var(--color-sk-danger);
+  background-color: var(--sk-checkbox-card-indicator-bg);
+  border-color: var(--sk-checkbox-card-indicator-border);
+}

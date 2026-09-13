@@ -35,6 +35,8 @@ import {
   ColorSwatch,
   RadioCardGroup,
   RadioCard,
+  CheckboxCardGroup,
+  CheckboxCard,
   Fieldset,
   RadialProgress,
   ScrollArea,
@@ -1013,6 +1015,20 @@ function RadioCardDemo() {
         <RadioCard value="pro" title="Pro" description="$9/mes. Proyectos ilimitados." />
         <RadioCard value="team" title="Team" description="$29/mes. Colaboración en equipo." />
       </RadioCardGroup>
+    </div>
+  )
+}
+
+function CheckboxCardDemo() {
+  const [features, setFeatures] = useState<string[]>(['analytics'])
+  return (
+    <div style={{ width: '100%', maxWidth: 560 }}>
+      <CheckboxCardGroup value={features} onValueChange={setFeatures} columns={2} label="Features">
+        <CheckboxCard value="analytics" title="Analytics" description="Métricas en vivo" icon={<Bell size={20} />} />
+        <CheckboxCard value="security" title="Seguridad" description="2FA + SSO" icon={<Settings size={20} />} />
+        <CheckboxCard value="storage" title="Almacenamiento" description="100 GB incluidos" icon={<Folder size={20} />} />
+        <CheckboxCard value="alerts" title="Alertas" description="Push + email" icon={<Search size={20} />} />
+      </CheckboxCardGroup>
     </div>
   )
 }
@@ -2970,6 +2986,15 @@ function App() {
       {
         name: 'Planes',
         render: () => <RadioCardDemo />,
+      },
+    ],
+  },
+  {
+    component: 'CheckboxCardGroup',
+    stories: [
+      {
+        name: 'Features (multi, 2 columnas)',
+        render: () => <CheckboxCardDemo />,
       },
     ],
   },
