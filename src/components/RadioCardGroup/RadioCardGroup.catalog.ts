@@ -15,7 +15,7 @@ export const radioCardGroupSpec: ComponentSpec = {
     { name: 'onValueChange', type: '(value: string) => void', required: false, description: 'Se invoca con el value elegido.' },
     { name: 'name', type: 'string', required: false, description: 'name compartido (autogenerado).' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita todas las tarjetas.' },
-    { name: 'label', type: 'string', required: false, default: "'Opciones'", description: 'aria-label del grupo.' },
+    { name: 'label', type: 'string', required: false, default: "'Opciones' (según locale)", description: 'aria-label del grupo.' },
   ],
   parts: [
     { name: 'root', description: 'role=radiogroup [data-sk=radio-card-group].' },
@@ -36,6 +36,7 @@ export const radioCardGroupSpec: ComponentSpec = {
     'Para elegir UNA opción rica (con título + descripción + ícono). Para opciones simples, usá RadioGroup o SegmentedControl.',
     'Cada <RadioCard> necesita un `value` único.',
     'El estado seleccionado se refleja en [data-state=checked] (el CSS lo resalta).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `radioCardGroup` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ radioCardGroup: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['role=radiogroup; cada tarjeta envuelve un radio nativo → selección única y flechas gratis.'],
 }

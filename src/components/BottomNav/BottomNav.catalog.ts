@@ -47,6 +47,7 @@ export const bottomNavSpec: ComponentSpec = {
     'Un item con `submenu` se vuelve <button> (no link) y abre un bottom sheet: usalo para un “+” de crear, un menú de “más”, etc. El sheet reusa Dialog (portal, focus trap, Esc, scroll-lock, overlay) — no reimplementes eso.',
     'Skinnable SÓLO por tokens (no hay prop `skin`, a diferencia de lib-ftt-skinkit): pisá --sk-bottom-nav-* para armar cada look. Disponibles: fondo (`-bg`), borde (`-border`/`-border-width`), `-shadow`, `-radius`, `-pad`, `-gap`; item (`-item-bg/-bg-hover/-bg-active`, `-item-fg/-fg-hover/-fg-active`, `-item-radius/-item-pad/-item-gap/-item-font`, `-icon-size`); indicador de activo (`-indicator-color/-size/-width`, off por defecto); y del sheet (`-sheet-item-fg/-fg-active/-bg-hover/-radius`, `-sheet-gap`).',
     'El “fondo tenue por tono” (soft/tinted) se logra con --sk-bottom-nav-item-bg-active, ej. color-mix(in srgb, var(--color-sk-primary) 14%, transparent).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `bottomNav` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ bottomNav: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'BottomNav.Item sin submenú es un <a> real con aria-current="page" cuando `active`.',

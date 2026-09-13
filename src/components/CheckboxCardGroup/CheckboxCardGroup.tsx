@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 import { useControllable } from '../../lib/useControllable'
+import { useSkinkitMessages } from '../../i18n/context'
 
 interface CheckboxCardCtx {
   value: string[]
@@ -57,7 +58,7 @@ export function CheckboxCardGroup({
   defaultValue = [],
   disabled,
   onValueChange,
-  label = 'Opciones',
+  label: labelProp,
   tone = 'primary',
   columns,
   className,
@@ -65,6 +66,8 @@ export function CheckboxCardGroup({
   children,
   ...rest
 }: CheckboxCardGroupProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.checkboxCardGroup.label
   const [selected, setSelected] = useControllable<string[]>(value, defaultValue, onValueChange)
   const toggle = (v: string) => {
     setSelected(selected.includes(v) ? selected.filter((x) => x !== v) : [...selected, v])

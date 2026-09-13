@@ -18,7 +18,7 @@ export const multiSelectSpec: ComponentSpec = {
     { name: 'helper', type: 'ReactNode', required: false, description: 'Ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido.' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita.' },
-    { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados'", description: 'Mensaje sin coincidencias.' },
+    { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados' (según locale)", description: 'Mensaje sin coincidencias.' },
     {
       name: 'classNames',
       type: 'MultiSelectClassNames',
@@ -47,6 +47,7 @@ export const multiSelectSpec: ComponentSpec = {
     'Para elegir VARIOS de una lista. Para uno solo, usá Combobox o Select. Para valores libres (sin lista fija), TagInput.',
     'Clickear o Enter (des)marca; el chip × quita; Backspace con el input vacío quita el último.',
     'Los chips reusan el contrato de Tag ([data-sk=tag]).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `multiSelect` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ multiSelect: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['input role=combobox + listbox aria-multiselectable; cada opción role=option con aria-selected.'],
 }

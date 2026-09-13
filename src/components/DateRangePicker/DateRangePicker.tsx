@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { Popover } from '../Popover'
 import { RangeCalendar, type DateRange } from '../RangeCalendar'
+import { useSkinkitI18n } from '../../i18n/context'
 
 export interface DateRangePickerProps {
   value?: DateRange
@@ -41,7 +42,7 @@ function fromISO(s?: string | null): Date | null {
 export function DateRangePicker({
   value,
   onChange,
-  placeholder = 'Elegir rango',
+  placeholder: placeholderProp,
   label,
   helper,
   error,
@@ -49,10 +50,13 @@ export function DateRangePicker({
   min,
   max,
   weekStartsOn,
-  locale = 'es',
+  locale: localeProp,
   className,
   id,
 }: DateRangePickerProps) {
+  const { locale: providerLocale, messages: m } = useSkinkitI18n()
+  const locale = localeProp ?? providerLocale
+  const placeholder = placeholderProp ?? m.dateRangePicker.placeholder
   const [open, setOpen] = useState(false)
   const start = fromISO(value?.start)
   const end = fromISO(value?.end)
@@ -77,7 +81,7 @@ export function DateRangePicker({
         </label>
       ) : null}
       <Popover open={open} onOpenChange={setOpen}>
-        <Popover.Trigger id={id} disabled={disabled} aria-label={label ? undefined : 'Elegir rango'}>
+        <Popover.Trigger id={id} disabled={disabled} aria-label={label ? undefined : placeholder}>
           <span data-part="value" data-placeholder={empty ? '' : undefined}>
             {display}
           </span>

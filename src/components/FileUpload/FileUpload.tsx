@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export type FileUploadVariant = 'dropzone' | 'button'
 
@@ -86,6 +87,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
   },
   ref,
 ) {
+  const m = useSkinkitMessages()
   const [dragging, setDragging] = useState(false)
   const [items, setItems] = useState<UploadItem[]>([])
   const idRef = useRef(0)
@@ -183,8 +185,8 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
         <span data-part="prompt" className={cx('sk-file-upload__prompt', classNames?.prompt)}>
           {prompt ??
             (variant === 'button'
-              ? 'Elegir archivos'
-              : 'Arrastrá archivos acá o hacé click para elegir')}
+              ? m.fileUpload.chooseFiles
+              : m.fileUpload.dropHint)}
         </span>
       </label>
 
@@ -215,7 +217,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
               <button
                 type="button"
                 data-part="remove"
-                aria-label={`Quitar ${it.file.name}`}
+                aria-label={formatMessage(m.fileUpload.remove, { name: it.file.name })}
                 onClick={() => remove(it.id)}
                 className={cx('sk-file-upload__remove', classNames?.remove)}
               >

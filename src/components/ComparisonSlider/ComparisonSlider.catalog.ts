@@ -12,7 +12,7 @@ export const comparisonSliderSpec: ComponentSpec = {
     { name: 'after', type: 'ReactNode', required: true, description: 'Capa de fondo (después).' },
     { name: 'before', type: 'ReactNode', required: true, description: 'Capa que se revela (antes), recortada por el divisor.' },
     { name: 'defaultPosition', type: 'number', required: false, default: '50', description: 'Posición inicial del divisor (0–100).' },
-    { name: 'label', type: 'string', required: false, default: "'Comparar'", description: 'aria-label del divisor.' },
+    { name: 'label', type: 'string', required: false, default: "'Comparar' (según locale)", description: 'aria-label del divisor.' },
     { name: 'classNames', type: '{ after?: string; before?: string; handle?: string }', required: false, description: 'Clases adicionales por sub-parte (after/before/handle). No reemplaza la clase base.' },
   ],
   parts: [
@@ -31,6 +31,7 @@ export const comparisonSliderSpec: ComponentSpec = {
     'Poné las dos imágenes/capas del MISMO tamaño; el divisor recorta la de "before".',
     'Arrastrá el divisor con el mouse/touch; enfocado, las flechas lo mueven.',
     'Para dos paneles de contenido redimensionables (no una comparación), usá Resizable.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `comparisonSlider` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ comparisonSlider: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El divisor es role=slider con aria-valuenow/min/max y teclado (flechas, Home/End).'],
 }

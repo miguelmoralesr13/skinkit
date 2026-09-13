@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 interface RadioCardCtx {
   name: string
@@ -55,12 +56,14 @@ export function RadioCardGroup({
   defaultValue,
   disabled,
   onValueChange,
-  label = 'Opciones',
+  label: labelProp,
   tone = 'primary',
   className,
   children,
   ...rest
 }: RadioCardGroupProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.radioCardGroup.label
   const autoName = useId()
   const ctx: RadioCardCtx = {
     name: name ?? autoName,

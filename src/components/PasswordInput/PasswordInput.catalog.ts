@@ -28,6 +28,7 @@ export const passwordInputSpec: ComponentSpec = {
   usage: [
     'value/onChange/placeholder/autoComplete pasan directo al input (usá autoComplete="new-password"/"current-password").',
     'El toggle solo cambia la visibilidad; no toca el valor.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `passwordInput` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ passwordInput: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El toggle trae aria-label y aria-pressed; el error setea aria-invalid.'],
 }

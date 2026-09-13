@@ -16,6 +16,7 @@ import { evaluateCondition, type ConditionContext } from './conditions'
 import { FieldRenderer } from './FieldRenderer'
 import type { DynamicFormProps, FieldConfig, FormValues } from './types'
 import { buildZodSchema } from './zod-builder'
+import { useSkinkitMessages } from '../../i18n/context'
 
 function defaultForType(type: FieldConfig['type']): unknown {
   if (type === 'checkbox' || type === 'switch') return false
@@ -56,6 +57,7 @@ function ArrayField({
   gap?: number
   renderField: RenderField
 }) {
+  const m = useSkinkitMessages()
   const { fields, append, remove } = useFieldArray({
     control,
     name: name as FieldArrayPath<FormValues>,
@@ -72,7 +74,7 @@ function ArrayField({
             </Grid>
             <div data-part="array-item-actions">
               <Button type="button" variant="ghost" size="sm" onClick={() => remove(i)}>
-                {field.removeLabel ?? 'Quitar'}
+                {field.removeLabel ?? m.dynamicForm.remove}
               </Button>
             </div>
           </div>
@@ -84,7 +86,7 @@ function ArrayField({
           disabled={disabled || atMax}
           onClick={() => append(buildDefaults(field.itemFields ?? []) as never)}
         >
-          {field.addLabel ?? 'Agregar'}
+          {field.addLabel ?? m.dynamicForm.add}
         </Button>
       </Fieldset>
     </Grid.Item>
@@ -114,6 +116,7 @@ export function DynamicForm({
   classNames,
   ...rest
 }: DynamicFormProps) {
+  const m = useSkinkitMessages()
   // refs para que el resolver sea estable pero siempre lea la config/externos actuales
   const fieldsRef = useRef(schema.fields)
   fieldsRef.current = schema.fields
@@ -209,7 +212,7 @@ export function DynamicForm({
       {submitLabel !== null && (
         <div data-part="actions" className={cx('sk-dynamic-form__actions', classNames?.actions)}>
           {actions}
-          <Button type="submit">{submitLabel ?? 'Enviar'}</Button>
+          <Button type="submit">{submitLabel ?? m.dynamicForm.submit}</Button>
         </div>
       )}
     </form>

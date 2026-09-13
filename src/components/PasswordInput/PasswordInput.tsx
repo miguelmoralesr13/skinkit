@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface PasswordInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -29,6 +30,7 @@ export interface PasswordInputProps
  */
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   function PasswordInput({ label, helper, error, className, id, ...rest }, ref) {
+  const m = useSkinkitMessages()
     const [visible, setVisible] = useState(false)
     const autoId = useId()
     const fieldId = id ?? autoId
@@ -59,7 +61,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             type="button"
             data-part="toggle"
             data-visible={visible ? '' : undefined}
-            aria-label={visible ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+            aria-label={visible ? m.passwordInput.hide : m.passwordInput.show}
             aria-pressed={visible}
             onClick={() => setVisible((v) => !v)}
           >

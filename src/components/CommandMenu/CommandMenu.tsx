@@ -8,6 +8,7 @@ import {
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
 import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface CommandItem {
   id: string
@@ -84,12 +85,16 @@ export function CommandMenu({
   open,
   onOpenChange,
   items,
-  placeholder = 'Buscar comando…',
-  emptyText = 'Sin resultados',
-  label = 'Comandos',
+  placeholder: placeholderProp,
+  emptyText: emptyTextProp,
+  label: labelProp,
   className,
   classNames,
 }: CommandMenuProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.commandMenu.label
+  const emptyText = emptyTextProp ?? m.commandMenu.empty
+  const placeholder = placeholderProp ?? m.commandMenu.placeholder
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)

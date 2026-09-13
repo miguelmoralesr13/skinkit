@@ -33,6 +33,7 @@ export const qrCodeSpec: ComponentSpec = {
     'Si el texto no entra en ninguna versión soportada (1 a 10) con el `errorCorrectionLevel` pedido, lanza un error explícito — probá un nivel más bajo o acortá el contenido.',
     'No hay prop de color: los módulos toman `fill` (default var(--color-sk-text) vía CSS) y el fondo lo pone el contenedor. Personalizá con CSS, pero mantené buen contraste — un QR con poco contraste puede no escanear aunque se vea "bien" en pantalla.',
     'No incluye soporte de logo superpuesto en esta versión — si lo necesitás, subí `errorCorrectionLevel` a "H" (más tolerancia a oclusión) y superponé tu propio logo por CSS/posicionamiento absoluto sobre el centro.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `qrCode` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ qrCode: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'El <svg> lleva role="img" y aria-label con el valor codificado, para que un lector de pantalla anuncie el contenido en vez de "imagen sin descripción".',

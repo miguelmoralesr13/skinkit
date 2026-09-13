@@ -37,6 +37,7 @@ export const numberInputSpec: ComponentSpec = {
     'Para cantidades acotadas con ajuste fino. Para un rango aproximado, usá Slider.',
     'min/max deshabilitan los botones en los extremos y clampean el valor tipeado.',
     'Es controlado si pasás `value`; si no, usá `defaultValue`.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `numberInput` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ numberInput: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['Botones con aria-label Disminuir/Aumentar; el input es type=number; error setea aria-invalid.'],
 }

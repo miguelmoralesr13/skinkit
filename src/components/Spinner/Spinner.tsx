@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type SpinnerSize = 'sm' | 'md' | 'lg'
 export type SpinnerTone =
@@ -31,9 +32,11 @@ export interface SpinnerProps extends HTMLAttributes<HTMLSpanElement> {
  *   [data-part="label"]      texto para lectores (el CSS lo oculta visualmente)
  */
 export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
-  { size = 'md', tone = 'primary', label = 'Cargando…', className, ...rest },
+  { size = 'md', tone = 'primary', label: labelProp, className, ...rest },
   ref,
 ) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.spinner.label
   return (
     <span
       ref={ref}

@@ -11,8 +11,8 @@ export const popconfirmSpec: ComponentSpec = {
   props: [
     { name: 'title', type: 'ReactNode', required: true, description: 'Pregunta/título de la confirmación.' },
     { name: 'description', type: 'ReactNode', required: false, description: 'Detalle bajo el título.' },
-    { name: 'confirmLabel', type: 'string', required: false, default: "'Confirmar'", description: 'Texto del botón de confirmar.' },
-    { name: 'cancelLabel', type: 'string', required: false, default: "'Cancelar'", description: 'Texto del botón de cancelar.' },
+    { name: 'confirmLabel', type: 'string', required: false, default: "'Confirmar' (según locale)", description: 'Texto del botón de confirmar.' },
+    { name: 'cancelLabel', type: 'string', required: false, default: "'Cancelar' (según locale)", description: 'Texto del botón de cancelar.' },
     { name: 'onConfirm', type: '() => void', required: false, description: 'Se llama al confirmar; luego cierra.' },
     { name: 'onCancel', type: '() => void', required: false, description: 'Se llama al cancelar; luego cierra.' },
     { name: 'danger', type: 'boolean', required: false, description: 'Acción peligrosa: el CSS pinta el confirmar con --sk-danger.' },
@@ -37,6 +37,7 @@ export const popconfirmSpec: ComponentSpec = {
   usage: [
     'Para confirmar una acción puntual sin interrumpir con un modal. Para decisiones importantes o con más contenido, usá ConfirmDialog.',
     'El disparador es contenido inline (texto/ícono); no metas un <button>/<Button> adentro (el Popover ya lo envuelve en un botón).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `popconfirm` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ popconfirm: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El disparador expone aria-haspopup/aria-expanded; el panel es role=dialog (vía Popover).'],
 }

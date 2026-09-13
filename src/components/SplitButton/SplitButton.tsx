@@ -9,6 +9,7 @@ import {
 import { cx } from '../../lib/cx'
 import { useDismissable } from '../../lib/useDismissable'
 import type { ButtonVariant, ButtonSize } from '../Button'
+import { useSkinkitMessages } from '../../i18n/context'
 
 interface SplitCtx {
   close: () => void
@@ -76,10 +77,12 @@ export function SplitButton({
   tone = 'primary',
   disabled,
   menu,
-  triggerLabel = 'Más acciones',
+  triggerLabel: triggerLabelProp,
   className,
   classNames,
 }: SplitButtonProps) {
+  const m = useSkinkitMessages()
+  const triggerLabel = triggerLabelProp ?? m.splitButton.moreActions
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const close = () => setOpen(false)

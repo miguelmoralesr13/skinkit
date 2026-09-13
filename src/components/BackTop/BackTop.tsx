@@ -6,6 +6,7 @@ import {
   type RefObject,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type BackTopTone =
   | 'primary'
@@ -49,10 +50,12 @@ export function BackTop({
   className,
   onClick,
   children,
-  label = 'Volver arriba',
+  label: labelProp,
   tone = 'primary',
   ...rest
 }: BackTopProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.backTop.label
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {

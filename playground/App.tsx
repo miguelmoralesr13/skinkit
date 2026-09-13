@@ -124,6 +124,9 @@ export function App() {
   const [panelOpen, setPanelOpen] = useState(false)
   // Sistema = sin forzar nada, sigue prefers-color-scheme (ver color-scheme en tokens.css).
   const [colorScheme, setColorScheme] = useState<'system' | 'light' | 'dark'>('system')
+  // Idioma de los textos internos de la lib (aria-labels, placeholders, botones de diálogos…):
+  // demuestra `locale` del provider. Los diccionarios incluidos son es/en (src/i18n/).
+  const [locale, setLocale] = useState<'es' | 'en'>('es')
   // Panel de personalización: demuestra el mecanismo real de override (pisar variables
   // --color-sk-*/--radius-sk-*/--shadow-sk-*/--text-sk-*/--font-sk-* en un wrapper), no un
   // selector de "looks" prearmados. `overrides` solo guarda lo que el usuario tocó — lo demás
@@ -288,6 +291,18 @@ export function App() {
                 onClick={() => setColorScheme(s)}
               >
                 {s === 'system' ? 'Sistema' : s === 'light' ? 'Claro' : 'Oscuro'}
+              </button>
+            ))}
+          </div>
+          <div className="sb-scheme-toggle" role="group" aria-label="Idioma">
+            {(['es', 'en'] as const).map((l) => (
+              <button
+                key={l}
+                type="button"
+                className={`sb-scheme-btn${locale === l ? ' is-active' : ''}`}
+                onClick={() => setLocale(l)}
+              >
+                {l.toUpperCase()}
               </button>
             ))}
           </div>
@@ -521,6 +536,7 @@ export function App() {
           <SkinkitProvider
             className="sb-stage"
             colorScheme={colorScheme === 'system' ? undefined : colorScheme}
+            locale={locale}
           >
             <div className="sb-story" ref={storyRef} style={overrideStyle}>
               {story.render()}

@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface ComparisonSliderClassNames {
   after?: string
@@ -42,12 +43,14 @@ export function ComparisonSlider({
   after,
   before,
   defaultPosition = 50,
-  label = 'Comparar',
+  label: labelProp,
   className,
   style,
   classNames,
   ...rest
 }: ComparisonSliderProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.comparisonSlider.label
   const [pos, setPos] = useState(defaultPosition)
   const rootRef = useRef<HTMLDivElement>(null)
   const dragging = useRef(false)

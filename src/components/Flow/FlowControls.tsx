@@ -2,6 +2,7 @@ import { Maximize, Minus, Plus, RotateCcw } from 'lucide-react'
 import type { HTMLAttributes } from 'react'
 import { cx } from '../../lib/cx'
 import { useFlow } from './useFlow'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type FlowControlsProps = HTMLAttributes<HTMLDivElement>
 
@@ -9,6 +10,7 @@ export type FlowControlsProps = HTMLAttributes<HTMLDivElement>
  * para cualquier consumidor. Se renderiza como hijo de <Flow>, fuera de la capa transformada
  * (pan/zoom no lo afecta). */
 export function FlowControls({ className, ...rest }: FlowControlsProps) {
+  const m = useSkinkitMessages()
   const { zoomIn, zoomOut, fitView, resetViewport } = useFlow()
   return (
     <div data-part="controls" className={cx('sk-flow__controls', className)} {...rest}>
@@ -16,7 +18,7 @@ export function FlowControls({ className, ...rest }: FlowControlsProps) {
         type="button"
         data-part="control-button"
         data-action="zoom-in"
-        aria-label="Acercar"
+        aria-label={m.flow.zoomIn}
         onClick={() => zoomIn()}
       >
         <Plus size={16} aria-hidden="true" />
@@ -25,7 +27,7 @@ export function FlowControls({ className, ...rest }: FlowControlsProps) {
         type="button"
         data-part="control-button"
         data-action="zoom-out"
-        aria-label="Alejar"
+        aria-label={m.flow.zoomOut}
         onClick={() => zoomOut()}
       >
         <Minus size={16} aria-hidden="true" />
@@ -34,7 +36,7 @@ export function FlowControls({ className, ...rest }: FlowControlsProps) {
         type="button"
         data-part="control-button"
         data-action="fit-view"
-        aria-label="Ajustar a la vista"
+        aria-label={m.flow.fitView}
         onClick={() => fitView()}
       >
         <Maximize size={16} aria-hidden="true" />
@@ -43,7 +45,7 @@ export function FlowControls({ className, ...rest }: FlowControlsProps) {
         type="button"
         data-part="control-button"
         data-action="reset"
-        aria-label="Restablecer vista"
+        aria-label={m.flow.resetView}
         onClick={() => resetViewport()}
       >
         <RotateCcw size={16} aria-hidden="true" />

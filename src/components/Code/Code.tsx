@@ -2,6 +2,7 @@ import { Check, Copy } from 'lucide-react'
 import { useRef, useState, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { highlight } from './highlight'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface CodeClassNames {
   content?: string
@@ -32,6 +33,7 @@ export interface CodeProps extends HTMLAttributes<HTMLElement> {
  *   [data-part="copy"]  [data-copied] botón de copiar (si copyable)
  */
 export function Code({ block, copyable, lang, className, children, classNames, ...rest }: CodeProps) {
+  const m = useSkinkitMessages()
   const contentRef = useRef<HTMLElement>(null)
   const [copied, setCopied] = useState(false)
 
@@ -65,7 +67,7 @@ export function Code({ block, copyable, lang, className, children, classNames, .
           type="button"
           data-part="copy"
           data-copied={copied ? '' : undefined}
-          aria-label={copied ? 'Copiado' : 'Copiar'}
+          aria-label={copied ? m.code.copied : m.code.copy}
           className={cx('sk-code__copy', classNames?.copy)}
           onClick={copy}
         >

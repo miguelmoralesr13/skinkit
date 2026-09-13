@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export interface CarouselClassNames {
   viewport?: string
@@ -47,13 +48,15 @@ export function Carousel({
   defaultIndex = 0,
   onIndexChange,
   loop,
-  label = 'Carrusel',
+  label: labelProp,
   className,
   children,
   style,
   classNames,
   ...rest
 }: CarouselProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.carousel.label
   const slides = Children.toArray(children)
   const count = slides.length
   const isControlled = index !== undefined
@@ -99,7 +102,7 @@ export function Carousel({
       <button
         type="button"
         data-part="prev"
-        aria-label="Anterior"
+        aria-label={m.carousel.previous}
         disabled={!loop && current <= 0}
         onClick={() => go(current - 1)}
         className={cx(classNames?.prev)}
@@ -109,7 +112,7 @@ export function Carousel({
       <button
         type="button"
         data-part="next"
-        aria-label="Siguiente"
+        aria-label={m.carousel.next}
         disabled={!loop && current >= count - 1}
         onClick={() => go(current + 1)}
         className={cx(classNames?.next)}
@@ -118,7 +121,7 @@ export function Carousel({
       </button>
 
       {count > 1 ? (
-        <div data-part="dots" role="tablist" aria-label="Slides" className={cx(classNames?.dots)}>
+        <div data-part="dots" role="tablist" aria-label={m.carousel.slides} className={cx(classNames?.dots)}>
           {slides.map((_, i) => (
             <button
               key={i}
@@ -127,7 +130,7 @@ export function Carousel({
               data-active={i === current ? '' : undefined}
               role="tab"
               aria-selected={i === current}
-              aria-label={`Ir al slide ${i + 1}`}
+              aria-label={formatMessage(m.carousel.goToSlide, { index: i + 1 })}
               onClick={() => go(i)}
               className={cx(classNames?.dot)}
             />

@@ -5,6 +5,7 @@ import {
   type KeyboardEvent,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitI18n } from '../../i18n/context'
 
 export interface CalendarClassNames {
   header?: string
@@ -26,7 +27,7 @@ export interface CalendarProps {
   max?: string
   /** 0 = domingo (default), 1 = lunes. */
   weekStartsOn?: 0 | 1
-  /** Locale para nombres de mes/día (default 'es'). */
+  /** Locale para nombres de mes/día. Default: el `locale` del SkinkitProvider (`es` si no hay). */
   locale?: string
   className?: string
   /** Clases adicionales por sub-parte (aditivas, nunca reemplazan la clase base). */
@@ -74,10 +75,12 @@ export function Calendar({
   min,
   max,
   weekStartsOn = 0,
-  locale = 'es',
+  locale: localeProp,
   className,
   classNames,
 }: CalendarProps) {
+  const { locale: providerLocale, messages: m } = useSkinkitI18n()
+  const locale = localeProp ?? providerLocale
   const today = new Date()
   const selected = fromISO(value)
   const minD = fromISO(min)
@@ -151,7 +154,7 @@ export function Calendar({
           type="button"
           data-part="prev"
           className={cx('sk-calendar__prev', classNames?.prev)}
-          aria-label="Mes anterior"
+          aria-label={m.calendar.previousMonth}
           onClick={() => setView(addMonths(view, -1))}
         >
           ‹
@@ -163,7 +166,7 @@ export function Calendar({
           type="button"
           data-part="next"
           className={cx('sk-calendar__next', classNames?.next)}
-          aria-label="Mes siguiente"
+          aria-label={m.calendar.nextMonth}
           onClick={() => setView(addMonths(view, 1))}
         >
           ›

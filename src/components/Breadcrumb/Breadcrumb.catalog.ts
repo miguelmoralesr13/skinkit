@@ -9,7 +9,7 @@ export const breadcrumbSpec: ComponentSpec = {
     'Rastro de navegación jerárquica (Inicio / Sección / Página actual). Compuesto: <Breadcrumb> con <Breadcrumb.Item>. El separador lo dibuja el CSS, no el markup.',
   extends: 'HTMLAttributes<HTMLElement>',
   props: [
-    { name: 'label', type: 'string', required: false, default: "'Breadcrumb'", description: 'aria-label del <nav>.' },
+    { name: 'label', type: 'string', required: false, default: "'Breadcrumb' (según locale)", description: 'aria-label del <nav>.' },
   ],
   parts: [
     { name: 'root', description: '<nav aria-label>.' },
@@ -28,6 +28,7 @@ export const breadcrumbSpec: ComponentSpec = {
     'El último ítem (página actual) va con `current` → se renderiza como texto, no como enlace.',
     'Los demás llevan `href` (y cualquier prop de <a>).',
     'El separador (/, ›, etc.) lo pone el CSS entre ítems; no lo agregues al texto.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `breadcrumb` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ breadcrumb: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     '<nav aria-label> + <ol>; el ítem actual usa aria-current="page".',

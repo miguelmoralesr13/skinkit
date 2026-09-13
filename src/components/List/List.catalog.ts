@@ -17,7 +17,7 @@ export const listSpec: ComponentSpec = {
     { name: 'filterValue', type: 'string', required: false, description: 'Valor controlado del filtro.' },
     { name: 'defaultFilterValue', type: 'string', required: false, default: "''", description: 'Valor inicial no controlado.' },
     { name: 'onFilterChange', type: '(value: string) => void', required: false, description: 'Si se pasa, la búsqueda es SERVER-driven: List no filtra — sólo avisa el query, vos le pasás `items` ya filtrado. Sin esto, filtra con `filterItem` (cliente).' },
-    { name: 'filterPlaceholder', type: 'string', required: false, default: "'Buscar…'", description: 'Placeholder del input de búsqueda.' },
+    { name: 'filterPlaceholder', type: 'string', required: false, default: "'Buscar…' (según locale)", description: 'Placeholder del input de búsqueda.' },
     { name: 'filterItem', type: '(item: T, query: string) => boolean', required: false, description: 'Predicado de filtro CLIENTE. Sin esto (y sin onFilterChange), `filterable` muestra el input pero no filtra nada — List no tiene columnas tipadas de las que inferir qué buscar, a diferencia de DataTable.' },
     { name: 'infinite', type: 'boolean', required: false, default: 'false', description: 'Activa el scroll infinito: sentinel + IntersectionObserver (mismo mecanismo que DataTable, ver src/lib/useInfiniteScroll.ts).' },
     { name: 'hasMore', type: 'boolean', required: false, description: 'Si hay más para cargar (con `infinite`).' },
@@ -27,7 +27,7 @@ export const listSpec: ComponentSpec = {
     { name: 'rowHeight', type: 'number', required: false, description: 'Alto fijo de cada fila en px — requerido junto con `virtualized`.' },
     { name: 'height', type: 'number', required: false, description: 'Alto del contenedor con scroll — requerido junto con `virtualized`.' },
     { name: 'loading', type: 'boolean', required: false, default: 'false', description: 'Muestra [data-part=loading] (modo data-driven).' },
-    { name: 'emptyContent', type: 'ReactNode', required: false, default: "'Sin resultados'", description: 'Contenido cuando `items` (ya filtrado) queda vacío.' },
+    { name: 'emptyContent', type: 'ReactNode', required: false, default: "'Sin resultados' (según locale)", description: 'Contenido cuando `items` (ya filtrado) queda vacío.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=list]. <ul> en modo estático; <div> en modo data-driven (necesita lugar para el toolbar de búsqueda, que no puede ir dentro de un <ul>).' },
@@ -98,6 +98,7 @@ import { User, Pencil, Trash2 } from 'lucide-react'
     '`onFilterChange` implica búsqueda server-side: List deja de filtrar por su cuenta, sólo te avisa el query — filtrá vos y pasá `items` actualizado.',
     '`virtualized` requiere `rowHeight` (alto fijo por fila) y `height` (alto del contenedor). Filas de alto variable no son compatibles con esta versión (misma limitación que DataTable).',
     'Para acciones en un dropdown usá Menu; para pasos, Stepper; para datos tabulares con columnas, DataTable — List es para filas ícono+título+descripción+acciones, no para tablas.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `list` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ list: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Las filas interactivas son role=button, focuseables, con aria-current en la activa.',

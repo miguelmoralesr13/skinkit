@@ -13,7 +13,7 @@ export const carouselSpec: ComponentSpec = {
     { name: 'defaultIndex', type: 'number', required: false, default: '0', description: 'Slide inicial (uncontrolled).' },
     { name: 'onIndexChange', type: '(index: number) => void', required: false, description: 'Se invoca al cambiar de slide.' },
     { name: 'loop', type: 'boolean', required: false, description: 'Vuelve al principio/fin en los extremos.' },
-    { name: 'label', type: 'string', required: false, default: "'Carrusel'", description: 'aria-label de la región.' },
+    { name: 'label', type: 'string', required: false, default: "'Carrusel' (según locale)", description: 'aria-label de la región.' },
     {
       name: 'classNames',
       type: '{ viewport?: string; track?: string; slide?: string; prev?: string; next?: string; dots?: string; dot?: string }',
@@ -42,6 +42,7 @@ export const carouselSpec: ComponentSpec = {
     'Cada slide va en un <Carousel.Slide>. El track se desplaza vía --sk-carousel-index (lo pone el CSS).',
     'loop hace circular los extremos; sin loop, prev/next se deshabilitan en los bordes.',
     'Para imágenes con proporción fija, combiná con AspectRatio adentro de cada slide.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `carousel` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ carousel: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['role=region + slides role=group con aria-label "n de total"; los puntos son role=tab.'],
 }

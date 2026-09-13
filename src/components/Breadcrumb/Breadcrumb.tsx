@@ -1,5 +1,6 @@
 import { type AnchorHTMLAttributes, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
   /** aria-label del nav. */
@@ -17,7 +18,9 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
  *   [data-part="link"]        <a> (ítems navegables)
  *   [data-part="current"]     <span> del ítem actual (aria-current="page")
  */
-export function Breadcrumb({ label = 'Breadcrumb', className, children, ...rest }: BreadcrumbProps) {
+export function Breadcrumb({ label: labelProp, className, children, ...rest }: BreadcrumbProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.breadcrumb.label
   return (
     <nav
       data-sk="breadcrumb"

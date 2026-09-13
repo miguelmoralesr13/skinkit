@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export type PinInputType = 'numeric' | 'text'
 
@@ -64,6 +65,7 @@ export function PinInput({
   className,
   classNames,
 }: PinInputProps) {
+  const m = useSkinkitMessages()
   const isControlled = value !== undefined
   const [internal, setInternal] = useState(defaultValue)
   const current = (isControlled ? value : internal) ?? ''
@@ -151,7 +153,7 @@ export function PinInput({
             autoComplete={i === 0 ? 'one-time-code' : 'off'}
             maxLength={1}
             disabled={disabled}
-            aria-label={`Dígito ${i + 1}`}
+            aria-label={formatMessage(m.pinInput.digit, { index: i + 1 })}
             value={ch}
             onChange={(e) => onInput(i, e.target.value)}
             onKeyDown={(e) => onKeyDown(i, e)}

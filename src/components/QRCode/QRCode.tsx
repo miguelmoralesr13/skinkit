@@ -1,6 +1,7 @@
 import { forwardRef, useMemo, type HTMLAttributes } from 'react'
 import { cx } from '../../lib/cx'
 import { generateQRMatrix, type ErrorCorrectionLevel } from '../../lib/qrEncode'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export type { ErrorCorrectionLevel }
 
@@ -38,6 +39,7 @@ export const QRCode = forwardRef<HTMLSpanElement, QRCodeProps>(function QRCode(
   { value, size = 128, errorCorrectionLevel = 'M', margin = 4, className, classNames, ...rest },
   ref,
 ) {
+  const m = useSkinkitMessages()
   const matrix = useMemo(
     () => generateQRMatrix(value, { errorCorrectionLevel }),
     [value, errorCorrectionLevel],
@@ -59,7 +61,7 @@ export const QRCode = forwardRef<HTMLSpanElement, QRCodeProps>(function QRCode(
         viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
         shapeRendering="crispEdges"
         role="img"
-        aria-label={`Código QR: ${value}`}
+        aria-label={formatMessage(m.qrCode.label, { value })}
       >
         {matrix.map((row, r) =>
           row.map((dark, c) =>

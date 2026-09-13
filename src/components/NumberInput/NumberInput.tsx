@@ -1,5 +1,6 @@
 import { forwardRef, useId, useState, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface NumberInputProps {
   label?: ReactNode
@@ -50,6 +51,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
   },
   ref,
 ) {
+  const m = useSkinkitMessages()
   const isControlled = value !== undefined
   const [internal, setInternal] = useState(defaultValue)
   const current = isControlled ? value : internal
@@ -78,7 +80,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
         <button
           type="button"
           data-part="decrement"
-          aria-label="Disminuir"
+          aria-label={m.numberInput.decrement}
           disabled={disabled || current <= min}
           onClick={() => commit(current - step)}
         >
@@ -105,7 +107,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
         <button
           type="button"
           data-part="increment"
-          aria-label="Aumentar"
+          aria-label={m.numberInput.increment}
           disabled={disabled || current >= max}
           onClick={() => commit(current + step)}
         >

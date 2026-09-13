@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { Popover } from '../Popover'
 import { Calendar } from '../Calendar'
+import { useSkinkitI18n } from '../../i18n/context'
 
 export interface DatePickerProps {
   /** Fecha seleccionada (ISO yyyy-mm-dd). */
@@ -42,7 +43,7 @@ function fromISO(s?: string): Date | null {
 export function DatePicker({
   value,
   onChange,
-  placeholder = 'Elegir fecha',
+  placeholder: placeholderProp,
   label,
   helper,
   error,
@@ -50,10 +51,13 @@ export function DatePicker({
   min,
   max,
   weekStartsOn,
-  locale = 'es',
+  locale: localeProp,
   className,
   id,
 }: DatePickerProps) {
+  const { locale: providerLocale, messages: m } = useSkinkitI18n()
+  const locale = localeProp ?? providerLocale
+  const placeholder = placeholderProp ?? m.datePicker.placeholder
   const [open, setOpen] = useState(false)
   const parsed = fromISO(value)
   const display = parsed
@@ -72,7 +76,7 @@ export function DatePicker({
         </label>
       ) : null}
       <Popover open={open} onOpenChange={setOpen}>
-        <Popover.Trigger id={id} disabled={disabled} aria-label={label ? undefined : 'Elegir fecha'}>
+        <Popover.Trigger id={id} disabled={disabled} aria-label={label ? undefined : placeholder}>
           <span data-part="value" data-placeholder={parsed ? undefined : ''}>
             {display}
           </span>

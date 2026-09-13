@@ -5,6 +5,7 @@ import {
   useEditorActive,
   type RichTextEditorToggleButtonProps,
 } from './RichTextEditor'
+import { useSkinkitMessages } from '../../i18n/context'
 
 // BulletList/OrderedList/Blockquote/CodeBlock (toggle, activos según dónde esté el cursor) +
 // HorizontalRule (acción de una sola vez, no tiene estado "activo"). Ver el comentario en
@@ -14,13 +15,14 @@ import {
 export type RichTextEditorBlockToggleProps = RichTextEditorToggleButtonProps
 
 export function BulletList({ children = '•', ...rest }: RichTextEditorBlockToggleProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('BulletList')
   const active = useEditorActive('bulletList')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleBulletList().run()}
-      aria-label="Lista con viñetas"
+      aria-label={m.richTextEditor.bulletList}
       {...rest}
     >
       {children}
@@ -29,13 +31,14 @@ export function BulletList({ children = '•', ...rest }: RichTextEditorBlockTog
 }
 
 export function OrderedList({ children = '1.', ...rest }: RichTextEditorBlockToggleProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('OrderedList')
   const active = useEditorActive('orderedList')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleOrderedList().run()}
-      aria-label="Lista numerada"
+      aria-label={m.richTextEditor.orderedList}
       {...rest}
     >
       {children}
@@ -44,13 +47,14 @@ export function OrderedList({ children = '1.', ...rest }: RichTextEditorBlockTog
 }
 
 export function Blockquote({ children = '"', ...rest }: RichTextEditorBlockToggleProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('Blockquote')
   const active = useEditorActive('blockquote')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleBlockquote().run()}
-      aria-label="Cita"
+      aria-label={m.richTextEditor.blockquote}
       {...rest}
     >
       {children}
@@ -59,13 +63,14 @@ export function Blockquote({ children = '"', ...rest }: RichTextEditorBlockToggl
 }
 
 export function CodeBlock({ children = '</>', ...rest }: RichTextEditorBlockToggleProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('CodeBlock')
   const active = useEditorActive('codeBlock')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleCodeBlock().run()}
-      aria-label="Bloque de código"
+      aria-label={m.richTextEditor.codeBlock}
       {...rest}
     >
       {children}
@@ -76,13 +81,14 @@ export function CodeBlock({ children = '</>', ...rest }: RichTextEditorBlockTogg
 export interface RichTextEditorHorizontalRuleProps extends Omit<ButtonProps, 'variant'> {}
 
 export function HorizontalRule({ children = '―', ...rest }: RichTextEditorHorizontalRuleProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('HorizontalRule')
   return (
     <Button
       type="button"
       variant="ghost"
       onClick={() => editor?.chain().focus().setHorizontalRule().run()}
-      aria-label="Línea horizontal"
+      aria-label={m.richTextEditor.horizontalRule}
       {...rest}
     >
       {children}

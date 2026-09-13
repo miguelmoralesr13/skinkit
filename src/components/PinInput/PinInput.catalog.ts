@@ -43,6 +43,7 @@ export const pinInputSpec: ComponentSpec = {
     'Para códigos de verificación/OTP. onComplete dispara al llenar la última casilla.',
     'type="numeric" (default) restringe a dígitos; pegá el código y se reparte solo.',
     'La primera casilla tiene autoComplete="one-time-code" para el autollenado de SMS en iOS.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `pinInput` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ pinInput: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['Cada casilla tiene aria-label "Dígito n"; auto-avance y backspace mueven el foco.'],
 }

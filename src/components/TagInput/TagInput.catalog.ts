@@ -41,6 +41,7 @@ export const tagInputSpec: ComponentSpec = {
     'Enter o coma confirma el tag; Backspace con el input vacío borra el último.',
     'No permite duplicados; `max` limita la cantidad.',
     'Los chips reusan el contrato de Tag ([data-sk=tag]), así el CSS los pinta igual.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `tagInput` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ tagInput: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['Cada botón de quitar trae aria-label "Quitar <tag>".'],
 }

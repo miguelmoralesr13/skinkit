@@ -54,6 +54,7 @@ export const alertSpec: ComponentSpec = {
     'No hay variantes success/warning: el contrato de tokens del theme no las define todavía.',
     '`onClose` NO quita la alerta sola: solo dibuja el botón; vos decidís sacarla del render.',
     'Para avisos efímeros no bloqueantes (toasts) este no es el patrón; Alert es en bloque, en la página.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `alert` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ alert: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'role="alert" hace que los lectores lo anuncien apenas aparece (live region assertive).',

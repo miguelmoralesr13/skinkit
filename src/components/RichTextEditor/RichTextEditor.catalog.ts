@@ -47,6 +47,7 @@ export const richTextEditorSpec: ComponentSpec = {
     'Los botones de la barra (Bold/Italic/Link/Table/etc.) son sub-componentes de esta misma familia — ver la lista de `parts` arriba, no tienen ficha propia (igual que Accordion.Item).',
     'DEFAULT_EXTENSIONS ya trae TODO (StarterKit + Placeholder + Image + Align + Color + Table) — no hace falta armar `extensions` a mano para usar cualquier botón. Usá `extensions` solo para RECORTAR el set o agregar extensiones propias.',
     'Montá <RichTextEditor.TableControls /> siempre que uses <RichTextEditor.Table />: se auto-oculta cuando el cursor no está en una tabla, no necesita lógica condicional del lado del consumidor.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `richTextEditor` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ richTextEditor: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'El área editable es un contenedor contentEditable nativo (ProseMirror); Tiptap maneja el rol implícito y la navegación por teclado del documento.',

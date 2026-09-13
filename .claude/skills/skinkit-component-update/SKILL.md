@@ -35,6 +35,7 @@ will generate code against props/parts that no longer exist (or miss new ones).
 | Cambiar comportamiento (teclado, estado, ARIA) | `a11y[]` y/o `usage[]` |
 | Cambiar cómo se usa (nueva recomendación, nuevo caveat) | `usage[]` y/o `examples[]` |
 | Cambiar props nativas heredadas | `extends` |
+| Agregar/cambiar un texto por defecto (aria-label, placeholder, botón) | NO va hardcodeado: clave en `src/i18n/types.ts` + `es.ts` + `en.ts`, leída con `useSkinkitMessages()`; en el catálogo el default se escribe `"'Texto' (según locale)"` |
 
 ## Steps
 

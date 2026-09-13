@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type AlertVariant = 'neutral' | 'primary' | 'success' | 'warning' | 'info' | 'danger'
 
@@ -30,6 +31,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
   { variant = 'neutral', title, icon, onClose, className, children, ...rest },
   ref,
 ) {
+  const m = useSkinkitMessages()
   return (
     <div
       ref={ref}
@@ -49,7 +51,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
         {children ? <div data-part="body">{children}</div> : null}
       </div>
       {onClose ? (
-        <button type="button" data-part="close" aria-label="Cerrar" onClick={onClose}>
+        <button type="button" data-part="close" aria-label={m.alert.close} onClick={onClose}>
           ×
         </button>
       ) : null}

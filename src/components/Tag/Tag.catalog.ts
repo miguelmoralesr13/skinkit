@@ -42,6 +42,7 @@ export const tagSpec: ComponentSpec = {
     'Usá Tag cuando el usuario puede QUITARLO (filtros, selecciones). Para un estado no interactivo, usá Badge.',
     'onRemove no lo saca solo: actualizá tu estado para removerlo del render.',
     'Elegí variant por significado, no por color.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `tag` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ tag: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El botón de quitar trae aria-label="Quitar".'],
 }

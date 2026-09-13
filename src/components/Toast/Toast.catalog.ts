@@ -37,6 +37,7 @@ export const toastSpec: ComponentSpec = {
     'Usalo para confirmaciones breves y no críticas. Para algo que el usuario DEBE atender, usá Dialog/Alert.',
     'duration: 0 para errores que no deberían desaparecer solos.',
     'Variantes de estado (success/warning/info/danger) además de neutral/primary; el color sale de var(--sk-<tono>) del theme.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `toast` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ toast: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Cada toast es role="status" (live region polite): se anuncia sin robar el foco.',

@@ -5,6 +5,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export interface TagInputClassNames {
   /** Etiqueta del campo (data-part="label" del root, NO el label de cada chip). */
@@ -67,6 +68,7 @@ export function TagInput({
   className,
   classNames,
 }: TagInputProps) {
+  const m = useSkinkitMessages()
   const isControlled = value !== undefined
   const [internal, setInternal] = useState<string[]>(defaultValue)
   const tags = isControlled ? value : internal
@@ -136,7 +138,7 @@ export function TagInput({
               <button
                 type="button"
                 data-part="remove"
-                aria-label={`Quitar ${tag}`}
+                aria-label={formatMessage(m.tagInput.remove, { tag })}
                 onClick={() => removeAt(i)}
                 className={cx('sk-tag-input__tag-remove', classNames?.tagRemove)}
               >

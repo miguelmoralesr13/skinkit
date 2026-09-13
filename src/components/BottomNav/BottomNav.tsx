@@ -8,6 +8,7 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 import { Dialog } from '../Dialog'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type BottomNavTone =
   | 'primary'
@@ -144,6 +145,7 @@ export interface BottomNavSheetProps {
  * `submenu`, pero también se puede usar suelto si querés controlar la apertura vos.
  */
 function BottomNavSheet({ open, onClose, title, children }: BottomNavSheetProps) {
+  const m = useSkinkitMessages()
   return (
     <Dialog
       open={open}
@@ -151,7 +153,7 @@ function BottomNavSheet({ open, onClose, title, children }: BottomNavSheetProps)
       placement="bottom"
       className="sk-bottom-nav__sheet"
       classNames={{ panel: 'sk-bottom-nav__sheet-panel' }}
-      aria-label={typeof title === 'string' ? title : 'Submenú'}
+      aria-label={typeof title === 'string' ? title : m.bottomNav.submenu}
     >
       {title != null && (
         <Dialog.Header>

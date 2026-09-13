@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface EditableProps {
   value: string
@@ -32,13 +33,15 @@ export interface EditableProps {
 export function Editable({
   value,
   onChange,
-  placeholder = 'Vacío',
+  placeholder: placeholderProp,
   disabled,
   multiline,
   label,
   className,
   id,
 }: EditableProps) {
+  const m = useSkinkitMessages()
+  const placeholder = placeholderProp ?? m.editable.placeholder
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(value)
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)

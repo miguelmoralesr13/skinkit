@@ -1,5 +1,6 @@
 import { forwardRef, useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type CopyButtonTone =
   | 'primary'
@@ -32,9 +33,12 @@ export interface CopyButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonEle
  *   [data-sk="copy-button"]   [data-copied]   raíz (el CSS puede cambiar el look al copiar)
  */
 export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(function CopyButton(
-  { value, children = 'Copiar', copiedLabel = 'Copiado', timeout = 1500, tone = 'primary', className, onClick, type, ...rest },
+  { value, children: childrenProp, copiedLabel: copiedLabelProp, timeout = 1500, tone = 'primary', className, onClick, type, ...rest },
   ref,
 ) {
+  const m = useSkinkitMessages()
+  const copiedLabel = copiedLabelProp ?? m.copyButton.copied
+  const children = childrenProp ?? m.copyButton.copy
   const [copied, setCopied] = useState(false)
 
   return (

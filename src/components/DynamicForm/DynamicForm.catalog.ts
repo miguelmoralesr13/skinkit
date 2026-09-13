@@ -14,7 +14,7 @@ export const dynamicFormSpec: ComponentSpec = {
     { name: 'defaultValues', type: 'Record<string, unknown>', required: false, description: 'Valores iniciales (además de los defaultValue de cada campo).' },
     { name: 'externalValues', type: 'Record<string, unknown>', required: false, description: 'Contexto externo para condiciones (`{ external: "plan" }`): plan, rol, feature flags, etc.' },
     { name: 'form', type: 'UseFormReturn', required: false, description: 'Instancia externa de react-hook-form. Si se omite, el DynamicForm crea la suya.' },
-    { name: 'submitLabel', type: 'ReactNode', required: false, default: "'Enviar'", description: 'Texto del botón de envío. null oculta la barra de acciones.' },
+    { name: 'submitLabel', type: 'ReactNode', required: false, default: "'Enviar' (según locale)", description: 'Texto del botón de envío. null oculta la barra de acciones.' },
     { name: 'actions', type: 'ReactNode', required: false, description: 'Contenido extra en la barra de acciones (ej. un botón Cancelar).' },
     { name: 'classNames', type: '{ fields?: string; actions?: string }', required: false, description: 'Clases adicionales (aditivas) por sub-parte del formulario: `fields` (el Grid que envuelve todos los campos, [data-part=fields]) y `actions` (la barra de acciones, [data-part=actions]). Para personalizar UN campo puntual (no todos), usá `className` en su FieldConfig dentro de `schema` en vez de esto.' },
   ],
@@ -41,6 +41,7 @@ export const dynamicFormSpec: ComponentSpec = {
     'Mostrar/ocultar con `visibleWhen`; los campos ocultos no se validan. Deshabilitar con `disabled` (boolean o condición).',
     'Referí valores internos con `{ field: "path" }` (con punto para anidados) y externos con `{ external: "key" }` (prop externalValues).',
     'La grilla es la del componente Grid: `cols` responsive en el schema y `colSpan` por campo. object/array ocupan la fila completa por defecto.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `dynamicForm` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ dynamicForm: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Reusa los componentes de campo de skinkit (labels, aria-invalid, etc.). Los subformularios usan <Fieldset>/<legend> nativo, con disabled en cascada.',

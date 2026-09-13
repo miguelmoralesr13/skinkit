@@ -7,6 +7,7 @@ import {
   useEditorActive,
   type RichTextEditorToggleButtonProps,
 } from './RichTextEditor'
+import { useSkinkitMessages } from '../../i18n/context'
 
 // Bold/Italic/Underline/Strike/BlockType/Undo/Redo — ver el comentario en RichTextEditor.tsx
 // sobre por qué esta familia se reparte en varios archivos por tema. Cada botón es un export
@@ -17,13 +18,14 @@ import {
 export type RichTextEditorFormattingProps = RichTextEditorToggleButtonProps
 
 export function Bold({ children = 'B', ...rest }: RichTextEditorFormattingProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('Bold')
   const active = useEditorActive('bold')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleBold().run()}
-      aria-label="Negrita"
+      aria-label={m.richTextEditor.bold}
       {...rest}
     >
       {children}
@@ -32,13 +34,14 @@ export function Bold({ children = 'B', ...rest }: RichTextEditorFormattingProps)
 }
 
 export function Italic({ children = 'I', ...rest }: RichTextEditorFormattingProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('Italic')
   const active = useEditorActive('italic')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleItalic().run()}
-      aria-label="Cursiva"
+      aria-label={m.richTextEditor.italic}
       {...rest}
     >
       {children}
@@ -47,13 +50,14 @@ export function Italic({ children = 'I', ...rest }: RichTextEditorFormattingProp
 }
 
 export function Underline({ children = 'U', ...rest }: RichTextEditorFormattingProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('Underline')
   const active = useEditorActive('underline')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleUnderline().run()}
-      aria-label="Subrayado"
+      aria-label={m.richTextEditor.underline}
       {...rest}
     >
       {children}
@@ -62,13 +66,14 @@ export function Underline({ children = 'U', ...rest }: RichTextEditorFormattingP
 }
 
 export function Strike({ children = 'S', ...rest }: RichTextEditorFormattingProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('Strike')
   const active = useEditorActive('strike')
   return (
     <Toggle
       pressed={active}
       onPressedChange={() => editor?.chain().focus().toggleStrike().run()}
-      aria-label="Tachado"
+      aria-label={m.richTextEditor.strike}
       {...rest}
     >
       {children}
@@ -76,14 +81,11 @@ export function Strike({ children = 'S', ...rest }: RichTextEditorFormattingProp
   )
 }
 
-const BLOCK_TYPES = [
-  { value: 'paragraph', label: 'Párrafo' },
-  { value: 'h1', label: 'Título 1' },
-  { value: 'h2', label: 'Título 2' },
-  { value: 'h3', label: 'Título 3' },
-]
+const BLOCK_TYPES = ['paragraph', 'h1', 'h2', 'h3'] as const
+const BLOCK_TYPE_KEYS = { paragraph: 'paragraph', h1: 'heading1', h2: 'heading2', h3: 'heading3' } as const
 
 export function BlockType() {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('BlockType')
   const current =
     useEditorState({
@@ -105,13 +107,13 @@ export function BlockType() {
 
   return (
     <Select
-      aria-label="Estilo de bloque"
+      aria-label={m.richTextEditor.blockStyle}
       value={current}
       onChange={(e) => onChange(e.target.value)}
     >
       {BLOCK_TYPES.map((t) => (
-        <option key={t.value} value={t.value}>
-          {t.label}
+        <option key={t} value={t}>
+          {m.richTextEditor[BLOCK_TYPE_KEYS[t]]}
         </option>
       ))}
     </Select>
@@ -121,6 +123,7 @@ export function BlockType() {
 export interface RichTextEditorHistoryProps extends Omit<ButtonProps, 'variant'> {}
 
 export function Undo({ children = '↶', ...rest }: RichTextEditorHistoryProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('Undo')
   const canUndo = useEditorState({ editor, selector: (ctx) => ctx.editor?.can().undo() ?? false }) ?? false
   return (
@@ -129,7 +132,7 @@ export function Undo({ children = '↶', ...rest }: RichTextEditorHistoryProps) 
       variant="ghost"
       disabled={!canUndo}
       onClick={() => editor?.chain().focus().undo().run()}
-      aria-label="Deshacer"
+      aria-label={m.richTextEditor.undo}
       {...rest}
     >
       {children}
@@ -138,6 +141,7 @@ export function Undo({ children = '↶', ...rest }: RichTextEditorHistoryProps) 
 }
 
 export function Redo({ children = '↷', ...rest }: RichTextEditorHistoryProps) {
+  const m = useSkinkitMessages()
   const { editor } = useRichTextEditorCtx('Redo')
   const canRedo = useEditorState({ editor, selector: (ctx) => ctx.editor?.can().redo() ?? false }) ?? false
   return (
@@ -146,7 +150,7 @@ export function Redo({ children = '↷', ...rest }: RichTextEditorHistoryProps) 
       variant="ghost"
       disabled={!canRedo}
       onClick={() => editor?.chain().focus().redo().run()}
-      aria-label="Rehacer"
+      aria-label={m.richTextEditor.redo}
       {...rest}
     >
       {children}

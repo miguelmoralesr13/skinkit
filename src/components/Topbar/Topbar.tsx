@@ -7,6 +7,7 @@ import type {
 } from 'react'
 import { cx } from '../../lib/cx'
 import { Menu, type MenuSide } from '../Menu/Menu'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type TopbarTone =
   | 'primary'
@@ -175,7 +176,9 @@ export interface TopbarMenuToggleProps extends ButtonHTMLAttributes<HTMLButtonEl
 
 /** Botón hamburguesa sin lógica propia — vos manejás el boolean (mismo patrón que `collapsed`
  * de Sidebar) y se lo pasás a <Sidebar collapsed> / <AppShell.Sidebar hidden>. */
-function TopbarMenuToggle({ label = 'Abrir menú', className, children, ...rest }: TopbarMenuToggleProps) {
+function TopbarMenuToggle({ label: labelProp, className, children, ...rest }: TopbarMenuToggleProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.topbar.openMenu
   return (
     <button
       type="button"

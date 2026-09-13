@@ -9,6 +9,7 @@ import {
   type KeyboardEvent,
 } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 interface SegmentedCtx {
   value: string
@@ -42,11 +43,13 @@ export function SegmentedControl({
   value,
   defaultValue,
   onValueChange,
-  label = 'Opciones',
+  label: labelProp,
   className,
   children,
   ...rest
 }: SegmentedControlProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.segmentedControl.label
   const isControlled = value !== undefined
   const [internal, setInternal] = useState(defaultValue ?? '')
   const current = isControlled ? value : internal

@@ -2,6 +2,7 @@ import { type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Dialog, type DialogSize } from './Dialog'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface AlertDialogClassNames {
   header?: string
@@ -37,12 +38,14 @@ export function AlertDialog({
   onClose,
   title,
   description,
-  actionText = 'Entendido',
+  actionText: actionTextProp,
   tone = 'primary',
   size = 'sm',
   className,
   classNames,
 }: AlertDialogProps) {
+  const m = useSkinkitMessages()
+  const actionText = actionTextProp ?? m.dialog.alertAction
   return (
     <Dialog open={open} onClose={onClose} size={size} className={className}>
       <Dialog.Header className={cx('sk-alert-dialog__header', classNames?.header)}>

@@ -14,7 +14,7 @@ export const calendarSpec: ComponentSpec = {
     { name: 'min', type: 'string', required: false, description: 'Fecha mínima (ISO); días previos quedan disabled.' },
     { name: 'max', type: 'string', required: false, description: 'Fecha máxima (ISO).' },
     { name: 'weekStartsOn', type: '0 | 1', required: false, default: '0', description: '0 = domingo, 1 = lunes.' },
-    { name: 'locale', type: 'string', required: false, default: "'es'", description: 'Locale para nombres de mes/día (Intl).' },
+    { name: 'locale', type: 'string', required: false, default: "locale del SkinkitProvider ('es' si no hay)", description: 'Locale para nombres de mes/día (Intl).' },
     { name: 'classNames', type: 'CalendarClassNames', required: false, description: 'Clases adicionales por sub-parte (header, prev, next, title, weekdays, weekday, grid, day). Aditivo, nunca reemplaza la clase base.' },
   ],
   parts: [
@@ -35,6 +35,7 @@ export const calendarSpec: ComponentSpec = {
     'Es controlado: guardá el ISO en tu estado y actualizalo en onChange.',
     'Para abrirlo en un popup (date picker), combiná Calendar dentro de un Popover.',
     'weekStartsOn=1 para semanas que arrancan el lunes; locale cambia los nombres.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `calendar` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ calendar: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'role=grid con gridcells; el día enfocado es tabbable (roving); Enter/Espacio selecciona.',

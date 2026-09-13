@@ -2,6 +2,7 @@ import { type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Dialog, type DialogSize } from './Dialog'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type ConfirmTone = 'primary' | 'danger'
 
@@ -46,13 +47,16 @@ export function ConfirmDialog({
   onConfirm,
   title,
   description,
-  confirmText = 'Confirmar',
-  cancelText = 'Cancelar',
+  confirmText: confirmTextProp,
+  cancelText: cancelTextProp,
   tone = 'primary',
   size = 'sm',
   className,
   classNames,
 }: ConfirmDialogProps) {
+  const m = useSkinkitMessages()
+  const cancelText = cancelTextProp ?? m.dialog.cancel
+  const confirmText = confirmTextProp ?? m.dialog.confirm
   return (
     <Dialog open={open} onClose={onClose} size={size} className={className}>
       <Dialog.Header className={cx('sk-confirm-dialog__header', classNames?.header)}>

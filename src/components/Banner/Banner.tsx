@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type BannerVariant = 'neutral' | 'primary' | 'success' | 'warning' | 'info' | 'danger'
 
@@ -27,6 +28,7 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
   { variant = 'neutral', icon, action, onClose, className, children, ...rest },
   ref,
 ) {
+  const m = useSkinkitMessages()
   return (
     <div
       ref={ref}
@@ -44,7 +46,7 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
       <div data-part="content">{children}</div>
       {action ? <div data-part="actions">{action}</div> : null}
       {onClose ? (
-        <button type="button" data-part="close" aria-label="Cerrar" onClick={onClose}>
+        <button type="button" data-part="close" aria-label={m.banner.close} onClick={onClose}>
           ×
         </button>
       ) : null}

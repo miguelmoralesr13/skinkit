@@ -10,6 +10,7 @@ import {
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
 import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type ToastVariant = 'neutral' | 'primary' | 'success' | 'warning' | 'info' | 'danger'
 export type ToastPosition =
@@ -86,6 +87,7 @@ export function ToastProvider({
   position = 'bottom-right',
   defaultDuration = 4000,
 }: ToastProviderProps) {
+  const m = useSkinkitMessages()
   const [toasts, setToasts] = useState<ToastItem[]>([])
   const idRef = useRef(0)
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
@@ -153,7 +155,7 @@ export function ToastProvider({
                 <button
                   type="button"
                   data-part="close"
-                  aria-label="Cerrar"
+                  aria-label={m.toast.close}
                   className={cx('sk-toast__close', t.classNames?.close)}
                   onClick={() => dismiss(t.id)}
                 >

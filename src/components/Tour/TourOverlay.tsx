@@ -5,6 +5,7 @@ import { useElementVisible } from '../../lib/useElementVisible'
 import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
 import { computeSpotlightFrame, computeTooltipPosition, getTargetRect, type Rect } from './positioning'
 import type { UseTourEngineResult } from './useTourEngine'
+import { useSkinkitMessages } from '../../i18n/context'
 
 const DEFAULT_WAIT_TIMEOUT = 3500
 const DEFAULT_SPOTLIGHT_PADDING = 8
@@ -37,6 +38,7 @@ interface TourOverlayProps {
  * grande que el de Dialog (backdrop en 4 partes + tooltip con header/body/footer).
  */
 export function TourOverlay({ engine, classNames }: TourOverlayProps) {
+  const m = useSkinkitMessages()
   const { activeStep, canGoPrev, next, prev, skip } = engine
   const [targetRect, setTargetRect] = useState<Rect | null>(null)
   const [tooltipSize, setTooltipSize] = useState({ width: 280, height: 140 })
@@ -169,7 +171,7 @@ export function TourOverlay({ engine, classNames }: TourOverlayProps) {
               type="button"
               data-part="close"
               className={cx('sk-tour__close', classNames?.close)}
-              aria-label="Cerrar"
+              aria-label={m.tour.close}
               onClick={skip}
             >
               ×

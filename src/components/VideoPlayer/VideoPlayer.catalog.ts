@@ -49,6 +49,7 @@ export const videoPlayerSpec: ComponentSpec = {
     '<VideoPlayer.Controls> es un <Toolbar>: las flechas mueven el foco entre botones; dentro de Seek/VolumeSlider, las flechas ajustan el valor del range nativo en vez de mover el foco (comportamiento nativo esperado).',
     'FullscreenButton/PipButton se auto-omiten (no renderizan nada) si el navegador no soporta esa API — no hace falta chequearlo del lado del consumidor.',
     'El root [data-sk="video-player"] es también el target de fullscreen: lleva [data-fullscreen]/[data-pip] cuando aplica, para que el CSS pueda ajustar el layout en esos estados.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `mediaPlayer` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ mediaPlayer: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Seek/VolumeSlider son input[type=range] nativos: foco/teclado/ARIA de slider vienen gratis del navegador. Seek expone aria-valuetext con el tiempo en formato legible.',

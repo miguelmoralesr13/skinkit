@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export type PaginationTone =
   | 'primary'
@@ -71,7 +72,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
     count,
     onPageChange,
     siblingCount = 1,
-    label = 'Paginación',
+    label: labelProp,
     tone = 'primary',
     className,
     classNames,
@@ -79,6 +80,8 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
   },
   ref,
 ) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.pagination.label
   const pages = paginationRange(page, count, siblingCount)
   const go = (p: number) => {
     if (p >= 1 && p <= count && p !== page) onPageChange(p)
@@ -97,7 +100,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
         type="button"
         data-part="prev"
         className={cx('sk-pagination__prev', classNames?.prev)}
-        aria-label="Página anterior"
+        aria-label={m.pagination.previous}
         disabled={page <= 1}
         onClick={() => go(page - 1)}
       >
@@ -121,7 +124,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
             className={cx('sk-pagination__page', classNames?.page)}
             data-current={p === page ? '' : undefined}
             aria-current={p === page ? 'page' : undefined}
-            aria-label={`Página ${p}`}
+            aria-label={formatMessage(m.pagination.page, { page: p })}
             onClick={() => go(p)}
           >
             {p}
@@ -132,7 +135,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
         type="button"
         data-part="next"
         className={cx('sk-pagination__next', classNames?.next)}
-        aria-label="Página siguiente"
+        aria-label={m.pagination.next}
         disabled={page >= count}
         onClick={() => go(page + 1)}
       >

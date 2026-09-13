@@ -2,6 +2,18 @@
 export { SkinkitProvider, useSkinkitColorScheme } from './provider/SkinkitProvider'
 export type { SkinkitProviderProps } from './provider/SkinkitProvider'
 
+// i18n — textos por defecto de la librería (es/en incluidos), ver src/i18n/
+export {
+  useSkinkitI18n,
+  useSkinkitMessages,
+  formatMessage,
+  skinkitMessagesEs,
+  skinkitMessagesEn,
+  SKINKIT_MESSAGES,
+  SkinkitI18nProvider,
+} from './i18n'
+export type { SkinkitMessages, SkinkitMessagesOverrides, SkinkitBuiltinLocale, SkinkitI18n } from './i18n'
+
 export { Button } from './components/Button'
 export type { ButtonProps, ButtonVariant, ButtonSize } from './components/Button'
 

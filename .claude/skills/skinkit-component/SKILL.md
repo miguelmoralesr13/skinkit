@@ -32,6 +32,13 @@ allowed-tools: Read, Write, Edit, Bash
      Prefer native pseudo-states (`:disabled`, `:focus`) when the DOM already provides them.
 4. **Forward refs** and **spread native props** (`...rest`) so the component composes.
 5. Behavior (state, ARIA, keyboard) lives in the component/a hook — never in CSS.
+6. **No hardcoded user-visible strings.** Every default text (aria-label, placeholder, empty
+   state, button label) comes from `src/i18n/`: add a group/key to `SkinkitMessages`
+   (`src/i18n/types.ts`) and to BOTH `es.ts` and `en.ts`, then read it with
+   `const m = useSkinkitMessages()` (`../../i18n/context`). Pattern for a prop with a default:
+   `label: labelProp` in the signature + `const label = labelProp ?? m.<group>.label` — the
+   explicit prop must always win. Interpolation: `formatMessage(m.x.y, { n })` with `{n}` in the
+   dictionary. In the catalog, write the default as `"'Texto' (según locale)"`.
 
 ## Files to Create & Register
 

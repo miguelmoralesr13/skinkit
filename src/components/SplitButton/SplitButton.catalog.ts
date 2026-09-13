@@ -15,7 +15,7 @@ export const splitButtonSpec: ComponentSpec = {
     { name: 'variant', type: "'filled' | 'outlined' | 'ghost'", required: false, default: "'filled'", description: 'Estilo (igual que Button).' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: 'Tamaño.' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita ambos botones.' },
-    { name: 'triggerLabel', type: 'string', required: false, default: "'Más acciones'", description: 'aria-label del disparador del menú.' },
+    { name: 'triggerLabel', type: 'string', required: false, default: "'Más acciones' (según locale)", description: 'aria-label del disparador del menú.' },
     { name: 'classNames', type: '{ main?: string; trigger?: string; content?: string; item?: string }', required: false, description: 'Clases adicionales por parte interna (main/trigger/content/item). Aditivo, no reemplaza la clase base. `item` aplica a todas las instancias de <SplitButton.Item> (no hay callback por-item).' },
   ],
   parts: [
@@ -35,6 +35,7 @@ export const splitButtonSpec: ComponentSpec = {
     'La acción MÁS común va en el botón principal (onClick); las variantes en el menú.',
     'Cada <SplitButton.Item> cierra el menú al elegirse; poné la acción en onSelect.',
     'Si no hay una acción principal clara, usá Menu en vez de SplitButton.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `splitButton` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ splitButton: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El disparador tiene aria-haspopup=menu/aria-expanded; el menú role=menu; items role=menuitem.'],
 }

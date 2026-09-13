@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type TagVariant =
   | 'neutral'
@@ -39,6 +40,7 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
   { variant = 'neutral', onRemove, className, children, classNames, ...rest },
   ref,
 ) {
+  const m = useSkinkitMessages()
   return (
     <span
       ref={ref}
@@ -54,7 +56,7 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
         <button
           type="button"
           data-part="remove"
-          aria-label="Quitar"
+          aria-label={m.tag.remove}
           onClick={onRemove}
           className={cx('sk-tag__remove', classNames?.remove)}
         >

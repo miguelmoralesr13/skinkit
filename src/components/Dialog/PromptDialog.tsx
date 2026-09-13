@@ -3,6 +3,7 @@ import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Input } from '../Input'
 import { Dialog, type DialogSize } from './Dialog'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface PromptDialogClassNames {
   header?: string
@@ -48,12 +49,15 @@ export function PromptDialog({
   label,
   placeholder,
   defaultValue = '',
-  confirmText = 'Aceptar',
-  cancelText = 'Cancelar',
+  confirmText: confirmTextProp,
+  cancelText: cancelTextProp,
   size = 'sm',
   className,
   classNames,
 }: PromptDialogProps) {
+  const m = useSkinkitMessages()
+  const cancelText = cancelTextProp ?? m.dialog.cancel
+  const confirmText = confirmTextProp ?? m.dialog.promptConfirm
   const [value, setValue] = useState(defaultValue)
 
   // Resetea el valor cada vez que se abre.

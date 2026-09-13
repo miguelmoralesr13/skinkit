@@ -11,7 +11,7 @@ export const datePickerSpec: ComponentSpec = {
   props: [
     { name: 'value', type: 'string', required: false, description: 'Fecha seleccionada en ISO yyyy-mm-dd (controlado).' },
     { name: 'onChange', type: '(iso: string) => void', required: false, description: 'Se invoca con la fecha elegida (ISO).' },
-    { name: 'placeholder', type: 'string', required: false, default: "'Elegir fecha'", description: 'Texto del campo sin fecha.' },
+    { name: 'placeholder', type: 'string', required: false, default: "'Elegir fecha' (según locale)", description: 'Texto del campo sin fecha.' },
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta.' },
     { name: 'helper', type: 'ReactNode', required: false, description: 'Ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido ([data-error]).' },
@@ -19,7 +19,7 @@ export const datePickerSpec: ComponentSpec = {
     { name: 'min', type: 'string', required: false, description: 'Fecha mínima (ISO).' },
     { name: 'max', type: 'string', required: false, description: 'Fecha máxima (ISO).' },
     { name: 'weekStartsOn', type: '0 | 1', required: false, default: '0', description: '0 = domingo, 1 = lunes.' },
-    { name: 'locale', type: 'string', required: false, default: "'es'", description: 'Locale para el formato y los nombres (Intl).' },
+    { name: 'locale', type: 'string', required: false, default: "locale del SkinkitProvider ('es' si no hay)", description: 'Locale para el formato y los nombres (Intl).' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=date-picker]. Lleva [data-error].' },
@@ -36,6 +36,7 @@ export const datePickerSpec: ComponentSpec = {
     'Es el patrón "input + calendario en popup". Si querés el calendario SIEMPRE visible, usá Calendar directo.',
     'Es controlado: guardá el ISO y actualizalo en onChange; se cierra solo al elegir.',
     'El formato de la fecha mostrada sale de Intl (locale).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `datePicker` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ datePicker: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El trigger abre el calendario (aria-haspopup=dialog); el Calendar aporta la grilla accesible; Esc cierra.'],
 }

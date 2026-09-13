@@ -2,6 +2,7 @@ import { useEffect, useRef, type CSSProperties } from 'react'
 import { cx } from '../../lib/cx'
 import type { ColumnDef, DataTableProps } from './types'
 import { useDataTable } from './useDataTable'
+import { useSkinkitMessages } from '../../i18n/context'
 
 /** Checkbox/radio de selección: setea `indeterminate` por ref y frena la propagación del click. */
 function SelectionControl({
@@ -50,6 +51,7 @@ function SelectionControl({
  * cards/card/card-*, footer/pager/page-*, sentinel, empty, select.
  */
 export function DataTable<T extends object>(props: DataTableProps<T>) {
+  const m = useSkinkitMessages()
   const model = useDataTable(props)
   const {
     // se desestructuran para NO derramar al DOM en ...rest
@@ -69,7 +71,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
     filterValue: _fv,
     defaultFilterValue: _dfv,
     onFilterChange: _ofc,
-    filterPlaceholder = 'Buscar…',
+    filterPlaceholder = m.dataTable.filterPlaceholder,
     pagination: _pg,
     page: _page,
     defaultPage: _dp,
@@ -88,7 +90,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
     density = 'comfortable',
     stickyHeader = false,
     loading = false,
-    emptyContent = 'Sin resultados',
+    emptyContent = m.dataTable.empty,
     caption,
     virtualized: _virtualized,
     rowHeight,
@@ -191,7 +193,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               mode={selectionMode === 'single' ? 'single' : 'multiple'}
               checked={sel}
               onToggle={() => toggleRow(row)}
-              label="Seleccionar fila"
+              label={m.dataTable.selectRow}
               className={cx('sk-datatable__select', classNames?.select)}
             />
           </td>
@@ -250,7 +252,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
                     checked={allSelected}
                     indeterminate={someSelected}
                     onToggle={toggleAll}
-                    label="Seleccionar todo"
+                    label={m.dataTable.selectAll}
                     className={cx('sk-datatable__select', classNames?.select)}
                   />
                 )}
@@ -334,7 +336,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
                     mode={selectionMode === 'single' ? 'single' : 'multiple'}
                     checked={sel}
                     onToggle={() => toggleRow(row)}
-                    label="Seleccionar tarjeta"
+                    label={m.dataTable.selectCard}
                     className={cx('sk-datatable__select', classNames?.select)}
                   />
                 )}
@@ -400,7 +402,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               value={filterValue}
               onChange={(e) => setFilter(e.target.value)}
               placeholder={filterPlaceholder}
-              aria-label="Buscar en la tabla"
+              aria-label={m.dataTable.search}
               className={cx('sk-datatable__search', classNames?.search)}
             />
           )}
@@ -418,10 +420,10 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
                 type="button"
                 data-part="view-toggle"
                 onClick={toggleView}
-                aria-label={effectiveView === 'table' ? 'Ver como tarjetas' : 'Ver como tabla'}
+                aria-label={effectiveView === 'table' ? m.dataTable.viewAsCards : m.dataTable.viewAsTable}
                 className={cx('sk-datatable__view-toggle', classNames?.viewToggle)}
               >
-                {effectiveView === 'table' ? 'Tarjetas' : 'Tabla'}
+                {effectiveView === 'table' ? m.dataTable.cards : m.dataTable.table}
               </button>
             )}
           </div>
@@ -459,7 +461,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               data-part="page-size-select"
               value={pageSize}
               onChange={(e) => setPageSize(Number(e.target.value))}
-              aria-label="Filas por página"
+              aria-label={m.dataTable.rowsPerPage}
               className={cx('sk-datatable__page-size-select', classNames?.pageSizeSelect)}
             >
               {pageSizeOptions.map((n) => (
@@ -475,7 +477,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               data-part="page-btn"
               onClick={() => setPage(page - 1)}
               disabled={page <= 1}
-              aria-label="Página anterior"
+              aria-label={m.dataTable.previousPage}
               className={cx('sk-datatable__page-btn', classNames?.pageBtn)}
             >
               ‹
@@ -488,7 +490,7 @@ export function DataTable<T extends object>(props: DataTableProps<T>) {
               data-part="page-btn"
               onClick={() => setPage(page + 1)}
               disabled={page >= pageCount}
-              aria-label="Página siguiente"
+              aria-label={m.dataTable.nextPage}
               className={cx('sk-datatable__page-btn', classNames?.pageBtn)}
             >
               ›

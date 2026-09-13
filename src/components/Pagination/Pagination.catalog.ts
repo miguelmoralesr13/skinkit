@@ -14,7 +14,7 @@ export const paginationSpec: ComponentSpec = {
     { name: 'count', type: 'number', required: true, description: 'Cantidad total de páginas.' },
     { name: 'onPageChange', type: '(page: number) => void', required: true, description: 'Se invoca con la nueva página.' },
     { name: 'siblingCount', type: 'number', required: false, default: '1', description: 'Páginas visibles a cada lado de la actual.' },
-    { name: 'label', type: 'string', required: false, default: "'Paginación'", description: 'aria-label del <nav>.' },
+    { name: 'label', type: 'string', required: false, default: "'Paginación' (según locale)", description: 'aria-label del <nav>.' },
     { name: 'classNames', type: '{ prev?: string; next?: string; page?: string; ellipsis?: string }', required: false, description: 'Clases adicionales por sub-parte (prev, next, page, ellipsis).' },
   ],
   parts: [
@@ -32,6 +32,7 @@ export const paginationSpec: ComponentSpec = {
     'Es controlado: guardá `page` en tu estado y actualizalo en onPageChange.',
     'count es el TOTAL de páginas, no de ítems. Calculalo con Math.ceil(totalItems / pageSize).',
     'Con pocas páginas no aparecen elipsis; con muchas, se colapsan los extremos automáticamente.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `pagination` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ pagination: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     '<nav aria-label>; la página actual usa aria-current="page"; prev/next tienen aria-label.',

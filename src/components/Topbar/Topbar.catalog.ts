@@ -20,7 +20,7 @@ export const topbarSpec: ComponentSpec = {
     { name: 'Topbar.IconButton.icon', type: 'ReactNode', required: true, description: 'Ícono del botón.' },
     { name: 'Topbar.IconButton.badge', type: 'ReactNode | true', required: false, description: '`true` = punto sin texto; string/number = contador. Sin dropdown propio — envolvelo en Menu/Popover si necesitás un panel.' },
     { name: 'Topbar.IconButton.label', type: 'string', required: true, description: 'aria-label obligatorio — el botón es sólo-ícono.' },
-    { name: 'Topbar.MenuToggle.label', type: 'string', required: false, default: "'Abrir menú'", description: 'aria-label del botón hamburguesa.' },
+    { name: 'Topbar.MenuToggle.label', type: 'string', required: false, default: "'Abrir menú' (según locale)", description: 'aria-label del botón hamburguesa.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=topbar] (<header>).' },
@@ -52,6 +52,7 @@ export const topbarSpec: ComponentSpec = {
     'Topbar.MenuToggle es sólo un botón estilado — no colapsa nada por sí solo. Wireá su onClick a tu propio boolean y pasáselo a <Sidebar collapsed> (mismo patrón que ya requiere esa prop).',
     'Para breadcrumbs, usá el componente Breadcrumb existente compuesto directamente adentro de Topbar (ver ejemplo enterprise) — no hay un Topbar.Breadcrumbs separado a propósito, para no duplicar ese contrato.',
     'Para el layout completo de app (con sidebar y main), envolvé todo en AppShell.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `topbar` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ topbar: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Topbar.UserMenu hereda toda la accesibilidad de Menu: aria-haspopup/aria-expanded en el trigger, role=menu/menuitem en el panel, foco al primer ítem al abrir, flechas/Home/End para navegar.',

@@ -1,6 +1,7 @@
 import { useEditorState } from '@tiptap/react'
 import { cx } from '../../lib/cx'
 import { useRichTextEditorCtx } from './RichTextEditor'
+import { useSkinkitMessages } from '../../i18n/context'
 
 // .Color — a diferencia de Link/Image, no hace falta un <PromptDialog>: el propio navegador ya
 // trae un selector de color nativo (<input type="color">), la misma convención que usa el panel
@@ -12,7 +13,9 @@ export interface RichTextEditorColorProps {
   'aria-label'?: string
 }
 
-export function Color({ className, 'aria-label': ariaLabel = 'Color de texto' }: RichTextEditorColorProps) {
+export function Color({ className, 'aria-label': ariaLabelProp }: RichTextEditorColorProps) {
+  const m = useSkinkitMessages()
+  const ariaLabel = ariaLabelProp ?? m.richTextEditor.textColor
   const { editor } = useRichTextEditorCtx('Color')
   const current =
     useEditorState({

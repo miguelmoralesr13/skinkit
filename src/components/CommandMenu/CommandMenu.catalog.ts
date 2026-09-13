@@ -12,9 +12,9 @@ export const commandMenuSpec: ComponentSpec = {
     { name: 'open', type: 'boolean', required: true, description: 'Si está abierta (controlado — abrila vos con ⌘K/Ctrl+K).' },
     { name: 'onOpenChange', type: '(open: boolean) => void', required: true, description: 'Se invoca al cerrar (Esc/overlay/elegir).' },
     { name: 'items', type: 'CommandItem[]', required: true, description: 'Comandos: { id, label, group?, keywords?, shortcut?, icon?, disabled?, onSelect }.' },
-    { name: 'placeholder', type: 'string', required: false, default: "'Buscar comando…'", description: 'Placeholder del buscador.' },
-    { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados'", description: 'Mensaje sin coincidencias.' },
-    { name: 'label', type: 'string', required: false, default: "'Comandos'", description: 'aria-label del diálogo.' },
+    { name: 'placeholder', type: 'string', required: false, default: "'Buscar comando…' (según locale)", description: 'Placeholder del buscador.' },
+    { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados' (según locale)", description: 'Mensaje sin coincidencias.' },
+    { name: 'label', type: 'string', required: false, default: "'Comandos' (según locale)", description: 'aria-label del diálogo.' },
     {
       name: 'classNames',
       type: '{ overlay?: string; panel?: string; input?: string; list?: string; empty?: string; group?: string; groupLabel?: string; item?: string; icon?: string; label?: string; shortcut?: string }',
@@ -43,6 +43,7 @@ export const commandMenuSpec: ComponentSpec = {
     'Es controlado: vos abrís con un atajo (⌘K/Ctrl+K) y cerrás en onOpenChange.',
     'Filtra por `label` y `keywords`; agrupá con `group`. Cada item corre su `onSelect` y cierra.',
     'Para un menú de acciones sobre algo puntual, usá Menu; esto es una paleta global de búsqueda.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `commandMenu` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ commandMenu: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'input role=combobox + lista role=listbox; el ítem activo va con [data-active]/aria-selected.',

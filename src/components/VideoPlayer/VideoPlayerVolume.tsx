@@ -2,6 +2,7 @@ import { IconVolumeHigh, IconVolumeMuted } from '../../lib/mediaIcons'
 import { Button, type ButtonProps } from '../Button'
 import { cx } from '../../lib/cx'
 import { useVideoPlayerCtx } from './VideoPlayer'
+import { useSkinkitMessages } from '../../i18n/context'
 
 // VolumeSlider es un input[type=range] a mano, NO un <Slider> reusado: Slider trae layout de
 // campo de formulario (label arriba, flex-col) que no encaja en una barra horizontal sin pisar
@@ -12,13 +13,14 @@ import { useVideoPlayerCtx } from './VideoPlayer'
 export type VideoPlayerVolumeButtonProps = Omit<ButtonProps, 'variant' | 'onClick'>
 
 export function VolumeButton({ children, ...rest }: VideoPlayerVolumeButtonProps) {
+  const m = useSkinkitMessages()
   const { state, controls } = useVideoPlayerCtx('VolumeButton')
   const silenced = state.muted || state.volume === 0
   return (
     <Button
       type="button"
       variant="ghost"
-      aria-label={silenced ? 'Activar sonido' : 'Silenciar'}
+      aria-label={silenced ? m.mediaPlayer.unmute : m.mediaPlayer.mute}
       onClick={controls.toggleMute}
       {...rest}
     >
@@ -32,7 +34,9 @@ export interface VideoPlayerVolumeSliderProps {
   'aria-label'?: string
 }
 
-export function VolumeSlider({ className, 'aria-label': ariaLabel = 'Volumen' }: VideoPlayerVolumeSliderProps) {
+export function VolumeSlider({ className, 'aria-label': ariaLabelProp }: VideoPlayerVolumeSliderProps) {
+  const m = useSkinkitMessages()
+  const ariaLabel = ariaLabelProp ?? m.mediaPlayer.volume
   const { state, controls } = useVideoPlayerCtx('VolumeSlider')
   return (
     <input

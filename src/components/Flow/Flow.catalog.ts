@@ -190,6 +190,7 @@ function FlowDemo() {
       'simple), agrupar nodos/sub-flujos, copiar-pegar, snap-to-grid, más de un estilo de ruta de ' +
       'edge (siempre bezier), ni labels sobre un edge. Todo eso es responsabilidad del consumidor ' +
       'o queda para una versión futura — no asumas que existe.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `flow` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ flow: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Un nodo seleccionable/arrastrable tiene tabIndex — foco + flechas del teclado lo mueven ' +

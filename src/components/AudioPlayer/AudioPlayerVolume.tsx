@@ -3,17 +3,19 @@ import { Button, type ButtonProps } from '../Button'
 import { Select, type SelectProps } from '../Select'
 import { cx } from '../../lib/cx'
 import { useAudioPlayerCtx } from './AudioPlayer'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type AudioPlayerVolumeButtonProps = Omit<ButtonProps, 'variant' | 'onClick'>
 
 export function VolumeButton({ children, ...rest }: AudioPlayerVolumeButtonProps) {
+  const m = useSkinkitMessages()
   const { state, controls } = useAudioPlayerCtx('VolumeButton')
   const silenced = state.muted || state.volume === 0
   return (
     <Button
       type="button"
       variant="ghost"
-      aria-label={silenced ? 'Activar sonido' : 'Silenciar'}
+      aria-label={silenced ? m.mediaPlayer.unmute : m.mediaPlayer.mute}
       onClick={controls.toggleMute}
       {...rest}
     >
@@ -27,7 +29,9 @@ export interface AudioPlayerVolumeSliderProps {
   'aria-label'?: string
 }
 
-export function VolumeSlider({ className, 'aria-label': ariaLabel = 'Volumen' }: AudioPlayerVolumeSliderProps) {
+export function VolumeSlider({ className, 'aria-label': ariaLabelProp }: AudioPlayerVolumeSliderProps) {
+  const m = useSkinkitMessages()
+  const ariaLabel = ariaLabelProp ?? m.mediaPlayer.volume
   const { state, controls } = useAudioPlayerCtx('VolumeSlider')
   return (
     <input
@@ -46,7 +50,9 @@ export function VolumeSlider({ className, 'aria-label': ariaLabel = 'Volumen' }:
 
 export interface AudioPlayerPlaybackRateProps extends Omit<SelectProps, 'value' | 'onChange' | 'children'> {}
 
-export function PlaybackRate({ 'aria-label': ariaLabel = 'Velocidad', ...rest }: AudioPlayerPlaybackRateProps) {
+export function PlaybackRate({ 'aria-label': ariaLabelProp, ...rest }: AudioPlayerPlaybackRateProps) {
+  const m = useSkinkitMessages()
+  const ariaLabel = ariaLabelProp ?? m.mediaPlayer.playbackRate
   const { state, controls, playbackRates } = useAudioPlayerCtx('PlaybackRate')
   return (
     <Select

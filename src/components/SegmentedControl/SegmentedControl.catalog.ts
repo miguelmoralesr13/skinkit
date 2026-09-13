@@ -12,7 +12,7 @@ export const segmentedControlSpec: ComponentSpec = {
     { name: 'value', type: 'string', required: false, description: 'Opción activa (controlado).' },
     { name: 'defaultValue', type: 'string', required: false, description: 'Opción activa inicial (uncontrolled). Conviene setearla.' },
     { name: 'onValueChange', type: '(value: string) => void', required: false, description: 'Se invoca con el value elegido.' },
-    { name: 'label', type: 'string', required: false, default: "'Opciones'", description: 'aria-label del grupo.' },
+    { name: 'label', type: 'string', required: false, default: "'Opciones' (según locale)", description: 'aria-label del grupo.' },
   ],
   parts: [
     { name: 'root', description: 'role=radiogroup [data-sk=segmented].' },
@@ -28,6 +28,7 @@ export const segmentedControlSpec: ComponentSpec = {
     'Para 2–4 opciones cortas y mutuamente excluyentes, siempre visibles. Para más, usá Select o Tabs.',
     'Seteá `defaultValue` (o `value`) para que arranque con una activa.',
     'Se parece a Tabs, pero Tabs cambia paneles de contenido; esto elige un VALOR.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `segmentedControl` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ segmentedControl: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['role=radiogroup + items role=radio con aria-checked; flechas mueven y seleccionan; roving tabindex.'],
 }

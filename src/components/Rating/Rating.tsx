@@ -1,6 +1,7 @@
 import { Star } from 'lucide-react'
 import { forwardRef, type HTMLAttributes } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type RatingTone =
   | 'primary'
@@ -45,7 +46,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
     max = 5,
     onChange,
     readOnly,
-    label = 'Puntuación',
+    label: labelProp,
     tone = 'primary',
     className,
     classNames,
@@ -53,6 +54,8 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
   },
   ref,
 ) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.rating.label
   const stars = Array.from({ length: max }, (_, i) => i + 1)
 
   return (

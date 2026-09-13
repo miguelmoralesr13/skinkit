@@ -2,6 +2,7 @@ import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'lucide-react'
 import { useEditorState } from '@tiptap/react'
 import { SegmentedControl, type SegmentedControlProps } from '../SegmentedControl'
 import { useRichTextEditorCtx } from './RichTextEditor'
+import { useSkinkitMessages } from '../../i18n/context'
 
 // .Align — reusa <SegmentedControl> (selector de UNA opción entre pocas, exactamente la
 // semántica de alineación de texto) en vez de inventar 4 botones toggle independientes.
@@ -15,7 +16,9 @@ const ALIGNMENTS = [
 
 export interface RichTextEditorAlignProps extends Omit<SegmentedControlProps, 'value' | 'onValueChange'> {}
 
-export function Align({ label = 'Alineación', ...rest }: RichTextEditorAlignProps) {
+export function Align({ label: labelProp, ...rest }: RichTextEditorAlignProps) {
+  const m = useSkinkitMessages()
+  const label = labelProp ?? m.richTextEditor.align
   const { editor } = useRichTextEditorCtx('Align')
   const current =
     useEditorState({

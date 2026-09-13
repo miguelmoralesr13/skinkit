@@ -44,6 +44,7 @@ export const fileUploadSpec: ComponentSpec = {
     'Sin `preview`, renderizá vos la lista (ej. un Tag por archivo).',
     'variant="button" para un disparador compacto; el drag & drop sigue funcionando igual.',
     'accept filtra en el diálogo, no valida el drop: revisá los tipos en onFiles si importa.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `fileUpload` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ fileUpload: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'La zona es un <label> asociado al input: click y teclado (Enter/Espacio) abren el diálogo.',

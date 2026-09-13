@@ -14,7 +14,7 @@ export const rangeCalendarSpec: ComponentSpec = {
     { name: 'min', type: 'string', required: false, description: 'Fecha mínima (ISO).' },
     { name: 'max', type: 'string', required: false, description: 'Fecha máxima (ISO).' },
     { name: 'weekStartsOn', type: '0 | 1', required: false, default: '0', description: '0 = domingo, 1 = lunes.' },
-    { name: 'locale', type: 'string', required: false, default: "'es'", description: 'Locale (Intl).' },
+    { name: 'locale', type: 'string', required: false, default: "locale del SkinkitProvider ('es' si no hay)", description: 'Locale (Intl).' },
     { name: 'classNames', type: '{ header?: string; prev?: string; next?: string; title?: string; weekdays?: string; weekday?: string; grid?: string; day?: string }', required: false, description: 'Clases adicionales por sub-parte (aditivas, nunca reemplazan la clase base). La misma clase de "weekday"/"day" aplica a todas sus instancias repetidas.' },
   ],
   parts: [
@@ -28,6 +28,7 @@ export const rangeCalendarSpec: ComponentSpec = {
     'Primer click = inicio (end queda null); segundo click posterior = fin. Un click anterior al inicio reinicia el rango.',
     'Es controlado: guardá {start,end} y actualizalo en onChange.',
     'Para el patrón campo+popup, usá DateRangePicker (lo envuelve).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `calendar` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ calendar: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['Reusa la grilla accesible del Calendar; los extremos del rango van con aria-selected.'],
 }

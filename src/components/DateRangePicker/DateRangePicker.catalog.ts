@@ -11,7 +11,7 @@ export const dateRangePickerSpec: ComponentSpec = {
   props: [
     { name: 'value', type: '{ start: string | null; end: string | null }', required: false, description: 'Rango seleccionado (ISO). Controlado.' },
     { name: 'onChange', type: '(range: { start: string | null; end: string | null }) => void', required: false, description: 'Se invoca al cambiar el rango.' },
-    { name: 'placeholder', type: 'string', required: false, default: "'Elegir rango'", description: 'Texto sin rango.' },
+    { name: 'placeholder', type: 'string', required: false, default: "'Elegir rango' (según locale)", description: 'Texto sin rango.' },
     { name: 'label', type: 'ReactNode', required: false, description: 'Etiqueta.' },
     { name: 'helper', type: 'ReactNode', required: false, description: 'Ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido.' },
@@ -19,7 +19,7 @@ export const dateRangePickerSpec: ComponentSpec = {
     { name: 'min', type: 'string', required: false, description: 'Fecha mínima (ISO).' },
     { name: 'max', type: 'string', required: false, description: 'Fecha máxima (ISO).' },
     { name: 'weekStartsOn', type: '0 | 1', required: false, default: '0', description: '0 = domingo, 1 = lunes.' },
-    { name: 'locale', type: 'string', required: false, default: "'es'", description: 'Locale (Intl).' },
+    { name: 'locale', type: 'string', required: false, default: "locale del SkinkitProvider ('es' si no hay)", description: 'Locale (Intl).' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=date-picker][data-range]. Lleva [data-error].' },
@@ -35,6 +35,7 @@ export const dateRangePickerSpec: ComponentSpec = {
     'Para elegir un período (desde–hasta). Para una sola fecha, usá DatePicker.',
     'Es controlado: guardá {start,end}; se cierra solo cuando el rango queda completo.',
     'Mientras falta el fin, muestra "inicio – …".',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `dateRangePicker` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ dateRangePicker: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El trigger abre el calendario (aria-haspopup=dialog); RangeCalendar aporta la grilla accesible.'],
 }

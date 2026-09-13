@@ -207,11 +207,23 @@ accepted trade-off of taking a real Tailwind dependency. `tailwindcss`/`@tailwin
   and `useDismissable.ts` (shared Escape-key + click-outside close behavior for overlay components
   like Popover/Menu/Dialog). Components also emit a fixed `sk-*` className alongside `data-sk` for
   convenience; the `data-*` contract is the canonical selector target.
-- `SkinkitProvider` only sets `data-skinkit-root` on a wrapper div. It's optional — setting the
-  attribute by hand works identically. It no longer takes `theme`/`skin` props (removed along with
-  the old preset system) — components inside a portal (Dialog/CommandMenu/Toast) don't need to
-  "reapply" anything either, since `@theme` tokens live on `:root` and are already available
-  anywhere in the document, portal or not.
+- `SkinkitProvider` sets `data-skinkit-root` on a wrapper div and provides `colorScheme` + i18n
+  (`locale`/`messages`, below). It's optional — without it, components render in `es` and follow
+  the OS color scheme. It no longer takes `theme`/`skin` props (removed along with the old preset
+  system) — components inside a portal (Dialog/CommandMenu/Toast) don't need to "reapply" anything
+  either, since `@theme` tokens live on `:root` and are already available anywhere in the
+  document, portal or not.
+- **i18n** (`src/i18n/`): every default text a component emits (aria-labels, placeholders,
+  "Sin resultados", dialog buttons, the RichTextEditor toolbar…) comes from a typed dictionary
+  `SkinkitMessages` (`types.ts`, grouped per component: `m.dataTable.empty`), with `es.ts`
+  (default) and `en.ts` shipped. Components read it via `useSkinkitMessages()` (or
+  `useSkinkitI18n()` when they also need the BCP-47 `locale` for `Intl` — Calendar/DatePicker);
+  interpolated ones use `formatMessage(m.pagination.page, { page })` with `{name}` placeholders.
+  Precedence: explicit prop (`emptyText`, `aria-label`…) > `<SkinkitProvider messages>` (partial
+  per-component overrides) > dictionary for `locale` (`'en-US'` → `en`; unknown → `es`).
+  **Hard rule: no hardcoded user-visible string in a `.tsx`.** A new text = a new key in
+  `types.ts` + BOTH dictionaries + the component's catalog default written as `'Texto' (según
+  locale)`. The re-audit grep is `grep -rnE "aria-label=\"[A-ZÁÉÍÓÚÑ]" src/components`.
 - The playground (`playground/`) is a vite app (`root: 'playground'`) that imports components from
   `../src` directly (not the built package). It renders the catalog grouped by category with a
   small token-override panel (primary color + radius) that demonstrates the real customization

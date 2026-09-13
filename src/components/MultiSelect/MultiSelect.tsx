@@ -6,6 +6,7 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 import { useDismissable } from '../../lib/useDismissable'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export interface MultiSelectOption {
   value: string
@@ -88,11 +89,13 @@ export function MultiSelect({
   helper,
   error,
   disabled,
-  emptyText = 'Sin resultados',
+  emptyText: emptyTextProp,
   id,
   className,
   classNames,
 }: MultiSelectProps) {
+  const m = useSkinkitMessages()
+  const emptyText = emptyTextProp ?? m.multiSelect.empty
   const isControlled = value !== undefined
   const [internal, setInternal] = useState<string[]>(defaultValue)
   const selected = isControlled ? value : internal
@@ -175,7 +178,7 @@ export function MultiSelect({
               <button
                 type="button"
                 data-part="remove"
-                aria-label={`Quitar ${opt.label}`}
+                aria-label={formatMessage(m.multiSelect.remove, { label: opt.label })}
                 className={cx('sk-multi-select__tag-remove', classNames?.tagRemove)}
                 onClick={(e) => {
                   e.stopPropagation()

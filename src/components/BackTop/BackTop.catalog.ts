@@ -13,7 +13,7 @@ export const backTopSpec: ComponentSpec = {
     { name: 'target', type: 'RefObject<HTMLElement | null>', required: false, description: 'Contenedor scrolleable a observar/subir. Si se omite, usa la ventana.' },
     { name: 'behavior', type: "'smooth' | 'auto'", required: false, default: "'smooth'", description: 'Suavidad del scroll al subir.' },
     { name: 'children', type: 'ReactNode', required: false, default: "'↑'", description: 'Contenido del botón (ej. un ícono).' },
-    { name: 'label', type: 'string', required: false, default: "'Volver arriba'", description: 'aria-label del botón.' },
+    { name: 'label', type: 'string', required: false, default: "'Volver arriba' (según locale)", description: 'aria-label del botón.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=back-top]. El botón. Lleva [data-visible=true|false]; fijalo con position:fixed en el CSS.' },
@@ -29,6 +29,7 @@ export const backTopSpec: ComponentSpec = {
     'Para scroll de PÁGINA (lo normal): omití target y montalo una sola vez; el CSS lo deja position:fixed anclado a la esquina de la ventana. Funciona sin más.',
     'Para un panel con overflow propio (target): NO lo pongas dentro del panel scrolleable — un position:absolute adentro de un scroll-container se desplaza con el contenido. Envolvé el panel en un <div position:relative>, poné el BackTop como HERMANO del panel y pasale style={{ position: "absolute" }}; el target scopa el scroll y el absolute lo fija a la esquina.',
     'Cuando no es visible queda fuera del tab order (tabIndex=-1, aria-hidden).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `backTop` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ backTop: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['Es un <button> con aria-label; se oculta del foco y de lectores cuando no está visible.'],
 }

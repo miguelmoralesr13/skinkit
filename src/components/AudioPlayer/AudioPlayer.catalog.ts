@@ -40,6 +40,7 @@ export const audioPlayerSpec: ComponentSpec = {
     'Los botones de la barra son sub-componentes de esta misma familia — ver la lista de `parts` arriba, no tienen ficha propia (igual que Accordion.Item).',
     '<AudioPlayer.Controls> es un <Toolbar>: las flechas mueven el foco entre botones; dentro de Seek/VolumeSlider, las flechas ajustan el valor del range nativo en vez de mover el foco (comportamiento nativo esperado).',
     'Comparte la lógica de reproducción con VideoPlayer (useMediaPlayer, en src/lib) — mismo comportamiento de estado, sin optimismo: los controles solo reflejan lo que el navegador confirmó.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `mediaPlayer` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ mediaPlayer: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Seek/VolumeSlider son input[type=range] nativos: foco/teclado/ARIA de slider vienen gratis del navegador. Seek expone aria-valuetext con el tiempo en formato legible.',

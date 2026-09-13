@@ -10,6 +10,7 @@ import {
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
 import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full'
 export type DialogPlacement = 'center' | 'left' | 'right' | 'top' | 'bottom'
@@ -199,12 +200,13 @@ function DialogFooter({ className, children, ...rest }: HTMLAttributes<HTMLDivEl
 }
 
 function DialogClose({ className, children, ...rest }: ButtonHTMLAttributes<HTMLButtonElement>) {
+  const m = useSkinkitMessages()
   const ctx = useDialogCtx('Close')
   return (
     <button
       type="button"
       data-part="close"
-      aria-label="Cerrar"
+      aria-label={m.dialog.close}
       className={cx('sk-dialog__close', className)}
       onClick={ctx.onClose}
       {...rest}

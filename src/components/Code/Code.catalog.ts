@@ -28,6 +28,7 @@ export const codeSpec: ComponentSpec = {
     'Pasá `lang` para resaltar sintaxis (highlighter propio, liviano; sin dependencias).',
     'Los colores de sintaxis son tokens del theme (--sk-code-*): cambian con el theme activo, como los "temas" de un editor.',
     'copyable solo aplica en bloque; copia el texto real (no los spans de color).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `code` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ code: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['El botón de copiar cambia su aria-label a "Copiado" tras copiar.'],
 }

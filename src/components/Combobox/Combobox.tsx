@@ -8,6 +8,7 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 import { useDismissable } from '../../lib/useDismissable'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export interface ComboboxOption {
   value: string
@@ -62,11 +63,13 @@ export function Combobox({
   helper,
   error,
   disabled,
-  emptyText = 'Sin resultados',
+  emptyText: emptyTextProp,
   id,
   className,
   classNames,
 }: ComboboxProps) {
+  const m = useSkinkitMessages()
+  const emptyText = emptyTextProp ?? m.combobox.empty
   const rootRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')

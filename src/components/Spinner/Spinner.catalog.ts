@@ -27,7 +27,7 @@ export const spinnerSpec: ComponentSpec = {
       name: 'label',
       type: 'string',
       required: false,
-      default: "'Cargando…'",
+      default: "'Cargando…' (según locale)",
       description: 'Texto para lectores de pantalla. El CSS lo oculta visualmente (queda accesible).',
     },
   ],
@@ -44,6 +44,7 @@ export const spinnerSpec: ComponentSpec = {
     'Usalo para esperas indeterminadas (no sabés cuánto falta). Si conocés el progreso, usá una barra de progreso.',
     'Dejá el `label` con un texto útil ("Cargando…", "Guardando…"): es lo que anuncia el lector de pantalla.',
     'Sin CSS no gira (la animación vive en el CSS): es esperado en esta librería.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `spinner` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ spinner: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'role="status" anuncia el estado de carga de forma no intrusiva (live region polite).',

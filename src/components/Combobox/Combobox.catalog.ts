@@ -17,7 +17,7 @@ export const comboboxSpec: ComponentSpec = {
     { name: 'helper', type: 'ReactNode', required: false, description: 'Ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido.' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita.' },
-    { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados'", description: 'Mensaje cuando no filtra nada.' },
+    { name: 'emptyText', type: 'string', required: false, default: "'Sin resultados' (según locale)", description: 'Mensaje cuando no filtra nada.' },
     {
       name: 'classNames',
       type: '{ label?: string; control?: string; field?: string; listbox?: string; option?: string; empty?: string; helper?: string }',
@@ -46,6 +46,7 @@ export const comboboxSpec: ComponentSpec = {
     'Para elegir UNA opción de una lista LARGA con búsqueda. Para pocas opciones, usá Select o SegmentedControl. Para varios valores, TagInput.',
     'options es {value,label}[]; el filtrado es por `label` (case-insensitive, "incluye").',
     'Es controlado: guardá `value` y actualizalo en onValueChange.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `combobox` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ combobox: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'input role=combobox con aria-expanded/aria-controls/aria-autocomplete; opciones role=option con aria-selected.',

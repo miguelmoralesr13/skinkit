@@ -4,16 +4,18 @@ import { IconPlay, IconPause, IconSkipBack, IconSkipForward } from '../../lib/me
 import { Button, type ButtonProps } from '../Button'
 import { cx } from '../../lib/cx'
 import { useAudioPlayerCtx } from './AudioPlayer'
+import { useSkinkitMessages, formatMessage } from '../../i18n/context'
 
 export type AudioPlayerPlayButtonProps = Omit<ButtonProps, 'variant' | 'onClick'>
 
 export function PlayButton({ children, ...rest }: AudioPlayerPlayButtonProps) {
+  const m = useSkinkitMessages()
   const { state, controls } = useAudioPlayerCtx('PlayButton')
   return (
     <Button
       type="button"
       variant="ghost"
-      aria-label={state.playing ? 'Pausar' : 'Reproducir'}
+      aria-label={state.playing ? m.mediaPlayer.pause : m.mediaPlayer.play}
       onClick={controls.toggle}
       {...rest}
     >
@@ -25,12 +27,13 @@ export function PlayButton({ children, ...rest }: AudioPlayerPlayButtonProps) {
 export type AudioPlayerSkipButtonProps = Omit<ButtonProps, 'variant' | 'onClick'>
 
 export function SkipBack({ children, ...rest }: AudioPlayerSkipButtonProps) {
+  const m = useSkinkitMessages()
   const { controls, skipSeconds } = useAudioPlayerCtx('SkipBack')
   return (
     <Button
       type="button"
       variant="ghost"
-      aria-label={`Retroceder ${skipSeconds}s`}
+      aria-label={formatMessage(m.mediaPlayer.skipBack, { seconds: skipSeconds })}
       onClick={() => controls.skip(-skipSeconds)}
       {...rest}
     >
@@ -40,12 +43,13 @@ export function SkipBack({ children, ...rest }: AudioPlayerSkipButtonProps) {
 }
 
 export function SkipForward({ children, ...rest }: AudioPlayerSkipButtonProps) {
+  const m = useSkinkitMessages()
   const { controls, skipSeconds } = useAudioPlayerCtx('SkipForward')
   return (
     <Button
       type="button"
       variant="ghost"
-      aria-label={`Adelantar ${skipSeconds}s`}
+      aria-label={formatMessage(m.mediaPlayer.skipForward, { seconds: skipSeconds })}
       onClick={() => controls.skip(skipSeconds)}
       {...rest}
     >
@@ -72,7 +76,9 @@ export interface AudioPlayerSeekProps {
   'aria-label'?: string
 }
 
-export function Seek({ className, 'aria-label': ariaLabel = 'Progreso' }: AudioPlayerSeekProps) {
+export function Seek({ className, 'aria-label': ariaLabelProp }: AudioPlayerSeekProps) {
+  const m = useSkinkitMessages()
+  const ariaLabel = ariaLabelProp ?? m.mediaPlayer.seek
   const { state, controls } = useAudioPlayerCtx('Seek')
   const pct = state.duration ? (state.currentTime / state.duration) * 100 : 0
   const bufferedPct = state.duration ? (state.buffered / state.duration) * 100 : 0

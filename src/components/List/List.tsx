@@ -1,6 +1,7 @@
 import { Fragment, type HTMLAttributes, type LiHTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { useList } from './useList'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type ListTone =
   | 'primary'
@@ -73,6 +74,7 @@ export interface ListProps<T = unknown> extends Omit<HTMLAttributes<HTMLElement>
  *   [data-part="loading"|"empty"]
  */
 export function List<T = unknown>(props: ListProps<T>) {
+  const m = useSkinkitMessages()
   const {
     tone = 'primary',
     className,
@@ -81,14 +83,14 @@ export function List<T = unknown>(props: ListProps<T>) {
     renderItem,
     rowKey,
     filterable = false,
-    filterPlaceholder = 'Buscar…',
+    filterPlaceholder = m.list.filterPlaceholder,
     infinite = false,
     loadingMore,
     virtualized: _virtualized,
     rowHeight,
     height,
     loading = false,
-    emptyContent = 'Sin resultados',
+    emptyContent = m.list.empty,
     // el resto se desestructura para no derramar props internas al DOM
     filterValue: _fv,
     defaultFilterValue: _dfv,
@@ -134,7 +136,7 @@ export function List<T = unknown>(props: ListProps<T>) {
             value={filterValue}
             onChange={(e) => setFilter(e.target.value)}
             placeholder={filterPlaceholder}
-            aria-label="Buscar en la lista"
+            aria-label={m.list.search}
           />
         </div>
       )}

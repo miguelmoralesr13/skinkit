@@ -3,6 +3,7 @@ import { renderAsync } from 'docx-preview'
 import { read, utils } from 'xlsx'
 import type { FileKind, PreviewFile } from '../../../lib/fileKind'
 import type { PreviewRenderer } from '../FilePreviewer'
+import { useSkinkitMessages } from '../../../i18n/context'
 
 // Subpath opt-in `skinkit/file-preview-office` — arrastra docx-preview/xlsx (peerDependencies
 // opcionales, ver package.json). El core `FilePreviewer`/`skinkit` sigue cero-deps: sin esto,
@@ -13,6 +14,7 @@ import type { PreviewRenderer } from '../FilePreviewer'
 type Status = 'loading' | 'loaded' | 'error'
 
 function WordPreview({ file }: { file: PreviewFile }) {
+  const m = useSkinkitMessages()
   const containerRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<Status>('loading')
 
@@ -40,7 +42,7 @@ function WordPreview({ file }: { file: PreviewFile }) {
 
   return (
     <div data-part="office-word">
-      {status === 'loading' ? <p data-part="loading">Cargando…</p> : null}
+      {status === 'loading' ? <p data-part="loading">{m.filePreviewer.loading}</p> : null}
       {status === 'error' ? <p data-part="loading">No se pudo cargar el documento.</p> : null}
       <div ref={containerRef} />
     </div>
@@ -48,6 +50,7 @@ function WordPreview({ file }: { file: PreviewFile }) {
 }
 
 function ExcelPreview({ file }: { file: PreviewFile }) {
+  const m = useSkinkitMessages()
   const [status, setStatus] = useState<Status>('loading')
   const [rows, setRows] = useState<unknown[][]>([])
 
@@ -74,7 +77,7 @@ function ExcelPreview({ file }: { file: PreviewFile }) {
     }
   }, [file.url])
 
-  if (status === 'loading') return <p data-part="loading">Cargando…</p>
+  if (status === 'loading') return <p data-part="loading">{m.filePreviewer.loading}</p>
   if (status === 'error') return <p data-part="loading">No se pudo cargar la planilla.</p>
 
   return (

@@ -16,7 +16,7 @@ export const filePreviewerSpec: ComponentSpec = {
     { name: 'onIndexChange', type: '(index: number) => void', required: false, description: 'Se llama al navegar (prev/next).' },
     { name: 'renderers', type: 'Partial<Record<FileKind, (file: PreviewFile) => ReactNode>>', required: false, description: 'Reemplaza o agrega el renderer de un tipo (image/video/audio/pdf/code/word/excel/unknown). Word/Excel no traen renderer por defecto — ver skinkit/file-preview-office.' },
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'full'", required: false, default: "'lg'", description: 'Tamaño del modal (prop de Dialog).' },
-    { name: 'downloadText', type: 'string', required: false, default: "'Descargar'", description: 'Texto del botón de descarga.' },
+    { name: 'downloadText', type: 'string', required: false, default: "'Descargar' (según locale)", description: 'Texto del botón de descarga.' },
     {
       name: 'classNames',
       type: '{ fallback?: string; fallbackIcon?: string; fallbackName?: string; loading?: string; pdfFrame?: string; prev?: string; next?: string; download?: string; size?: string }',
@@ -59,6 +59,7 @@ export const filePreviewerSpec: ComponentSpec = {
     'Detecta el tipo por `type` (MIME) o, si falta, por la extensión de `name` — no hace falta pasarlo si la URL/nombre ya lo deja claro.',
     'La prop `renderers` es la vía de personalización de QUÉ se muestra (podés reemplazar cualquier tipo, incluso los que ya tienen renderer por defecto); el CSS del componente es la vía de personalización de CÓMO se ve.',
     'Word/Excel muestran el panel de fallback (ícono + descarga) por defecto — para preview real, instalá los peer deps opcionales y pasá `renderers={officeRenderers}` desde `skinkit/file-preview-office`.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `filePreviewer` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ filePreviewer: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'Hereda el focus trap, cierre con Esc, scroll lock y ARIA (role=dialog, aria-modal) de Dialog — no hay nada adicional que cablear.',

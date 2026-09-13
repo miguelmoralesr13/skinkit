@@ -105,6 +105,7 @@ const { start } = useTour()
     'trigger: elementVisible es ideal para señalar algo que aparece después de una acción del usuario (nuevo panel, dato recién cargado) sin tener que orquestar manualmente cuándo llamar a start().',
     'target roto o que nunca aparece no rompe el tour: ese paso se salta solo tras waitTimeout con un console.warn en dev.',
     'No uses Tour para contenido crítico que el usuario DEBE confirmar — para eso está Dialog/AlertDialog. Tour es guía opcional, siempre descartable con skip().',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `tour` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ tour: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'El tooltip es role="dialog" aria-modal="true", con aria-labelledby apuntando al título cuando hay uno.',

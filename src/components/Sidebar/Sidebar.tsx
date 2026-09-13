@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
+import { useSkinkitMessages } from '../../i18n/context'
 
 export type NavTone =
   | 'primary'
@@ -165,11 +166,12 @@ export interface SidebarToggleProps extends ButtonHTMLAttributes<HTMLButtonEleme
 /** Botón headless para colapsar/expandir el rail. No maneja el estado: vos controlás `collapsed`
  *  en Sidebar y cableás el onClick de este botón para invertirlo (ej. en Header o Footer). */
 function SidebarToggle({ type, className, children, 'aria-label': ariaLabel, ...rest }: SidebarToggleProps) {
+  const m = useSkinkitMessages()
   return (
     <button
       type={type ?? 'button'}
       data-part="toggle"
-      aria-label={ariaLabel ?? 'Alternar navegación'}
+      aria-label={ariaLabel ?? m.sidebar.toggle}
       className={cx('sk-sidebar__toggle', className)}
       {...rest}
     >

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { cx } from '../../lib/cx'
+import { useSkinkitI18n } from '../../i18n/context'
 
 export interface DateRange {
   start: string | null
@@ -64,10 +65,12 @@ export function RangeCalendar({
   min,
   max,
   weekStartsOn = 0,
-  locale = 'es',
+  locale: localeProp,
   className,
   classNames,
 }: RangeCalendarProps) {
+  const { locale: providerLocale, messages: m } = useSkinkitI18n()
+  const locale = localeProp ?? providerLocale
   const today = new Date()
   const start = value?.start ?? null
   const end = value?.end ?? null
@@ -146,7 +149,7 @@ export function RangeCalendar({
         <button
           type="button"
           data-part="prev"
-          aria-label="Mes anterior"
+          aria-label={m.calendar.previousMonth}
           className={cx('sk-calendar__prev', classNames?.prev)}
           onClick={() => setView(addMonths(view, -1))}
         >
@@ -158,7 +161,7 @@ export function RangeCalendar({
         <button
           type="button"
           data-part="next"
-          aria-label="Mes siguiente"
+          aria-label={m.calendar.nextMonth}
           className={cx('sk-calendar__next', classNames?.next)}
           onClick={() => setView(addMonths(view, 1))}
         >

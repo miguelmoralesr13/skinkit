@@ -24,6 +24,14 @@ Cuando trabajes en esta librería, cargá el skill correspondiente ANTES de escr
 | `skinkit-component-update` | Modificar un componente existente (y sincronizar su catálogo) | [.claude/skills/skinkit-component-update/SKILL.md](.claude/skills/skinkit-component-update/SKILL.md) |
 | `skinkit-tokens` | Cambiar tokens (color/forma) o el CSS de un componente puntual | [.claude/skills/skinkit-tokens/SKILL.md](.claude/skills/skinkit-tokens/SKILL.md) |
 
+## i18n
+
+Ningún componente hardcodea textos visibles/accesibles (aria-labels, placeholders, "Sin
+resultados", botones de diálogos). Salen de `src/i18n/` (`SkinkitMessages` tipado, diccionarios
+`es` (default) y `en`) vía `useSkinkitMessages()`; `<SkinkitProvider locale messages>` los cambia.
+Prop explícita > `messages` del provider > diccionario del `locale`. Texto nuevo = clave nueva en
+`types.ts` + `es.ts` + `en.ts` + default del catálogo como `'Texto' (según locale)`.
+
 ## Fuente de la verdad (catálogo)
 
 Cada componente tiene un `<Name>.catalog.ts` **aparte** con todas sus props + parts + uso →

@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 import { Button } from '../Button'
 import { Popover, type PopoverSide } from '../Popover'
+import { useSkinkitMessages } from '../../i18n/context'
 
 /** Clases adicionales por sub-parte (title/description/actions/confirm). Aditivo: nunca reemplaza la clase base. */
 export interface PopconfirmClassNames {
@@ -43,8 +44,8 @@ export interface PopconfirmProps {
 export function Popconfirm({
   title,
   description,
-  confirmLabel = 'Confirmar',
-  cancelLabel = 'Cancelar',
+  confirmLabel: confirmLabelProp,
+  cancelLabel: cancelLabelProp,
   onConfirm,
   onCancel,
   danger,
@@ -53,6 +54,9 @@ export function Popconfirm({
   className,
   classNames,
 }: PopconfirmProps) {
+  const m = useSkinkitMessages()
+  const cancelLabel = cancelLabelProp ?? m.popconfirm.cancel
+  const confirmLabel = confirmLabelProp ?? m.popconfirm.confirm
   const [open, setOpen] = useState(false)
 
   return (

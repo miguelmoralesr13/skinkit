@@ -15,7 +15,7 @@ export const checkboxCardGroupSpec: ComponentSpec = {
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color de las tarjetas seleccionadas (del theme).' },
     { name: 'columns', type: 'number', required: false, default: '1', description: 'Columnas del grid (emite --sk-checkbox-card-group-cols).' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita todas las tarjetas.' },
-    { name: 'label', type: 'string', required: false, default: "'Opciones'", description: 'aria-label del grupo.' },
+    { name: 'label', type: 'string', required: false, default: "'Opciones' (según locale)", description: 'aria-label del grupo.' },
     { name: 'CheckboxCard.value', type: 'string', required: true, description: 'Valor único de la tarjeta.' },
     { name: 'CheckboxCard.title', type: 'ReactNode', required: true, description: 'Título de la tarjeta.' },
     { name: 'CheckboxCard.description', type: 'ReactNode', required: false, description: 'Descripción opcional.' },
@@ -42,6 +42,7 @@ export const checkboxCardGroupSpec: ComponentSpec = {
     'Cada <CheckboxCard> necesita un `value` único; `onValueChange` recibe el array completo.',
     'El estado seleccionado se refleja en [data-state=checked] (el CSS lo resalta).',
     'Ajustá la cuadrícula con `columns` (o pisando --sk-checkbox-card-group-cols).',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `checkboxCardGroup` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ checkboxCardGroup: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
     'role=group; cada tarjeta envuelve un checkbox nativo → selección múltiple, Space para (des)marcar y Tab entre tarjetas gratis.',

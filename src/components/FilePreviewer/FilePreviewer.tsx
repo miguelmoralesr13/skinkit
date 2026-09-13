@@ -9,6 +9,7 @@ import { formatBytes } from '../../lib/formatBytes'
 import { cx } from '../../lib/cx'
 import { useTextContent } from './useTextContent'
 import { IconFileGeneric, IconFilePdf, IconFileWord, IconFileExcel, IconFileCode, IconDownload } from './fileIcons'
+import { useSkinkitMessages } from '../../i18n/context'
 
 // FilePreviewer NO es una familia compuesta como VideoPlayer/RichTextEditor: es un componente
 // plano y declarativo (sin children, sin sub-partes estáticas), mismo molde que PromptDialog —
@@ -174,10 +175,12 @@ export function FilePreviewer({
   onIndexChange,
   renderers,
   size = 'lg',
-  downloadText = 'Descargar',
+  downloadText: downloadTextProp,
   className,
   classNames,
 }: FilePreviewerProps) {
+  const m = useSkinkitMessages()
+  const downloadText = downloadTextProp ?? m.filePreviewer.download
   const isControlled = index !== undefined
   const [internal, setInternal] = useState(defaultIndex)
   const current = Math.min(isControlled ? index : internal, Math.max(files.length - 1, 0))
@@ -214,7 +217,7 @@ export function FilePreviewer({
           <button
             type="button"
             data-part="prev"
-            aria-label="Anterior"
+            aria-label={m.filePreviewer.previous}
             disabled={current <= 0}
             onClick={() => go(current - 1)}
             className={cx('sk-file-previewer__prev', classNames?.prev)}
@@ -242,7 +245,7 @@ export function FilePreviewer({
           <button
             type="button"
             data-part="next"
-            aria-label="Siguiente"
+            aria-label={m.filePreviewer.next}
             disabled={current >= files.length - 1}
             onClick={() => go(current + 1)}
             className={cx('sk-file-previewer__next', classNames?.next)}

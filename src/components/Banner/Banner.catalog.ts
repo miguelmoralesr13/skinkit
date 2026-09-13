@@ -30,6 +30,7 @@ export const bannerSpec: ComponentSpec = {
     'Para avisos globales breves. Si necesitás título + varias líneas, usá Alert.',
     'Pegalo arriba de la vista (o del contenedor) a lo ancho.',
     'onClose solo dibuja el botón; vos removés el banner del render.',
+    'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `banner` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ banner: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: ['role=status (live region polite); el ícono es aria-hidden; cierre con aria-label.'],
 }
