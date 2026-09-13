@@ -4,8 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`skinkit` — a headless React component library (npm name `skinkit`, `v0.5.2`, 106 catalog specs
-across 102 component directories — a few dirs export more than one spec, e.g. Calendar/RangeCalendar).
+`skinkit` — a headless React component library (npm name `skinkit`, `v0.6.0`, 107 catalog specs
+across 103 component directories — a few dirs export more than one spec, e.g. Calendar/RangeCalendar).
 Components emit **zero style**: only structure plus a stable `data-sk`/`data-part` attribute
 contract. All visuals live in **one Tailwind v4-native design-token + CSS system**: a single
 `@theme` (color + shape tokens) plus one CSS file per component, both fully overridable via CSS
@@ -120,7 +120,7 @@ height/collapse animation. CSS that wants an animated panel must drive open/clos
 
 1. `tokens.css` — the single `@theme` block described above (color + shape + type). Every
    component CSS file references these, never a literal hex/px value that already has a token.
-2. `components/<dataSk>.css` — one file per component (97 files today; a handful of catalog
+2. `components/<dataSk>.css` — one file per component (99 files today; a handful of catalog
    entries share a `dataSk`, e.g. `Calendar`/`RangeCalendar` both use `calendar`, so file count
    ≠ component count exactly), aggregated via `@import './<dataSk>.css' layer(components);` in
    `components/index.css`. The `layer(components)` on each import means a consumer's own
@@ -180,7 +180,7 @@ deps into a consumer's bundle.
 **Per-component catalog files** (`scripts/generate-catalog-files.mjs`, last step of `build`, runs
 after `dist/catalog/index.js` exists — needs it as input): splits the one bundled catalog into
 `dist/catalog/components/<Name>.json` (one per spec) + `dist/catalog/components/_index.json`
-(name/dataSk/category only, for the ~106). No `exports` entry — deliberately plain files, not a
+(name/dataSk/category only, for the ~107). No `exports` entry — deliberately plain files, not a
 subpath, so an agent working in a consumer app can `Read` `node_modules/skinkit/dist/catalog/
 components/Sidebar.json` directly, no JS execution, no need for the `lib-skinkit` source repo
 nearby. This is for AGENTS doing lookup, not app runtime code (which still uses
