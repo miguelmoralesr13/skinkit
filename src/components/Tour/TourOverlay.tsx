@@ -143,7 +143,8 @@ export function TourOverlay({
   const hasTarget = !!targetSelector
   // Un paso con target espera a medirlo; uno suelto (o con `ifMissing: 'show'` ya vencido) se muestra de una vez.
   if (!activeStep || !step || typeof document === 'undefined') return null
-  if (hasTarget && !targetRect && !missing) return null
+  const buscando = hasTarget && !targetRect && !missing
+  if (buscando && !(renderStep && step.whileSearching === 'show')) return null
   const anchored = hasTarget && !!targetRect && !missing
   const dim = step.dim ?? anchored
 
@@ -201,6 +202,7 @@ export function TourOverlay({
           className={step.className}
           role="dialog"
           aria-modal={dim ? 'true' : undefined}
+          aria-label={step.ariaLabel}
           aria-labelledby={!renderStep && step.title ? `sk-tour-title-${stepKey}` : undefined}
           style={tooltipStyle}
         >
@@ -209,6 +211,7 @@ export function TourOverlay({
               step,
               flowId: activeStep.flowId,
               targetFound: anchored,
+              searching: buscando,
               canGoPrev,
               next,
               prev,

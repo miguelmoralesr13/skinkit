@@ -20,6 +20,11 @@ export interface TourStepDef {
   /** Qué hacer si `target` no aparece a tiempo: 'skip' (default) salta el paso; 'show' lo muestra como paso
    * suelto (sin agujero) con `targetFound: false` en `renderStep`, para explicar por qué falta. */
   ifMissing?: 'skip' | 'show'
+  /** Mientras se espera a que `target` aparezca: 'hide' (default) no muestra nada; 'show' muestra ya la tarjeta
+   * suelta con `searching: true` en `renderStep` (p. ej. «Un momento…»), y la ancla cuando el elemento aparece. */
+  whileSearching?: 'hide' | 'show'
+  /** Nombre accesible del diálogo (`aria-label`); útil con `renderStep`, que reemplaza el título visible. */
+  ariaLabel?: string
   /** Atenuar el resto de la pantalla. Default: sí con `target`, no sin él. */
   dim?: boolean
   /** 'targetClick': tocar el elemento señalado avanza solo (el toque sigue llegando al elemento real). */
@@ -47,8 +52,10 @@ export interface TourFlowDef {
 export interface TourStepRenderContext {
   step: TourStepDef
   flowId: string
-  /** false si el paso se muestra por `ifMissing: 'show'` porque su target no apareció. */
+  /** false si el paso se muestra por `ifMissing: 'show'` porque su target no apareció, o por `whileSearching`. */
   targetFound: boolean
+  /** true mientras se espera a que aparezca el target (solo con `whileSearching: 'show'`). */
+  searching: boolean
   canGoPrev: boolean
   next: () => void
   prev: () => void
