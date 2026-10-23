@@ -442,6 +442,7 @@ export type {
   TourFlowEntry,
   TourPlacement,
   TourStepDef,
+  TourStepRenderContext,
   TourTrigger,
   UseTourEngineResult,
 } from './components/Tour'
