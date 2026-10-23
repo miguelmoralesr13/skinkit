@@ -1,7 +1,7 @@
-import { createContext, useContext, useMemo, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useMemo, useRef, type ReactNode } from 'react'
 import { useElementVisible } from '../../lib/useElementVisible'
 import { TourOverlay, type TourClassNames } from './TourOverlay'
-import type { TourConfig } from './types'
+import type { TourActiveStep, TourConfig, TourStepRenderContext } from './types'
 import { useTourEngine, type UseTourEngineResult } from './useTourEngine'
 
 const TourContext = createContext<UseTourEngineResult | null>(null)
@@ -34,6 +34,14 @@ export interface TourProviderProps {
   config: TourConfig
   /** Clases adicionales por `data-part` del overlay/tooltip (backdrop/spotlight/header/title/close/body/footer/prev/next). No reemplaza la clase base. */
   classNames?: TourClassNames
+  /** Dibuja por dentro la tarjeta de cada paso (mascota, progreso, botones propios). Sin él, título/cuerpo/Atrás/Siguiente de siempre. */
+  renderStep?: (ctx: TourStepRenderContext) => ReactNode
+  /** Se llama cada vez que cambia el paso mostrado (y con `null` al terminar): para guardar dónde va la persona y retomar con `start(id, { from })`. */
+  onStepChange?: (active: TourActiveStep | null) => void
+  /** false: tocar el fondo atenuado no cierra el tour. Default true. */
+  dismissOnBackdrop?: boolean
+  /** false: Esc no cierra el tour. Default true. */
+  dismissOnEscape?: boolean
 }
 
 /**
@@ -41,14 +49,34 @@ export interface TourProviderProps {
  * (Context + estado en useState/useMemo + portal a un `[data-skinkit-root]` propio en
  * document.body), no el de un compound component ensamblado en JSX como VideoPlayer.
  */
-export function TourProvider({ children, config, classNames }: TourProviderProps) {
+export function TourProvider({
+  children,
+  config,
+  classNames,
+  renderStep,
+  onStepChange,
+  dismissOnBackdrop,
+  dismissOnEscape,
+}: TourProviderProps) {
   const engine = useTourEngine(config)
+
+  const onStepChangeRef = useRef(onStepChange)
+  onStepChangeRef.current = onStepChange
+  const claveActiva = engine.activeStep ? `${engine.activeStep.flowId}:${engine.activeStep.step.id}` : null
+  useEffect(() => {
+    onStepChangeRef.current?.(engine.activeStep)
+    // Solo cuando cambia el paso mostrado.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [claveActiva])
 
   const autoTriggerFlows = useMemo(
     () =>
       config.flows.filter(
-        (flow): flow is typeof flow & { trigger: { type: 'elementVisible'; target: string } } =>
-          flow.trigger?.type === 'elementVisible',
+        (
+          flow,
+        ): flow is typeof flow & {
+          trigger: { type: 'elementVisible'; target: string }
+        } => flow.trigger?.type === 'elementVisible',
       ),
     [config.flows],
   )
@@ -59,7 +87,13 @@ export function TourProvider({ children, config, classNames }: TourProviderProps
       {autoTriggerFlows.map((flow) => (
         <TourTriggerWatcher key={flow.id} target={flow.trigger.target} onVisible={() => engine.start(flow.id)} />
       ))}
-      <TourOverlay engine={engine} classNames={classNames} />
+      <TourOverlay
+        engine={engine}
+        classNames={classNames}
+        renderStep={renderStep}
+        dismissOnBackdrop={dismissOnBackdrop}
+        dismissOnEscape={dismissOnEscape}
+      />
     </TourContext.Provider>
   )
 }

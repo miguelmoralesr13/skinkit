@@ -9,8 +9,9 @@ export interface UseTourEngineResult {
   /** false en el primer paso del frame actual — un sub-flujo recién entrado no "vuelve" al padre. */
   canGoPrev: boolean
   isActive: boolean
-  /** Arranca `flowId`. Si ya hay un flujo activo, se encola (no colisionan dos overlays a la vez). */
-  start: (flowId: string) => void
+  /** Arranca `flowId` (con `from`, desde el paso con ese id: para retomar). Si ya hay un flujo activo, se encola
+   * (no colisionan dos overlays a la vez). */
+  start: (flowId: string, opts?: { from?: string }) => void
   next: () => void
   prev: () => void
   /** Cierra el flujo activo (el "×" del usuario) — la cola sigue su curso normalmente. */
@@ -51,7 +52,10 @@ export function useTourEngine(config: TourConfig): UseTourEngineResult {
         result.pop()
         if (result.length > 0) {
           const parent = result[result.length - 1]
-          result[result.length - 1] = { ...parent, entryIndex: parent.entryIndex + 1 }
+          result[result.length - 1] = {
+            ...parent,
+            entryIndex: parent.entryIndex + 1,
+          }
         }
       } else break
     }
@@ -72,10 +76,12 @@ export function useTourEngine(config: TourConfig): UseTourEngineResult {
     return { stack: s, queue: q }
   }
 
-  const start = (flowId: string) => {
-    if (!flowMap.has(flowId)) return
+  const start = (flowId: string, opts?: { from?: string }) => {
+    const flow = flowMap.get(flowId)
+    if (!flow) return
     if (stack.length === 0) {
-      setStack(settle([{ flowId, entryIndex: 0 }]))
+      const found = opts?.from ? flow.entries.findIndex((e) => !isSubFlowEntry(e) && e.id === opts.from) : 0
+      setStack(settle([{ flowId, entryIndex: Math.max(0, found) }]))
       return
     }
     // ya activo en la raíz (por profundo que esté el sub-flujo actual) -> no duplicar

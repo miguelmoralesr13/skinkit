@@ -7,6 +7,7 @@ export type {
   TourFlowEntry,
   TourPlacement,
   TourStepDef,
+  TourStepRenderContext,
   TourTrigger,
 } from './types'
 export type { UseTourEngineResult } from './useTourEngine'

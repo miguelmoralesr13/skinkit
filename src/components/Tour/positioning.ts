@@ -54,9 +54,19 @@ export function computeSpotlightFrame(
 
   return {
     top: { top: 0, left: 0, width: viewportWidth, height: hole.top },
-    bottom: { top: holeBottom, left: 0, width: viewportWidth, height: Math.max(0, viewportHeight - holeBottom) },
+    bottom: {
+      top: holeBottom,
+      left: 0,
+      width: viewportWidth,
+      height: Math.max(0, viewportHeight - holeBottom),
+    },
     left: { top: hole.top, left: 0, width: hole.left, height: hole.height },
-    right: { top: hole.top, left: holeRight, width: Math.max(0, viewportWidth - holeRight), height: hole.height },
+    right: {
+      top: hole.top,
+      left: holeRight,
+      width: Math.max(0, viewportWidth - holeRight),
+      height: hole.height,
+    },
     hole,
   }
 }
@@ -104,10 +114,9 @@ export function computeTooltipPosition(
   viewportWidth: number,
   viewportHeight: number,
 ): TooltipPosition {
+  const side = placement === 'center' || placement === 'none' ? 'auto' : placement
   const order: ('top' | 'bottom' | 'left' | 'right')[] =
-    placement === 'auto'
-      ? ['bottom', 'top', 'right', 'left']
-      : [placement, ...SIDES.filter((s) => s !== placement)]
+    side === 'auto' ? ['bottom', 'top', 'right', 'left'] : [side, ...SIDES.filter((s) => s !== side)]
 
   const chosen =
     order.find((s) => fitsSide(s, target, tooltipWidth, tooltipHeight, viewportWidth, viewportHeight)) ?? order[0]
@@ -133,8 +142,14 @@ export function computeTooltipPosition(
       break
   }
 
-  left = Math.min(Math.max(left, VIEWPORT_MARGIN), Math.max(VIEWPORT_MARGIN, viewportWidth - tooltipWidth - VIEWPORT_MARGIN))
-  top = Math.min(Math.max(top, VIEWPORT_MARGIN), Math.max(VIEWPORT_MARGIN, viewportHeight - tooltipHeight - VIEWPORT_MARGIN))
+  left = Math.min(
+    Math.max(left, VIEWPORT_MARGIN),
+    Math.max(VIEWPORT_MARGIN, viewportWidth - tooltipWidth - VIEWPORT_MARGIN),
+  )
+  top = Math.min(
+    Math.max(top, VIEWPORT_MARGIN),
+    Math.max(VIEWPORT_MARGIN, viewportHeight - tooltipHeight - VIEWPORT_MARGIN),
+  )
 
   return { top, left, placement: chosen }
 }

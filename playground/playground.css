@@ -527,3 +527,9 @@ body {
   background: #2f6df6;
   color: #fff;
 }
+
+.sb-tour-tira {
+  left: 1rem;
+  bottom: 1rem;
+  width: 28rem;
+}

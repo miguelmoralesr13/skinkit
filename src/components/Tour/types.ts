@@ -1,12 +1,15 @@
 // Esquema JSON de <TourProvider> — plano y serializable a propósito (nada de funciones/JSX):
 // "configurable con un JSON" es un requisito explícito, no solo una conveniencia de API.
 
-export type TourPlacement = 'top' | 'bottom' | 'left' | 'right' | 'auto'
+/** 'center' centra la tarjeta en la pantalla (paso sin target); 'none' no la posiciona: la ubica quien consume
+ * con `className` (p. ej. una tira junto a un botón propio). */
+export type TourPlacement = 'top' | 'bottom' | 'left' | 'right' | 'auto' | 'center' | 'none'
 
 export interface TourStepDef {
   id: string
-  /** Selector CSS del elemento a destacar. */
-  target: string
+  /** Selector CSS del elemento a destacar. Sin target el paso es «suelto»: no hay agujero y la tarjeta va
+   * centrada (o donde diga `placement`). */
+  target?: string
   title?: string
   body?: string
   placement?: TourPlacement
@@ -14,6 +17,17 @@ export interface TourStepDef {
   spotlightPadding?: number
   /** Cuánto esperar (ms) a que `target` aparezca en el DOM antes de saltear el paso. Default ~3500. */
   waitTimeout?: number
+  /** Qué hacer si `target` no aparece a tiempo: 'skip' (default) salta el paso; 'show' lo muestra como paso
+   * suelto (sin agujero) con `targetFound: false` en `renderStep`, para explicar por qué falta. */
+  ifMissing?: 'skip' | 'show'
+  /** Atenuar el resto de la pantalla. Default: sí con `target`, no sin él. */
+  dim?: boolean
+  /** 'targetClick': tocar el elemento señalado avanza solo (el toque sigue llegando al elemento real). */
+  advanceOn?: 'targetClick'
+  /** Clase extra de la tarjeta de este paso (se suma a las demás). */
+  className?: string
+  /** Datos propios del paso, para `renderStep` (serializable). */
+  data?: Record<string, unknown>
 }
 
 /** Una entrada de flujo es un paso literal, o una referencia a OTRO flujo (subFlow, por id) —
@@ -27,6 +41,18 @@ export interface TourFlowDef {
   entries: TourFlowEntry[]
   /** Default: 'manual' (arranca solo con start(id)). */
   trigger?: TourTrigger
+}
+
+/** Lo que recibe `renderStep` para dibujar por dentro la tarjeta de un paso. */
+export interface TourStepRenderContext {
+  step: TourStepDef
+  flowId: string
+  /** false si el paso se muestra por `ifMissing: 'show'` porque su target no apareció. */
+  targetFound: boolean
+  canGoPrev: boolean
+  next: () => void
+  prev: () => void
+  skip: () => void
 }
 
 export interface TourConfig {

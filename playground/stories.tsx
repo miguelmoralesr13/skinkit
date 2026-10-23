@@ -324,6 +324,82 @@ function TourDemo() {
   )
 }
 
+// Pasos «sueltos» y a medida (sin target, ifMissing, advanceOn, renderStep, retomar con `from`).
+const TOUR_GUIA_CONFIG: TourConfig = {
+  flows: [
+    {
+      id: 'guia',
+      entries: [
+        {
+          id: 'senala',
+          target: '[data-tour-guia="boton"]',
+          title: 'Toca el botón',
+          body: 'El resto se atenúa; el botón sigue siendo tuyo. Tocarlo avanza solo.',
+          advanceOn: 'targetClick',
+        },
+        {
+          id: 'espera',
+          placement: 'none',
+          className: 'sb-tour-tira',
+          title: 'Esperando…',
+          data: { espera: true },
+        },
+        {
+          id: 'falta',
+          target: '[data-tour-guia="no-existe"]',
+          ifMissing: 'show',
+          waitTimeout: 600,
+          title: 'No veo ese botón',
+          body: 'El elemento no está: el paso se muestra suelto y explica por qué.',
+        },
+        { id: 'fin', title: 'Listo', body: 'Un paso sin target va centrado.', dim: true },
+      ],
+    },
+  ],
+}
+
+function TourGuiaPlayground() {
+  const { start, next, activeStep } = useTour()
+  return (
+    <div className="sb-col" style={{ gap: '0.75rem' }}>
+      <div className="sb-row">
+        <Button onClick={() => start('guia')}>Iniciar</Button>
+        <Button variant="outlined" onClick={() => start('guia', { from: 'falta' })}>
+          Retomar en «falta»
+        </Button>
+        <span data-testid="tour-paso">{activeStep ? activeStep.step.id : 'sin tour'}</span>
+      </div>
+      <Button data-tour-guia="boton">Botón señalado</Button>
+      {activeStep?.step.id === 'espera' && <Button onClick={next}>Ya lo hice</Button>}
+    </div>
+  )
+}
+
+function TourGuiaDemo() {
+  return (
+    <TourProvider
+      config={TOUR_GUIA_CONFIG}
+      dismissOnBackdrop={false}
+      renderStep={({ step, targetFound, next, skip }) => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <b style={{ flex: 1 }}>
+            {step.title}
+            {!targetFound && step.target ? ' (sin elemento)' : ''}
+          </b>
+          <Button size="sm" variant="outlined" onClick={skip}>
+            Lo hago después
+          </Button>
+          <Button size="sm" onClick={next}>
+            Siguiente
+          </Button>
+        </div>
+      )}
+    >
+      <TourGuiaPlayground />
+    </TourProvider>
+  )
+}
+
 function DrawerDemo() {
   const [side, setSide] = useState<'left' | 'right' | 'bottom' | null>(null)
   return (
@@ -3470,6 +3546,10 @@ function App() {
       {
         name: 'Anidado + reusado + auto-trigger',
         render: () => <TourDemo />,
+      },
+      {
+        name: 'Pasos sueltos, a medida y retomar',
+        render: () => <TourGuiaDemo />,
       },
     ],
   },
