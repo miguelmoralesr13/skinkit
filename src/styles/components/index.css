@@ -18,6 +18,7 @@
 @import './button.css' layer(components);
 @import './button-group.css' layer(components);
 @import './toggle.css' layer(components);
+@import './chip-group.css' layer(components);
 @import './toolbar.css' layer(components);
 @import './split-button.css' layer(components);
 @import './copy-button.css' layer(components);

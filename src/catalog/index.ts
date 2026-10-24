@@ -10,6 +10,7 @@ import { CATEGORY_ORDER } from './types'
 import { buttonSpec } from '../components/Button/Button.catalog'
 import { buttonGroupSpec } from '../components/ButtonGroup/ButtonGroup.catalog'
 import { toggleSpec } from '../components/Toggle/Toggle.catalog'
+import { chipGroupSpec } from '../components/ChipGroup/ChipGroup.catalog'
 import { toolbarSpec } from '../components/Toolbar/Toolbar.catalog'
 import { splitButtonSpec } from '../components/SplitButton/SplitButton.catalog'
 import { copyButtonSpec } from '../components/CopyButton/CopyButton.catalog'
@@ -120,6 +121,7 @@ export const COMPONENT_CATALOG: ComponentSpec[] = [
   buttonSpec,
   buttonGroupSpec,
   toggleSpec,
+  chipGroupSpec,
   toolbarSpec,
   splitButtonSpec,
   copyButtonSpec,

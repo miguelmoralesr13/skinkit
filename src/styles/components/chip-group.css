@@ -1,0 +1,6 @@
+/* ChipGroup — ver src/components/ChipGroup/ChipGroup.tsx. Los chips son Toggle; aquí solo el acomodo. */
+[data-sk='chip-group'] {
+  --sk-chip-group-gap: 0.5rem;
+  gap: var(--sk-chip-group-gap);
+  @apply flex flex-wrap items-center;
+}

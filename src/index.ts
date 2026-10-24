@@ -21,7 +21,9 @@ export { ButtonGroup } from './components/ButtonGroup'
 export type { ButtonGroupProps, ButtonGroupOrientation } from './components/ButtonGroup'
 
 export { Toggle } from './components/Toggle'
-export type { ToggleProps, ToggleSize } from './components/Toggle'
+export type { ToggleProps, ToggleSize, ToggleTone } from './components/Toggle'
+export { ChipGroup } from './components/ChipGroup'
+export type { ChipGroupProps, ChipGroupOption } from './components/ChipGroup'
 
 export { Toolbar } from './components/Toolbar'
 export type { ToolbarProps, ToolbarSeparatorProps, ToolbarOrientation } from './components/Toolbar'
