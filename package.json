@@ -1,6 +1,6 @@
 {
   "name": "skinkit",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Headless React components styled by a single Tailwind-native design-token system (colors + shape), fully overridable via CSS variables or your own Tailwind config.",
   "type": "module",
   "license": "MIT",
@@ -43,6 +43,7 @@
     "build": "tsup && tsc -p tsconfig.build.json && npm run build:css && node scripts/generate-catalog-files.mjs",
     "build:css": "tailwindcss -i ./src/styles/index.css -o ./dist/styles/skinkit.css --minify",
     "typecheck": "tsc --noEmit",
+    "test": "bun test src",
     "preview": "vite build && vite preview",
     "shots": "node scripts/capture-components.mjs"
   },
@@ -125,6 +126,7 @@
     "@tiptap/pm": "^3.30.2",
     "@tiptap/react": "^3.30.2",
     "@tiptap/starter-kit": "^3.30.2",
+    "@types/bun": "^1.4.4",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",

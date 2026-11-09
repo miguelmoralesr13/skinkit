@@ -19,6 +19,8 @@ export const numberInputSpec: ComponentSpec = {
     { name: 'helper', type: 'ReactNode', required: false, description: 'Texto de ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido ([data-error] + aria-invalid).' },
     { name: 'disabled', type: 'boolean', required: false, description: 'Deshabilita campo y botones.' },
+    { name: 'aria-label', type: 'string', required: false, description: 'Nombre accesible del campo cuando no hay label visible (se pone en el <input>, no en la raíz).' },
+    { name: 'aria-labelledby', type: 'string', required: false, description: 'Id(s) del elemento que nombra al campo (se pone en el <input>).' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor. Lleva [data-error].' },
@@ -32,12 +34,17 @@ export const numberInputSpec: ComponentSpec = {
   examples: [
     { title: 'Cantidad', code: '<NumberInput label="Cantidad" min={1} max={99} defaultValue={1} />' },
     { title: 'Controlado', code: '<NumberInput value={qty} onChange={setQty} min={0} step={5} />' },
+    { title: 'Sin label visible (fila de tabla)', code: '<NumberInput aria-label="Cantidad de Arroz" value={qty} onChange={setQty} min={0} />' },
   ],
   usage: [
     'Para cantidades acotadas con ajuste fino. Para un rango aproximado, usá Slider.',
     'min/max deshabilitan los botones en los extremos y clampean el valor tipeado.',
     'Es controlado si pasás `value`; si no, usá `defaultValue`.',
+    'Pasá siempre `label`; si por diseño no hay label visible (cantidades en una lista), usá `aria-label` (o `aria-labelledby`): va al <input> real.',
     'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `numberInput` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ numberInput: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
-  a11y: ['Botones con aria-label Disminuir/Aumentar; el input es type=number; error setea aria-invalid.'],
+  a11y: [
+    'Botones con aria-label Disminuir/Aumentar; el input es type=number (rol spinbutton); error setea aria-invalid.',
+    'El nombre del campo sale de `label` (htmlFor) o de `aria-label` / `aria-labelledby`, que se aplican al <input>, no a la raíz.',
+  ],
 }

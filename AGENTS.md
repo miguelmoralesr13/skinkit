@@ -46,6 +46,7 @@ bun install
 bun run dev        # playground, http://localhost:3200
 bun run build      # tsup (JS) + tsc (types) + tailwindcss (CSS) → dist
 bun run typecheck  # tsc --noEmit
+bun run test       # bun test src — pruebas de comportamiento (*.test.tsx junto al componente, con react-dom/server)
 bun run shots      # 1 imagen por componente → component-shots/
 ```
 

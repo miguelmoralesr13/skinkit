@@ -76,12 +76,14 @@ bun install        # or npm install
 bun run dev        # playground — vite, http://localhost:3200
 bun run build       # tsup (JS) + tsc (.d.ts) + tailwindcss (CSS) → dist/
 bun run typecheck  # tsc --noEmit
+bun run test       # bun test src — pruebas de comportamiento (*.test.tsx junto al componente, con react-dom/server)
 bun run preview    # vite build && vite preview
 bun run shots      # 1 screenshot per component → component-shots/
 ```
 
-There is **no test runner and no lint script** here (unlike sibling projects in `../`). Rely on
-`typecheck` for verification. Per user rules, do not run `build` after changes unless asked.
+Tests: `bun test` over `src/**/*.test.tsx` (next to the component, rendered with
+`react-dom/server`, no DOM library; start the file with `/// <reference types="bun" />` because
+TS 7 doesn't auto-include `@types/bun`). Build excludes them. There is no lint script. Per user rules, do not run `build` after changes unless asked.
 
 **Verifying the look is VISUAL, never a script.** `bun run shots` (`scripts/capture-components.mjs`,
 Playwright over the running playground) writes one PNG per component to `component-shots/`. It

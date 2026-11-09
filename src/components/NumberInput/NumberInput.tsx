@@ -15,6 +15,13 @@ export interface NumberInputProps {
   disabled?: boolean
   id?: string
   className?: string
+  /**
+   * Nombre accesible del campo cuando no hay `label` visible (p. ej. una cantidad dentro de una
+   * fila de tabla). Se pone en el `<input>` real, no en la raíz.
+   */
+  'aria-label'?: string
+  /** Id(s) del elemento que nombra al campo. Se pone en el `<input>` real. */
+  'aria-labelledby'?: string
 }
 
 function clamp(v: number, min: number, max: number): number {
@@ -30,7 +37,7 @@ function clamp(v: number, min: number, max: number): number {
  *   [data-part="label"]        etiqueta
  *   [data-part="control"]      fila − campo +
  *   [data-part="decrement"]    botón −
- *   [data-part="field"]        el <input type=number>
+ *   [data-part="field"]        el <input type=number> (recibe aria-label / aria-labelledby)
  *   [data-part="increment"]    botón +
  *   [data-part="helper"]       ayuda / error
  */
@@ -48,6 +55,8 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
     disabled,
     id,
     className,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
   },
   ref,
 ) {
@@ -97,6 +106,8 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
           max={max === Infinity ? undefined : max}
           step={step}
           disabled={disabled}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
           aria-invalid={error || undefined}
           aria-describedby={helperId}
           onChange={(e) => {
