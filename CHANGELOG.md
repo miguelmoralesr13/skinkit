@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.2
+
+- `Dialog` ya no re-enfoca su panel cuando el padre pasa un `onClose` nuevo en cada render: antes,
+  un campo dentro del diálogo cuyo valor vive en el padre perdía el foco después de cada letra. El
+  foco, el bloqueo de scroll y el teclado se preparan solo al abrir; Esc llama siempre al `onClose`
+  más reciente. Sin cambios de API.
+- Pruebas con DOM (happy-dom, `src/test/dom.ts`) para los componentes que se montan con
+  `react-dom/client`.
+
 ## 0.8.1
 
 - `NumberInput` acepta `aria-label` y `aria-labelledby` y los pone en el `<input>` real: antes se

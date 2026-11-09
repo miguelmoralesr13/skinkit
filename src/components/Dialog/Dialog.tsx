@@ -86,6 +86,13 @@ export function Dialog({
   const titleId = useId()
   const descId = useId()
   const colorScheme = useSkinkitColorScheme()
+  // El efecto de abajo (foco, scroll lock, teclado) solo debe correr al abrir: si dependiera de
+  // `onClose`, un padre que pasa una función nueva en cada render re-enfocaría el panel y el campo
+  // en el que se escribe perdería el foco tras cada letra. Esc usa siempre el `onClose` más reciente.
+  const onCloseRef = useRef(onClose)
+  useEffect(() => {
+    onCloseRef.current = onClose
+  })
 
   useEffect(() => {
     if (!open) return
@@ -97,7 +104,7 @@ export function Dialog({
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && closeOnEsc) {
         e.stopPropagation()
-        onClose()
+        onCloseRef.current()
         return
       }
       if (e.key === 'Tab') {
@@ -124,7 +131,7 @@ export function Dialog({
       document.body.style.overflow = prevOverflow
       prevActive?.focus?.()
     }
-  }, [open, closeOnEsc, onClose])
+  }, [open, closeOnEsc])
 
   if (!open) return null
 
