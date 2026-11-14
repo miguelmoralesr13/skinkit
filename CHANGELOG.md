@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.3
+
+- `Checkbox`, `Radio` y `Switch` anclan su input nativo oculto (`position: relative` en la raíz). Antes el input
+  absoluto se colocaba respecto a otro contenedor y, al marcar una casilla dentro de un `Dialog` con desplazamiento,
+  el navegador movía el panel para enfocarlo: se perdía el encabezado, el pie subía y el diálogo quedaba en blanco.
+- El panel de `Dialog` usa `overflow: clip` (antes solo `hidden`): no se puede desplazar por código; el cuerpo sigue
+  desplazándose igual. Sin cambios de API.
+
 ## 0.8.2
 
 - `Dialog` ya no re-enfoca su panel cuando el padre pasa un `onClose` nuevo en cada render: antes,

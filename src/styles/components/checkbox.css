@@ -17,6 +17,9 @@
 }
 
 [data-sk='checkbox'] {
+  /* Ancla el input nativo oculto (position: absolute) a la casilla: sin esto se colocaba respecto a otro
+     contenedor, y al enfocarlo el navegador desplazaba un panel con overflow oculto (diálogo en blanco). */
+  position: relative;
   --sk-checkbox-fg: var(--color-sk-text);
   color: var(--sk-checkbox-fg);
   @apply inline-flex items-center gap-2 cursor-pointer text-sk-md;
