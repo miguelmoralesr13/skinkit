@@ -119,6 +119,7 @@ import { DynamicForm } from '../src/components/DynamicForm'
 import type { FormConfig, FormValues } from '../src/components/DynamicForm'
 import { RichTextEditor } from '../src/components/RichTextEditor'
 import { officeRenderers } from '../src/components/FilePreviewer/office'
+import { STORY_GROUPS_DATOS, DISCLOSURE_BADGE_STORY } from './stories-datos'
 
 export interface Story {
   name: string
@@ -4898,3 +4899,7 @@ function App() {
     ],
   },
 ]
+
+// Zona 2 (datos y listas): historias en playground/stories-datos.tsx.
+STORY_GROUPS.push(...STORY_GROUPS_DATOS)
+STORY_GROUPS.find((g) => g.component === 'Disclosure')?.stories.push(DISCLOSURE_BADGE_STORY)
