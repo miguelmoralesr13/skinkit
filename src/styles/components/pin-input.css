@@ -56,3 +56,21 @@
   --sk-pin-input-helper-fg: var(--color-sk-danger);
   color: var(--sk-pin-input-helper-fg);
 }
+
+/* ── opt-in `keypad`: casillas de solo lectura con teclado en pantalla debajo ── */
+[data-sk='pin-input'] [data-part='group'][data-keypad]:focus-visible {
+  outline: none;
+}
+[data-sk='pin-input'] [data-part='group'][data-keypad] [data-part='field'] {
+  @apply cursor-default;
+  caret-color: transparent;
+}
+[data-sk='pin-input'] [data-part='group'][data-keypad]:focus-within [data-part='field'][data-active],
+[data-sk='pin-input'] [data-part='group'][data-keypad]:focus-visible [data-part='field'][data-active] {
+  --sk-pin-input-field-border: var(--color-sk-primary);
+  border-color: var(--sk-pin-input-field-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-pin-input-field-border) 25%, transparent);
+}
+[data-sk='pin-input'] [data-sk='keypad'][data-embedded] {
+  @apply self-start;
+}

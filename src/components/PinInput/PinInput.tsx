@@ -1,4 +1,7 @@
 import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
   useRef,
   useState,
   type ClipboardEvent,
@@ -7,6 +10,7 @@ import {
 } from 'react'
 import { cx } from '../../lib/cx'
 import { useSkinkitMessages, formatMessage } from '../../i18n/context'
+import { KeypadPad } from '../Keypad/KeypadPad'
 
 export type PinInputType = 'numeric' | 'text'
 
@@ -17,6 +21,14 @@ export interface PinInputClassNames {
   /** Se aplica a TODAS las casillas (una por dígito). */
   field?: string
   helper?: string
+}
+
+/** Métodos imperativos de `<PinInput ref>`. */
+export interface PinInputHandle {
+  /** Enfoca la primera casilla vacía (o el grupo, en modo `keypad`). */
+  focus: () => void
+  /** Borra el código, enfoca de nuevo y avisa con `onClear` (p. ej. tras un PIN incorrecto). */
+  clear: () => void
 }
 
 export interface PinInputProps {
@@ -36,6 +48,16 @@ export interface PinInputProps {
   className?: string
   /** Clases opcionales por sub-parte (label/group/field/helper). Aditivas. */
   classNames?: PinInputClassNames
+  /** Opt-in. Toma el foco al montarse: la primera casilla vacía (o el grupo, con `keypad`). */
+  autoFocus?: boolean
+  /** Opt-in. Se invoca cuando el código queda vacío (se borra del todo o se llama a `ref.clear()`). */
+  onClear?: () => void
+  /**
+   * Opt-in. Teclado numérico en pantalla bajo las casillas, sin depender del teclado del sistema:
+   * las casillas pasan a solo lectura (`inputMode="none"`), el grupo recibe el teclado físico
+   * (dígitos, Retroceso, Supr) y cada tecla mide más de 44 px. Solo con `type="numeric"`.
+   */
+  keypad?: boolean
 }
 
 /**
@@ -50,7 +72,8 @@ export interface PinInputProps {
  *   [data-part="field"]     [data-filled]  cada casilla (<input>)
  *   [data-part="helper"]    ayuda / error
  */
-export function PinInput({
+export const PinInput = forwardRef<PinInputHandle, PinInputProps>(function PinInput(
+  {
   value,
   defaultValue = '',
   onChange,
@@ -64,7 +87,13 @@ export function PinInput({
   error,
   className,
   classNames,
-}: PinInputProps) {
+  autoFocus,
+  onClear,
+  keypad: keypadProp,
+  },
+  ref,
+) {
+  const keypad = !!keypadProp && type === 'numeric'
   const m = useSkinkitMessages()
   const isControlled = value !== undefined
   const [internal, setInternal] = useState(defaultValue)
@@ -73,8 +102,11 @@ export function PinInput({
 
   const chars = Array.from({ length }, (_, i) => current[i] ?? '')
 
+  const groupRef = useRef<HTMLDivElement>(null)
+
   const commit = (next: string) => {
     const trimmed = next.slice(0, length)
+    if (trimmed === '' && current !== '') onClear?.()
     if (!isControlled) setInternal(trimmed)
     onChange?.(trimmed)
     if (trimmed.length === length && !trimmed.includes(' ')) onComplete?.(trimmed)
@@ -83,6 +115,49 @@ export function PinInput({
   const valid = (ch: string) => (type === 'numeric' ? /\d/.test(ch) : ch.length === 1)
 
   const focus = (i: number) => refs.current[Math.max(0, Math.min(i, length - 1))]?.focus()
+  const focusEntry = () => {
+    if (keypad) groupRef.current?.focus()
+    else focus(Math.min(current.length, length - 1))
+  }
+
+  useImperativeHandle(ref, () => ({
+    focus: focusEntry,
+    clear: () => {
+      if (!isControlled) setInternal('')
+      onChange?.('')
+      onClear?.()
+      if (keypad) groupRef.current?.focus()
+      else focus(0)
+    },
+  }))
+
+  useEffect(() => {
+    if (autoFocus) focusEntry()
+    // Solo al montarse.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Modo keypad: teclado en pantalla (y físico sobre el grupo) que agrega o quita al final.
+  const pushDigit = (d: string) => {
+    if (disabled || current.length >= length) return
+    commit(current + d)
+  }
+  const popDigit = () => {
+    if (disabled || current.length === 0) return
+    commit(current.slice(0, -1))
+  }
+  const clearAll = () => {
+    if (disabled || current.length === 0) return
+    commit('')
+  }
+  const onGroupKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return
+    if (/^[0-9]$/.test(e.key)) pushDigit(e.key)
+    else if (e.key === 'Backspace') popDigit()
+    else if (e.key === 'Delete') clearAll()
+    else return
+    e.preventDefault()
+  }
 
   const setAt = (i: number, ch: string) => {
     const arr = [...chars]
@@ -138,7 +213,20 @@ export function PinInput({
           {label}
         </span>
       ) : null}
-      <div data-part="group" className={cx('sk-pin-input__group', classNames?.group)}>
+      <div
+        ref={groupRef}
+        data-part="group"
+        className={cx('sk-pin-input__group', classNames?.group)}
+        {...(keypad
+          ? {
+              role: 'group',
+              'aria-label': label ? undefined : m.keypad.label,
+              tabIndex: disabled ? undefined : 0,
+              'data-keypad': '',
+              onKeyDown: onGroupKeyDown,
+            }
+          : {})}
+      >
         {chars.map((ch, i) => (
           <input
             key={i}
@@ -147,21 +235,38 @@ export function PinInput({
             }}
             data-part="field"
             data-filled={ch ? '' : undefined}
+            {...(keypad
+              ? { 'data-active': i === Math.min(current.length, length - 1) ? '' : undefined, readOnly: true, tabIndex: -1 }
+              : {})}
             className={cx('sk-pin-input__field', classNames?.field)}
             type={mask ? 'password' : 'text'}
-            inputMode={type === 'numeric' ? 'numeric' : 'text'}
+            inputMode={keypad ? 'none' : type === 'numeric' ? 'numeric' : 'text'}
             autoComplete={i === 0 ? 'one-time-code' : 'off'}
             maxLength={1}
             disabled={disabled}
             aria-label={formatMessage(m.pinInput.digit, { index: i + 1 })}
             value={ch}
             onChange={(e) => onInput(i, e.target.value)}
-            onKeyDown={(e) => onKeyDown(i, e)}
-            onPaste={(e) => onPaste(i, e)}
+            onKeyDown={keypad ? undefined : (e) => onKeyDown(i, e)}
+            onPaste={keypad ? undefined : (e) => onPaste(i, e)}
             onFocus={(e) => e.target.select()}
           />
         ))}
       </div>
+      {keypad ? (
+        <div data-sk="keypad" data-embedded="" className="sk-keypad">
+          <KeypadPad
+            onDigit={pushDigit}
+            onBackspace={popDigit}
+            onClear={clearAll}
+            disabled={disabled}
+            backspaceLabel={m.keypad.backspace}
+            clearLabel={m.keypad.clear}
+            label={m.keypad.label}
+            className="sk-keypad__keys"
+          />
+        </div>
+      ) : null}
       {helper ? (
         <span data-part="helper" className={cx('sk-pin-input__helper', classNames?.helper)}>
           {helper}
@@ -169,4 +274,4 @@ export function PinInput({
       ) : null}
     </div>
   )
-}
+})
