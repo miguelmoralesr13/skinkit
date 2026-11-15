@@ -45,6 +45,11 @@
   border-color: var(--sk-file-upload-dropzone-border);
 }
 
+/* ── opt-in `anchored`: el input oculto se ancla a la raíz (no desplaza el panel de un Dialog) ── */
+[data-sk='file-upload'][data-anchored] {
+  position: relative;
+}
+
 /* ── ocultar el input nativo (sigue focuseable) ── */
 [data-sk='file-upload'] [data-part='input'] {
   position: absolute;

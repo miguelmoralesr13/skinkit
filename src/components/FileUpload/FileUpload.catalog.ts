@@ -20,6 +20,7 @@ export const fileUploadSpec: ComponentSpec = {
     { name: 'helper', type: 'ReactNode', required: false, description: 'Ayuda / error.' },
     { name: 'error', type: 'boolean', required: false, description: 'Marca inválido ([data-error]).' },
     { name: 'classNames', type: 'FileUploadClassNames', required: false, description: 'Clases adicionales por sub-parte (label, dropzone, input, prompt, previews, preview, thumb, filename, remove, helper). Aditivas: nunca reemplazan la clase base.' },
+    { name: 'anchored', type: 'boolean', required: false, default: 'false', description: 'Opt-in. Ancla el <input> oculto a la propia raíz (position: relative, [data-anchored]): dentro de un Dialog u otro contenedor con scroll el input ya no cuelga del documento ni desplaza el panel al recibir el foco.' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=file-upload]. Lleva [data-variant] y [data-error].' },
@@ -45,6 +46,7 @@ export const fileUploadSpec: ComponentSpec = {
     'variant="button" para un disparador compacto; el drag & drop sigue funcionando igual.',
     'accept filtra en el diálogo, no valida el drop: revisá los tipos en onFiles si importa.',
     'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `fileUpload` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ fileUpload: { … } }}>` o con la prop explícita del componente, que siempre gana.',
+    'Dentro de un `Dialog`, pasa `anchored` para que el input oculto no desplace el panel.',
   ],
   a11y: [
     'La zona es un <label> asociado al input: click y teclado (Enter/Espacio) abren el diálogo.',

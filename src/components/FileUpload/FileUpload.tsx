@@ -45,6 +45,12 @@ export interface FileUploadProps {
   variant?: FileUploadVariant
   /** Muestra una grilla de previews: miniatura para imágenes, nombre para el resto, con quitar. */
   preview?: boolean
+  /**
+   * Opt-in. Ancla el `<input>` oculto a la propia raíz (`position: relative`, `[data-anchored]`):
+   * dentro de un `Dialog` o de otro contenedor con scroll el input ya no cuelga del documento ni
+   * desplaza el panel al recibir el foco. Default `false` (sin cambio).
+   */
+  anchored?: boolean
   className?: string
   id?: string
   /** Clases adicionales por sub-parte (aditivas, nunca reemplazan la clase base). */
@@ -57,7 +63,7 @@ export interface FileUploadProps {
  * muestra miniaturas (crea/libera object URLs). `variant` cambia la anatomía del disparador.
  *
  * Contrato:
- *   [data-sk="file-upload"]   [data-variant] · [data-error]   raíz
+ *   [data-sk="file-upload"]   [data-variant] · [data-error] · [data-anchored]   raíz
  *   [data-part="label"]       etiqueta (opcional)
  *   [data-part="dropzone"]    zona clickeable/soltar · [data-dragging] al arrastrar encima
  *   [data-part="input"]       el <input type=file> (el CSS lo oculta)
@@ -81,6 +87,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
     error,
     variant = 'dropzone',
     preview,
+    anchored,
     className,
     id,
     classNames,
@@ -150,6 +157,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function
       data-sk="file-upload"
       data-variant={variant}
       data-error={error ? '' : undefined}
+      data-anchored={anchored ? '' : undefined}
       className={cx('sk-file-upload', className)}
     >
       {label ? (
