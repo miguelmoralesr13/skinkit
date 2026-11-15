@@ -66,3 +66,19 @@ describe('SortableList', () => {
     expect(html).toContain('draggable="false"')
   })
 })
+
+describe('SortableList · contenedor estrecho', () => {
+  test('el marcado no cambia: las acciones siguen dentro de cada item', () => {
+    const html = render()
+    expect(html).toContain('data-part="actions"')
+    expect(html).not.toContain('data-wrap')
+  })
+  test('el CSS baja las acciones a su propia fila con container query', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { join } = await import('node:path')
+    const css = readFileSync(join(import.meta.dir, '../../styles/components/sortable-list.css'), 'utf8')
+    expect(css).toContain('container-type: inline-size')
+    expect(css).toMatch(/@container sk-sortable-list \(max-width: 28rem\)/)
+    expect(css).toMatch(/\[data-part='actions'\] \{\s*flex-basis: 100%/)
+  })
+})

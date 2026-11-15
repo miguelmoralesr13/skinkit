@@ -4,6 +4,9 @@
   --sk-sortable-list-bg: var(--color-sk-surface);
   --sk-sortable-list-radius: var(--radius-sk-md);
   @apply flex flex-col gap-3 w-full;
+  /* Permite que los botones de acción bajen de fila según el ANCHO DEL CONTENEDOR, no el de la ventana. */
+  container-type: inline-size;
+  container-name: sk-sortable-list;
 }
 [data-sk='sortable-list'] [data-part='list'] {
   @apply flex flex-col gap-2 m-0 p-0 list-none;
@@ -105,6 +108,21 @@
   border-color: var(--sk-sortable-list-border);
   border-radius: var(--sk-sortable-list-radius);
   @apply border border-dashed p-4 text-center text-sk-sm;
+}
+/* Contenedor estrecho (teléfono): Subir/Bajar/Quitar pasan a su propia fila bajo el campo para
+   que no se quede en unos pocos px. En anchos mayores el item sigue en una sola fila. */
+@container sk-sortable-list (max-width: 28rem) {
+  [data-sk='sortable-list'] [data-part='item'] {
+    @apply flex-wrap;
+  }
+  [data-sk='sortable-list'] [data-part='content'] {
+    flex-basis: 0;
+    min-width: 8rem;
+  }
+  [data-sk='sortable-list'] [data-part='actions'] {
+    flex-basis: 100%;
+    @apply justify-end;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   [data-sk='sortable-list'] [data-part='item'],

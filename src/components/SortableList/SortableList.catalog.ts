@@ -56,6 +56,7 @@ export const sortableListSpec: ComponentSpec = {
   usage: [
     'Para listas donde el ORDEN importa y el usuario las edita (pasos, tareas). Para elegir entre opciones usa Select/ChipGroup.',
     'Es controlado: guarda en tu estado lo que llega en onChange. Pasa ids estables (getKey) si dibujas campos, o perderán foco/valor al reordenar.',
+    'Responsive por contenedor (no por ventana): en un contenedor de 28rem o menos los botones Subir/Bajar/Quitar bajan a su propia fila bajo el campo; el marcado no cambia. La raíz declara `container-type: inline-size` (si la pones en un padre que se ajusta a su contenido, dale ancho).',
     'El arrastre HTML5 no funciona con el dedo en la mayoría de móviles: Subir/Bajar cubren ese caso (siempre están).',
   ],
   a11y: [
