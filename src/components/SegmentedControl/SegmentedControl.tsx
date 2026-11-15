@@ -1,5 +1,6 @@
 import {
   createContext,
+  useEffect,
   useCallback,
   useContext,
   useRef,
@@ -28,6 +29,11 @@ export interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElemen
   defaultValue?: string
   onValueChange?: (value: string) => void
   label?: string
+  /**
+   * Opt-in. Cuando las opciones no caben, la franja se desplaza en horizontal (sin partir ni
+   * recortar el control) y la opción activa se mantiene siempre visible. Emite `[data-scrollable]`.
+   */
+  scrollable?: boolean
 }
 
 /**
@@ -36,7 +42,7 @@ export interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElemen
  * flechas ← →. La forma la da el CSS.
  *
  * Contrato:
- *   [data-sk="segmented"]        raíz (role=radiogroup)
+ *   [data-sk="segmented"]        raíz (role=radiogroup) · [data-scrollable] con `scrollable`
  *   [data-part="item"]  [data-state]  cada opción (active|inactive) · role=radio
  */
 export function SegmentedControl({
@@ -44,6 +50,7 @@ export function SegmentedControl({
   defaultValue,
   onValueChange,
   label: labelProp,
+  scrollable,
   className,
   children,
   ...rest
@@ -62,6 +69,18 @@ export function SegmentedControl({
     },
     [isControlled, onValueChange],
   )
+
+  // Con `scrollable`, la opción activa se mantiene dentro de la franja (solo desplaza el propio control).
+  useEffect(() => {
+    const root = rootRef.current
+    if (!scrollable || !root) return
+    const active = root.querySelector<HTMLElement>('[role="radio"][aria-checked="true"]')
+    if (!active) return
+    const left = active.offsetLeft
+    const right = left + active.offsetWidth
+    if (left < root.scrollLeft) root.scrollLeft = left
+    else if (right > root.scrollLeft + root.clientWidth) root.scrollLeft = right - root.clientWidth
+  }, [scrollable, current])
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     const items = Array.from(
@@ -100,6 +119,7 @@ export function SegmentedControl({
       data-sk="segmented"
       role="radiogroup"
       aria-label={label}
+      data-scrollable={scrollable ? '' : undefined}
       className={cx('sk-segmented', className)}
       onKeyDown={onKeyDown}
       {...rest}

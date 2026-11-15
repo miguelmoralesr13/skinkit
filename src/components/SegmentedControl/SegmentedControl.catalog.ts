@@ -13,6 +13,7 @@ export const segmentedControlSpec: ComponentSpec = {
     { name: 'defaultValue', type: 'string', required: false, description: 'Opción activa inicial (uncontrolled). Conviene setearla.' },
     { name: 'onValueChange', type: '(value: string) => void', required: false, description: 'Se invoca con el value elegido.' },
     { name: 'label', type: 'string', required: false, default: "'Opciones' (según locale)", description: 'aria-label del grupo.' },
+    { name: 'scrollable', type: 'boolean', required: false, default: 'false', description: 'Opt-in. Si las opciones no caben, la franja se desplaza en horizontal (sin recortar el control, sin barra visible) y la opción activa se mantiene siempre visible. Emite [data-scrollable].' },
   ],
   parts: [
     { name: 'root', description: 'role=radiogroup [data-sk=segmented].' },
@@ -29,6 +30,7 @@ export const segmentedControlSpec: ComponentSpec = {
     'Seteá `defaultValue` (o `value`) para que arranque con una activa.',
     'Se parece a Tabs, pero Tabs cambia paneles de contenido; esto elige un VALOR.',
     'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `segmentedControl` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ segmentedControl: { … } }}>` o con la prop explícita del componente, que siempre gana.',
+    'Selector de una opción entre varias cortas que debe seguir usable a ancho de teléfono o dentro de un diálogo angosto: `scrollable`.',
   ],
   a11y: ['role=radiogroup + items role=radio con aria-checked; flechas mueven y seleccionan; roving tabindex.'],
 }
