@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.3
+
+Aditiva y compatible; reúne la 0.9.2 (token `--text-sk-xs`, sin publicar aparte) y tres huecos que Caxuela halló al migrar.
+
+- `RangeSlider`: prop opt-in `wrap` para ejes cíclicos como las horas del día. `[22, 2]` en 0–24 es de 22:00 a 02:00. `value` va en `[min, max)`, `minDistance` se mide sobre el arco y los pulgares nunca se rebasan. El riel pinta el arco partido en dos tramos (`data-part="range-wrap"`, `data-wrap` y `data-crossing` en la raíz). Sin `wrap` no cambia nada.
+- `Calendar`: props opt-in `month` (mes visible controlado) y `onMonthChange(month)`: permiten navegar dos calendarios a la par o saltar a un mes. Sin ellas funciona como siempre.
+- `SortableList`: en contenedores de 28rem o menos (container query) los botones Subir/Bajar/Quitar bajan a su propia fila bajo el campo, en vez de dejarlo en ~70 px. Marcado sin cambios; la raíz declara `container-type: inline-size` (no la uses en un padre que se ajuste a su contenido). `SortableList` es nuevo de 0.9.0.
+
 ## 0.9.2
 
 Aditiva y compatible: solo agrega un escalón a la escala tipográfica.
