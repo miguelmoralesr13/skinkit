@@ -1,0 +1,67 @@
+/* ── StackedBar ─────────────────────────────────────────────── */
+[data-sk='stacked-bar'] {
+  @apply flex flex-col gap-3 w-full;
+}
+[data-sk='stacked-bar'] [data-part='bar'] {
+  --sk-stacked-bar-height: 0.75rem;
+  --sk-stacked-bar-radius: var(--radius-sk-pill);
+  --sk-stacked-bar-bg: var(--color-sk-surface-2);
+  --sk-stacked-bar-gap: var(--color-sk-surface);
+  --sk-stacked-bar-min-segment: 0.5rem;
+  height: var(--sk-stacked-bar-height);
+  border-radius: var(--sk-stacked-bar-radius);
+  background-color: var(--sk-stacked-bar-bg);
+  @apply flex w-full overflow-hidden;
+}
+[data-sk='stacked-bar'] [data-part='segment'] {
+  --sk-stacked-bar-segment-bg: var(--color-sk-primary);
+  background-color: var(--sk-stacked-bar-segment-bg);
+  min-width: var(--sk-stacked-bar-min-segment);
+  flex-basis: 0;
+  flex-shrink: 1;
+  box-shadow: inset calc(var(--spacing) * -0.5) 0 0 var(--sk-stacked-bar-gap);
+  @apply transition-[flex-grow] duration-300 ease-in-out;
+}
+[data-sk='stacked-bar'] [data-part='segment']:last-child {
+  box-shadow: none;
+}
+[data-sk='stacked-bar'] [data-part='legend'] {
+  @apply flex flex-wrap gap-x-5 gap-y-2 m-0 p-0 list-none text-sk-sm;
+}
+[data-sk='stacked-bar'] [data-part='legend-item'] {
+  --sk-stacked-bar-legend-bg: var(--color-sk-primary);
+  @apply inline-flex items-center gap-2;
+}
+[data-sk='stacked-bar'] [data-part='swatch'] {
+  background-color: var(--sk-stacked-bar-legend-bg);
+  @apply w-3 h-3 flex-none rounded-sk-sm;
+}
+[data-sk='stacked-bar'] [data-part='legend-label'] {
+  --sk-stacked-bar-label-fg: var(--color-sk-text-muted);
+  color: var(--sk-stacked-bar-label-fg);
+}
+[data-sk='stacked-bar'] [data-part='legend-value'] {
+  --sk-stacked-bar-value-fg: var(--color-sk-text);
+  color: var(--sk-stacked-bar-value-fg);
+  @apply font-semibold tabular-nums;
+}
+[data-sk='stacked-bar'] [data-part='empty'] {
+  --sk-stacked-bar-empty-fg: var(--color-sk-text-muted);
+  color: var(--sk-stacked-bar-empty-fg);
+  @apply text-sk-sm;
+}
+/* Tonos: el tramo y su muestra de leyenda comparten color. */
+[data-sk='stacked-bar'] [data-tone='neutral'] { --sk-stacked-bar-segment-bg: var(--color-sk-text-muted); --sk-stacked-bar-legend-bg: var(--color-sk-text-muted); }
+[data-sk='stacked-bar'] [data-tone='primary'] { --sk-stacked-bar-segment-bg: var(--color-sk-primary); --sk-stacked-bar-legend-bg: var(--color-sk-primary); }
+[data-sk='stacked-bar'] [data-tone='secondary'] { --sk-stacked-bar-segment-bg: var(--color-sk-secondary); --sk-stacked-bar-legend-bg: var(--color-sk-secondary); }
+[data-sk='stacked-bar'] [data-tone='tertiary'] { --sk-stacked-bar-segment-bg: var(--color-sk-tertiary); --sk-stacked-bar-legend-bg: var(--color-sk-tertiary); }
+[data-sk='stacked-bar'] [data-tone='accent'] { --sk-stacked-bar-segment-bg: var(--color-sk-accent); --sk-stacked-bar-legend-bg: var(--color-sk-accent); }
+[data-sk='stacked-bar'] [data-tone='success'] { --sk-stacked-bar-segment-bg: var(--color-sk-success); --sk-stacked-bar-legend-bg: var(--color-sk-success); }
+[data-sk='stacked-bar'] [data-tone='warning'] { --sk-stacked-bar-segment-bg: var(--color-sk-warning); --sk-stacked-bar-legend-bg: var(--color-sk-warning); }
+[data-sk='stacked-bar'] [data-tone='info'] { --sk-stacked-bar-segment-bg: var(--color-sk-info); --sk-stacked-bar-legend-bg: var(--color-sk-info); }
+[data-sk='stacked-bar'] [data-tone='danger'] { --sk-stacked-bar-segment-bg: var(--color-sk-danger); --sk-stacked-bar-legend-bg: var(--color-sk-danger); }
+@media (prefers-reduced-motion: reduce) {
+  [data-sk='stacked-bar'] [data-part='segment'] {
+    transition: none;
+  }
+}
