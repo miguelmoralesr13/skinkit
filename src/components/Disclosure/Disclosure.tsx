@@ -37,6 +37,7 @@ export interface DisclosureProps extends Omit<HTMLAttributes<HTMLDivElement>, 'o
  * Contrato:
  *   [data-sk="disclosure"]   [data-state]  raíz (open|closed)
  *   [data-part="trigger"]    [data-state]  el botón
+ *   [data-part="badge"]                    contador opcional (prop `badge` del Trigger)
  *   [data-part="indicator"]                adorno abrir/cerrar
  *   [data-part="content"]    [data-state]  contenido colapsable (hidden cuando cerrado)
  */
@@ -74,12 +75,18 @@ export function Disclosure({
   )
 }
 
+export interface DisclosureTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Contador/etiqueta junto al título (opt-in). Sin él el marcado es el de siempre. */
+  badge?: ReactNode
+}
+
 function DisclosureTrigger({
   className,
   children,
   onClick,
+  badge,
   ...rest
-}: ButtonHTMLAttributes<HTMLButtonElement>) {
+}: DisclosureTriggerProps) {
   const ctx = useDisclosureCtx('Trigger')
   return (
     <button
@@ -97,6 +104,7 @@ function DisclosureTrigger({
       {...rest}
     >
       <span data-part="label">{children}</span>
+      {badge != null && badge !== false ? <span data-part="badge">{badge}</span> : null}
       <span data-part="indicator" aria-hidden="true" />
     </button>
   )

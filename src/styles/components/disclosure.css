@@ -36,3 +36,13 @@
   color: var(--sk-disclosure-content-fg);
   @apply px-5 pb-5 text-sk-md leading-relaxed;
 }
+/* Contador opcional (prop `badge` del Trigger): solo aplica si existe [data-part='badge']. */
+[data-sk='disclosure'] [data-part='badge'] {
+  --sk-disclosure-badge-bg: var(--color-sk-surface-2);
+  --sk-disclosure-badge-fg: var(--color-sk-text-muted);
+  --sk-disclosure-badge-radius: var(--radius-sk-pill);
+  background-color: var(--sk-disclosure-badge-bg);
+  color: var(--sk-disclosure-badge-fg);
+  border-radius: var(--sk-disclosure-badge-radius);
+  @apply ml-auto px-2 text-sk-sm font-semibold tabular-nums;
+}

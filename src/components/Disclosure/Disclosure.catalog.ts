@@ -14,6 +14,7 @@ export const disclosureSpec: ComponentSpec = {
     { name: 'onOpenChange', type: '(open: boolean) => void', required: false, description: 'Se invoca al abrir/cerrar.' },
   ],
   parts: [
+    { name: 'badge', description: 'Contador/etiqueta opcional junto al título (prop `badge` de <Disclosure.Trigger>); solo existe si se pasa.' },
     { name: 'root', description: 'Contenedor [data-sk=disclosure]. Lleva [data-state=open|closed].' },
     { name: 'trigger', description: 'Botón (aria-expanded). Lleva [data-state]. <Disclosure.Trigger>.' },
     { name: 'indicator', description: 'Adorno abrir/cerrar (chevron, +/−) que dibuja el CSS.' },
@@ -24,8 +25,13 @@ export const disclosureSpec: ComponentSpec = {
       title: 'FAQ',
       code: '<Disclosure>\n  <Disclosure.Trigger>¿Cómo funciona?</Disclosure.Trigger>\n  <Disclosure.Content>Detalle de la respuesta…</Disclosure.Content>\n</Disclosure>',
     },
+    {
+      title: 'Panel con contador (cubre «Collapsible»)',
+      code: '<Disclosure defaultOpen>\n  <Disclosure.Trigger badge={3}>Confirmados hoy</Disclosure.Trigger>\n  <Disclosure.Content>…</Disclosure.Content>\n</Disclosure>',
+    },
   ],
   usage: [
+    'Encabezado con título + contador que despliega una lista: usa `badge` en el Trigger. Para recordar si estaba abierto, controla `open`/`onOpenChange` y guarda el valor.',
     'Para UNA sección que se muestra/oculta. Para VARIAS relacionadas con una sola abierta a la vez, usá Accordion.',
     'Es controlado si pasás `open`; si no, usá `defaultOpen`.',
     'El contenido colapsa con el atributo hidden (correcto para foco/a11y): un CSS que quiera animar la altura debe manejar [data-state] sin depender de hidden.',
