@@ -31,6 +31,7 @@ import {
   FileUpload,
   PasswordInput,
   PinInput,
+  type PinInputHandle,
   TimePicker,
   ColorSwatch,
   RadioCardGroup,
@@ -77,6 +78,8 @@ import {
   Stepper,
   Menu,
   Popover,
+  Keypad,
+  RangeSlider,
   Tooltip,
   Alert,
   Dialog,
@@ -456,6 +459,99 @@ function FileUploadDemo() {
         preview
         helper="Arrastrá imágenes o hacé click. Se muestran las miniaturas."
       />
+    </div>
+  )
+}
+
+function CalendarMultipleDemo() {
+  const [dias, setDias] = useState<string[]>(['2026-12-24', '2026-12-25'])
+  return (
+    <div className="sb-col">
+      <Calendar mode="multiple" value={dias} onChange={setDias} weekStartsOn={1} min="2026-11-01" max="2027-01-31" />
+      <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>{dias.length} días: {dias.join(', ') || '—'}</span>
+    </div>
+  )
+}
+
+function DatePickerEnDialogoDemo() {
+  const [open, setOpen] = useState(false)
+  const [f, setF] = useState('')
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Abrir diálogo</Button>
+      <Dialog open={open} onClose={() => setOpen(false)} size="sm" aria-label="Entrada con lote">
+        <Dialog.Header><Dialog.Title>Entrada con lote</Dialog.Title></Dialog.Header>
+        <Dialog.Body>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <Input placeholder="Cantidad" />
+            <DatePicker portal label="Vence el" value={f} onChange={setF} />
+          </div>
+        </Dialog.Body>
+      </Dialog>
+    </>
+  )
+}
+
+function FileUploadEnDialogoDemo() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Abrir diálogo</Button>
+      <Dialog open={open} onClose={() => setOpen(false)} size="sm" aria-label="Comprobante">
+        <Dialog.Header><Dialog.Title>Comprobante</Dialog.Title></Dialog.Header>
+        <Dialog.Body>
+          <FileUpload anchored label="Foto" preview />
+        </Dialog.Body>
+      </Dialog>
+    </>
+  )
+}
+
+function PinKeypadDemo() {
+  const [msg, setMsg] = useState('Teclea tu PIN')
+  const [err, setErr] = useState(false)
+  const ref = useRef<PinInputHandle>(null)
+  return (
+    <PinInput
+      ref={ref}
+      length={4}
+      mask
+      keypad
+      autoFocus
+      error={err}
+      label="PIN de acceso"
+      helper={msg}
+      onChange={() => setErr(false)}
+      onComplete={(v) => {
+        if (v === '1234') setMsg('Entraste')
+        else {
+          setErr(true)
+          setMsg('PIN incorrecto, intenta otra vez')
+          setTimeout(() => ref.current?.clear(), 600)
+        }
+      }}
+      onClear={() => setMsg('Teclea tu PIN')}
+    />
+  )
+}
+
+function RangeSliderDemo() {
+  const [v, setV] = useState<[number, number]>([18, 23])
+  const hora = (h: number) => `${Math.floor(h)}:${h % 1 ? '30' : '00'}`
+  return (
+    <div style={{ width: '100%', maxWidth: 320 }}>
+      <RangeSlider label="Horario" min={0} max={24} step={0.5} value={v} onChange={setV} showValue formatValue={hora} helper="De la hora de inicio a la de fin" />
+    </div>
+  )
+}
+
+function KeypadDemo() {
+  const [v, setV] = useState(0)
+  const [ok, setOk] = useState<number | null>(null)
+  return (
+    <div className="sb-col">
+      <Keypad value={v} onChange={setV} decimals={2} prefix="$" shortcuts={[10000, 20000, 50000]} onSubmit={(c) => setOk(c)} />
+      <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Valor entero: {v} {ok != null ? `· aceptado ${ok}` : ''}</span>
     </div>
   )
 }
@@ -2818,6 +2914,25 @@ export const STORY_GROUPS: StoryGroup[] = [
     ],
   },
   {
+    component: 'RangeSlider',
+    stories: [
+      { name: 'Horario', render: () => <RangeSliderDemo /> },
+      { name: 'Tonos y deshabilitado', render: () => (
+        <div className="sb-col" style={{ width: '100%', maxWidth: 320 }}>
+          <RangeSlider defaultValue={[20, 60]} tone="success" />
+          <RangeSlider defaultValue={[30, 90]} tone="danger" minDistance={10} />
+          <RangeSlider defaultValue={[10, 40]} disabled label="Deshabilitado" />
+        </div>
+      ) },
+    ],
+  },
+  {
+    component: 'Keypad',
+    stories: [
+      { name: 'Importe', render: () => <KeypadDemo /> },
+    ],
+  },
+  {
     component: 'Slider',
     stories: [
       {
@@ -2874,6 +2989,18 @@ export const STORY_GROUPS: StoryGroup[] = [
   {
     component: 'SegmentedControl',
     stories: [
+      {
+        name: 'Scrollable (ancho de teléfono)',
+        render: () => (
+          <div style={{ width: 280 }}>
+            <SegmentedControl defaultValue="todo" label="Movimiento" scrollable>
+              {['Todo', 'Compras', 'Mermas', 'Ajustes', 'Entradas', 'Rendimientos'].map((o) => (
+                <SegmentedControl.Item key={o} value={o.toLowerCase()}>{o}</SegmentedControl.Item>
+              ))}
+            </SegmentedControl>
+          </div>
+        ),
+      },
       {
         name: 'Vista',
         render: () => (
@@ -2948,6 +3075,21 @@ export const STORY_GROUPS: StoryGroup[] = [
     component: 'Calendar',
     stories: [
       {
+        name: 'Días sueltos (multiple)',
+        render: () => <CalendarMultipleDemo />,
+      },
+      {
+        name: 'Días marcados',
+        render: () => (
+          <Calendar
+            value="2026-10-16"
+            weekStartsOn={1}
+            marks={{ '2026-10-06': 'info', '2026-10-13': 'info', '2026-10-16': 'warning', '2026-10-20': 'info', '2026-10-27': 'info', '2026-10-30': 'danger' }}
+            markLabels={{ info: 'se repite', warning: 'excepción', danger: 'cancelado' }}
+          />
+        ),
+      },
+      {
         name: 'Inline',
         render: () => <CalendarDemo />,
       },
@@ -2956,6 +3098,10 @@ export const STORY_GROUPS: StoryGroup[] = [
   {
     component: 'DatePicker',
     stories: [
+      {
+        name: 'En un diálogo angosto (portal)',
+        render: () => <DatePickerEnDialogoDemo />,
+      },
       {
         name: 'Campo + popover',
         render: () => <DatePickerDemo />,
@@ -2983,6 +3129,10 @@ export const STORY_GROUPS: StoryGroup[] = [
   {
     component: 'FileUpload',
     stories: [
+      {
+        name: 'Anclado en un diálogo (anchored)',
+        render: () => <FileUploadEnDialogoDemo />,
+      },
       {
         name: 'Dropzone + previews',
         render: () => <FileUploadDemo />,
@@ -3155,6 +3305,10 @@ function App() {
   {
     component: 'PinInput',
     stories: [
+      {
+        name: 'Teclado en pantalla (keypad)',
+        render: () => <PinKeypadDemo />,
+      },
       {
         name: 'OTP',
         render: () => <PinInputDemo />,
@@ -4576,6 +4730,16 @@ function App() {
   {
     component: 'Field',
     stories: [
+      {
+        name: 'associateLabel',
+        render: () => (
+          <div style={{ width: '100%', maxWidth: 360 }}>
+            <Field label="Latitud" associateLabel helper="El label queda ligado al input">
+              <Input placeholder="19.4326" />
+            </Field>
+          </div>
+        ),
+      },
       {
         name: 'Envolviendo un control',
         render: () => (
