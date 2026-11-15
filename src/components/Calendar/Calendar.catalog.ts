@@ -16,6 +16,11 @@ export const calendarSpec: ComponentSpec = {
     { name: 'weekStartsOn', type: '0 | 1', required: false, default: '0', description: '0 = domingo, 1 = lunes.' },
     { name: 'locale', type: 'string', required: false, default: "locale del SkinkitProvider ('es' si no hay)", description: 'Locale para nombres de mes/día (Intl).' },
     { name: 'classNames', type: 'CalendarClassNames', required: false, description: 'Clases adicionales por sub-parte (header, prev, next, title, weekdays, weekday, grid, day). Aditivo, nunca reemplaza la clase base.' },
+    { name: 'mode', type: "'single' | 'multiple'", required: false, default: "'single'", description: "Opt-in `multiple`: selección de días sueltos (toque o Enter/Espacio alterna; arrastrar pinta o borra varios). En `multiple`, `value`/`defaultValue` son `string[]` (ISO) y `onChange` recibe la lista ordenada. `min`/`max` siguen aplicando." },
+    { name: 'defaultValue', type: 'string[]', required: false, description: 'Solo con `mode="multiple"`: fechas iniciales (no controlado).' },
+    { name: 'marks', type: 'Record<string, string>', required: false, description: "Opt-in. Marcas por día: `{ '2026-10-16': 'exception' }`. El día emite `[data-state=<estado>]` y un punto bajo el número (estados con color de token: success, warning, danger, info, accent, secondary; cualquier otro usa primary; el consumidor lo pisa con `--sk-calendar-mark`)." },
+    { name: 'markLabels', type: 'Record<string, string>', required: false, description: "Texto accesible por estado de `marks` (p. ej. `{ exception: 'excepción' }`): se agrega al aria-label del día, para que el color no sea el único canal." },
+    { name: 'renderDay', type: '(ctx: CalendarDayContext) => ReactNode', required: false, description: 'Opt-in. Contenido propio de cada día (reemplaza al número). ctx: date, iso, day, state, selected, today, outside, disabled.' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=calendar].' },
@@ -30,12 +35,16 @@ export const calendarSpec: ComponentSpec = {
   examples: [
     { title: 'Controlado', code: '<Calendar value={fecha} onChange={setFecha} />' },
     { title: 'Con rango', code: '<Calendar value={fecha} onChange={setFecha} min="2026-08-01" max="2026-08-31" weekStartsOn={1} />' },
+    { title: 'Días sueltos', code: '<Calendar mode="multiple" value={dias} onChange={setDias} min="2026-12-01" />' },
+    { title: 'Días marcados', code: '<Calendar value={dia} onChange={setDia} marks={{ \'2026-10-16\': \'exception\' }} markLabels={{ exception: \'excepción\' }} />' },
   ],
   usage: [
     'Es controlado: guardá el ISO en tu estado y actualizalo en onChange.',
     'Para abrirlo en un popup (date picker), combiná Calendar dentro de un Popover.',
     'weekStartsOn=1 para semanas que arrancan el lunes; locale cambia los nombres.',
     'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `calendar` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ calendar: { … } }}>` o con la prop explícita del componente, que siempre gana.',
+    'Días sueltos (promociones el 24 y 25, tres sábados): `mode="multiple"` con `value={fechas}` y `onChange={setFechas}`. Se puede arrastrar para marcar varios seguidos; con teclado, flechas + Enter/Espacio.',
+    'Días con estado (excepciones, eventos, ocupado): `marks={{ [iso]: "exception" }}` + `markLabels`; no dependas solo del color, dale un texto con `markLabels` o un glifo con `renderDay`.',
   ],
   a11y: [
     'role=grid con gridcells; el día enfocado es tabbable (roving); Enter/Espacio selecciona.',

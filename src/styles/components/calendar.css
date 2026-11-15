@@ -138,3 +138,29 @@
   --sk-calendar-day-radius: var(--radius-sk-sm);
   border-radius: var(--sk-calendar-day-radius);
 }
+
+/* ── opt-in `mode="multiple"`: el arrastre pinta días, así que el gesto no debe desplazar la página ── */
+[data-sk='calendar'] [data-part='grid'][data-mode='multiple'] {
+  touch-action: none;
+  user-select: none;
+}
+
+/* ── opt-in `marks`: un punto bajo el número en cada día con estado; el estado fija su color ── */
+[data-sk='calendar'] [data-part='day'][data-state] {
+  --sk-calendar-mark: var(--color-sk-primary);
+  position: relative;
+}
+[data-sk='calendar'] [data-part='day'][data-state]::after {
+  content: '';
+  background-color: var(--sk-calendar-mark);
+  @apply absolute bottom-1 left-1/2 w-1 h-1 -translate-x-1/2 rounded-full;
+}
+[data-sk='calendar'] [data-part='day'][data-selected][data-state]::after {
+  background-color: var(--color-sk-on-primary);
+}
+[data-sk='calendar'] [data-part='day'][data-state='success'] { --sk-calendar-mark: var(--color-sk-success); }
+[data-sk='calendar'] [data-part='day'][data-state='warning'] { --sk-calendar-mark: var(--color-sk-warning); }
+[data-sk='calendar'] [data-part='day'][data-state='danger'] { --sk-calendar-mark: var(--color-sk-danger); }
+[data-sk='calendar'] [data-part='day'][data-state='info'] { --sk-calendar-mark: var(--color-sk-info); }
+[data-sk='calendar'] [data-part='day'][data-state='accent'] { --sk-calendar-mark: var(--color-sk-accent); }
+[data-sk='calendar'] [data-part='day'][data-state='secondary'] { --sk-calendar-mark: var(--color-sk-secondary); }
