@@ -94,7 +94,7 @@ Los tokens disponibles — todos con default incluido — son:
 --color-sk-border
 --radius-sk-sm/md/lg/pill
 --shadow-sk-sm/md/lg
---text-sk-sm/md/lg
+--text-sk-xs/sm/md/lg          (xs = 12px con line-height propio de 1rem: notas, subtítulos, metadatos)
 --font-sk-sans/mono
 ```
 

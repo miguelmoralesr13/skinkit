@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.2
+
+Aditiva y compatible: solo agrega un escalón a la escala tipográfica.
+
+- Token nuevo `--text-sk-xs` (0.75rem, 12px) con su `--text-sk-xs--line-height` (1rem): genera la clase
+  `text-sk-xs` (tamaño + interlineado; `leading-*` sigue mandando). Antes `text-sk-xs` no existía y el texto
+  heredaba el tamaño del contenedor. `--text-sk-sm/md/lg` no cambian. Un consumidor que pisa la escala por
+  tema define también `--text-sk-xs` (si no, toma el valor por omisión).
+
 ## 0.9.0
 
 Versión menor: **todo es aditivo y opt-in**. Sin activar nada, el marcado y el CSS efectivo de los componentes

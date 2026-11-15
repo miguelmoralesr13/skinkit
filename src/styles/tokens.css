@@ -30,7 +30,12 @@
   --shadow-sk-lg: light-dark(0 4px 20px rgba(0, 0, 0, 0.06), 0 6px 24px rgba(0, 0, 0, 0.6));
 
   /* Escala tipográfica — distinta de text-sm/base/lg de Tailwind a propósito, preserva los
-     valores viejos de fs-sm/md/lg (13/15/17px) en vez de saltar a los de Tailwind (14/16/18px) */
+     valores viejos de fs-sm/md/lg (13/15/17px) en vez de saltar a los de Tailwind (14/16/18px).
+     `xs` (12px) es el escalón «chico» para notas, subtítulos y metadatos: trae su propio
+     line-height (1rem) para que un renglón de texto chico no herede el interlineado del grande.
+     `leading-*` sigue mandando sobre él. */
+  --text-sk-xs: 0.75rem;
+  --text-sk-xs--line-height: 1rem;
   --text-sk-sm: 0.8125rem;
   --text-sk-md: 0.9375rem;
   --text-sk-lg: 1.0625rem;
