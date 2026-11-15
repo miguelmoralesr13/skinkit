@@ -172,7 +172,13 @@ export const STORY_GROUPS_DATOS: StoryGroup[] = [
     ],
   },
   { component: 'ScheduleGrid', stories: [{ name: 'Agenda semanal', render: () => <ScheduleGridDemo /> }] },
-  { component: 'SortableList', stories: [{ name: 'Pasos editables', render: () => <SortableListDemo /> }] },
+  {
+    component: 'SortableList',
+    stories: [
+      { name: 'Pasos editables', render: () => <SortableListDemo /> },
+      { name: 'Contenedor estrecho (343 px)', render: () => <div style={{ width: 343, maxWidth: '100%' }}><SortableListDemo /></div> },
+    ],
+  },
   {
     component: 'LocationPicker',
     stories: [

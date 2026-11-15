@@ -545,6 +545,27 @@ function RangeSliderDemo() {
   )
 }
 
+function RangeSliderWrapDemo() {
+  const [v, setV] = useState<[number, number]>([22, 2])
+  const hora = (h: number) => `${String(Math.floor(h)).padStart(2, '0')}:${h % 1 ? '30' : '00'}`
+  return (
+    <div style={{ width: '100%', maxWidth: 320 }}>
+      <RangeSlider wrap label="Turno de noche" min={0} max={24} step={0.5} minDistance={1} value={v} onChange={setV} showValue formatValue={hora} helper="Puede cruzar la medianoche" />
+    </div>
+  )
+}
+
+function CalendarMesDemo() {
+  const [mes, setMes] = useState(new Date(2026, 10, 1))
+  const siguiente = new Date(mes.getFullYear(), mes.getMonth() + 1, 1)
+  return (
+    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+      <Calendar month={mes} onMonthChange={setMes} weekStartsOn={1} />
+      <Calendar month={siguiente} onMonthChange={(m) => setMes(new Date(m.getFullYear(), m.getMonth() - 1, 1))} weekStartsOn={1} />
+    </div>
+  )
+}
+
 function KeypadDemo() {
   const [v, setV] = useState(0)
   const [ok, setOk] = useState<number | null>(null)
@@ -2917,6 +2938,7 @@ export const STORY_GROUPS: StoryGroup[] = [
     component: 'RangeSlider',
     stories: [
       { name: 'Horario', render: () => <RangeSliderDemo /> },
+      { name: 'Cruza la medianoche (wrap)', render: () => <RangeSliderWrapDemo /> },
       { name: 'Tonos y deshabilitado', render: () => (
         <div className="sb-col" style={{ width: '100%', maxWidth: 320 }}>
           <RangeSlider defaultValue={[20, 60]} tone="success" />
@@ -3074,6 +3096,7 @@ export const STORY_GROUPS: StoryGroup[] = [
   {
     component: 'Calendar',
     stories: [
+      { name: 'Mes controlado (dos a la par)', render: () => <CalendarMesDemo /> },
       {
         name: 'Días sueltos (multiple)',
         render: () => <CalendarMultipleDemo />,
