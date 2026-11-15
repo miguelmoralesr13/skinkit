@@ -6,6 +6,7 @@ export type {
   Item,
   ItemChange,
   ItemComponentProps,
+  ItemTone,
   ItemTypes,
   ResizeHandlePosition,
   Zone,

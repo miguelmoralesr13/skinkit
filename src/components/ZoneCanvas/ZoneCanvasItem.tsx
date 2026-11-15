@@ -40,8 +40,10 @@ function DefaultItemContent({ id }: ItemComponentProps) {
  */
 export function ZoneCanvasItem({ item, zoneSize }: ZoneCanvasItemProps) {
   const ctx = useZoneCanvasContext('ZoneCanvasItem')
-  const draggable = item.draggable ?? true
-  const resizable = item.resizable ?? true
+  const draggable = !ctx.readOnly && (item.draggable ?? true)
+  const resizable = !ctx.readOnly && (item.resizable ?? true)
+  const clickable = !!ctx.onItemClick
+  const moved = useRef(false)
   const minSize = item.minSize ?? DEFAULT_MIN_SIZE
 
   const elRef = useRef<HTMLDivElement>(null)
@@ -61,10 +63,12 @@ export function ZoneCanvasItem({ item, zoneSize }: ZoneCanvasItemProps) {
       if (!draggable) return false
       if ((e.target as HTMLElement).closest(NO_DRAG_SELECTOR)) return false
       e.stopPropagation()
+      moved.current = false
       setIsDragging(true)
       return { startX: localPosition.x, startY: localPosition.y }
     },
     onMove: ({ dx, dy }, start, e) => {
+      if (dx !== 0 || dy !== 0) moved.current = true
       const raw = { x: start.startX + dx, y: start.startY + dy }
       const next = clampPosition(raw, zoneSize)
       setLocalPosition(next)
@@ -134,6 +138,11 @@ export function ZoneCanvasItem({ item, zoneSize }: ZoneCanvasItemProps) {
   })
 
   const onKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (clickable && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault()
+      ctx.onItemClick?.(item)
+      return
+    }
     const dir = ARROW_KEYS[e.key]
     if (!dir || !draggable) return
     e.preventDefault()
@@ -155,7 +164,21 @@ export function ZoneCanvasItem({ item, zoneSize }: ZoneCanvasItemProps) {
       data-item-type={item.type}
       data-dragging={isDragging ? '' : undefined}
       data-resizing={isResizing ? '' : undefined}
-      tabIndex={draggable ? 0 : undefined}
+      data-tone={item.tone}
+      data-clickable={clickable ? '' : undefined}
+      role={clickable ? 'button' : undefined}
+      tabIndex={draggable || clickable ? 0 : undefined}
+      onClick={
+        clickable
+          ? () => {
+              if (moved.current) {
+                moved.current = false
+                return
+              }
+              ctx.onItemClick?.(item)
+            }
+          : undefined
+      }
       style={
         {
           ['--sk-zone-canvas-item-x' as string]: `${localPosition.x}px`,

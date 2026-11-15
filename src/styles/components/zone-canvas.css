@@ -147,3 +147,26 @@
 [data-sk='zone-canvas'] [data-part='resize-handle'][data-handle-position='bottom-right'] {
   cursor: nwse-resize;
 }
+
+/* Visor (readOnly): sin cursores de arrastre; con onItemClick el item es un botón. */
+[data-sk='zone-canvas'][data-readonly] [data-part='item'] {
+  cursor: default;
+}
+[data-sk='zone-canvas'] [data-part='item'][data-clickable] {
+  cursor: pointer;
+}
+/* Estado por color (items[].tone): relleno suave del tono + borde y texto del tono. */
+[data-sk='zone-canvas'] [data-part='item'][data-tone] {
+  --sk-zone-canvas-item-tone: var(--color-sk-primary);
+  --sk-zone-canvas-item-bg: color-mix(in srgb, var(--sk-zone-canvas-item-tone) 16%, var(--color-sk-surface));
+  --sk-zone-canvas-item-border: var(--sk-zone-canvas-item-tone);
+  color: var(--color-sk-text);
+}
+[data-sk='zone-canvas'] [data-part='item'][data-tone='neutral'] { --sk-zone-canvas-item-tone: var(--color-sk-text-muted); }
+[data-sk='zone-canvas'] [data-part='item'][data-tone='secondary'] { --sk-zone-canvas-item-tone: var(--color-sk-secondary); }
+[data-sk='zone-canvas'] [data-part='item'][data-tone='tertiary'] { --sk-zone-canvas-item-tone: var(--color-sk-tertiary); }
+[data-sk='zone-canvas'] [data-part='item'][data-tone='accent'] { --sk-zone-canvas-item-tone: var(--color-sk-accent); }
+[data-sk='zone-canvas'] [data-part='item'][data-tone='success'] { --sk-zone-canvas-item-tone: var(--color-sk-success); }
+[data-sk='zone-canvas'] [data-part='item'][data-tone='warning'] { --sk-zone-canvas-item-tone: var(--color-sk-warning); }
+[data-sk='zone-canvas'] [data-part='item'][data-tone='info'] { --sk-zone-canvas-item-tone: var(--color-sk-info); }
+[data-sk='zone-canvas'] [data-part='item'][data-tone='danger'] { --sk-zone-canvas-item-tone: var(--color-sk-danger); }

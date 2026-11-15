@@ -29,6 +29,9 @@ export interface Zone<T = unknown> {
   minSize?: CanvasSize
 }
 
+/** Estado por color de un item (p. ej. libre / ocupado / por limpiar). Solo pinta: `data-tone`. */
+export type ItemTone = 'neutral' | 'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'
+
 export interface Item<T = unknown> {
   id: string
   /** Zona dueña — el link de contenencia. */
@@ -47,6 +50,8 @@ export interface Item<T = unknown> {
   resizable?: boolean
   /** Default: { width: 60, height: 32 }. */
   minSize?: CanvasSize
+  /** Estado por color (emite `data-tone`; sin él el item se ve como siempre). */
+  tone?: ItemTone
 }
 
 /** `dragging`/`resizing: false` en el último change de un gesto (el "commit" final). */
@@ -76,14 +81,21 @@ export type ZoneTypes = Record<string, ComponentType<ZoneComponentProps<any>>>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ItemTypes = Record<string, ComponentType<ItemComponentProps<any>>>
 
-export interface ZoneCanvasProps extends HTMLAttributes<HTMLDivElement> {
+export interface ZoneCanvasProps<TItem = unknown> extends HTMLAttributes<HTMLDivElement> {
   zones?: Zone[]
   defaultZones?: Zone[]
   onZonesChange?: (changes: ZoneChange[]) => void
 
-  items?: Item[]
-  defaultItems?: Item[]
+  items?: Item<TItem>[]
+  defaultItems?: Item<TItem>[]
   onItemsChange?: (changes: ItemChange[]) => void
+
+  /** Modo visor: sin arrastre, reparent, redimensión ni flechas, con el mismo modelo de datos que el
+   * editor. Emite `data-readonly` en la raíz. Sin esto el canvas es editable como siempre. */
+  readOnly?: boolean
+  /** Toque/clic/Enter/Espacio sobre un item (en editor, un arrastre no cuenta como clic). Hace el
+   * item enfocable (`role="button"`) y emite `data-clickable`. */
+  onItemClick?: (item: Item<TItem>) => void
 
   /** Mapa type→componente para el contenido propio de cada zona (además de sus items). */
   zoneTypes?: ZoneTypes

@@ -45,8 +45,8 @@ interface ResizeSnapshot {
  */
 export function ZoneCanvasZone({ zone, zoneTypes }: ZoneCanvasZoneProps) {
   const ctx = useZoneCanvasContext('ZoneCanvasZone')
-  const draggable = zone.draggable ?? true
-  const resizable = zone.resizable ?? true
+  const draggable = !ctx.readOnly && (zone.draggable ?? true)
+  const resizable = !ctx.readOnly && (zone.resizable ?? true)
   const minSize = zone.minSize ?? DEFAULT_MIN_SIZE
 
   const [localPosition, setLocalPosition] = useState(zone.position)

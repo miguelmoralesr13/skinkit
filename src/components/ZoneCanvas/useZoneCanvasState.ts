@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
 import type { Item, ItemChange, Zone, ZoneChange } from './types'
 
-/** Reducer puro — exportado (a diferencia del equivalente privado en Flow) para que un consumidor
+/** Reducer puro, genérico: conserva el tipo de `data` (`Zone<T>[]` entra, `Zone<T>[]` sale). Exportado (a diferencia del equivalente privado en Flow) para que un consumidor
  * controlado, o el ejemplo del catálogo, lo pueda usar de verdad en vez de reinventar el switch. */
-export function applyZoneChanges(zones: Zone[], changes: ZoneChange[]): Zone[] {
+export function applyZoneChanges<T = unknown>(zones: Zone<T>[], changes: ZoneChange[]): Zone<T>[] {
   let next = zones
   for (const change of changes) {
     if (change.type === 'position') {
@@ -18,7 +18,7 @@ export function applyZoneChanges(zones: Zone[], changes: ZoneChange[]): Zone[] {
 }
 
 /** Reducer puro — ídem, exportado. */
-export function applyItemChanges(items: Item[], changes: ItemChange[]): Item[] {
+export function applyItemChanges<T = unknown>(items: Item<T>[], changes: ItemChange[]): Item<T>[] {
   let next = items
   for (const change of changes) {
     if (change.type === 'position') {

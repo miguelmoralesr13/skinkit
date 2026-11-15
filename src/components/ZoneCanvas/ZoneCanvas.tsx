@@ -2,11 +2,13 @@ import { createContext, useContext, useRef, type RefObject } from 'react'
 import { cx } from '../../lib/cx'
 import { ZoneCanvasZone } from './ZoneCanvasZone'
 import { useZoneCanvasState, type ZoneCanvasStateModel } from './useZoneCanvasState'
-import type { ItemTypes, ZoneCanvasProps } from './types'
+import type { Item, ItemTypes, ZoneCanvasProps } from './types'
 
 export interface ZoneCanvasContextValue extends ZoneCanvasStateModel {
   rootRef: RefObject<HTMLDivElement | null>
   itemTypes?: ItemTypes
+  readOnly: boolean
+  onItemClick?: (item: Item) => void
 }
 const ZoneCanvasContext = createContext<ZoneCanvasContextValue | null>(null)
 
@@ -26,7 +28,7 @@ export function useZoneCanvasContext(where: string): ZoneCanvasContextValue {
  * Contrato (ver también ZoneCanvasZone.tsx/ZoneCanvasItem.tsx):
  *   [data-sk="zone-canvas"]   raíz, overflow:auto — no tiene pan/zoom (a diferencia de Flow)
  */
-export function ZoneCanvas({
+export function ZoneCanvas<TItem = unknown>({
   zones,
   defaultZones,
   onZonesChange,
@@ -35,25 +37,33 @@ export function ZoneCanvas({
   onItemsChange,
   zoneTypes,
   itemTypes,
+  readOnly = false,
+  onItemClick,
   className,
   children,
   ...rest
-}: ZoneCanvasProps) {
+}: ZoneCanvasProps<TItem>) {
   const state = useZoneCanvasState({
     zones,
     defaultZones,
     onZonesChange,
     items,
     defaultItems,
-    onItemsChange,
+    onItemsChange: onItemsChange as ((c: import('./types').ItemChange[]) => void) | undefined,
   })
   const rootRef = useRef<HTMLDivElement>(null)
 
-  const ctxValue: ZoneCanvasContextValue = { ...state, rootRef, itemTypes }
+  const ctxValue: ZoneCanvasContextValue = {
+    ...state,
+    rootRef,
+    itemTypes,
+    readOnly,
+    onItemClick: onItemClick as ((item: Item) => void) | undefined,
+  }
 
   return (
     <ZoneCanvasContext.Provider value={ctxValue}>
-      <div ref={rootRef} data-sk="zone-canvas" className={cx('sk-zone-canvas', className)} {...rest}>
+      <div ref={rootRef} data-sk="zone-canvas" data-readonly={readOnly ? '' : undefined} className={cx('sk-zone-canvas', className)} {...rest}>
         {state.zones.map((zone) => (
           <ZoneCanvasZone key={zone.id} zone={zone} zoneTypes={zoneTypes} />
         ))}

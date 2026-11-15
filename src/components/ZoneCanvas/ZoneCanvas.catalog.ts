@@ -49,6 +49,27 @@ export const zoneCanvasSpec: ComponentSpec = {
         'el switch.',
     },
     {
+      name: 'readOnly',
+      type: 'boolean',
+      required: false,
+      default: 'false',
+      description:
+        'Modo visor: sin arrastre, reparent, redimensión ni flechas, con el MISMO modelo de datos que el editor (zones/items). Emite [data-readonly] en la raíz.',
+    },
+    {
+      name: 'onItemClick',
+      type: '(item: Item) => void',
+      required: false,
+      description:
+        'Toque/clic/Enter/Espacio sobre un item (en el editor, un arrastre no cuenta como clic). Vuelve al item enfocable (role="button", [data-clickable]).',
+    },
+    {
+      name: 'items[].tone',
+      type: "'neutral' | 'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'",
+      required: false,
+      description: 'Estado por color de un item (emite [data-tone]; relleno suave + borde del tono). Útil en visores: libre/ocupado/por limpiar.',
+    },
+    {
       name: 'itemTypes',
       type: 'Record<string, ComponentType<{ id, data }>>',
       required: false,
@@ -122,6 +143,7 @@ function ZoneCanvasDemo() {
     },
   ],
   usage: [
+    'Para un visor (misma data que el editor) pasa `readOnly`, `items[].tone` para el estado por color y `onItemClick` para abrir el detalle. `applyItemChanges<T>`/`applyZoneChanges<T>` son genéricos y conservan el tipo de `data`.',
     'Sin pan/zoom — a diferencia de Flow, las zonas viven en un layout acotado, no en un grafo ' +
       'potencialmente infinito. El canvas raíz es un `overflow: auto` simple.',
     'Genérico a propósito: "zone"/"item" son los nombres — nada de "mesa"/"restaurante" en la ' +
