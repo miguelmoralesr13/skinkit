@@ -46,6 +46,17 @@
   @apply absolute inset-y-0 rounded-sk-pill;
 }
 
+/* Solo con `wrap`: el arco que cruza el final del eje se pinta en dos tramos. */
+[data-sk='range-slider'][data-crossing] [data-part='range'] {
+  right: 0;
+}
+[data-sk='range-slider'] [data-part='range-wrap'] {
+  background-color: var(--sk-range-slider-color);
+  left: 0;
+  right: calc(100% - var(--sk-range-end));
+  @apply absolute inset-y-0 rounded-sk-pill;
+}
+
 [data-sk='range-slider'] [data-part='thumb-start'],
 [data-sk='range-slider'] [data-part='thumb-end'] {
   --sk-range-slider-thumb-bg: var(--color-sk-surface);

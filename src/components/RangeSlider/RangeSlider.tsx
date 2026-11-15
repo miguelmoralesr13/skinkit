@@ -43,6 +43,13 @@ export interface RangeSliderProps {
   helper?: ReactNode
   /** Muestra «inicio – fin» junto a la etiqueta. */
   showValue?: boolean
+  /**
+   * Opt-in. Eje circular (horas del día, grados): el rango puede cruzar el final del eje. Con
+   * `wrap`, `value = [inicio, fin]` y `fin < inicio` significa «cruza» (p. ej. `[22, 2]` en un eje
+   * 0–24 es de las 22:00 a las 02:00). Los valores viven en `[min, max)`: `max` equivale a `min`.
+   * `fin === inicio` es un rango vacío. `minDistance` se mide sobre el arco (de inicio a fin).
+   */
+  wrap?: boolean
   /** Formato de cada número (etiqueta visible y `aria-valuetext`). */
   formatValue?: (n: number) => string
   /** Color del tramo y los pulgares. 'primary' (default) no emite data-tone. */
@@ -68,10 +75,12 @@ const decimals = (n: number) => (String(n).split('.')[1] ?? '').length
  *   [data-part="header"]           fila de etiqueta + valores (si hay label o showValue)
  *   [data-part="label"] / "value"  etiqueta y «inicio – fin»
  *   [data-part="track"]            el riel
- *   [data-part="range"]            el tramo entre los dos pulgares
+ *   [data-part="range"]            el tramo entre los dos pulgares (con `wrap` y arco que cruza: de inicio al final del riel)
+ *   [data-part="range-wrap"]       solo con `wrap` y arco que cruza: del principio del riel hasta el fin
  *   [data-part="thumb-start"]      pulgar de inicio (role=slider)
  *   [data-part="thumb-end"]        pulgar de fin (role=slider)
  *   [data-part="helper"]           ayuda
+ *   raíz con `wrap`: [data-wrap] · [data-crossing] cuando el arco cruza el final del eje
  */
 export function RangeSlider({
   value,
@@ -88,6 +97,7 @@ export function RangeSlider({
   showValue,
   formatValue,
   tone = 'primary',
+  wrap = false,
   startLabel,
   endLabel,
   className,
@@ -99,7 +109,14 @@ export function RangeSlider({
   const rootId = id ?? autoId
   const isControlled = value !== undefined
   const [internal, setInternal] = useState<RangeSliderValue>(defaultValue ?? [min, max])
-  const [a, b] = isControlled ? value : internal
+  const [rawA, rawB] = isControlled ? value : internal
+  const wrapNorm = (v: number) => {
+    const sp = max - min
+    const d = Math.max(decimals(step), decimals(min))
+    return Number((((((v - min) % sp) + sp) % sp) + min).toFixed(d))
+  }
+  const [a, b] = wrap && max !== min ? [wrapNorm(rawA), wrapNorm(rawB)] : [rawA, rawB]
+  const crossing = wrap && b < a
   const trackRef = useRef<HTMLDivElement>(null)
   const liveRef = useRef<RangeSliderValue>([a, b])
   liveRef.current = [a, b]
@@ -114,7 +131,32 @@ export function RangeSlider({
   const pct = (v: number) => (max === min ? 0 : ((v - min) / (max - min)) * 100)
   const fmt = (n: number) => (formatValue ? formatValue(n) : String(n))
 
-  const setThumb = (which: 0 | 1, raw: number) => {
+  // ── modo circular (`wrap`) ──
+  const span = max - min
+  const arcLen = (s: number, e: number) => (((e - s) % span) + span) % span
+  /** Mueve un pulgar por el camino circular más corto hacia `raw`, acotado por `minDistance` en el arco. */
+  const setThumbWrap = (which: 0 | 1, raw: number, relative = false) => {
+    const [cs, ce] = liveRef.current
+    const cur = which === 0 ? cs : ce
+    const len = arcLen(cs, ce)
+    const lo = Math.max(0, minDistance)
+    const hi = Math.max(lo, span - Math.max(lo, step))
+    // Desplazamiento firmado: por el camino más corto (arrastre) o directo (teclado).
+    let d = relative ? raw : ((((raw - cur) % span) + span + span / 2) % span) - span / 2
+    // Inicio: mover +d acorta el arco; fin: mover +d lo alarga.
+    const lenAfter = which === 0 ? len - d : len + d
+    const clamped = Math.min(hi, Math.max(lo, lenAfter))
+    d = which === 0 ? len - clamped : clamped - len
+    const nextPos = wrapNorm(Math.round((cur + d - min) / step) * step + min)
+    const next: RangeSliderValue = which === 0 ? [nextPos, ce] : [cs, nextPos]
+    if (next[0] === cs && next[1] === ce) return
+    liveRef.current = next
+    if (!isControlled) setInternal(next)
+    onChange?.(next)
+  }
+
+  const setThumb = (which: 0 | 1, raw: number, relative = false) => {
+    if (wrap) return setThumbWrap(which, raw, relative)
     const [cs, ce] = liveRef.current
     const v = snap(raw)
     const next: RangeSliderValue = which === 0 ? [Math.min(v, ce - minDistance), ce] : [cs, Math.max(v, cs + minDistance)]
@@ -139,7 +181,13 @@ export function RangeSlider({
     const [cs, ce] = liveRef.current
     let which: 0 | 1
     if (fromThumb) which = fromThumb.getAttribute('data-part') === 'thumb-start' ? 0 : 1
-    else if (cs === ce) which = v < cs ? 0 : 1
+    else if (wrap) {
+      const dist = (x: number, y: number) => {
+        const t = Math.abs(x - y)
+        return Math.min(t, span - t)
+      }
+      which = dist(v, cs) <= dist(v, ce) ? 0 : 1
+    } else if (cs === ce) which = v < cs ? 0 : 1
     else which = Math.abs(v - cs) <= Math.abs(v - ce) ? 0 : 1
     dragRef.current = which
     setDragging(true)
@@ -168,6 +216,23 @@ export function RangeSlider({
     const cur = liveRef.current[which]
     const [cs, ce] = liveRef.current
     let next: number
+    if (wrap) {
+      const big = span
+      const delta =
+        e.key === 'ArrowRight' || e.key === 'ArrowUp' ? step
+        : e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? -step
+        : e.key === 'PageUp' ? step * 10
+        : e.key === 'PageDown' ? -step * 10
+        // Inicio/Fin: lleva el pulgar al límite del arco (el más corto o el más largo permitido).
+        : e.key === 'Home' ? -big
+        : e.key === 'End' ? big
+        : null
+      if (delta === null) return
+      e.preventDefault()
+      setThumbWrap(which, delta, true)
+      onChangeEnd?.(liveRef.current)
+      return
+    }
     switch (e.key) {
       case 'ArrowRight':
       case 'ArrowUp':
@@ -222,6 +287,8 @@ export function RangeSlider({
       data-tone={tone === 'primary' ? undefined : tone}
       data-disabled={disabled ? '' : undefined}
       data-dragging={dragging ? '' : undefined}
+      data-wrap={wrap ? '' : undefined}
+      data-crossing={crossing ? '' : undefined}
       role="group"
       aria-labelledby={label ? `${rootId}-label` : undefined}
       style={rootStyle}
@@ -251,6 +318,7 @@ export function RangeSlider({
         onPointerCancel={endDrag}
       >
         <div data-part="range" className={cx('sk-range-slider__range', classNames?.range)} />
+        {crossing ? <div data-part="range-wrap" className={cx('sk-range-slider__range-wrap', classNames?.range)} /> : null}
         {thumb(0, a, startLabel ?? m.rangeSlider.start, classNames?.thumbStart)}
         {thumb(1, b, endLabel ?? m.rangeSlider.end, classNames?.thumbEnd)}
       </div>
