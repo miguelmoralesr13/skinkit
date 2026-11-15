@@ -11,9 +11,15 @@ export type BadgeVariant =
   | 'warning'
   | 'info'
   | 'danger'
+  | 'soft'
+
+/** Tono del Badge `soft` (fondo claro del tono + texto del tono). */
+export type BadgeTone = Exclude<BadgeVariant, 'soft'>
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant
+  /** Solo con `variant="soft"`: tono del fondo claro. Sin él, `soft` usa primary. */
+  tone?: BadgeTone
 }
 
 /**
@@ -22,10 +28,11 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
  *
  * Contrato:
  *   [data-sk="badge"]       raíz
- *   [data-variant]          neutral | primary | danger
+ *   [data-variant]          neutral | primary | secondary | … | danger | soft
+ *   [data-tone]             solo con soft (el tono del fondo claro)
  */
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
-  { variant = 'neutral', className, children, ...rest },
+  { variant = 'neutral', tone, className, children, ...rest },
   ref,
 ) {
   return (
@@ -33,6 +40,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
       ref={ref}
       data-sk="badge"
       data-variant={variant}
+      data-tone={variant === 'soft' ? tone : undefined}
       className={cx('sk-badge', className)}
       {...rest}
     >

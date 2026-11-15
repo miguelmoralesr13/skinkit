@@ -85,6 +85,18 @@
   block-size: var(--sk-bottom-nav-icon-size);
 }
 
+/* Contador (GAP-012b): sobre la esquina superior del ícono, tokenizado como el del Sidebar. */
+[data-sk='bottom-nav'] [data-part='item-badge'] {
+  --sk-bottom-nav-badge-bg: var(--color-sk-danger);
+  --sk-bottom-nav-badge-fg: var(--color-sk-on-danger);
+  background-color: var(--sk-bottom-nav-badge-bg);
+  color: var(--sk-bottom-nav-badge-fg);
+  border-radius: var(--radius-sk-pill);
+  inset-block-start: 0.125rem;
+  inset-inline-start: calc(50% + 0.25rem);
+  @apply absolute min-w-4 h-4 px-1 text-center text-sk-sm font-semibold leading-4 pointer-events-none;
+}
+
 /* Bottom sheet del submenú — reusa <Dialog placement="bottom">; acá sólo el layout de los items.
    Estos selectores NO van scopeados bajo [data-sk='bottom-nav'] porque el sheet se portaliza
    fuera del <nav> (a document.body vía Dialog). */

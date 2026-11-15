@@ -15,14 +15,21 @@ export const badgeSpec: ComponentSpec = {
       required: false,
       default: "'neutral'",
       description:
-        'Tono según intención. neutral = informativo; primary = destacado/de marca; danger = error/alerta.',
+        'Tono según intención. neutral = informativo; primary = destacado/de marca; danger = error/alerta. `soft` = fondo claro del tono (combínalo con `tone`).',
+    },
+    {
+      name: 'tone',
+      type: "'neutral' | 'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'",
+      required: false,
+      description: 'Solo con `variant="soft"`: tono del fondo claro y del texto. Sin él, soft usa primary. Sin efecto con las demás variantes.',
     },
   ],
-  parts: [{ name: 'root', description: 'El <span>. Lleva [data-variant].' }],
+  parts: [{ name: 'root', description: 'El <span>. Lleva [data-variant] y, con variant="soft", [data-tone].' }],
   examples: [
     { title: 'Neutral', code: '<Badge>Borrador</Badge>' },
     { title: 'Primary', code: '<Badge variant="primary">Nuevo</Badge>' },
     { title: 'Danger con conteo', code: '<Badge variant="danger">3</Badge>' },
+    { title: 'Soft (fondo claro del tono)', code: '<Badge variant="soft" tone="success">Activo</Badge>' },
   ],
   usage: [
     'Textos MUY cortos (1–2 palabras o un número). Para mensajes largos usá otro patrón.',

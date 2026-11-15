@@ -12,6 +12,7 @@ export const bottomNavSpec: ComponentSpec = {
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del ítem activo (del theme). La skin puede pisarlo con --sk-bottom-nav-item-fg-active.' },
     { name: 'children', type: 'ReactNode', required: false, description: 'Los BottomNav.Item.' },
     { name: 'BottomNav.Item.icon', type: 'ReactNode', required: false, description: 'Ícono del item (arriba del label).' },
+    { name: 'BottomNav.Item.badge', type: 'ReactNode | number', required: false, description: 'Contador o marca sobre el ícono (igual que Sidebar.Item.badge). Con 0/false/null no se pinta. Parte [data-part=item-badge]; tokens --sk-bottom-nav-badge-bg/-fg.' },
     { name: 'BottomNav.Item.active', type: 'boolean', required: false, description: 'Marca el item como activo ([data-active] + aria-current). Manual (lib agnóstica de router).' },
     { name: 'BottomNav.Item.submenu', type: 'ReactNode', required: false, description: 'Si se pasa, el item deja de ser <a> y se vuelve un <button> que abre un bottom sheet con este contenido (normalmente BottomNav.SheetItem).' },
     { name: 'BottomNav.Item.submenuTitle', type: 'ReactNode', required: false, description: 'Encabezado del bottom sheet del submenú (y nombre accesible del diálogo si es texto).' },

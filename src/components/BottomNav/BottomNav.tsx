@@ -41,7 +41,7 @@ export interface BottomNavProps extends HTMLAttributes<HTMLElement> {
  *   [data-sk="bottom-nav"]     raíz (<nav>) · [data-tone]
  *   [data-part="item"]         item (<a> nav / <button> si abre submenú) · [data-active] +
  *                               aria-current
- *   [data-part="item-icon"] · [data-part="item-label"]
+ *   [data-part="item-icon"] · [data-part="item-label"] · [data-part="item-badge"] (contador)
  *   [data-part="sheet-item"]   fila del bottom sheet (BottomNav.SheetItem) · [data-active]
  *   [data-part="sheet-item-icon"] · [data-part="sheet-item-label"]
  */
@@ -61,6 +61,8 @@ export function BottomNav({ tone = 'primary', className, children, ...rest }: Bo
 export interface BottomNavItemProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   active?: boolean
   icon?: ReactNode
+  /** Contador o marca sobre el ícono (número o nodo), igual que `Sidebar.Item`. Con `0`/null no se pinta. */
+  badge?: ReactNode | number
   /** Si se pasa, el item deja de ser un link y se vuelve un <button> que abre un bottom sheet
    *  con este contenido (normalmente <BottomNav.SheetItem>s). */
   submenu?: ReactNode
@@ -71,6 +73,7 @@ export interface BottomNavItemProps extends AnchorHTMLAttributes<HTMLAnchorEleme
 function BottomNavItem({
   active,
   icon,
+  badge,
   submenu,
   submenuTitle,
   className,
@@ -84,6 +87,9 @@ function BottomNavItem({
     <>
       {icon != null && <span data-part="item-icon">{icon}</span>}
       <span data-part="item-label">{children}</span>
+      {badge != null && badge !== false && badge !== 0 && (
+        <span data-part="item-badge">{badge}</span>
+      )}
     </>
   )
 
