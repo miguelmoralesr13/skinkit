@@ -19,6 +19,8 @@
 @import './button-group.css' layer(components);
 @import './toggle.css' layer(components);
 @import './chip-group.css' layer(components);
+@import './keypad.css' layer(components);
+@import './range-slider.css' layer(components);
 @import './toolbar.css' layer(components);
 @import './split-button.css' layer(components);
 @import './copy-button.css' layer(components);
@@ -124,3 +126,8 @@
 @import './scroll-area.css' layer(components);
 @import './datatable.css' layer(components);
 @import './tour.css' layer(components);
+@import './stacked-bar.css' layer(components);
+@import './heatmap.css' layer(components);
+@import './schedule-grid.css' layer(components);
+@import './sortable-list.css' layer(components);
+@import './location-picker.css' layer(components);

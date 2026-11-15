@@ -10,6 +10,8 @@ import { CATEGORY_ORDER } from './types'
 import { buttonSpec } from '../components/Button/Button.catalog'
 import { buttonGroupSpec } from '../components/ButtonGroup/ButtonGroup.catalog'
 import { toggleSpec } from '../components/Toggle/Toggle.catalog'
+import { keypadSpec } from '../components/Keypad/Keypad.catalog'
+import { rangeSliderSpec } from '../components/RangeSlider/RangeSlider.catalog'
 import { chipGroupSpec } from '../components/ChipGroup/ChipGroup.catalog'
 import { toolbarSpec } from '../components/Toolbar/Toolbar.catalog'
 import { splitButtonSpec } from '../components/SplitButton/SplitButton.catalog'
@@ -117,11 +119,19 @@ import { sidebarSpec } from '../components/Sidebar/Sidebar.catalog'
 import { bottomNavSpec } from '../components/BottomNav/BottomNav.catalog'
 import { appShellSpec } from '../components/AppShell/AppShell.catalog'
 
+import { stackedBarSpec } from '../components/StackedBar/StackedBar.catalog'
+import { heatmapSpec } from '../components/Heatmap/Heatmap.catalog'
+import { scheduleGridSpec } from '../components/ScheduleGrid/ScheduleGrid.catalog'
+import { sortableListSpec } from '../components/SortableList/SortableList.catalog'
+import { locationPickerSpec } from '../components/LocationPicker/LocationPicker.catalog'
+
 export const COMPONENT_CATALOG: ComponentSpec[] = [
   buttonSpec,
   buttonGroupSpec,
   toggleSpec,
   chipGroupSpec,
+  keypadSpec,
+  rangeSliderSpec,
   toolbarSpec,
   splitButtonSpec,
   copyButtonSpec,
@@ -226,6 +236,11 @@ export const COMPONENT_CATALOG: ComponentSpec[] = [
   filePreviewerSpec,
   qrCodeSpec,
   tourSpec,
+  stackedBarSpec,
+  heatmapSpec,
+  scheduleGridSpec,
+  sortableListSpec,
+  locationPickerSpec,
 ]
 
 /** Busca el spec de un componente por su nombre de import. */

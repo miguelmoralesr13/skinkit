@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.9.0
+
+Versión menor: **todo es aditivo y opt-in**. Sin activar nada, el marcado y el CSS efectivo de los componentes
+existentes son los mismos que en 0.8.3 (fijado con pruebas contra una base de 0.8.3). Quien usa `^0.x` no la recibe sola.
+
+### Componentes nuevos
+- `Keypad`: teclado numérico en pantalla (dígitos, borrar, limpiar, atajos, `onSubmit`, teclado físico, `captureKeys`); emite enteros de la unidad menor, `decimals` solo afecta al display.
+- `RangeSlider`: control de dos extremos (`role=slider`, teclado, arrastre, `minDistance`, partes `track`/`range`/`thumb-start`/`thumb-end`).
+- `StackedBar`: barra apilada con segmentos por tono, `role="img"` con `aria-label` generado, leyenda y ancho mínimo para valores pequeños.
+- `Heatmap`: matriz de calor como `<table>` accesible; intensidad por `color-mix`; celda «aún no aplica» distinta de 0; el número siempre se escribe.
+- `ScheduleGrid`: rejilla filas × columnas con encabezados fijos, varias entradas por celda con `data-state`, celdas vacías accionables, scroll horizontal propio y teclado tipo grid.
+- `SortableList`: lista editable y reordenable (agregar, quitar, arrastre, Subir/Bajar, Alt+flechas), numeración automática y anuncios `aria-live`.
+- `LocationPicker`: selector de ubicación con pin arrastrable, radio y campos numéricos sobre teselas de proveedor inyectable (`tileUrl`/`renderTiles`); sin proveedor ni red degrada a cuadrícula + campos y no hace peticiones a terceros.
+
+### Props nuevas (opcionales)
+- `PinInput`: `autoFocus`, `onClear`, `ref` (`focus()`/`clear()`) y `keypad` (teclado en pantalla).
+- `Calendar`: `mode="multiple"` (toque, arrastre, teclado) y `marks`/`markLabels`/`renderDay`.
+- `Field`: `associateLabel`. `SegmentedControl`: `scrollable`. `FileUpload`: `anchored`.
+- `Popover`, `DatePicker` y `DateRangePicker`: `portal` (panel en `document.body`, se voltea y recorta a la ventana).
+- `Disclosure.Trigger`: `badge`. `BottomNav.Item`: `badge`. `Badge`: `variant="soft"` + `tone`.
+- `Sidebar`: `flyout` (con `collapsed`, el flyout se abre al tocar/clic y por teclado).
+- `ZoneCanvas`: `readOnly`, `items[].tone`, `onItemClick`; genéricos `ZoneCanvas<TItem>`, `applyItemChanges<T>`, `applyZoneChanges<T>`.
+- `SkinkitProvider`: `refinements` (activa todas) y sueltas `variantPriority` (en `Button`, `variant` manda sobre el fondo y `tone` sobre el color), `scopedNav` (los items del `Sidebar` no estilan los de un `Menu` anidado), `scopedBody` (el relleno de `Card`/`Dialog` no alcanza a un `Alert` anidado) e `inheritColorScheme` (los portales copian el modo claro/oscuro). Hook `useSkinkitRefinements`.
+- Tokens de grosor de borde `--border-sk-width`, `--sk-card-border-width`, `--sk-alert-border-width`, `--sk-input-field-border-width` (valor por omisión 1px: sin cambio visual).
+- i18n: claves nuevas `keypad`, `rangeSlider`, `heatmap`, `locationPicker`, `scheduleGrid`, `sortableList`.
+
 ## 0.8.3
 
 - `Checkbox`, `Radio` y `Switch` anclan su input nativo oculto (`position: relative` en la raíz). Antes el input

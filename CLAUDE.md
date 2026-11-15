@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`skinkit` — a headless React component library (npm name `skinkit`, `v0.6.1`, 107 catalog specs
+`skinkit` — a headless React component library (npm name `skinkit`, `v0.9.0`, ~122 catalog specs
 across 103 component directories — a few dirs export more than one spec, e.g. Calendar/RangeCalendar).
 Components emit **zero style**: only structure plus a stable `data-sk`/`data-part` attribute
 contract. All visuals live in **one Tailwind v4-native design-token + CSS system**: a single
@@ -182,7 +182,7 @@ deps into a consumer's bundle.
 **Per-component catalog files** (`scripts/generate-catalog-files.mjs`, last step of `build`, runs
 after `dist/catalog/index.js` exists — needs it as input): splits the one bundled catalog into
 `dist/catalog/components/<Name>.json` (one per spec) + `dist/catalog/components/_index.json`
-(name/dataSk/category only, for the ~107). No `exports` entry — deliberately plain files, not a
+(name/dataSk/category only, for the ~122). No `exports` entry — deliberately plain files, not a
 subpath, so an agent working in a consumer app can `Read` `node_modules/skinkit/dist/catalog/
 components/Sidebar.json` directly, no JS execution, no need for the `lib-skinkit` source repo
 nearby. This is for AGENTS doing lookup, not app runtime code (which still uses

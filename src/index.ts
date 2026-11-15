@@ -1,6 +1,6 @@
 // skinkit — componentes headless con un único sistema de tokens (color + forma) Tailwind-nativo.
-export { SkinkitProvider, useSkinkitColorScheme } from './provider/SkinkitProvider'
-export type { SkinkitProviderProps } from './provider/SkinkitProvider'
+export { SkinkitProvider, useSkinkitColorScheme, useSkinkitRefinements } from './provider/SkinkitProvider'
+export type { SkinkitProviderProps, SkinkitRefinements } from './provider/SkinkitProvider'
 
 // i18n — textos por defecto de la librería (es/en incluidos), ver src/i18n/
 export {
@@ -22,6 +22,10 @@ export type { ButtonGroupProps, ButtonGroupOrientation } from './components/Butt
 
 export { Toggle } from './components/Toggle'
 export type { ToggleProps, ToggleSize, ToggleTone } from './components/Toggle'
+export { Keypad } from './components/Keypad'
+export type { KeypadProps, KeypadClassNames } from './components/Keypad'
+export { RangeSlider } from './components/RangeSlider'
+export type { RangeSliderProps, RangeSliderValue, RangeSliderTone, RangeSliderClassNames } from './components/RangeSlider'
 export { ChipGroup } from './components/ChipGroup'
 export type { ChipGroupProps, ChipGroupOption } from './components/ChipGroup'
 
@@ -62,7 +66,7 @@ export { PasswordInput } from './components/PasswordInput'
 export type { PasswordInputProps } from './components/PasswordInput'
 
 export { PinInput } from './components/PinInput'
-export type { PinInputProps, PinInputType } from './components/PinInput'
+export type { PinInputProps, PinInputType, PinInputHandle } from './components/PinInput'
 
 export { TimePicker } from './components/TimePicker'
 export type { TimePickerProps } from './components/TimePicker'
@@ -92,7 +96,13 @@ export { Editable } from './components/Editable'
 export type { EditableProps } from './components/Editable'
 
 export { Calendar } from './components/Calendar'
-export type { CalendarProps } from './components/Calendar'
+export type {
+  CalendarProps,
+  CalendarBaseProps,
+  CalendarSingleProps,
+  CalendarMultipleProps,
+  CalendarDayContext,
+} from './components/Calendar'
 
 export { DatePicker } from './components/DatePicker'
 export type { DatePickerProps } from './components/DatePicker'
@@ -116,7 +126,7 @@ export { NumberInput } from './components/NumberInput'
 export type { NumberInputProps } from './components/NumberInput'
 
 export { Badge } from './components/Badge'
-export type { BadgeProps, BadgeVariant } from './components/Badge'
+export type { BadgeProps, BadgeVariant, BadgeTone } from './components/Badge'
 
 export { Avatar } from './components/Avatar'
 export type { AvatarProps, AvatarSize } from './components/Avatar'
@@ -227,7 +237,7 @@ export { Pagination } from './components/Pagination'
 export type { PaginationProps } from './components/Pagination'
 
 export { Disclosure } from './components/Disclosure'
-export type { DisclosureProps, DisclosureContentProps } from './components/Disclosure'
+export type { DisclosureProps, DisclosureContentProps, DisclosureTriggerProps } from './components/Disclosure'
 
 export { Stepper } from './components/Stepper'
 export type { StepperProps, StepProps, StepperOrientation, StepState } from './components/Stepper'
@@ -264,6 +274,7 @@ export type {
   CanvasSize,
   Item,
   ItemChange,
+  ItemTone,
   ItemComponentProps,
   ItemTypes,
   ResizeHandlePosition,
@@ -448,3 +459,13 @@ export type {
   TourTrigger,
   UseTourEngineResult,
 } from './components/Tour'
+export { StackedBar } from './components/StackedBar'
+export type { StackedBarProps, StackedBarSegment, StackedBarTone } from './components/StackedBar'
+export { Heatmap, heatLevel } from './components/Heatmap'
+export type { HeatmapProps, HeatmapAxisItem } from './components/Heatmap'
+export { ScheduleGrid } from './components/ScheduleGrid'
+export type { ScheduleGridProps, ScheduleGridAxisItem, ScheduleGridEntry } from './components/ScheduleGrid'
+export { SortableList, moveItem } from './components/SortableList'
+export type { SortableListProps, SortableListItemContext } from './components/SortableList'
+export { LocationPicker } from './components/LocationPicker'
+export type { LocationPickerProps, LatLng, TileInfo } from './components/LocationPicker'

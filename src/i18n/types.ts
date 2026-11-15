@@ -44,7 +44,21 @@ export interface SkinkitMessages {
   filePreviewer: { download: string; previous: string; next: string; loading: string }
   fileUpload: { chooseFiles: string; dropHint: string; remove: string }
   flow: { zoomIn: string; zoomOut: string; fitView: string; resetView: string }
+  heatmap: { notApplicable: string }
   list: { empty: string; search: string; filterPlaceholder: string }
+  locationPicker: {
+    map: string
+    pin: string
+    latitude: string
+    longitude: string
+    radius: string
+    useMyLocation: string
+    locating: string
+    locateError: string
+    noTiles: string
+    zoomIn: string
+    zoomOut: string
+  }
   /** Compartido por AudioPlayer y VideoPlayer. */
   mediaPlayer: {
     play: string
@@ -66,6 +80,8 @@ export interface SkinkitMessages {
   pagination: { label: string; previous: string; next: string; page: string }
   passwordInput: { show: string; hide: string }
   pinInput: { digit: string }
+  keypad: { label: string; backspace: string; clear: string; submit: string }
+  rangeSlider: { start: string; end: string }
   popconfirm: { confirm: string; cancel: string }
   qrCode: { label: string }
   radioCardGroup: { label: string }
@@ -106,8 +122,10 @@ export interface SkinkitMessages {
     removeColumn: string
     deleteTable: string
   }
+  scheduleGrid: { label: string; addEntry: string }
   segmentedControl: { label: string }
   sidebar: { toggle: string }
+  sortableList: { moveUp: string; moveDown: string; remove: string; add: string; dragHandle: string; item: string; moved: string; removed: string; empty: string }
   spinner: { label: string }
   splitButton: { moreActions: string }
   tag: { remove: string }
