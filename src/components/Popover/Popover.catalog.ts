@@ -13,6 +13,7 @@ export const popoverSpec: ComponentSpec = {
     { name: 'open', type: 'boolean', required: false, description: 'Abierto (controlado). Usalo con onOpenChange para cerrarlo por código.' },
     { name: 'defaultOpen', type: 'boolean', required: false, default: 'false', description: 'Estado inicial (uncontrolled).' },
     { name: 'onOpenChange', type: '(open: boolean) => void', required: false, description: 'Se invoca al abrir/cerrar.' },
+    { name: 'portal', type: 'boolean', required: false, default: 'false', description: 'Opt-in. Monta el panel en un portal a document.body con posición fija ([data-portal], [data-resolved-side]): no lo recorta ningún overflow y se desplaza o voltea para caber en la ventana. Sin la prop sigue colgando del popover (sin portal). `<Popover.Content data-bare>` quita caja, borde y sombra del panel.' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=popover]. Lleva [data-side].' },
@@ -29,6 +30,7 @@ export const popoverSpec: ComponentSpec = {
     'Para contenido interactivo/rico (links, inputs). Para una etiqueta breve no interactiva, usá Tooltip.',
     'Para un menú de acciones, usá Menu (trae role=menu y teclado de ítems).',
     'Vive en el árbol: puede recortarse por overflow/scroll (sin portal, a propósito).',
+    'Si el popover vive dentro de un contenedor con overflow (Dialog, tabla con scroll) y se recorta, pasa `portal`.',
   ],
   a11y: [
     'trigger con aria-haspopup=dialog / aria-expanded; content role=dialog con aria-labelledby.',

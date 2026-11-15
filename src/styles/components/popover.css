@@ -41,3 +41,23 @@
   --sk-popover-trigger-bg: var(--color-sk-surface-2);
   background-color: var(--sk-popover-trigger-bg);
 }
+
+/* ── Portal: el panel cuelga de document.body con posición fija (no lo recorta ningún overflow) ── */
+[data-sk='popover'][data-portal] {
+  @apply contents;
+}
+[data-sk='popover'] [data-part='content'][data-portal] {
+  position: fixed;
+  top: var(--sk-popover-top, 0px);
+  left: var(--sk-popover-left, 0px);
+  max-width: calc(100vw - var(--spacing) * 4);
+  @apply z-[1100] m-0;
+}
+/* Hasta medir su tamaño el panel no se ve (evita un parpadeo en la esquina). */
+[data-sk='popover'] [data-part='content'][data-portal]:not([data-placed]) {
+  visibility: hidden;
+}
+/* Panel sin caja propia (lo usa quien trae su propio fondo, p. ej. un calendario). */
+[data-sk='popover'] [data-part='content'][data-bare] {
+  @apply p-0 border-none shadow-none bg-transparent;
+}

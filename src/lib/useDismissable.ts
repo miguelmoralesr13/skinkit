@@ -8,6 +8,8 @@ export function useDismissable(
   active: boolean,
   ref: RefObject<HTMLElement | null>,
   onDismiss: () => void,
+  /** Otros nodos que también cuentan como «dentro» (p. ej. un contenido en portal). */
+  extraRefs?: RefObject<HTMLElement | null>[],
 ): void {
   useEffect(() => {
     if (!active) return
@@ -17,7 +19,9 @@ export function useDismissable(
     }
     const onPointerDown = (e: PointerEvent) => {
       const el = ref.current
-      if (el && !el.contains(e.target as Node)) onDismiss()
+      const target = e.target as Node
+      if (extraRefs?.some((r) => r.current?.contains(target))) return
+      if (el && !el.contains(target)) onDismiss()
     }
 
     document.addEventListener('keydown', onKeyDown)
@@ -26,5 +30,5 @@ export function useDismissable(
       document.removeEventListener('keydown', onKeyDown)
       document.removeEventListener('pointerdown', onPointerDown, true)
     }
-  }, [active, ref, onDismiss])
+  }, [active, ref, onDismiss, extraRefs])
 }

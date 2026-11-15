@@ -19,6 +19,12 @@ export interface DatePickerProps {
   locale?: string
   className?: string
   id?: string
+  /**
+   * Opt-in. Monta el calendario en un portal a `document.body` con posición fija, de modo que no lo
+   * recorte el `overflow` de un ancestro (p. ej. un `Dialog` angosto) y se desplace o voltee para
+   * caber en la ventana. Default `false`: el panel cuelga del campo como siempre.
+   */
+  portal?: boolean
 }
 
 function fromISO(s?: string): Date | null {
@@ -54,6 +60,7 @@ export function DatePicker({
   locale: localeProp,
   className,
   id,
+  portal = false,
 }: DatePickerProps) {
   const { locale: providerLocale, messages: m } = useSkinkitI18n()
   const locale = localeProp ?? providerLocale
@@ -75,13 +82,13 @@ export function DatePicker({
           {label}
         </label>
       ) : null}
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={setOpen} portal={portal || undefined}>
         <Popover.Trigger id={id} disabled={disabled} aria-label={label ? undefined : placeholder}>
           <span data-part="value" data-placeholder={parsed ? undefined : ''}>
             {display}
           </span>
         </Popover.Trigger>
-        <Popover.Content>
+        <Popover.Content {...(portal ? { 'data-bare': '' } : {})}>
           <Calendar
             value={value}
             onChange={(iso) => {

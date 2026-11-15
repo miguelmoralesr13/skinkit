@@ -20,6 +20,7 @@ export const datePickerSpec: ComponentSpec = {
     { name: 'max', type: 'string', required: false, description: 'Fecha máxima (ISO).' },
     { name: 'weekStartsOn', type: '0 | 1', required: false, default: '0', description: '0 = domingo, 1 = lunes.' },
     { name: 'locale', type: 'string', required: false, default: "locale del SkinkitProvider ('es' si no hay)", description: 'Locale para el formato y los nombres (Intl).' },
+    { name: 'portal', type: 'boolean', required: false, default: 'false', description: 'Opt-in. Monta el calendario en un portal a document.body con posición fija: no lo recorta el overflow de un ancestro (p. ej. un Dialog angosto) y se desplaza o voltea para caber en la ventana. Sin la prop, el panel cuelga del campo como siempre.' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=date-picker]. Lleva [data-error].' },
@@ -37,6 +38,7 @@ export const datePickerSpec: ComponentSpec = {
     'Es controlado: guardá el ISO y actualizalo en onChange; se cierra solo al elegir.',
     'El formato de la fecha mostrada sale de Intl (locale).',
     'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `datePicker` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ datePicker: { … } }}>` o con la prop explícita del componente, que siempre gana.',
+    'Dentro de un `Dialog` o de un contenedor con overflow, pasa `portal` para que el calendario no se recorte contra el borde.',
   ],
   a11y: ['El trigger abre el calendario (aria-haspopup=dialog); el Calendar aporta la grilla accesible; Esc cierra.'],
 }

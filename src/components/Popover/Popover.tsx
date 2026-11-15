@@ -1,14 +1,21 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useId,
+  useLayoutEffect,
+  useMemo,
   useRef,
   useState,
   type ButtonHTMLAttributes,
+  type CSSProperties,
   type HTMLAttributes,
+  type RefObject,
 } from 'react'
+import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
 import { useDismissable } from '../../lib/useDismissable'
+import { useOverlayRootProps } from '../../provider/overlayRoot'
 
 export type PopoverSide = 'bottom' | 'top' | 'left' | 'right'
 
@@ -18,6 +25,10 @@ interface PopoverCtx {
   close: () => void
   triggerId: string
   contentId: string
+  side: PopoverSide
+  portal: boolean
+  triggerRef: RefObject<HTMLButtonElement | null>
+  contentRef: RefObject<HTMLDivElement | null>
 }
 const PopoverContext = createContext<PopoverCtx | null>(null)
 
@@ -27,29 +38,44 @@ function usePopoverCtx(part: string): PopoverCtx {
   return ctx
 }
 
+const useIsoLayoutEffect = typeof document !== 'undefined' ? useLayoutEffect : useEffect
+
+/** Separación entre el disparador y el panel, y margen mínimo contra el borde de la ventana. */
+const PORTAL_GAP = 8
+const PORTAL_MARGIN = 8
+
 export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   side?: PopoverSide
   /** Abierto (controlado). Usalo con onOpenChange. */
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
+  /**
+   * Monta el panel en un portal a `document.body` con posición fija: no lo recorta el `overflow`
+   * de un ancestro (p. ej. el panel de un `Dialog`) y se desplaza o voltea para caber en la ventana.
+   * Default `false` (el panel cuelga del propio popover, como siempre).
+   */
+  portal?: boolean
 }
 
 /**
  * Popover headless, compuesto: <Popover> · <Popover.Trigger> · <Popover.Content>. Contenido
- * flotante arbitrario que abre al click. Sin portal. Cierra con Esc o
- * click afuera. La forma/posición ([data-side]) las da el CSS.
+ * flotante arbitrario que abre al click. Por omisión sin portal; con `portal` el panel se monta en
+ * `document.body` y se posiciona contra la ventana. Cierra con Esc o click afuera. La
+ * forma/posición ([data-side]) las da el CSS.
  *
  * Contrato:
  *   [data-sk="popover"]     [data-side]  raíz (envuelve trigger + content)
  *   [data-part="trigger"]   [data-state] el disparador (open|closed)
  *   [data-part="content"]   role=dialog  el panel flotante (solo cuando abre)
+ *                           [data-portal] [data-resolved-side] cuando va en portal
  */
 export function Popover({
   side = 'bottom',
   open: openProp,
   defaultOpen = false,
   onOpenChange,
+  portal = false,
   className,
   children,
   ...rest
@@ -58,6 +84,8 @@ export function Popover({
   const [internal, setInternal] = useState(defaultOpen)
   const open = isControlled ? openProp : internal
   const rootRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const triggerId = useId()
   const contentId = useId()
 
@@ -67,7 +95,8 @@ export function Popover({
   }
   const close = () => setOpen(false)
 
-  useDismissable(open, rootRef, close)
+  const extra = useMemo(() => [contentRef], [])
+  useDismissable(open, rootRef, close, extra)
 
   return (
     <div
@@ -77,7 +106,9 @@ export function Popover({
       className={cx('sk-popover', className)}
       {...rest}
     >
-      <PopoverContext.Provider value={{ open, setOpen, close, triggerId, contentId }}>
+      <PopoverContext.Provider
+        value={{ open, setOpen, close, triggerId, contentId, side, portal, triggerRef, contentRef }}
+      >
         {children}
       </PopoverContext.Provider>
     </div>
@@ -88,6 +119,7 @@ function PopoverTrigger({ className, children, onClick, ...rest }: ButtonHTMLAtt
   const ctx = usePopoverCtx('Trigger')
   return (
     <button
+      ref={ctx.triggerRef}
       type="button"
       data-part="trigger"
       data-state={ctx.open ? 'open' : 'closed'}
@@ -107,20 +139,113 @@ function PopoverTrigger({ className, children, onClick, ...rest }: ButtonHTMLAtt
   )
 }
 
-function PopoverContent({ className, children, ...rest }: HTMLAttributes<HTMLDivElement>) {
+interface Placement {
+  top: number
+  left: number
+  side: PopoverSide
+}
+
+/** Coloca el panel junto al disparador, volteándolo si no cabe y recortándolo a la ventana. */
+function placeContent(trigger: DOMRect, content: { width: number; height: number }, side: PopoverSide): Placement {
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const fitsBelow = trigger.bottom + PORTAL_GAP + content.height <= vh - PORTAL_MARGIN
+  const fitsAbove = trigger.top - PORTAL_GAP - content.height >= PORTAL_MARGIN
+  const fitsRight = trigger.right + PORTAL_GAP + content.width <= vw - PORTAL_MARGIN
+  const fitsLeft = trigger.left - PORTAL_GAP - content.width >= PORTAL_MARGIN
+  let resolved = side
+  if (side === 'bottom' && !fitsBelow && fitsAbove) resolved = 'top'
+  else if (side === 'top' && !fitsAbove && fitsBelow) resolved = 'bottom'
+  else if (side === 'right' && !fitsRight && fitsLeft) resolved = 'left'
+  else if (side === 'left' && !fitsLeft && fitsRight) resolved = 'right'
+
+  let top: number
+  let left: number
+  if (resolved === 'bottom' || resolved === 'top') {
+    top = resolved === 'bottom' ? trigger.bottom + PORTAL_GAP : trigger.top - PORTAL_GAP - content.height
+    left = trigger.left
+  } else {
+    left = resolved === 'right' ? trigger.right + PORTAL_GAP : trigger.left - PORTAL_GAP - content.width
+    top = trigger.top
+  }
+  const clamp = (v: number, size: number, limit: number) =>
+    Math.max(PORTAL_MARGIN, Math.min(v, limit - size - PORTAL_MARGIN))
+  return { top: clamp(top, content.height, vh), left: clamp(left, content.width, vw), side: resolved }
+}
+
+function PopoverContent({ className, children, style, ...rest }: HTMLAttributes<HTMLDivElement>) {
   const ctx = usePopoverCtx('Content')
-  if (!ctx.open) return null
-  return (
+  const overlayRoot = useOverlayRootProps(ctx.portal && ctx.open)
+  const [placement, setPlacement] = useState<Placement | null>(null)
+  const { open, portal, triggerRef, contentRef, side } = ctx
+
+  useIsoLayoutEffect(() => {
+    if (!open || !portal) {
+      setPlacement(null)
+      return
+    }
+    const update = () => {
+      const trigger = triggerRef.current
+      const content = contentRef.current
+      if (!trigger || !content) return
+      const next = placeContent(
+        trigger.getBoundingClientRect(),
+        { width: content.offsetWidth, height: content.offsetHeight },
+        side,
+      )
+      setPlacement((prev) =>
+        prev && prev.top === next.top && prev.left === next.left && prev.side === next.side ? prev : next,
+      )
+    }
+    update()
+    window.addEventListener('resize', update)
+    window.addEventListener('scroll', update, true)
+    // El contenido puede crecer (cambio de mes, lista): se recoloca al cambiar su tamaño.
+    const obs = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(update) : null
+    if (obs && contentRef.current) obs.observe(contentRef.current)
+    return () => {
+      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', update, true)
+      obs?.disconnect()
+    }
+  }, [open, portal, side, triggerRef, contentRef])
+
+  if (!open) return null
+
+  const panel = (
     <div
+      ref={contentRef}
       data-part="content"
       role="dialog"
       id={ctx.contentId}
       aria-labelledby={ctx.triggerId}
       className={cx('sk-popover__content', className)}
+      {...(portal
+        ? {
+            'data-portal': '',
+            'data-resolved-side': placement?.side ?? side,
+            'data-placed': placement ? '' : undefined,
+            style: {
+              ...style,
+              '--sk-popover-top': `${placement?.top ?? 0}px`,
+              '--sk-popover-left': `${placement?.left ?? 0}px`,
+            } as CSSProperties,
+          }
+        : { style })}
       {...rest}
     >
       {children}
     </div>
+  )
+
+  if (!portal || typeof document === 'undefined') return panel
+  return createPortal(
+    <div data-skinkit-root="" className="skinkit-root" {...overlayRoot}>
+      <div data-sk="popover" data-portal="">
+        {panel}
+      </div>
+    </div>,
+    document.body,
   )
 }
 
