@@ -15,6 +15,7 @@ export const fieldSpec: ComponentSpec = {
     { name: 'required', type: 'boolean', required: false, description: 'Muestra la marca * en la etiqueta.' },
     { name: 'htmlFor', type: 'string', required: false, description: 'id del control interno, para el <label htmlFor>.' },
     { name: 'children', type: 'ReactNode', required: false, description: 'El control (Input, Slider, un widget propio, etc.).' },
+    { name: 'associateLabel', type: 'boolean', required: false, default: 'false', description: 'Opt-in. Asocia la etiqueta con el control: genera un id y se lo pasa al único hijo (o usa el id que ya traiga, o `htmlFor`) y cablea `<label htmlFor>`; así el control tiene nombre accesible (lectores de pantalla, getByLabel). Sin efecto si el hijo no es un elemento único. Sin la prop, el marcado no cambia.' },
   ],
   parts: [
     { name: 'root', description: '[data-sk=field]. Lleva [data-error] cuando hay error.' },
@@ -33,5 +34,6 @@ export const fieldSpec: ComponentSpec = {
     'Usalo para dar label/helper/error uniformes a un control que no los tiene, o a uno propio.',
     'Para Input/Select/Textarea (que ya traen label/helper/error), no hace falta Field: usá sus props.',
     'Pasá htmlFor igual al id del control para asociar la etiqueta.',
+    'Para que el control quede nombrado por la etiqueta sin repetir `aria-label`, pasa `associateLabel` (el hijo debe aceptar `id`: Input, Slider, Select, Textarea…).',
   ],
 }

@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import { Children, cloneElement, isValidElement, useId, type HTMLAttributes, type ReactElement, type ReactNode } from 'react'
 import { cx } from '../../lib/cx'
 
 export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
@@ -9,6 +9,12 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   required?: boolean
   /** id del control interno, para wirear el <label htmlFor>. */
   htmlFor?: string
+  /**
+   * Opt-in. Asocia la etiqueta con el control: genera un `id` y se lo pasa al único hijo (o usa el
+   * `id` que ese hijo ya traiga, o `htmlFor`) y cablea `<label htmlFor>`; así el control tiene
+   * nombre accesible. Sin efecto si se pasa un hijo que no es un elemento único. Default `false`.
+   */
+  associateLabel?: boolean
   children?: ReactNode
 }
 
@@ -30,14 +36,43 @@ export function Field({
   error,
   required,
   htmlFor,
+  associateLabel,
   className,
   children,
   ...rest
 }: FieldProps) {
+  if (associateLabel) {
+    return <FieldAssociated {...{ label, helper, error, required, htmlFor, className, ...rest }}>{children}</FieldAssociated>
+  }
+  return renderField({ label, helper, error, required, htmlFor, className, rest, content: children })
+}
+
+function FieldAssociated({ children, ...props }: Omit<FieldProps, 'associateLabel'>) {
+  const { label, helper, error, required, htmlFor, className, ...rest } = props
+  const autoId = useId()
+  let controlId = htmlFor
+  let content = children
+  {
+    const only = Children.count(children) === 1 ? Children.toArray(children)[0] : null
+    if (isValidElement(only) && typeof only.type !== 'symbol') {
+      const el = only as ReactElement<{ id?: string }>
+      controlId = htmlFor ?? el.props.id ?? autoId
+      content = el.props.id === controlId ? el : cloneElement(el, { id: controlId })
+    }
+  }
+  return renderField({ label, helper, error, required, htmlFor: controlId, className, rest, content })
+}
+
+interface RenderArgs extends Pick<FieldProps, 'label' | 'helper' | 'error' | 'required' | 'htmlFor' | 'className'> {
+  rest: HTMLAttributes<HTMLDivElement>
+  content: ReactNode
+}
+
+function renderField({ label, helper, error, required, htmlFor: controlId, className, rest, content }: RenderArgs) {
   return (
     <div data-sk="field" data-error={error ? '' : undefined} className={cx('sk-field', className)} {...rest}>
       {label != null && (
-        <label data-part="label" htmlFor={htmlFor}>
+        <label data-part="label" htmlFor={controlId}>
           {label}
           {required && (
             <span data-part="required" aria-hidden="true">
@@ -46,7 +81,7 @@ export function Field({
           )}
         </label>
       )}
-      <div data-part="control">{children}</div>
+      <div data-part="control">{content}</div>
       {error ? (
         <div data-part="error" role="alert">
           {error}
