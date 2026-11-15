@@ -1,0 +1,141 @@
+/* ── LocationPicker ─────────────────────────────────────────── */
+[data-sk='location-picker'] {
+  --sk-location-picker-border: var(--color-sk-border);
+  --sk-location-picker-radius-token: var(--radius-sk-md);
+  --sk-location-picker-bg: var(--color-sk-surface-2);
+  --sk-location-picker-grid: color-mix(in srgb, var(--color-sk-text-muted) 28%, transparent);
+  --sk-location-picker-tone: var(--color-sk-primary);
+  --sk-location-picker-height: 16rem;
+  @apply flex flex-col gap-3 w-full;
+}
+[data-sk='location-picker'] [data-part='map'] {
+  border-color: var(--sk-location-picker-border);
+  border-radius: var(--sk-location-picker-radius-token);
+  background-color: var(--sk-location-picker-bg);
+  background-image:
+    linear-gradient(var(--sk-location-picker-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sk-location-picker-grid) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  height: var(--sk-location-picker-height);
+  touch-action: none;
+  @apply relative overflow-hidden border cursor-crosshair select-none;
+}
+[data-sk='location-picker'][data-disabled] [data-part='map'] {
+  @apply cursor-not-allowed opacity-60;
+}
+[data-sk='location-picker'] [data-part='tiles'] {
+  @apply absolute inset-0 pointer-events-none;
+}
+[data-sk='location-picker'] [data-part='tile'] {
+  max-width: none;
+  @apply absolute block;
+}
+[data-sk='location-picker'] [data-part='overlay'] {
+  @apply absolute inset-0 pointer-events-none;
+}
+[data-sk='location-picker'] [data-part='radius-circle'] {
+  fill: color-mix(in srgb, var(--sk-location-picker-tone) 18%, transparent);
+  stroke: var(--sk-location-picker-tone);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+[data-sk='location-picker'] [data-part='pin'] {
+  --sk-location-picker-pin-size: 1.5rem;
+  width: var(--sk-location-picker-pin-size);
+  height: var(--sk-location-picker-pin-size);
+  transform: translate(-50%, -100%);
+  @apply absolute p-0 bg-transparent border-0 cursor-grab touch-none;
+}
+[data-sk='location-picker'] [data-part='map'][data-dragging] [data-part='pin'] {
+  @apply cursor-grabbing;
+}
+/* Marcador dibujado con CSS: gota con punto central. */
+[data-sk='location-picker'] [data-part='pin'] > span {
+  background-color: var(--sk-location-picker-tone);
+  border: 2px solid var(--color-sk-surface);
+  box-shadow: var(--shadow-sk-sm);
+  border-radius: var(--radius-sk-pill) var(--radius-sk-pill) 0 var(--radius-sk-pill);
+  transform: rotate(45deg) translate(15%, -15%);
+  @apply block w-full h-full;
+}
+[data-sk='location-picker'] [data-part='pin']:focus-visible {
+  outline: 2px solid var(--color-sk-text);
+  outline-offset: 2px;
+  border-radius: var(--radius-sk-sm);
+}
+[data-sk='location-picker'] [data-part='zoom'] {
+  border-radius: var(--radius-sk-sm);
+  box-shadow: var(--shadow-sk-sm);
+  @apply absolute top-2 right-2 flex flex-col overflow-hidden;
+}
+[data-sk='location-picker'] [data-part='zoom'] button {
+  background-color: var(--color-sk-surface);
+  color: var(--color-sk-text);
+  @apply w-8 h-8 border-0 cursor-pointer text-sk-md font-semibold leading-none;
+}
+[data-sk='location-picker'] [data-part='zoom'] button + button {
+  border-top: 1px solid var(--sk-location-picker-border);
+}
+[data-sk='location-picker'] [data-part='zoom'] button:hover:not(:disabled) {
+  background-color: var(--color-sk-surface-2);
+}
+[data-sk='location-picker'] [data-part='zoom'] button:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+[data-sk='location-picker'] [data-part='zoom'] button:focus-visible {
+  outline: 2px solid var(--sk-location-picker-tone);
+  outline-offset: -2px;
+}
+[data-sk='location-picker'] [data-part='attribution'] {
+  background-color: color-mix(in srgb, var(--color-sk-surface) 85%, transparent);
+  color: var(--color-sk-text-muted);
+  @apply absolute bottom-0 right-0 px-1.5 py-0.5 text-sk-sm pointer-events-none;
+}
+[data-sk='location-picker'] [data-part='notice'] {
+  background-color: color-mix(in srgb, var(--color-sk-surface) 90%, transparent);
+  color: var(--color-sk-text-muted);
+  border-radius: var(--radius-sk-sm);
+  @apply absolute left-2 bottom-2 right-12 px-2 py-1 text-sk-sm pointer-events-none;
+}
+[data-sk='location-picker'] [data-part='fields'] {
+  @apply flex flex-wrap items-end gap-3;
+}
+[data-sk='location-picker'] [data-part='field'] {
+  @apply flex flex-col gap-1 flex-1 min-w-28;
+}
+[data-sk='location-picker'] [data-part='label'] {
+  color: var(--color-sk-text);
+  @apply text-sk-sm font-semibold;
+}
+[data-sk='location-picker'] [data-part='input'] {
+  border-color: var(--sk-location-picker-border);
+  border-radius: var(--radius-sk-md);
+  background-color: var(--color-sk-surface);
+  color: var(--color-sk-text);
+  @apply w-full px-3 py-2 text-sk-md border tabular-nums;
+}
+[data-sk='location-picker'] [data-part='input']:focus {
+  outline: none;
+  border-color: var(--sk-location-picker-tone);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sk-location-picker-tone) 25%, transparent);
+}
+[data-sk='location-picker'] [data-part='locate'] {
+  color: var(--sk-location-picker-tone);
+  border-color: var(--sk-location-picker-border);
+  border-radius: var(--radius-sk-md);
+  @apply px-4 py-2 text-sk-md font-semibold border bg-transparent cursor-pointer;
+}
+[data-sk='location-picker'] [data-part='locate']:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--sk-location-picker-tone) 8%, transparent);
+}
+[data-sk='location-picker'] [data-part='locate']:focus-visible {
+  outline: 2px solid var(--sk-location-picker-tone);
+  outline-offset: 1px;
+}
+[data-sk='location-picker'] [data-part='locate']:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+[data-sk='location-picker'] [data-part='status'] {
+  color: var(--color-sk-text-muted);
+  @apply text-sk-sm empty:hidden;
+}
