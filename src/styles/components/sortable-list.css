@@ -1,0 +1,114 @@
+/* ── SortableList ───────────────────────────────────────────── */
+[data-sk='sortable-list'] {
+  --sk-sortable-list-border: var(--color-sk-border);
+  --sk-sortable-list-bg: var(--color-sk-surface);
+  --sk-sortable-list-radius: var(--radius-sk-md);
+  @apply flex flex-col gap-3 w-full;
+}
+[data-sk='sortable-list'] [data-part='list'] {
+  @apply flex flex-col gap-2 m-0 p-0 list-none;
+}
+[data-sk='sortable-list'] [data-part='item'] {
+  border-color: var(--sk-sortable-list-border);
+  background-color: var(--sk-sortable-list-bg);
+  border-radius: var(--sk-sortable-list-radius);
+  @apply flex items-start gap-3 border p-3 transition-[box-shadow,opacity] duration-150;
+}
+[data-sk='sortable-list'] [data-part='item'][data-dragging] {
+  @apply opacity-50;
+}
+[data-sk='sortable-list'] [data-part='item'][data-over] {
+  box-shadow: 0 0 0 2px var(--color-sk-primary);
+}
+[data-sk='sortable-list'] [data-part='index'] {
+  --sk-sortable-list-index-bg: var(--color-sk-surface-2);
+  --sk-sortable-list-index-fg: var(--color-sk-text-muted);
+  background-color: var(--sk-sortable-list-index-bg);
+  color: var(--sk-sortable-list-index-fg);
+  @apply flex-none w-7 h-7 rounded-sk-pill inline-flex items-center justify-center text-sk-sm font-semibold tabular-nums;
+}
+[data-sk='sortable-list'] [data-part='content'] {
+  @apply flex-1 min-w-0;
+}
+[data-sk='sortable-list'] [data-part='actions'] {
+  @apply flex-none flex items-center gap-1;
+}
+[data-sk='sortable-list'] [data-part='actions'] button {
+  --sk-sortable-list-action-fg: var(--color-sk-text-muted);
+  color: var(--sk-sortable-list-action-fg);
+  border-radius: var(--radius-sk-sm);
+  @apply w-8 h-8 inline-flex items-center justify-center bg-transparent border-0 cursor-pointer
+         transition-colors duration-150;
+}
+[data-sk='sortable-list'] [data-part='actions'] button:hover:not(:disabled):not([aria-disabled='true']) {
+  background-color: var(--color-sk-surface-2);
+  --sk-sortable-list-action-fg: var(--color-sk-text);
+}
+[data-sk='sortable-list'] [data-part='actions'] button:focus-visible,
+[data-sk='sortable-list'] [data-part='add']:focus-visible {
+  outline: 2px solid var(--color-sk-primary);
+  outline-offset: 1px;
+}
+[data-sk='sortable-list'] [data-part='actions'] button:disabled,
+[data-sk='sortable-list'] [data-part='actions'] button[aria-disabled='true'] {
+  @apply opacity-35 cursor-not-allowed;
+}
+[data-sk='sortable-list'] [data-part='handle'] {
+  @apply cursor-grab;
+}
+/* Íconos dibujados con CSS (sin dependencias ni imágenes). */
+[data-sk='sortable-list'] [data-part='actions'] button > span {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0 solid currentColor;
+  box-sizing: content-box;
+}
+[data-sk='sortable-list'] [data-part='actions'] [data-part='handle'] > span {
+  width: 0.75rem;
+  height: 0.5rem;
+  border-width: 2px 0;
+  background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat;
+}
+[data-sk='sortable-list'] [data-part='actions'] [data-part='move-up'] > span {
+  border-width: 2px 0 0 2px;
+  transform: translateY(0.125rem) rotate(45deg);
+}
+[data-sk='sortable-list'] [data-part='actions'] [data-part='move-down'] > span {
+  border-width: 0 2px 2px 0;
+  transform: translateY(-0.125rem) rotate(45deg);
+}
+[data-sk='sortable-list'] [data-part='actions'] [data-part='remove'] > span {
+  width: 0.75rem;
+  height: 0.75rem;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat;
+  transform: rotate(45deg);
+}
+[data-sk='sortable-list'] [data-part='add'] {
+  --sk-sortable-list-add-fg: var(--color-sk-primary);
+  color: var(--sk-sortable-list-add-fg);
+  border-color: var(--sk-sortable-list-border);
+  border-radius: var(--sk-sortable-list-radius);
+  @apply self-start px-4 py-2 border border-dashed bg-transparent cursor-pointer text-sk-md font-semibold;
+}
+[data-sk='sortable-list'] [data-part='add']:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--color-sk-primary) 8%, transparent);
+}
+[data-sk='sortable-list'] [data-part='add']:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+[data-sk='sortable-list'] [data-part='empty'] {
+  --sk-sortable-list-empty-fg: var(--color-sk-text-muted);
+  color: var(--sk-sortable-list-empty-fg);
+  border-color: var(--sk-sortable-list-border);
+  border-radius: var(--sk-sortable-list-radius);
+  @apply border border-dashed p-4 text-center text-sk-sm;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-sk='sortable-list'] [data-part='item'],
+  [data-sk='sortable-list'] [data-part='actions'] button {
+    transition: none;
+  }
+}
