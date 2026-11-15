@@ -54,3 +54,12 @@
   --sk-menu-trigger-bg: var(--color-sk-surface-2);
   background-color: var(--sk-menu-trigger-bg);
 }
+
+/* Opt-in (scopedNav → [data-sk-nav-scope]) · GAP-017: el disparador abierto fija fondo Y color
+   juntos, así no hereda el color de un contenedor con tokens redefinidos (p. ej. un sidebar oscuro). */
+[data-sk-nav-scope] [data-sk='menu'] [data-part='trigger'][data-state='open'] {
+  --sk-menu-trigger-bg: var(--color-sk-surface-2);
+  --sk-menu-trigger-fg: var(--color-sk-text);
+  background-color: var(--sk-menu-trigger-bg);
+  color: var(--sk-menu-trigger-fg);
+}

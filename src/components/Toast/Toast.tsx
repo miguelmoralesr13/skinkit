@@ -9,7 +9,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
-import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
+import { useOverlayRootProps } from '../../provider/overlayRoot'
 import { useSkinkitMessages } from '../../i18n/context'
 
 export type ToastVariant = 'neutral' | 'primary' | 'success' | 'warning' | 'info' | 'danger'
@@ -91,7 +91,7 @@ export function ToastProvider({
   const [toasts, setToasts] = useState<ToastItem[]>([])
   const idRef = useRef(0)
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
-  const colorScheme = useSkinkitColorScheme()
+  const overlayRoot = useOverlayRootProps()
 
   const dismiss = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id))
@@ -127,7 +127,7 @@ export function ToastProvider({
     <ToastContext.Provider value={{ toast, dismiss }}>
       {children}
       {createPortal(
-        <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
+        <div data-skinkit-root="" {...overlayRoot} className="skinkit-root">
           <div data-sk="toast-viewport" data-position={position} className="sk-toast-viewport">
             {toasts.map((t) => (
               <div

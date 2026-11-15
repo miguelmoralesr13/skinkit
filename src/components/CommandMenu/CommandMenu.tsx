@@ -7,7 +7,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
-import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
+import { useOverlayRootProps } from '../../provider/overlayRoot'
 import { useSkinkitMessages } from '../../i18n/context'
 
 export interface CommandItem {
@@ -98,7 +98,7 @@ export function CommandMenu({
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
-  const colorScheme = useSkinkitColorScheme()
+  const overlayRoot = useOverlayRootProps(open)
 
   useEffect(() => {
     if (open) {
@@ -152,7 +152,7 @@ export function CommandMenu({
   let idx = -1
 
   return createPortal(
-    <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
+    <div data-skinkit-root="" {...overlayRoot} className="skinkit-root">
       <div data-sk="command-menu" className={cx('sk-command-menu', className)}>
         <div
           data-part="overlay"

@@ -54,6 +54,7 @@ export const dialogSpec: ComponentSpec = {
     { title: 'Drawer lateral', code: '<Dialog open={open} onClose={close} placement="right"> … </Dialog>' },
   ],
   usage: [
+    'Opt-in en SkinkitProvider: `inheritColorScheme` (el portal copia el modo claro/oscuro de la raíz de la app aunque lo fije tu CSS) y `scopedBody` (el relleno del cuerpo no alcanza al cuerpo de un Alert anidado).',
     'Incluí SIEMPRE un <Dialog.Title> (o pasá aria-label al Dialog) para que el modal tenga nombre accesible.',
     'Vos controlás open/onClose; el Dialog no maneja su propio estado.',
     'Para confirmar una acción puntual usá ConfirmDialog; para un aviso de un solo botón, AlertDialog; para pedir un valor, PromptDialog.',

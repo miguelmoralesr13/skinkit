@@ -50,6 +50,7 @@ export const alertSpec: ComponentSpec = {
     { title: 'Con cierre', code: '<Alert variant="primary" onClose={() => setOpen(false)}>Novedad disponible.</Alert>' },
   ],
   usage: [
+    'Grosor del borde: `--sk-alert-border-width` (por omisión `var(--border-sk-width, 1px)`).',
     'Usá `variant` por significado (danger = algo salió mal); el color real lo pone el theme.',
     'No hay variantes success/warning: el contrato de tokens del theme no las define todavía.',
     '`onClose` NO quita la alerta sola: solo dibuja el botón; vos decidís sacarla del render.',

@@ -33,6 +33,7 @@ export const toastSpec: ComponentSpec = {
     { title: 'Personalizar sub-partes', code: 'toast({ title: "Guardado", className: "mi-toast", classNames: { title: "mi-toast__title" } })' },
   ],
   usage: [
+    'Opt-in `<SkinkitProvider inheritColorScheme>`: el portal del viewport copia el modo claro/oscuro de la raíz de la app.',
     'Envolvé la app (o la parte que los dispara) en <ToastProvider> UNA vez; useToast() lee de él.',
     'Usalo para confirmaciones breves y no críticas. Para algo que el usuario DEBE atender, usá Dialog/Alert.',
     'duration: 0 para errores que no deberían desaparecer solos.',

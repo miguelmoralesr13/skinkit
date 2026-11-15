@@ -3,12 +3,15 @@
   --sk-alert-bg: var(--color-sk-surface-2);
   --sk-alert-fg: var(--color-sk-text);
   --sk-alert-border: var(--color-sk-border);
+  --sk-alert-border-width: var(--border-sk-width, 1px);
   --sk-alert-radius: var(--radius-sk-md);
   background-color: var(--sk-alert-bg);
   color: var(--sk-alert-fg);
   border-color: var(--sk-alert-border);
   border-radius: var(--sk-alert-radius);
-  @apply flex items-start gap-3 p-4 border;
+  border-style: solid;
+  border-width: var(--sk-alert-border-width);
+  @apply flex items-start gap-3 p-4;
 }
 [data-sk='alert'] [data-part='icon'] {
   @apply inline-flex flex-none mt-0.5;

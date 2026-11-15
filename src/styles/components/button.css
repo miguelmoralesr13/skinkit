@@ -123,3 +123,20 @@
   --sk-button-bg: var(--color-sk-danger);
   background: color-mix(in srgb, var(--sk-button-bg) 85%, light-dark(#000, #fff));
 }
+
+/* Opt-in (SkinkitProvider variantPriority → [data-sk-variant-priority]) · GAP-013b: `variant` manda
+   sobre el FONDO y `tone` solo sobre el COLOR. Las reglas de tono de arriba siguen intactas; estas
+   solo se activan bajo el atributo y devuelven ghost/outlined a transparente, teñidos con el tono
+   (--sk-button-bg, que el propio tono ya definió). */
+[data-sk-variant-priority] [data-sk='button'][data-tone][data-variant='ghost'],
+[data-sk-variant-priority] [data-sk='button'][data-tone][data-variant='outlined'] {
+  background-color: transparent;
+  color: var(--sk-button-bg);
+}
+[data-sk-variant-priority] [data-sk='button'][data-tone][data-variant='outlined'] {
+  border-color: var(--sk-button-bg);
+}
+[data-sk-variant-priority] [data-sk='button'][data-tone][data-variant='ghost']:hover:not(:disabled),
+[data-sk-variant-priority] [data-sk='button'][data-tone][data-variant='outlined']:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--sk-button-bg) 12%, transparent);
+}

@@ -24,6 +24,7 @@ export const menuSpec: ComponentSpec = {
     },
   ],
   usage: [
+    'Opt-in `<SkinkitProvider scopedNav>` (o `refinements`): el disparador abierto fija `color` junto con su fondo y los items de un Menu anidado en un Sidebar ya no reciben el estilo de los items del Sidebar.',
     'Para un conjunto de ACCIONES sobre algo. Para elegir un valor de una lista, usá Select.',
     'Cada <Menu.Item> cierra el menú al elegirse; poné la acción en onSelect.',
     'El trigger puede envolver un Button u otro elemento clickeable.',

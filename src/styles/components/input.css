@@ -15,6 +15,7 @@
 
 [data-sk='input'] [data-part='field'] {
   --sk-input-field-border: var(--color-sk-border);
+  --sk-input-field-border-width: var(--border-sk-width, 1px);
   --sk-input-field-radius: var(--radius-sk-md);
   --sk-input-field-bg: var(--color-sk-surface);
   --sk-input-field-fg: var(--color-sk-text);
@@ -22,7 +23,9 @@
   border-radius: var(--sk-input-field-radius);
   background-color: var(--sk-input-field-bg);
   color: var(--sk-input-field-fg);
-  @apply px-4 py-3 border text-sk-md
+  border-style: solid;
+  border-width: var(--sk-input-field-border-width);
+  @apply px-4 py-3 text-sk-md
          transition-[border-color,box-shadow] duration-150 ease-in-out;
 }
 

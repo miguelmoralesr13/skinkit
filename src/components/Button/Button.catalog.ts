@@ -63,6 +63,7 @@ export const buttonSpec: ComponentSpec = {
     { title: 'Tono', code: '<Button tone="success">Aprobar</Button>' },
   ],
   usage: [
+    'Opt-in `<SkinkitProvider variantPriority>` (o `refinements`): `variant` manda sobre el fondo y `tone` solo sobre el color — `ghost`/`outlined` con cualquier tono quedan transparentes y se tiñen con el tono. Sin él, un tono pinta siempre el fondo sólido (comportamiento histórico).',
     'Usá `variant="filled"` para la acción principal de cada vista; una sola por sección.',
     'No pongas más de un botón filled compitiendo en el mismo bloque.',
     'Para acciones destructivas podés pasar `data-tone="danger"` (se pasa por props al <button> y el CSS lo pinta en rojo); comunicá el riesgo por texto igual.',

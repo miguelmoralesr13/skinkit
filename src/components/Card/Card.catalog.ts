@@ -49,6 +49,7 @@ export const cardSpec: ComponentSpec = {
     { title: 'Solo cuerpo', code: '<Card>Contenido simple</Card>' },
   ],
   usage: [
+    'Grosor del borde: `--sk-card-border-width` (por omisión `var(--border-sk-width, 1px)`). Opt-in `<SkinkitProvider scopedBody>`: el relleno del cuerpo no se aplica al cuerpo de un Alert anidado.',
     'Usala para agrupar información relacionada; no la anides en profundidad (una card dentro de otra rara vez ayuda).',
     'header/footer son opcionales: si no los pasás, esas partes no existen en el DOM.',
     'No metas la lógica de layout de la pantalla en la Card; es un contenedor de contenido, no una grilla.',

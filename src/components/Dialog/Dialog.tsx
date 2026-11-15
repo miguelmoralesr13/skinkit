@@ -9,7 +9,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
-import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
+import { useOverlayRootProps } from '../../provider/overlayRoot'
 import { useSkinkitMessages } from '../../i18n/context'
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full'
@@ -85,7 +85,7 @@ export function Dialog({
   const panelRef = useRef<HTMLDivElement>(null)
   const titleId = useId()
   const descId = useId()
-  const colorScheme = useSkinkitColorScheme()
+  const overlayRoot = useOverlayRootProps(open)
   // El efecto de abajo (foco, scroll lock, teclado) solo debe correr al abrir: si dependiera de
   // `onClose`, un padre que pasa una función nueva en cada render re-enfocaría el panel y el campo
   // en el que se escribe perdería el foco tras cada letra. Esc usa siempre el `onClose` más reciente.
@@ -138,7 +138,7 @@ export function Dialog({
   const labelledBy = rest['aria-label'] ? undefined : titleId
 
   return createPortal(
-    <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
+    <div data-skinkit-root="" {...overlayRoot} className="skinkit-root">
       <div
         data-sk="dialog"
         data-size={size}

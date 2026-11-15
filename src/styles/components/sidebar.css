@@ -50,6 +50,11 @@
   --sk-sidebar-icon-size: 1.25rem;
 }
 
+/* GAP-017 (opt-in, scopedNav → [data-sk-nav-scope]): los selectores de `item` de abajo llevan
+   `:not(:where([data-sk-nav-scope] [data-sk='menu'] *))`. Sin el atributo la exclusión nunca se
+   cumple (mismo CSS efectivo y misma especificidad que antes); con él, los items de un Menu anidado
+   dejan de recibir el estilo del Sidebar. */
+
 /* Header/Footer quedan fijos mientras el resto scrollea — mismo truco sticky que ya usa
    [data-sk='app-shell'] > [data-part='header'] en layout.css, sin agregar un wrapper nuevo.
    Sin márgenes negativos a propósito: mezclar position:sticky con margin negativo en el eje del
@@ -76,7 +81,7 @@
   padding-inline: var(--sk-sidebar-item-pad-x);
   @apply text-sk-sm uppercase pt-1 pb-1.5 tracking-[0.06em];
 }
-[data-sk='sidebar'] [data-part='item'] {
+[data-sk='sidebar'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *)) {
   --sk-sidebar-item-fg: var(--color-sk-text-muted);
   border-radius: var(--sk-sidebar-item-radius);
   color: var(--sk-sidebar-item-fg);
@@ -85,13 +90,13 @@
   font-size: var(--sk-sidebar-item-font);
   @apply flex items-center no-underline cursor-pointer;
 }
-[data-sk='sidebar'] [data-part='item']:hover {
+[data-sk='sidebar'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *)):hover {
   --sk-sidebar-item-bg: var(--color-sk-surface-2);
   --sk-sidebar-item-fg: var(--color-sk-text);
   background-color: var(--sk-sidebar-item-bg);
   color: var(--sk-sidebar-item-fg);
 }
-[data-sk='sidebar'] [data-part='item'][data-active] {
+[data-sk='sidebar'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-primary);
   --sk-sidebar-item-fg: var(--color-sk-on-primary);
   background-color: var(--sk-sidebar-item-bg);
@@ -122,7 +127,7 @@
 [data-sk='sidebar'][data-collapsed] [data-part='section-label'] {
   @apply hidden;
 }
-[data-sk='sidebar'][data-collapsed] [data-part='item'] {
+[data-sk='sidebar'][data-collapsed] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *)) {
   @apply justify-center;
 }
 
@@ -131,7 +136,7 @@
 [data-sk='sidebar'] [data-part='item-row'] {
   @apply relative flex items-center;
 }
-[data-sk='sidebar'] [data-part='item-row'] > [data-part='item'] {
+[data-sk='sidebar'] [data-part='item-row'] > [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *)) {
   @apply flex-1 min-w-0;
 }
 [data-sk='sidebar'] [data-part='item-actions'] {
@@ -264,43 +269,43 @@
 }
 
 /* Tonos (ítem activo) */
-[data-sk='sidebar'][data-tone='secondary'] [data-part='item'][data-active] {
+[data-sk='sidebar'][data-tone='secondary'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-secondary);
   --sk-sidebar-item-fg: var(--color-sk-on-secondary);
   background-color: var(--sk-sidebar-item-bg);
   color: var(--sk-sidebar-item-fg);
 }
-[data-sk='sidebar'][data-tone='tertiary'] [data-part='item'][data-active] {
+[data-sk='sidebar'][data-tone='tertiary'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-tertiary);
   --sk-sidebar-item-fg: var(--color-sk-on-tertiary);
   background-color: var(--sk-sidebar-item-bg);
   color: var(--sk-sidebar-item-fg);
 }
-[data-sk='sidebar'][data-tone='accent'] [data-part='item'][data-active] {
+[data-sk='sidebar'][data-tone='accent'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-accent);
   --sk-sidebar-item-fg: var(--color-sk-on-accent);
   background-color: var(--sk-sidebar-item-bg);
   color: var(--sk-sidebar-item-fg);
 }
-[data-sk='sidebar'][data-tone='success'] [data-part='item'][data-active] {
+[data-sk='sidebar'][data-tone='success'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-success);
   --sk-sidebar-item-fg: var(--color-sk-on-success);
   background-color: var(--sk-sidebar-item-bg);
   color: var(--sk-sidebar-item-fg);
 }
-[data-sk='sidebar'][data-tone='warning'] [data-part='item'][data-active] {
+[data-sk='sidebar'][data-tone='warning'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-warning);
   --sk-sidebar-item-fg: var(--color-sk-on-warning);
   background-color: var(--sk-sidebar-item-bg);
   color: var(--sk-sidebar-item-fg);
 }
-[data-sk='sidebar'][data-tone='info'] [data-part='item'][data-active] {
+[data-sk='sidebar'][data-tone='info'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-info);
   --sk-sidebar-item-fg: var(--color-sk-on-info);
   background-color: var(--sk-sidebar-item-bg);
   color: var(--sk-sidebar-item-fg);
 }
-[data-sk='sidebar'][data-tone='danger'] [data-part='item'][data-active] {
+[data-sk='sidebar'][data-tone='danger'] [data-part='item']:not(:where([data-sk-nav-scope] [data-sk='menu'] *))[data-active] {
   --sk-sidebar-item-bg: var(--color-sk-danger);
   --sk-sidebar-item-fg: var(--color-sk-on-danger);
   background-color: var(--sk-sidebar-item-bg);

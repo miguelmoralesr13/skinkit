@@ -1,16 +1,20 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useRef,
   useState,
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
+  type KeyboardEvent,
+  type MouseEvent,
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
 import { useSkinkitMessages } from '../../i18n/context'
+import { useOverlayRootProps } from '../../provider/overlayRoot'
 
 export type NavTone =
   | 'primary'
@@ -29,12 +33,18 @@ export type SidebarSize = 'sm' | 'md' | 'lg'
 interface SidebarContextValue {
   collapsed: boolean
   size: SidebarSize
+  flyout: boolean
 }
-const SidebarContext = createContext<SidebarContextValue>({ collapsed: false, size: 'md' })
+const SidebarContext = createContext<SidebarContextValue>({ collapsed: false, size: 'md', flyout: false })
 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   /** Modo colapsado: el CSS muestra sólo íconos (rail). Los Group pasan a flyout al hover/foco. */
   collapsed?: boolean
+  /** Opt-in (GAP-028): con `collapsed`, el flyout de cada `Sidebar.Group` se abre también al tocar/clic
+   *  y por teclado (Enter/Espacio/→/↓; ↑↓ Home End navegan; Esc/← cierran), queda fijado hasta Esc,
+   *  otro clic o un toque fuera, tiene `aria-expanded` y copia el modo claro/oscuro de la app en su
+   *  portal. Sin esta prop el colapsado se comporta exactamente como siempre (hover/foco). */
+  flyout?: boolean
   /** Densidad de la navegación. Ajusta padding/gap/tamaño de fuente vía [data-size]. */
   size?: SidebarSize
   /** Color del ítem activo (del theme). 'primary' (default) no emite data-tone. */
@@ -68,12 +78,13 @@ export function Sidebar({
   collapsed = false,
   size = 'md',
   tone = 'primary',
+  flyout = false,
   className,
   children,
   ...rest
 }: SidebarProps) {
   return (
-    <SidebarContext.Provider value={{ collapsed, size }}>
+    <SidebarContext.Provider value={{ collapsed, size, flyout }}>
       <aside
         data-sk="sidebar"
         data-collapsed={collapsed ? '' : undefined}
@@ -199,9 +210,12 @@ export interface SidebarGroupProps extends HTMLAttributes<HTMLDivElement> {
  * compartido useAccordion acá, alcanza con estado local por grupo.
  *
  * En modo `collapsed` (rail de íconos) el panel inline desaparece y el grupo pasa a FLYOUT: al
- * hover o foco del trigger, sus items aparecen en un panel flotante a la derecha del rail
- * (renderizado en un portal a document.body para escapar el `overflow` del aside, que si no lo
- * recortaría). Cierra al salir el mouse / perder el foco.
+ * hover o foco del trigger —o al TOCARLO/clic—, sus items aparecen en un panel flotante a la
+ * derecha del rail (renderizado en un portal a document.body para escapar el `overflow` del aside,
+ * que si no lo recortaría; el portal copia el modo claro/oscuro de la app). Con hover/foco cierra
+ * al salir el puntero o perder el foco; abierto por clic/tap/teclado queda fijado hasta Esc, otro
+ * clic al disparador o un toque fuera. Teclado: Enter/Espacio/→/↓ abren y llevan el foco al primer
+ * item; ↑↓ Home End navegan; Esc/← cierran y devuelven el foco al disparador.
  */
 function SidebarGroup({
   icon,
@@ -214,7 +228,8 @@ function SidebarGroup({
   children,
   ...rest
 }: SidebarGroupProps) {
-  const { collapsed } = useContext(SidebarContext)
+  const { collapsed, flyout } = useContext(SidebarContext)
+  const enhanced = collapsed && flyout
   const [openState, setOpenState] = useState(defaultOpen)
   const open = openProp ?? openState
   const setOpen = (next: boolean) => {
@@ -222,22 +237,129 @@ function SidebarGroup({
     onOpenChange?.(next)
   }
 
-  // Flyout (sólo en modo colapsado)
+  // Flyout (sólo en modo colapsado): se abre al tocar/clic, con hover o con foco, y por teclado.
   const triggerRef = useRef<HTMLButtonElement>(null)
+  const flyoutRef = useRef<HTMLDivElement>(null)
+  const groupRef = useRef<HTMLDivElement>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const [flyoutPos, setFlyoutPos] = useState<{ top: number; left: number } | null>(null)
+  // «Fijado»: abierto por clic/tap/teclado. Un flyout fijado no se cierra al salir el puntero ni
+  // al perder el foco: solo con Esc, otro clic al disparador o un toque fuera.
+  const [pinned, setPinned] = useState(false)
+  const focusFirst = useRef(false)
+  const overlayRoot = useOverlayRootProps(enhanced && flyoutPos != null)
 
   const openFlyout = () => {
     clearTimeout(closeTimer.current)
     const r = triggerRef.current?.getBoundingClientRect()
     if (r) setFlyoutPos({ top: r.top, left: r.right })
   }
+  const closeFlyout = () => {
+    clearTimeout(closeTimer.current)
+    setFlyoutPos(null)
+    setPinned(false)
+  }
   const scheduleClose = () => {
+    if (enhanced && pinned) return
     clearTimeout(closeTimer.current)
     closeTimer.current = setTimeout(() => setFlyoutPos(null), 120)
   }
 
   const showFlyout = collapsed && flyoutPos != null && typeof document !== 'undefined'
+
+  // Al salir del modo colapsado o desmontar, no queda nada abierto ni un temporizador vivo.
+  useEffect(() => {
+    if (!collapsed) {
+      setFlyoutPos(null)
+      setPinned(false)
+    }
+  }, [collapsed])
+  useEffect(() => () => clearTimeout(closeTimer.current), [])
+
+  // Toque fuera, scroll o resize cierran el flyout abierto.
+  useEffect(() => {
+    if (!showFlyout || !enhanced) return
+    const onDown = (e: PointerEvent) => {
+      const t = e.target as Node
+      if (groupRef.current?.contains(t) || flyoutRef.current?.contains(t)) return
+      closeFlyout()
+    }
+    const onMove = () => closeFlyout()
+    document.addEventListener('pointerdown', onDown, true)
+    window.addEventListener('resize', onMove)
+    window.addEventListener('scroll', onMove, true)
+    return () => {
+      document.removeEventListener('pointerdown', onDown, true)
+      window.removeEventListener('resize', onMove)
+      window.removeEventListener('scroll', onMove, true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showFlyout, enhanced])
+
+  // Apertura por teclado: el foco pasa al primer item del flyout recién montado.
+  useEffect(() => {
+    if (showFlyout && focusFirst.current) {
+      focusFirst.current = false
+      flyoutRef.current?.querySelector<HTMLElement>('[data-part="item"]')?.focus()
+    }
+  }, [showFlyout])
+
+  const flyoutItems = () =>
+    Array.from(flyoutRef.current?.querySelectorAll<HTMLElement>('[data-part="item"]') ?? [])
+
+  const onTriggerClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (!collapsed) {
+      setOpen(!open)
+      return
+    }
+    if (!enhanced) return
+    // detail 0 = activación por teclado (Enter/Espacio): entrega el foco al flyout.
+    if (flyoutPos != null && pinned) {
+      closeFlyout()
+      return
+    }
+    focusFirst.current = e.detail === 0
+    setPinned(true)
+    openFlyout()
+  }
+
+  const onTriggerKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if (!enhanced) return
+    if (e.key === 'Escape' && flyoutPos != null) {
+      e.stopPropagation()
+      closeFlyout()
+    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault()
+      focusFirst.current = true
+      setPinned(true)
+      if (flyoutPos != null) flyoutItems()[0]?.focus()
+      else openFlyout()
+    }
+  }
+
+  const onFlyoutKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const items = flyoutItems()
+    const i = items.indexOf(document.activeElement as HTMLElement)
+    if (e.key === 'Escape' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      e.stopPropagation()
+      closeFlyout()
+      triggerRef.current?.focus()
+    } else if (e.key === 'Tab') {
+      closeFlyout()
+      triggerRef.current?.focus()
+    } else if (items.length > 0) {
+      let next = -1
+      if (e.key === 'ArrowDown') next = i < 0 ? 0 : (i + 1) % items.length
+      else if (e.key === 'ArrowUp') next = i < 0 ? items.length - 1 : (i - 1 + items.length) % items.length
+      else if (e.key === 'Home') next = 0
+      else if (e.key === 'End') next = items.length - 1
+      if (next >= 0) {
+        e.preventDefault()
+        items[next]?.focus()
+      }
+    }
+  }
 
   const trigger = (
     <button
@@ -246,9 +368,11 @@ function SidebarGroup({
       data-part="group-trigger"
       data-state={open ? 'open' : 'closed'}
       aria-expanded={collapsed ? flyoutPos != null : open}
-      aria-haspopup={collapsed ? 'menu' : undefined}
+      aria-haspopup={collapsed ? (enhanced ? 'true' : 'menu') : undefined}
+      aria-label={enhanced && typeof label === 'string' ? label : undefined}
       className="sk-sidebar__group-trigger"
-      onClick={() => !collapsed && setOpen(!open)}
+      onClick={onTriggerClick}
+      onKeyDown={onTriggerKeyDown}
     >
       {icon != null && <span data-part="item-icon">{icon}</span>}
       <span data-part="item-label">{label}</span>
@@ -259,6 +383,7 @@ function SidebarGroup({
 
   return (
     <div
+      ref={groupRef}
       data-part="group"
       data-state={open ? 'open' : 'closed'}
       className={cx('sk-sidebar__group', className)}
@@ -277,23 +402,51 @@ function SidebarGroup({
         </div>
       )}
 
-      {/* Modo colapsado: flyout flotante en portal, posicionado junto al trigger. */}
+      {/* Modo colapsado: flyout flotante en portal, posicionado junto al trigger. El portal crea
+          su propia raíz con el modo claro/oscuro de la app (GAP-006). */}
       {showFlyout &&
-        createPortal(
-          <div
-            data-part="group-panel"
-            data-flyout=""
-            data-state="open"
-            className="sk-sidebar__group-panel sk-sidebar__flyout"
-            style={{ position: 'fixed', top: flyoutPos.top, left: flyoutPos.left }}
-            onPointerEnter={openFlyout}
-            onPointerLeave={scheduleClose}
-          >
-            <div data-part="flyout-label">{label}</div>
-            {children}
-          </div>,
-          document.body,
-        )}
+        (enhanced
+          ? createPortal(
+              <div data-skinkit-root="" {...overlayRoot} className="skinkit-root">
+                <div
+                  ref={flyoutRef}
+                  data-part="group-panel"
+                  data-flyout=""
+                  data-state="open"
+                  role="group"
+                  aria-label={typeof label === 'string' ? label : undefined}
+                  className="sk-sidebar__group-panel sk-sidebar__flyout"
+                  style={{ position: 'fixed', top: flyoutPos.top, left: flyoutPos.left }}
+                  onPointerEnter={openFlyout}
+                  onPointerLeave={scheduleClose}
+                  onFocus={openFlyout}
+                  onBlur={scheduleClose}
+                  onKeyDown={onFlyoutKeyDown}
+                  onClick={(e) => {
+                    if ((e.target as HTMLElement).closest('[data-part="item"]')) closeFlyout()
+                  }}
+                >
+                  <div data-part="flyout-label">{label}</div>
+                  {children}
+                </div>
+              </div>,
+              document.body,
+            )
+          : createPortal(
+              <div
+                data-part="group-panel"
+                data-flyout=""
+                data-state="open"
+                className="sk-sidebar__group-panel sk-sidebar__flyout"
+                style={{ position: 'fixed', top: flyoutPos.top, left: flyoutPos.left }}
+                onPointerEnter={openFlyout}
+                onPointerLeave={scheduleClose}
+              >
+                <div data-part="flyout-label">{label}</div>
+                {children}
+              </div>,
+              document.body,
+            ))}
     </div>
   )
 }

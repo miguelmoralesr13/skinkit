@@ -2,20 +2,24 @@
 [data-sk='card'] {
   --sk-card-bg: var(--color-sk-surface);
   --sk-card-border: var(--color-sk-border);
+  --sk-card-border-width: var(--border-sk-width, 1px);
   --sk-card-radius: var(--radius-sk-lg);
   --sk-card-shadow: var(--shadow-sk-lg);
   background-color: var(--sk-card-bg);
   border-color: var(--sk-card-border);
   border-radius: var(--sk-card-radius);
   box-shadow: var(--sk-card-shadow);
-  @apply border overflow-hidden;
+  border-style: solid;
+  border-width: var(--sk-card-border-width);
+  @apply overflow-hidden;
 }
 [data-sk='card'] [data-part='header'] {
   --sk-card-header-border: var(--color-sk-border);
   border-color: var(--sk-card-header-border);
   @apply px-5 py-4 font-semibold border-b;
 }
-[data-sk='card'] [data-part='body'] {
+/* Opt-in (scopedBody → [data-sk-body-scope]): el relleno no alcanza al cuerpo de un Alert anidado. */
+[data-sk='card'] [data-part='body']:not(:where([data-sk-body-scope] [data-sk='alert'] *)) {
   --sk-card-body-fg: var(--color-sk-text-muted);
   color: var(--sk-card-body-fg);
   @apply p-5;

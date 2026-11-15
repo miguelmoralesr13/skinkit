@@ -85,6 +85,10 @@
    `colorScheme` explícito — ver src/provider/SkinkitProvider.tsx. */
 [data-skinkit-root] {
   color-scheme: light dark;
+  /* Grosor de borde global (GAP-010b): lo consumen Card, Alert e Input (y cualquier skin de
+     contorno lo sube a 2px sin tocar componentes). Cada componente tiene además su propio
+     --sk-<comp>-border-width que por omisión reenvía este. */
+  --border-sk-width: 1px;
 }
 [data-skinkit-root][data-color-scheme='light'] {
   color-scheme: light;

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { createPortal } from 'react-dom'
 import { cx } from '../../lib/cx'
 import { useElementVisible } from '../../lib/useElementVisible'
-import { useSkinkitColorScheme } from '../../provider/SkinkitProvider'
+import { useOverlayRootProps } from '../../provider/overlayRoot'
 import { computeSpotlightFrame, computeTooltipPosition, getTargetRect, type Rect } from './positioning'
 import type { UseTourEngineResult } from './useTourEngine'
 import type { TourStepRenderContext } from './types'
@@ -63,7 +63,7 @@ export function TourOverlay({
   const [missing, setMissing] = useState(false)
   const [tooltipSize, setTooltipSize] = useState({ width: 280, height: 140 })
   const tooltipRef = useRef<HTMLDivElement>(null)
-  const colorScheme = useSkinkitColorScheme()
+  const overlayRoot = useOverlayRootProps()
 
   const stepKey = activeStep ? `${activeStep.flowId}:${activeStep.step.id}` : null
   const targetSelector = activeStep?.step.target ?? null
@@ -175,7 +175,7 @@ export function TourOverlay({
   }
 
   return createPortal(
-    <div data-skinkit-root="" data-color-scheme={colorScheme} className="skinkit-root">
+    <div data-skinkit-root="" {...overlayRoot} className="skinkit-root">
       <div data-sk="tour-overlay">
         {dim && frame ? (
           <>

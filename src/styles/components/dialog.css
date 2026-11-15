@@ -43,7 +43,8 @@
 [data-sk='dialog'] [data-part='title'] {
   @apply m-0 text-sk-lg font-bold;
 }
-[data-sk='dialog'] [data-part='body'] {
+/* Opt-in (scopedBody → [data-sk-body-scope]): el relleno no alcanza al cuerpo de un Alert anidado. */
+[data-sk='dialog'] [data-part='body']:not(:where([data-sk-body-scope] [data-sk='alert'] *)) {
   --sk-dialog-body-fg: var(--color-sk-text-muted);
   color: var(--sk-dialog-body-fg);
   line-height: 1.6;

@@ -12,6 +12,7 @@ export const sidebarSpec: ComponentSpec = {
     { name: 'tone', type: "'primary' | 'secondary' | 'tertiary' | 'accent' | 'success' | 'warning' | 'info' | 'danger'", required: false, default: "'primary'", description: 'Color del ítem activo (del theme).' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: 'Densidad de la nav: ajusta padding, gap, tamaño de fuente e íconos de items/grupos vía [data-size].' },
     { name: 'collapsed', type: 'boolean', required: false, default: 'false', description: 'Rail colapsado (sólo íconos). Los Sidebar.Group dejan su panel inline y pasan a FLYOUT flotante al hover/foco (ver usage).' },
+    { name: 'flyout', type: 'boolean', required: false, default: 'false', description: 'Opt-in: con `collapsed`, el flyout de cada Group se abre también al tocar/clic y por teclado (Enter/Espacio/→/↓ abren; ↑↓ Home End navegan; Esc/← cierran), queda fijado hasta Esc, otro clic o un toque fuera, expone aria-expanded y su portal copia el modo claro/oscuro de la app. Sin ella el colapsado se comporta como siempre (hover/foco).' },
     { name: 'children', type: 'ReactNode', required: false, description: 'Sidebar.Header / Sidebar.Section / Sidebar.Group / Sidebar.Item / Sidebar.Footer / Sidebar.Toggle.' },
     { name: 'Sidebar.Item.icon', type: 'ReactNode', required: false, description: 'Ícono a la izquierda del item.' },
     { name: 'Sidebar.Item.active', type: 'boolean', required: false, description: 'Marca el item como activo ([data-active] + aria-current). Es manual (esta lib es agnóstica de router).' },
@@ -65,6 +66,7 @@ export const sidebarSpec: ComponentSpec = {
     },
   ],
   usage: [
+    'Opt-in `<SkinkitProvider scopedNav>` (o `refinements`): los estilos de item del Sidebar no alcanzan a los items de un `Menu` anidado.',
     'Con `collapsed` el CSS oculta labels/badges/acciones y deja sólo íconos; conservá los íconos para que el rail siga siendo navegable. Emparejalo con <Sidebar.Toggle> (en Header o Footer) para que el usuario lo abra/cierre — el botón no maneja el estado, invertí vos tu `collapsed` en su onClick.',
     '`size` (sm/md/lg, default md) sólo cambia densidad (padding/gap/fuente/ícono) — no cambia qué se muestra. Para nav muy densa usá sm.',
     'Agrupá items estáticos con Sidebar.Section (con o sin label). Para nav anidada que el usuario puede expandir/contraer, usá Sidebar.Group.',
@@ -79,6 +81,7 @@ export const sidebarSpec: ComponentSpec = {
     'i18n: los textos por defecto (aria-labels, placeholders, botones) salen del diccionario `sidebar` del `locale` del SkinkitProvider (es/en incluidos); se pisan con `<SkinkitProvider messages={{ sidebar: { … } }}>` o con la prop explícita del componente, que siempre gana.',
   ],
   a11y: [
+    'Con `flyout`: el disparador del Group colapsado tiene aria-expanded/aria-haspopup="true" y aria-label con su etiqueta; el flyout es un role="group" con foco gestionado (Enter/Espacio/→/↓ llevan el foco al primer item; Esc/← lo devuelven al disparador; Tab cierra).',
     'Sidebar.Group.trigger es un <button> real con aria-expanded — Enter/Espacio abren/cierran (modo completo) sin JS extra. En modo colapsado expone aria-haspopup="menu" y el flyout aparece también con foco del teclado (:focus-within), no sólo con mouse.',
     'El flyout se abre con hover Y con foco del trigger; un pequeño retardo al cerrar permite mover el mouse del ícono al panel sin que se cierre.',
     'Sidebar.Group.panel (modo completo) usa `hidden` nativo cuando está cerrado (saca el contenido del tab order), igual que Accordion.Panel — no lo reemplaces por un display:none propio o perdés esa garantía.',

@@ -40,6 +40,7 @@ export const inputSpec: ComponentSpec = {
     { title: 'En error', code: '<Input label="Correo" error helper="Formato inválido." />' },
   ],
   usage: [
+    'Grosor del borde: `--sk-input-field-border-width` (por omisión `var(--border-sk-width, 1px)`); `--border-sk-width` global lo comparten Card, Alert e Input.',
     'Pasá siempre `label` para accesibilidad; si por diseño no hay label visible, usá aria-label en su lugar.',
     'Usá `error` + `helper` juntos: el helper comunica QUÉ está mal.',
     'Props nativas (value/onChange/type/placeholder/disabled) pasan directo al input.',
