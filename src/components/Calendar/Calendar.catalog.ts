@@ -21,6 +21,8 @@ export const calendarSpec: ComponentSpec = {
     { name: 'marks', type: 'Record<string, string>', required: false, description: "Opt-in. Marcas por día: `{ '2026-10-16': 'exception' }`. El día emite `[data-state=<estado>]` y un punto bajo el número (estados con color de token: success, warning, danger, info, accent, secondary; cualquier otro usa primary; el consumidor lo pisa con `--sk-calendar-mark`)." },
     { name: 'markLabels', type: 'Record<string, string>', required: false, description: "Texto accesible por estado de `marks` (p. ej. `{ exception: 'excepción' }`): se agrega al aria-label del día, para que el color no sea el único canal." },
     { name: 'renderDay', type: '(ctx: CalendarDayContext) => ReactNode', required: false, description: 'Opt-in. Contenido propio de cada día (reemplaza al número). ctx: date, iso, day, state, selected, today, outside, disabled.' },
+    { name: 'month', type: 'Date', required: false, description: 'Opt-in. Mes visible controlado (basta cualquier día del mes). Sin él, el mes es interno (arranca en el de la fecha elegida u hoy). Con él, la navegación solo avisa por onMonthChange.' },
+    { name: 'onMonthChange', type: '(month: Date) => void', required: false, description: 'Opt-in. Recibe el primer día del mes al que se navega (flechas, RePág/AvPág o elegir un día de otro mes). Funciona con o sin `month`.' },
   ],
   parts: [
     { name: 'root', description: 'Contenedor [data-sk=calendar].' },

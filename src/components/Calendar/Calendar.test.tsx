@@ -107,3 +107,34 @@ describe('Calendar marks', () => {
     expect(h.querySelector('[data-mode]')).toBeNull()
   })
 })
+
+describe('Calendar mes controlado', () => {
+  const titulo = (h: HTMLElement) => h.querySelector('[data-part="title"]')!.textContent
+  test('con `month` el mes visible lo manda el padre y la navegación avisa por onMonthChange', () => {
+    const avisos: Date[] = []
+    const h = montar(<Calendar locale="es" month={new Date(2026, 10, 15)} onMonthChange={(m) => avisos.push(m)} />)
+    expect(titulo(h)).toContain('noviembre')
+    click(h.querySelector('[data-part="next"]')!)
+    expect(avisos).toHaveLength(1)
+    expect(avisos[0].getFullYear()).toBe(2026)
+    expect(avisos[0].getMonth()).toBe(11)
+    expect(avisos[0].getDate()).toBe(1)
+    // el padre no lo cambió: sigue en noviembre
+    expect(titulo(h)).toContain('noviembre')
+    click(h.querySelector('[data-part="prev"]')!)
+    expect(avisos[1].getMonth()).toBe(9)
+  })
+  test('sin `month` navega solo (como siempre) y también avisa', () => {
+    const avisos: Date[] = []
+    const h = montar(<Calendar locale="es" value="2026-11-10" onMonthChange={(m) => avisos.push(m)} />)
+    click(h.querySelector('[data-part="next"]')!)
+    expect(titulo(h)).toContain('diciembre')
+    expect(avisos).toHaveLength(1)
+  })
+  test('teclado RePág pide el mes siguiente', () => {
+    const avisos: Date[] = []
+    const h = montar(<Calendar locale="es" month={new Date(2026, 10, 1)} onMonthChange={(m) => avisos.push(m)} />)
+    tecla(h.querySelector('[data-part="grid"]')!, 'PageDown')
+    expect(avisos.length).toBe(1)
+  })
+})

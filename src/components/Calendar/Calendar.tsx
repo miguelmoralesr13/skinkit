@@ -54,6 +54,15 @@ export interface CalendarBaseProps {
   marks?: Record<string, string>
   /** Texto accesible por estado de `marks`: se agrega al `aria-label` del día (el color no es el único canal). */
   markLabels?: Record<string, string>
+  /**
+   * Opt-in. Mes visible controlado (un `Date`; basta cualquier día del mes). Con él la navegación
+   * (flechas, RePág/AvPág, elegir un día de otro mes) no cambia el mes sola: avisa por
+   * `onMonthChange` y el padre decide (p. ej. dos calendarios que navegan a la par). Sin `month`
+   * el mes visible es interno, como siempre.
+   */
+  month?: Date
+  /** Opt-in. Se invoca con el primer día del mes al que se quiere navegar (también sin `month`). */
+  onMonthChange?: (month: Date) => void
   /** Opt-in. Contenido propio de cada día (reemplaza al número). */
   renderDay?: (ctx: CalendarDayContext) => ReactNode
 }
@@ -124,6 +133,8 @@ export function Calendar(props: CalendarProps) {
     marks,
     markLabels,
     renderDay,
+    month: monthProp,
+    onMonthChange,
   } = props
   const multiple = props.mode === 'multiple'
   const { locale: providerLocale, messages: m } = useSkinkitI18n()
@@ -144,7 +155,14 @@ export function Calendar(props: CalendarProps) {
   const minD = fromISO(min)
   const maxD = fromISO(max)
 
-  const [view, setView] = useState<Date>(startOfMonth(selected ?? today))
+  const [internalView, setInternalView] = useState<Date>(startOfMonth(selected ?? today))
+  const view = monthProp ? startOfMonth(monthProp) : internalView
+  const setView = (d: Date) => {
+    const next = startOfMonth(d)
+    if (next.getTime() === view.getTime()) return
+    if (!monthProp) setInternalView(next)
+    onMonthChange?.(next)
+  }
   const [focused, setFocused] = useState<Date>(selected ?? today)
   const gridRef = useRef<HTMLDivElement>(null)
   const navRef = useRef(false)
