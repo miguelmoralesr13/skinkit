@@ -1,0 +1,138 @@
+/**
+ * keypad.css — estilo de Keypad (data-sk="keypad"). También viste el teclado que PinInput dibuja
+ * en modo `keypad` (mismo data-sk, con [data-embedded]). Teclas de objetivo táctil amplio
+ * (min-h-14 = 3.5rem, por encima de los 44 px recomendados).
+ */
+
+[data-sk='keypad'] {
+  --sk-keypad-gap: calc(var(--spacing) * 2);
+  gap: var(--sk-keypad-gap);
+  @apply flex flex-col w-full max-w-xs;
+}
+
+[data-sk='keypad']:focus-visible {
+  --sk-keypad-focus: var(--color-sk-primary);
+  outline-color: var(--sk-keypad-focus);
+  @apply outline outline-2 outline-offset-2 rounded-sk-md;
+}
+
+[data-sk='keypad'] [data-part='display'] {
+  --sk-keypad-display-bg: var(--color-sk-surface-2);
+  --sk-keypad-display-fg: var(--color-sk-text);
+  --sk-keypad-display-radius: var(--radius-sk-md);
+  background-color: var(--sk-keypad-display-bg);
+  color: var(--sk-keypad-display-fg);
+  border-radius: var(--sk-keypad-display-radius);
+  font-size: calc(var(--text-sk-lg) * 1.75);
+  font-variant-numeric: tabular-nums;
+  @apply flex items-baseline justify-end gap-1 px-4 py-3 font-bold;
+}
+
+[data-sk='keypad'] [data-part='display'][data-zero] [data-part='amount'] {
+  --sk-keypad-zero-fg: var(--color-sk-text-muted);
+  color: var(--sk-keypad-zero-fg);
+}
+
+[data-sk='keypad'] [data-part='prefix'],
+[data-sk='keypad'] [data-part='suffix'] {
+  --sk-keypad-affix-fg: var(--color-sk-text-muted);
+  color: var(--sk-keypad-affix-fg);
+  @apply text-sk-md font-semibold;
+}
+
+[data-sk='keypad'] [data-part='keys'] {
+  gap: var(--sk-keypad-gap);
+  @apply grid grid-cols-3;
+}
+
+[data-sk='keypad'] [data-part='key'],
+[data-sk='keypad'] [data-part='shortcut'] {
+  --sk-keypad-key-bg: var(--color-sk-surface);
+  --sk-keypad-key-fg: var(--color-sk-text);
+  --sk-keypad-key-border: var(--color-sk-border);
+  --sk-keypad-key-radius: var(--radius-sk-md);
+  background-color: var(--sk-keypad-key-bg);
+  color: var(--sk-keypad-key-fg);
+  border-color: var(--sk-keypad-key-border);
+  border-radius: var(--sk-keypad-key-radius);
+  appearance: none;
+  font: inherit;
+  touch-action: manipulation;
+  user-select: none;
+  transition: background 0.1s ease, transform 0.1s ease;
+  @apply min-h-14 min-w-11 border cursor-pointer text-sk-lg font-semibold;
+}
+
+[data-sk='keypad'] [data-part='key']:hover:not(:disabled),
+[data-sk='keypad'] [data-part='shortcut']:hover:not(:disabled) {
+  --sk-keypad-key-bg: var(--color-sk-surface-2);
+  background-color: var(--sk-keypad-key-bg);
+}
+
+[data-sk='keypad'] [data-part='key']:active:not(:disabled),
+[data-sk='keypad'] [data-part='shortcut']:active:not(:disabled) {
+  --sk-keypad-key-bg: color-mix(in srgb, var(--color-sk-primary) 18%, var(--color-sk-surface));
+  background-color: var(--sk-keypad-key-bg);
+  transform: scale(0.97);
+}
+
+[data-sk='keypad'] [data-part='key'][data-key='clear'],
+[data-sk='keypad'] [data-part='key'][data-key='backspace'] {
+  --sk-keypad-key-fg: var(--color-sk-text-muted);
+  color: var(--sk-keypad-key-fg);
+}
+
+[data-sk='keypad'] [data-part='key']:disabled,
+[data-sk='keypad'] [data-part='shortcut']:disabled,
+[data-sk='keypad'][data-disabled] {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+[data-sk='keypad'] [data-part='shortcuts'] {
+  gap: var(--sk-keypad-gap);
+  @apply flex flex-wrap;
+}
+
+[data-sk='keypad'] [data-part='shortcut'] {
+  @apply flex-1 text-sk-md;
+}
+
+[data-sk='keypad'] [data-part='submit'] {
+  --sk-keypad-submit-bg: var(--color-sk-primary);
+  --sk-keypad-submit-fg: var(--color-sk-on-primary);
+  --sk-keypad-submit-radius: var(--radius-sk-md);
+  background-color: var(--sk-keypad-submit-bg);
+  color: var(--sk-keypad-submit-fg);
+  border-radius: var(--sk-keypad-submit-radius);
+  appearance: none;
+  font: inherit;
+  @apply min-h-14 border-none cursor-pointer text-sk-lg font-bold;
+}
+
+[data-sk='keypad'] [data-part='submit']:hover:not(:disabled) {
+  --sk-keypad-submit-bg: var(--color-sk-primary-hover);
+  background-color: var(--sk-keypad-submit-bg);
+}
+
+[data-sk='keypad'] [data-part='submit']:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+
+[data-sk='keypad'] [data-part='key']:focus-visible,
+[data-sk='keypad'] [data-part='shortcut']:focus-visible,
+[data-sk='keypad'] [data-part='submit']:focus-visible {
+  --sk-keypad-focus: var(--color-sk-primary);
+  outline-color: var(--sk-keypad-focus);
+  @apply outline outline-2 outline-offset-2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sk='keypad'] [data-part='key'],
+  [data-sk='keypad'] [data-part='shortcut'] {
+    transition: none;
+  }
+  [data-sk='keypad'] [data-part='key']:active:not(:disabled),
+  [data-sk='keypad'] [data-part='shortcut']:active:not(:disabled) {
+    transform: none;
+  }
+}
